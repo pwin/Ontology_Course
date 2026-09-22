@@ -149,7 +149,7 @@ class Lesson:
     @property
     def filename(self) -> str:
         slug = self.title.lower()
-        for ch in " ,'()/?*:\"<>|!$":
+        for ch in " ,;'()/?*:\"<>|!$&":
             slug = slug.replace(ch, "-")
         while "--" in slug:
             slug = slug.replace("--", "-")

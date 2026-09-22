@@ -26,7 +26,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 | Lesson | Decides | Corner |
 |---|---|---|
 | [o01 A word, a thing, and the idea in between](o01-a-word-a-thing-and-the-idea-in-between.ttl) | Every term in the brief is a symbol standing for a referent by way of a thought, and the three are kept apart from the first line. | all three, introduced |
-| [o02 One word, many things; many words, one thing](o02-one-word-many-things;-many-words-one-thing.ttl) | 'Book' is split into three referents and 'shop', 'bookshop' and 'store' are merged into one, because identity follows the referent and not the word. | symbol and referent |
+| [o02 One word, many things; many words, one thing](o02-one-word-many-things-many-words-one-thing.ttl) | 'Book' is split into three referents and 'shop', 'bookshop' and 'store' are merged into one, because identity follows the referent and not the word. | symbol and referent |
 | [o03 Shared meaning is an agreement](o03-shared-meaning-is-an-agreement.ttl) | A definition is treated as the record of an agreement, with who made it and when, and a disagreement is modelled rather than settled by the modeller. | thought |
 | [o04 A symbol that is globally unique, and that a machine can read](o04-a-symbol-that-is-globally-unique-and-that-a-machine-can-read.ttl) | Every referent gets an IRI, because an IRI is the one kind of symbol that cannot collide with anyone else's and that a machine can compare, join on and look up. | symbol |
 | [o05 A particular or a kind](o05-a-particular-or-a-kind.ttl) | Wigtown, The Inkwell and Rhona Blackwood are particulars; Settlement, Bookshop and Person are kinds; rdf:type is the link, and a kind is a referent with an IRI like any other. | referent |
