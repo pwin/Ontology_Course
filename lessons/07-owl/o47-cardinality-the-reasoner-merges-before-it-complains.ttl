@@ -61,7 +61,7 @@
 #            https://www.w3.org/TR/owl2-primer/#Property_Cardinality_Restrictions
 #            OWL 2 Primer 4.7 Equality and Inequality of Individuals
 #            https://www.w3.org/TR/owl2-primer/#Equality_and_Inequality_of_Individuals
-#  MEASURED  parses, 34 triples; 3 classes, 2 object properties, 3 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; RL closure +8; 'Things the closure has decid' 1 row
+#  MEASURED  parses, 34 triples; 3 classes, 2 object properties, 3 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; RL closure +4; 'Things the closure has decid' 1 row
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

@@ -17,10 +17,13 @@
 #
 #    An OWL reasoner, given bs:within a owl:TransitiveProperty, writes the
 #    missing pairs into the graph. The editor's Show Facts does it in the
-#    browser; the RL closure this lesson was measured with adds the same
-#    123 triples to the place file, and HermiT agrees. The work is done
-#    once, up front, and the result is stored; it goes stale when a place
-#    moves, and a reasoner has to run again.
+#    browser; the RL closure this lesson was measured with adds the 123
+#    missing pairs among the Trail's own places, and HermiT agrees. Both
+#    add more than that, because the place file links each town to its
+#    DBpedia page with owl:sameAs and a reasoner copies every pair onto the
+#    alias; the queries count the Trail's own IRIs, and o04 said why sameAs
+#    does this. The work is done once, up front, and the result is stored;
+#    it goes stale when a place moves, and a reasoner has to run again.
 #
 #    A SPARQL property path, bs:within+, computes the closure at query
 #    time. Nothing is stored, nothing goes stale, and it runs on any SPARQL
@@ -77,7 +80,7 @@
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/11-rules-and-inference.md#112-three-ways-to-derive-a-triple
 #            The SPARQL course, module 18: inference
 #            https://www.semantechs.co.uk/SPARQL_Course/#m18
-#  MEASURED  parses, 10 triples; 1 class, 1 object property; OWL 2 DL in profile; HermiT: consistent, 353 inferred; RL closure +654; rules +123; 'Route 2, the path: every pla' 1 row; 'Route 1, the reasoner: the s' 1 row; 'Question 1: which settlement' 8 rows
+#  MEASURED  parses, 10 triples; 1 class, 1 object property; OWL 2 DL in profile; HermiT: consistent, 353 inferred; RL closure +532; rules +123; 'Route 2, the path: every Tra' 186 rows; 'Route 1, the reasoner: the s' 186 rows; 'Question 1: which settlement' 8 rows
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .
@@ -100,13 +103,13 @@ bs:within  a owl:ObjectProperty, owl:TransitiveProperty ;
 #  Add Prefixes first) or on the data file it names.
 # ------------------------------------------------------------------------
 #
-#  -- Route 2, the path: every place and everything it is within  (on the data)
+#  -- Route 2, the path: every Trail place and everything it is within  (on the data)
 #  PREFIX bs: <https://example.org/bookshop-trail/schema#>
-#  SELECT (COUNT(*) AS ?pairs) WHERE { ?a bs:within+ ?b }
+#  SELECT ?a ?b WHERE { ?a bs:within+ ?b . FILTER(STRSTARTS(STR(?a), "https://example.org/bookshop-trail/") && STRSTARTS(STR(?b), "https://example.org/bookshop-trail/")) }
 #
-#  -- Route 1, the reasoner: the same count after the closure  (on the reasoned)
+#  -- Route 1, the reasoner: the same pairs, asserted after the closure  (on the reasoned)
 #  PREFIX bs: <https://example.org/bookshop-trail/schema#>
-#  SELECT (COUNT(*) AS ?pairs) WHERE { ?a bs:within ?b }
+#  SELECT ?a ?b WHERE { ?a bs:within ?b . FILTER(STRSTARTS(STR(?a), "https://example.org/bookshop-trail/") && STRSTARTS(STR(?b), "https://example.org/bookshop-trail/")) }
 #
 #  -- Question 1: which settlements are in Scotland, by the path  (on the data)
 #  PREFIX bs: <https://example.org/bookshop-trail/schema#>

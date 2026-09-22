@@ -62,7 +62,7 @@
 #            https://www.semantechs.co.uk/SPARQL_Course/#m18
 #            OWL 2 Primer 10.1 OWL 2 DL and OWL 2 Full
 #            https://www.w3.org/TR/owl2-primer/#OWL_2_DL_and_OWL_2_Full
-#  MEASURED  parses, 5 triples; HermiT: consistent, 173 inferred; RL closure +1126; 'Places within Scotland, afte' 1 row
+#  MEASURED  parses, 5 triples; HermiT: consistent, 173 inferred; RL closure +184; 'Places within Scotland, afte' 1 row
 # ==========================================================================
 
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .

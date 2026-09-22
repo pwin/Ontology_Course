@@ -152,7 +152,7 @@ def rl_closure(g: rdflib.Graph) -> tuple[rdflib.Graph, list]:
     for s, p, o in closed:
         if (s, p, o) in before:
             continue
-        if any(isinstance(x, rdflib.BNode) for x in (s, p, o)):
+        if any(isinstance(x, rdflib.BNode) for x in (s, p, o)) or isinstance(s, rdflib.Literal):
             continue
         if str(s).startswith(w3c) or o in (OWL.Thing, RDFS.Resource, OWL.NamedIndividual, OWL.Nothing) or s == o:
             continue

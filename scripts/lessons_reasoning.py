@@ -105,10 +105,7 @@ o(
         "Scotland, which is within Great Britain. The data says the first "
         "three links; question 1 in the brief wants the fourth. There are "
         "three ways to get it, and they give the same answer.\n\n"
-        "An OWL reasoner, given bs:within a owl:TransitiveProperty, writes "
-        "the missing pairs into the graph. The editor's Show Facts does it "
-        "in the browser; the RL closure this lesson was measured with adds "
-        "the same 123 triples to the place file, and HermiT agrees. The "
+        "An OWL reasoner, given bs:within a owl:TransitiveProperty, writes the missing pairs into the graph. The editor's Show Facts does it in the browser; the RL closure this lesson was measured with adds the 123 missing pairs among the Trail's own places, and HermiT agrees. Both add more than that, because the place file links each town to its DBpedia page with owl:sameAs and a reasoner copies every pair onto the alias; the queries count the Trail's own IRIs, and o04 said why sameAs does this. The "
         "work is done once, up front, and the result is stored; it goes "
         "stale when a place moves, and a reasoner has to run again.\n\n"
         "A SPARQL property path, bs:within+, computes the closure at query "
@@ -155,12 +152,12 @@ bs:within  a owl:ObjectProperty, owl:TransitiveProperty ;
     companions={"within-rule.ttl": WITHIN_RULE},
     shapes="within-rule.ttl",
     queries=[
-        Query("Route 2, the path: every place and everything it is within", """
+        Query("Route 2, the path: every Trail place and everything it is within", """
 PREFIX bs: <https://example.org/bookshop-trail/schema#>
-SELECT (COUNT(*) AS ?pairs) WHERE { ?a bs:within+ ?b }""", on="data", rows=1),
-        Query("Route 1, the reasoner: the same count after the closure", """
+SELECT ?a ?b WHERE { ?a bs:within+ ?b . FILTER(STRSTARTS(STR(?a), "https://example.org/bookshop-trail/") && STRSTARTS(STR(?b), "https://example.org/bookshop-trail/")) }""", on="data", rows=186),
+        Query("Route 1, the reasoner: the same pairs, asserted after the closure", """
 PREFIX bs: <https://example.org/bookshop-trail/schema#>
-SELECT (COUNT(*) AS ?pairs) WHERE { ?a bs:within ?b }""", on="reasoned", rows=1),
+SELECT ?a ?b WHERE { ?a bs:within ?b . FILTER(STRSTARTS(STR(?a), "https://example.org/bookshop-trail/") && STRSTARTS(STR(?b), "https://example.org/bookshop-trail/")) }""", on="reasoned", rows=186),
         Query("Question 1: which settlements are in Scotland, by the path", """
 PREFIX bs: <https://example.org/bookshop-trail/schema#>
 PREFIX bt: <https://example.org/bookshop-trail/>

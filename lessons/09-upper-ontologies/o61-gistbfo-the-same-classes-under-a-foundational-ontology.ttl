@@ -64,7 +64,7 @@
 #            https://github.com/semanticarts/gistBFO
 #            BFO 2020
 #            https://github.com/BFO-ontology/BFO-2020
-#  MEASURED  parses, 70 triples; 25 classes, 4 object properties, 1 datatype property, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 900 inferred; RL closure +1649; 'What The Inkwell is, all the' 32 rows
+#  MEASURED  parses, 70 triples; 25 classes, 4 object properties, 1 datatype property, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 900 inferred; RL closure +867; 'What The Inkwell is, all the' 32 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .
