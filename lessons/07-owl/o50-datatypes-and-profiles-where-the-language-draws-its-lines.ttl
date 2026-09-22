@@ -34,9 +34,9 @@
 #    right, RL no existentials on the right either and no class as a
 #    superclass expression with a someValuesFrom. The measured line says
 #    which profiles this file is in, and the shipped vocabulary is in DL
-#    and in none of the three, because of one union domain and one
-#    transitive property. Pick the profile the consumer's reasoner runs,
-#    and check it.
+#    and in none of the three: EL and QL refuse its functional object
+#    properties, and RL the union domain of bs:locatedIn. Pick the profile
+#    the consumer's reasoner runs, and check it.
 #
 #  DIAGRAM
 #       in the OWL 2 datatype map              not in it
@@ -61,7 +61,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the profile verdicts come from ROBOT; the editor parses the file without complaint
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo50-datatypes-and-profiles-where-the-language-draws-its-lines.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo50-datatypes-and-profiles-where-the-language-draws-its-lines.ttl
 #  SOURCES   OWL 2 Structural Specification 4 Datatype Maps
 #            https://www.w3.org/TR/owl2-syntax/#Datatype_Maps
 #            OWL 2 Primer 10.2 OWL 2 Profiles

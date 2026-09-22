@@ -65,9 +65,9 @@ the editor or copy the model.
 
 The Turtle Editor Viewer accepts `?dot=<url>` and loads that URL into the
 editor, and `&shapes=<url>` opens a second file as a shapes tab already
-selected for validation. Every lesson carries a **LOAD IT** line built that
-way, and every lesson in the course document has an **Open in the editor**
-button. Lessons with a companion shapes file, the label rules in o19, the SKOS
+selected for validation. Every lesson carries an **Open in the editor** link
+built that way at the foot of its header, and every lesson in the course
+document has a button of the same name. Lessons with a companion shapes file, the label rules in o19, the SKOS
 integrity conditions in o39, the style shapes in o67, the closure rule in o52,
 open it in the second tab.
 
@@ -185,9 +185,9 @@ SPARQL course: it reaches the same 186 `bs:within` pairs three ways.
 | This course | The SPARQL course | The SHACL course |
 |---|---|---|
 | o29, bs:founded left non-functional so that sources may disagree | q61 to q63, the disputed founding dates | s04, exactly one founding year, as a shape rather than a contradiction |
-| o36, the uneven genre tree | q28, the fixed chain that misses branches | s20, the same chain in a shape |
+| o36, the uneven genre tree | q33, every book of fiction however narrow the genre; q28, the same lesson on the place hierarchy | s20, the same chain in a shape, on places |
 | o38, domain as an inference rule, the publisher that becomes a bookshop | q143, the inference nobody wanted | s59, the inference that hides an error |
-| o47, cardinality merges before it complains | q04 | s04, the shape that was meant |
+| o47, cardinality merges before it complains | q03, which town is each shop in | s04, the shape that was meant |
 | o48, bs:within transitive, and never functional | module 18, the 186 pairs from a reasoner | s50, s51, the same pairs by a rule |
 | o49, the ISBN as a key | q15, works with no ISBN | s39, the check digit |
 | o52, three routes to one inference | module 00 §3, the reasoner and the path | s51, to a fixpoint |
@@ -224,6 +224,7 @@ matter most for it; each module README lists all of its own.
 
 - [The gist Style Guide](https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md). Local names, labels, the annotation set and its cardinalities, no inverses, eleven rules for restrictions. The most concrete style guide in print.
 - [gist](https://github.com/semanticarts/gist), [gistBFO](https://github.com/semanticarts/gistBFO), [gistUFO](https://github.com/semanticarts/gistUFO). Semantic Arts' minimalist upper ontology, CC-BY-4.0, and its two published alignments, read here as worked examples.
+- [Is an upper ontology useful?](https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf) Winstanley, ISKO UK 2023: a starter palette, a common vocabulary, a tool for thought, a hanger for data, and the Goldilocks level of abstraction.
 - [The SemOps Manual](https://github.com/pwin/SemOpsManual). Running a semantic practice the way software is run. Chapters 2, 8, 9 and 12 are cited: definitions are territory, the inner loop, the gate, evidence-based versioning.
 - [OQuaRE](http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf). The quality model module 10 measures with.
 - [The Ontology Quality Suite](https://github.com/pwin/consolidated-ontology-quality-suite-python). The checks module 10 runs, by identifier. `pip install ontology-quality-suite`.

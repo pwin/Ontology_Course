@@ -17,8 +17,8 @@
 #    promotion is mechanical: the same IRI becomes an owl:Class as well as
 #    a skos:Concept, rdfs:subClassOf is written beside every skos:broader,
 #    and works are typed with the class. The reasoner does the rest. This
-#    lesson's file has three works typed with leaf genres, and the closure
-#    types each with every ancestor.
+#    lesson's file has three works typed with genres, two of them leaves,
+#    and the closure types each with every ancestor.
 #
 #    This is punning, and OWL 2 DL permits it: the class reading and the
 #    individual reading of bt:genre-crime-fiction are kept apart by the
@@ -56,7 +56,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo40-climbing-a-rung-when-a-concept-becomes-a-class.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo40-climbing-a-rung-when-a-concept-becomes-a-class.ttl
 #  SOURCES   OWL 2 Structural Specification 5.9 Metamodeling
 #            https://www.w3.org/TR/owl2-syntax/#Metamodeling
 #            OWL 2 Primer 8.1 Punning

@@ -13,8 +13,10 @@
 #    vocabulary with the whole dataset is four thousand eight hundred, and
 #    HermiT classifies and realises it in about two seconds, which is the
 #    number to have in hand before anyone says a DL reasoner is too slow
-#    for real data. The OWL 2 DL copy of the dataset is used, because
-#    HermiT will not accept an xsd:gYear.
+#    for real data. The OWL 2 DL copy of the dataset is used, so that the
+#    profile verdict and the reasoning are about one file; run on the copy
+#    with the xsd:gYear values, HermiT reports consistent as well, treating
+#    the unknown datatype as opaque.
 #
 #    What it adds is exactly what the axioms promise and nothing else.
 #    bs:within is transitive, so sixty-three pairs become a hundred and
@@ -57,7 +59,8 @@
 #  CORNER    referent
 #  DATA      bookshop-trail-owl-dl.ttl
 #  RUNS IN   the browser; the reasoning over the whole dataset is HermiT through ROBOT; in the browser, load the file and press Show Facts for the RL closure
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo57-reasoning-over-the-whole-trail.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo57-reasoning-over-the-whole-trail.ttl
 #  SOURCES   The SPARQL course, module 18: inference
 #            https://www.semantechs.co.uk/SPARQL_Course/#m18
 #            OWL 2 Primer 10.1 OWL 2 DL and OWL 2 Full

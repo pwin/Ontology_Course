@@ -58,7 +58,8 @@
 #  CORNER    thought
 #  DATA      bookshop-trail-1.1.ttl
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo68-what-the-metrics-cannot-see.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo68-what-the-metrics-cannot-see.ttl
 #  SOURCES   SemOps Manual 8.1 Competency questions as tests
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#competency-questions-as-tests
 #            Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011

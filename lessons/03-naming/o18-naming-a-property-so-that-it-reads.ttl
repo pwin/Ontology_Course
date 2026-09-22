@@ -24,7 +24,7 @@
 #    there is a hierarchy, name the property going up it, child to parent,
 #    because that is the direction with fewer results: isPartOf rather than
 #    hasPart, hasSuperCategory rather than hasSubCategory. That rule is
-#    what lets gist do without inverses altogether, which o27 comes to.
+#    what lets gist do without inverses altogether, which o31 comes to.
 #
 #    The Trail's vocabulary was written before these rules were adopted
 #    here, and it departs from them in four places: locatedIn, publishedBy,
@@ -55,7 +55,8 @@
 #
 #  CORNER    symbol
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo18-naming-a-property-so-that-it-reads.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo18-naming-a-property-so-that-it-reads.ttl
 #  SOURCES   gist Style Guide: textual standards for property local names
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#textual-standards-for-property-local-names
 #            gist Style Guide: inverses, and why gist has none

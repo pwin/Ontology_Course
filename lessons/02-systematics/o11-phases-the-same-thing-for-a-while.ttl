@@ -58,12 +58,13 @@
 #  NOTE
 #    The Trail's data types event dates as xsd:date, which is not in the
 #    OWL 2 datatype map, so a file that used one would fall out of OWL 2
-#    DL. This file uses xsd:dateTime, which is in the map. o57 is about
+#    DL. This file uses xsd:dateTime, which is in the map. o50 is about
 #    that trap, and the SPARQL course's README has the full story.
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo11-phases-the-same-thing-for-a-while.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo11-phases-the-same-thing-for-a-while.ttl
 #  SOURCES   gUFO: a lightweight implementation of the Unified Foundational Ontology
 #            https://nemo-ufes.github.io/gufo/
 #            gistUFO: gist aligned with gUFO

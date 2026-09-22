@@ -71,7 +71,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; consistency with gist imported is HermiT through ROBOT; gistCore.ttl is fetched by scripts/setup-tools.ps1
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo59-hooking-the-trail-onto-gist.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo59-hooking-the-trail-onto-gist.ttl
 #  SOURCES   gist: a minimalist upper ontology
 #            https://github.com/semanticarts/gist
 #            OBO Foundry principle FP-007, relations: reuse existing ones

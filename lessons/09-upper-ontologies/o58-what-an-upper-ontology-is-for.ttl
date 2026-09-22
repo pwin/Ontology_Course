@@ -15,18 +15,26 @@
 #    ontologies that both put their people under gist:Person can be joined
 #    without a mapping, and two teams that both learned gist's hundred
 #    classes have a vocabulary in common before they meet. An upper
-#    ontology is for that, and the argument in the blog post o03 cited, on
-#    team building, is that the vocabulary in common is worth more than the
-#    reasoning.
+#    ontology is for that, and the paper this lesson cites, Is an upper
+#    ontology useful?, gives the list: a starter palette of classes and
+#    properties, commonality between domain ontologies, logical consistency
+#    done once at the top, a common vocabulary, a tool for thought,
+#    integrated data, and partitioned data. Its answer to its own title is
+#    yes, and its point about a common vocabulary is the one this course
+#    keeps returning to: the ontology is part of the vocabulary of the
+#    organisation, so choose one whose class names can enter everyday
+#    speech. Continuant fiat boundary, it observes, might not be for
+#    everyone.
 #
 #    gist is built to be that vocabulary for enterprises, and its design
 #    choices are all in the service of being learnable: about a hundred
 #    classes, everyday names, sparse domains and ranges, no inverses,
 #    disjointness at the top, everything defined in SKOS annotations, CC-BY
 #    licensed, and released with a version number and a migration guide.
-#    The measured line has the counts, from the file itself. BFO, at the
-#    other end, has thirty-five classes and a philosophy; module 09 reads
-#    both.
+#    The paper puts the Goldilocks level of abstraction at a human scale,
+#    about as many classes as a year at school; the measured line has
+#    version 14's counts, from the file itself. BFO, at the other end, has
+#    thirty-six classes and a philosophy; module 09 reads both.
 #
 #    The cost of standing on an upper ontology is that its commitments come
 #    too. Put bs:Bookshop under gist:Organization and gist's disjointness
@@ -55,9 +63,10 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser; the counts on the MEASURED line are computed from gistCore.ttl, fetched by scripts/setup-tools.ps1
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo58-what-an-upper-ontology-is-for.ttl
-#  SOURCES   Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)
-#            https://www.semanticarts.com/team-building-the-importance-of-an-ontology/
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo58-what-an-upper-ontology-is-for.ttl
+#  SOURCES   Winstanley, Is an upper ontology useful? ISKO UK 2023, CEUR-WS Vol. 3661
+#            https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf
 #            gist: a minimalist upper ontology
 #            https://github.com/semanticarts/gist
 #  MEASURED  parses, 11 triples; 2 classes; OWL 2 DL in profile; OQuaRE DIT 3 (4), ANOnto 3.66 (5)

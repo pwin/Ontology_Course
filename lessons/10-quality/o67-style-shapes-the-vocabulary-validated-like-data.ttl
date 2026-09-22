@@ -52,14 +52,15 @@
 #      fastest first opinion there is.
 #
 #  NOTE
-#    The LOAD IT link opens this lesson with the shapes in a second tab; to
-#    validate the whole vocabulary, load data/01-vocabulary.ttl in the
+#    Open in the editor opens this lesson with the shapes in a second tab;
+#    to validate the whole vocabulary, load data/01-vocabulary.ttl in the
 #    first tab instead, keep the shapes tab, and press Validate.
 #
 #  CORNER    symbol and thought
 #  DATA      01-vocabulary.ttl
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo67-style-shapes-the-vocabulary-validated-like-data.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fstyle-shapes.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo67-style-shapes-the-vocabulary-validated-like-data.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fstyle-shapes.ttl
 #  SOURCES   gist: the shapes that enforce its own style
 #            https://github.com/semanticarts/gist/blob/develop/validation/shapes/ontologyShapes.ttl
 #            SemOps Manual 8.4 Your own rules, without forking anything

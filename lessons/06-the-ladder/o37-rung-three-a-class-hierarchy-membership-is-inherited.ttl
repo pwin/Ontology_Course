@@ -59,7 +59,8 @@
 #  CORNER    referent
 #  DATA      03-places.ttl
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo37-rung-three-a-class-hierarchy-membership-is-inherited.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo37-rung-three-a-class-hierarchy-membership-is-inherited.ttl
 #  SOURCES   RDF Schema 3.4 rdfs:subClassOf
 #            https://www.w3.org/TR/rdf12-schema/#ch_subclassof
 #            RDF 1.2 Semantics 9.2 RDFS Entailment

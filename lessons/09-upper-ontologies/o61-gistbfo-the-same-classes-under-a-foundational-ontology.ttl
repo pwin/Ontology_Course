@@ -8,7 +8,7 @@
 #    over the three ontologies together.
 #
 #  WHY
-#    BFO is a foundational ontology of a different temperament. Thirty-five
+#    BFO is a foundational ontology of a different temperament. Thirty-six
 #    classes, every IRI a number, and a philosophy: everything is a
 #    continuant, which persists through time, or an occurrent, which
 #    unfolds in it; a continuant is independent, a material object say, or
@@ -59,7 +59,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the four-ontology consistency check is HermiT through ROBOT; gistBFO and BFO are fetched by scripts/setup-tools.ps1
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo61-gistbfo-the-same-classes-under-a-foundational-ontology.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo61-gistbfo-the-same-classes-under-a-foundational-ontology.ttl
 #  SOURCES   gistBFO: gist mapped to the Basic Formal Ontology
 #            https://github.com/semanticarts/gistBFO
 #            BFO 2020

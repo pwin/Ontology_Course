@@ -6,9 +6,9 @@ If you did the SPARQL course, its [module 00](https://www.semantechs.co.uk/SPARQ
 
 ## One file, one tab
 
-Every lesson is one Turtle file. The header, in comments, carries the whole lesson: what it decides, why, a diagram, what to take away, sometimes something to try, and a LOAD IT link. Below the header is the model, a few dozen triples, and sometimes a set of queries to run afterwards.
+Every lesson is one Turtle file. The header, in comments, carries the whole lesson: what it decides, why, a diagram, what to take away, sometimes something to try, and an Open in the editor link. Below the header is the model, a few dozen triples, and sometimes a set of queries to run afterwards.
 
-1. Open a lesson's LOAD IT link, or press **Open in the editor** in the [course document](https://www.semantechs.co.uk/Ontology_Course/). The file arrives in the first tab.
+1. Follow the **Open in the editor** link at the foot of a lesson's header, or press the button of the same name in the [course document](https://www.semantechs.co.uk/Ontology_Course/). The file arrives in the first tab.
 2. Look at the graph pane. For a vocabulary the `rdf:type` edges are the point, so leave **Hide Types** off; **Hide Annotations** clears the labels and comments and leaves the structure.
 3. Press **Add Prefixes** in the SPARQL panel, paste a query from the end of the file, press **Execute**.
 
@@ -18,13 +18,13 @@ Edit anything and press **Get All** before you query again. The SPARQL panel run
 
 **Show Facts** in the graph toolbar runs HyLAR, an OWL 2 RL reasoner, and lists the triples you wrote beside the triples it worked out. It does what a rule engine over triples does: types individuals down a subclass chain, applies domains and ranges, closes transitive and symmetric properties, follows inverses and property chains, merges two individuals under a functional property, and puts individuals into a defined class when the fillers are named.
 
-It does not do what a description-logic reasoner does. It will not tell you an ontology is inconsistent (it materialises the contradiction and carries on), will not find a class that can have no instances, will not infer that one class is under another from their definitions, and will not explain. Lessons [o43](../07-owl/), [o54](../08-reasoning/) and [o56](../08-reasoning/) are about that line, and each such lesson gives a SPARQL query that finds in the browser what the DL reasoner would report.
+It does not do what a description-logic reasoner does. It will not tell you an ontology is inconsistent (it materialises the contradiction and carries on), will not find a class that can have no instances, will not infer that one class is under another from their definitions, and will not explain. Lessons [o43](../07-owl/) and [o53](../08-reasoning/) give a SPARQL query that finds in the browser what the DL reasoner would report; [o54](../08-reasoning/), [o55](../08-reasoning/) and [o56](../08-reasoning/) are about what only a DL reasoner does.
 
 The **Measured** block under every lesson in the course document says what an OWL 2 RL closure added to that lesson's file. It is what Show Facts will show you, computed with `owlrl` rather than HyLAR, and the two agree on everything this course asks of them.
 
 ## Shapes, and the Inference dropdown
 
-Some lessons carry a companion shapes file: the label rules of [o19](../03-naming/), the SKOS integrity conditions of [o39](../06-the-ladder/), the style shapes of [o67](../10-quality/), the transitive-closure rule of [o52](../08-reasoning/). The LOAD IT link opens the companion in a second tab already selected under **Shapes**; press **Validate** and read the report as the SHACL course taught. For the rule lesson, set **Inference** to *rules, iterated* first.
+Some lessons carry a companion shapes file: the label rules of [o19](../03-naming/), the SKOS integrity conditions of [o39](../06-the-ladder/), the style shapes of [o67](../10-quality/), the transitive-closure rule of [o52](../08-reasoning/). Open in the editor opens the companion in a second tab already selected under **Shapes**; press **Validate** and read the report as the SHACL course taught. For the rule lesson, set **Inference** to *rules, iterated* first.
 
 Validating a vocabulary is the SHACL course's method turned on the ontology itself, and it is how to form a first opinion of any vocabulary you are handed.
 

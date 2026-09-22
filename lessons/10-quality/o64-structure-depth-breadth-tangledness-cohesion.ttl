@@ -58,7 +58,8 @@
 #  CORNER    referent
 #  DATA      01-vocabulary.ttl
 #  RUNS IN   the browser; the metrics come from scripts/metrics.py; the gist column from the same script on gistCore.ttl
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo64-structure-depth-breadth-tangledness-cohesion.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo64-structure-depth-breadth-tangledness-cohesion.ttl
 #  SOURCES   Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
 #            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
 #            Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009

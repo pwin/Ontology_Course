@@ -244,8 +244,7 @@ o(
         "there is a hierarchy, name the property going up it, child to "
         "parent, because that is the direction with fewer results: isPartOf "
         "rather than hasPart, hasSuperCategory rather than hasSubCategory. "
-        "That rule is what lets gist do without inverses altogether, which "
-        "o27 comes to.\n\n"
+        "That rule is what lets gist do without inverses altogether, which o31 comes to.\n\n"
         "The Trail's vocabulary was written before these rules were adopted "
         "here, and it departs from them in four places: locatedIn, "
         "publishedBy, author and genre would be isLocatedIn, isPublishedBy, "
@@ -384,8 +383,7 @@ bs:heldAt      a owl:ObjectProperty ;   skos:prefLabel "Held at"@en .
     companions={"label-shapes.ttl": TITLE_CASE_SHAPES},
     shapes="label-shapes.ttl",
     expect=dict(dl=True, shacl_conforms=False, shacl_violations=2),
-    notes="The shapes are in label-shapes.ttl beside this lesson, and the LOAD IT link opens them in a second tab already "
-          "selected; press Validate. The SHACL course's s16 covers sh:uniqueLang and s15 sh:pattern.",
+    notes="The shapes are in label-shapes.ttl beside this lesson, and Open in the editor opens them in a second tab already selected; press Validate. The SHACL course's s16 covers sh:uniqueLang and s15 sh:pattern.",
 )
 specs.register("o19", "gistLabels", "skosS14")
 

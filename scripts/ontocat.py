@@ -125,7 +125,7 @@ class Lesson:
     data: str = ""              # a data file the lesson is read alongside, if any
     local: str = ""             # what needs local tooling, if anything; "" means the browser does it all
     companions: dict = field(default_factory=dict)  # extra files written beside the lesson: name -> text
-    shapes: str = ""            # the companion that LOAD IT opens as a shapes tab, if any
+    shapes: str = ""            # the companion that Open in the editor opens as a shapes tab, if any
     extra_prefixes: tuple = ()
     # What the checker runs. Keys: profile, profiles, reason, rl, oqs, shacl
     # (shapes text), metrics, names, with_data (a file in data/), imports (files
@@ -230,7 +230,8 @@ class Lesson:
         if self.data:
             out.append(f"#  DATA      {self.data}")
         out.append(f"#  RUNS IN   {'the browser' if not self.local else 'the browser; ' + self.local}")
-        out.append(f"#  LOAD IT   {self.editor_url}")
+        out.append("#  OPEN IN THE EDITOR")
+        out.append(f"#            {self.editor_url}")
         for i, (label, url) in enumerate(specs.for_lesson(self.oid, self.module, limit=2)):
             out.append(f"#  {'SOURCES  ' if i == 0 else '         '} {label}")
             out.append(f"#            {url}")

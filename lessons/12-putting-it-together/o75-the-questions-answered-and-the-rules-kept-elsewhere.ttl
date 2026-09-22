@@ -38,7 +38,7 @@
 #       1  shops in Wales / an area                          bs:within+           q28             --
 #       2  towns with no bookshop                            NOT EXISTS           q16             s21 (as a warning)
 #       3  walkable from The Inkwell, and how far            (connectsTo|^)+      q31, q32        s36
-#       4  crime fiction shops, including its kinds          skos:broader*        q27, q28        --
+#       4  crime fiction shops, including its kinds          skos:broader*        q33, q28        --
 #       5  events in York, and the cost                      heldAt/locatedIn     q20s            --
 #       6  works with no ISBN                                NOT EXISTS           q15             s39 (check digit)
 #       7  influenced at any remove by Rhona Blackwood       influencedBy+        q34             s30 (no cycles)
@@ -57,7 +57,8 @@
 #  CORNER    all three
 #  DATA      bookshop-trail-1.1.ttl
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo75-the-questions-answered-and-the-rules-kept-elsewhere.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo75-the-questions-answered-and-the-rules-kept-elsewhere.ttl
 #  SOURCES   The SPARQL course: the questions this ontology exists to answer
 #            https://www.semantechs.co.uk/SPARQL_Course/
 #            The SHACL course: the constraints OWL cannot express

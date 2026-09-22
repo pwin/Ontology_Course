@@ -53,14 +53,19 @@
 #      imported, and nothing is.
 #
 #  TRY IT
-#    Delete the line declaring bs:website and run python
+#    Delete the line declaring bs:locatedIn and run python
 #    scripts/check_lessons.py o42: the file falls out of DL, and the
-#    checker says which term did it. Put it back. The editor will not
-#    object either way; only the referee does.
+#    checker says why: 'use of undeclared annotation property
+#    bs:locatedIn'. With no declaration, the OWL API reads the assertion as
+#    an annotation, and DL requires annotation properties to be declared
+#    too. Deleting bs:website's line changes nothing, because nothing uses
+#    it. Put the line back. The editor will not object either way; only the
+#    referee does.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the OWL 2 profile verdicts on the MEASURED line come from ROBOT
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo42-owl-class-owl-ontology-and-the-rule-that-everything-is-declared.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo42-owl-class-owl-ontology-and-the-rule-that-everything-is-declared.ttl
 #  SOURCES   OWL 2 Structural Specification 5.8 Entity Declarations and Typing
 #            https://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing
 #            OWL 2 Structural Specification 5.8.1 Typing Constraints of OWL 2 DL

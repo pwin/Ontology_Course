@@ -167,7 +167,7 @@ SELECT ?place WHERE { ?place a bs:Settlement ; bs:within+ bt:place-scotland } OR
     expect=dict(dl=True, consistent=True, rl_min_added=123, rules_added=123,
                 rl_inferred=["bt:place-wigtown bs:within bt:place-scotland"],
                 inferred=["bt:place-wigtown bs:within bt:place-scotland"]),
-    notes="The LOAD IT link opens this file with the rule in a second tab; to see the closure on the whole place hierarchy, load "
+    notes="Open in the editor opens this file with the rule in a second tab; to see the closure on the whole place hierarchy, load "
           "data/03-places.ttl instead, set Inference to 'rules, iterated', and validate; or press Show Facts for the reasoner's route. "
           "The AFTERWARDS queries run on the place file.",
 )
@@ -464,8 +464,7 @@ o(
     why="Everything in this module has been done on a few triples. The "
         "shipped vocabulary with the whole dataset is four thousand eight "
         "hundred, and HermiT classifies and realises it in about two "
-        "seconds, which is the number to have in hand before anyone says a DL reasoner is too slow for real data. The OWL 2 DL copy of the dataset is "
-        "used, because HermiT will not accept an xsd:gYear.\n\n"
+        "seconds, which is the number to have in hand before anyone says a DL reasoner is too slow for real data. The OWL 2 DL copy of the dataset is used, so that the profile verdict and the reasoning are about one file; run on the copy with the xsd:gYear values, HermiT reports consistent as well, treating the unknown datatype as opaque.\n\n"
         "What it adds is exactly what the axioms promise and nothing "
         "else. bs:within is transitive, so sixty-three pairs become a "
         "hundred and eighty-six. bs:connectsTo is symmetric, so "

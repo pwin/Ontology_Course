@@ -2,7 +2,7 @@
 
 What a well-made ontology has in common, drawn from three places that agree more than they differ: the gist style guide, the OBO Foundry principles, and the SemOps Manual. Minimal, reused before invented, disjoint at the top, sparse in its domains and ranges, meaning rather than integrity, and built with the people who will have to read it.
 
-Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then open the LOAD IT link, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
+Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 
 The same lessons, with their measurements laid out in full, are in the [course document](https://www.semantechs.co.uk/Ontology_Course/#m05).
 
@@ -22,7 +22,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [SemOps Manual 8.4 Your own rules, without forking anything](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#84-your-own-rules-without-forking-anything)
 - [SemOps Manual 6.3 The five maturity levels](https://github.com/pwin/SemOpsManual/blob/main/docs/06-stages-and-stories.md#63-the-five-maturity-levels)
 - [Winstanley, Team building: the importance of an ontology (2025)](https://www.semanticarts.com/team-building-the-importance-of-an-ontology/)
-- [Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)](https://www.semanticarts.com/team-building-the-importance-of-an-ontology/)
+- [Winstanley, Is an upper ontology useful? ISKO UK 2023, CEUR-WS Vol. 3661](https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf)
 
 | Lesson | Decides | Corner |
 |---|---|---|

@@ -55,11 +55,12 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo30-pragmatism-and-purity.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo30-pragmatism-and-purity.ttl
 #  SOURCES   gist: a minimalist upper ontology
 #            https://github.com/semanticarts/gist
-#            Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)
-#            https://www.semanticarts.com/team-building-the-importance-of-an-ontology/
+#            Winstanley, Is an upper ontology useful? ISKO UK 2023, CEUR-WS Vol. 3661
+#            https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf
 #  MEASURED  parses, 16 triples; 2 classes, 2 object properties, 1 datatype property; OWL 2 DL in profile; 'The ledger: every recorded c' 5 rows
 # ==========================================================================
 

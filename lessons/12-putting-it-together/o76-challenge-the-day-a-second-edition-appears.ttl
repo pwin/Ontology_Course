@@ -63,7 +63,8 @@
 #
 #  CORNER    all three
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo76-challenge-the-day-a-second-edition-appears.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo76-challenge-the-day-a-second-edition-appears.ttl
 #  SOURCES   OBO Foundry principle FP-019, stability of term meaning
 #            https://obofoundry.org/principles/fp-019-term-stability.html
 #            SemOps Manual 12.1 Evidence-based semver: version-diff

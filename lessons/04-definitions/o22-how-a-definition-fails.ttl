@@ -54,7 +54,8 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo22-how-a-definition-fails.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo22-how-a-definition-fails.ttl
 #  SOURCES   OBO Foundry principle FP-006, textual definitions
 #            https://obofoundry.org/principles/fp-006-textual-definitions.html
 #            SemOps Manual 2.4 Cognitive capacity is a hard budget

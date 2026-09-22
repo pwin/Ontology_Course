@@ -13,8 +13,8 @@
 #    has two identity criteria to reconcile and two sets of inherited
 #    axioms to keep consistent, and a reader has to hold both in mind to
 #    know what it means. OQuaRE measures the habit as tangledness, TMOnto,
-#    the mean number of parents per class, and scores anything over two
-#    badly.
+#    the mean number of parents per class, and gives full marks only at two
+#    or fewer.
 #
 #    The legitimate case is a rigid subkind that is both things in every
 #    circumstance. bs:Translation is a Work; it is not also something else.
@@ -54,7 +54,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo32-one-parent-mostly.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo32-one-parent-mostly.ttl
 #  SOURCES   Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
 #            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
 #            Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009

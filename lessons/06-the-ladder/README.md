@@ -2,7 +2,7 @@
 
 RDFS, SKOS and OWL 2 are one idea at rising degrees of commitment. A list of labelled terms says almost nothing; a concept scheme says how the terms relate without saying what they are; a class hierarchy says that membership is inherited, and a reasoner starts to draw conclusions. This module climbs the first rungs with the genre scheme and the place hierarchy, and says at each rung what has been promised.
 
-Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then open the LOAD IT link, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
+Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 
 The same lessons, with their measurements laid out in full, are in the [course document](https://www.semantechs.co.uk/Ontology_Course/#m06).
 

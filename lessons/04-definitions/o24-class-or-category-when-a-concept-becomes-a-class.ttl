@@ -63,7 +63,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo24-class-or-category-when-a-concept-becomes-a-class.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo24-class-or-category-when-a-concept-becomes-a-class.ttl
 #  SOURCES   SKOS Reference 3 The skos:Concept Class
 #            https://www.w3.org/TR/skos-reference/#concepts
 #            SKOS Primer 4.6 Combining SKOS and OWL

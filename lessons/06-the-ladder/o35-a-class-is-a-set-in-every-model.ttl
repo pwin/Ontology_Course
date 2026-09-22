@@ -68,7 +68,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo35-a-class-is-a-set-in-every-model.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo35-a-class-is-a-set-in-every-model.ttl
 #  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
 #            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
 #            OWL 2 Primer 2.2 Modeling Knowledge: Basic Notions (the open world, no unique names)

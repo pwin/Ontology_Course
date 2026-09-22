@@ -16,7 +16,7 @@
 #    to a person. The Best Practice Recipes note gives the server
 #    configuration for each case. A persistent redirector, w3id.org for
 #    gist, sits in front so that the hosting can move and the IRIs need
-#    not; gist's IRIs have survived three hosts that way.
+#    not.
 #
 #    Documentation is generated, not written, so that it cannot drift: the
 #    Quality Suite's docgen produces a reference page from the file,
@@ -57,7 +57,8 @@
 #
 #  CORNER    symbol
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo72-publishing-the-iris-and-keeping-them-alive.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo72-publishing-the-iris-and-keeping-them-alive.ttl
 #  SOURCES   Best Practice Recipes for Publishing RDF Vocabularies
 #            https://www.w3.org/TR/swbp-vocab-pub/
 #            OBO Foundry principle FP-013, notification of changes

@@ -23,8 +23,8 @@
 #    queries count the concepts, find the deepest, and confirm that
 #    skos:broader+ from the top concept reaches all thirty. That last one
 #    is the test that matters for question 4 in the brief, which the SPARQL
-#    course's q28 answers with the path and its q27 gets wrong with a fixed
-#    chain, on purpose.
+#    course's q33 answers with skos:broader+, and which a fixed chain of
+#    two hops gets wrong, as q28 shows on the place hierarchy.
 #
 #    The scheme stays a scheme. No question in the brief needs an axiom
 #    about the members of a genre, so o40's promotion is not taken, and the
@@ -50,7 +50,7 @@
 #      axiom about members is needed.
 #
 #  NOTE
-#    The LOAD IT link opens this lesson with the shapes; to validate the
+#    Open in the editor opens this lesson with the shapes; to validate the
 #    whole scheme, load data/02-genres.ttl in the first tab, keep the
 #    shapes tab, and press Validate. The AFTERWARDS queries run on the
 #    scheme.
@@ -58,7 +58,8 @@
 #  CORNER    all three
 #  DATA      02-genres.ttl
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo74-the-genre-scheme-complete.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fskos-shapes.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo74-the-genre-scheme-complete.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fskos-shapes.ttl
 #  SOURCES   SKOS Reference 4 Concept Schemes
 #            https://www.w3.org/TR/skos-reference/#schemes
 #            The SPARQL course: the questions this ontology exists to answer

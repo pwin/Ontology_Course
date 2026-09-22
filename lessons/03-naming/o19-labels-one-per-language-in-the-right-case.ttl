@@ -51,13 +51,14 @@
 #    - A label with no language tag is in no language. Tag every one.
 #
 #  NOTE
-#    The shapes are in label-shapes.ttl beside this lesson, and the LOAD IT
-#    link opens them in a second tab already selected; press Validate. The
-#    SHACL course's s16 covers sh:uniqueLang and s15 sh:pattern.
+#    The shapes are in label-shapes.ttl beside this lesson, and Open in the
+#    editor opens them in a second tab already selected; press Validate.
+#    The SHACL course's s16 covers sh:uniqueLang and s15 sh:pattern.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo19-labels-one-per-language-in-the-right-case.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Flabel-shapes.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo19-labels-one-per-language-in-the-right-case.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Flabel-shapes.ttl
 #  SOURCES   gist Style Guide: labels
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#labels
 #            SKOS Reference 5.3 integrity condition S14, one preferred label per language

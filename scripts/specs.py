@@ -51,7 +51,7 @@ NISO = "https://groups.niso.org/higherlogic/ws/public/download/12591/z39-19-2005
 SEMOPS = "https://github.com/pwin/SemOpsManual/blob/main/docs/"
 OQS = "https://github.com/pwin/consolidated-ontology-quality-suite-python"
 BLOG_TEAM = "https://www.semanticarts.com/team-building-the-importance-of-an-ontology/"
-BLOG_UPPER = BLOG_TEAM
+UPPER = "https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf"
 SPARQL_COURSE = "https://www.semantechs.co.uk/SPARQL_Course/"
 SHACL_COURSE = "https://www.semantechs.co.uk/SHACL_Course/"
 
@@ -82,7 +82,7 @@ SECTIONS = {
     "semopsBudget":   ("SemOps Manual 2.4 Cognitive capacity is a hard budget", SEMOPS + "02-people-and-cognition.md#24-cognitive-capacity-is-a-hard-budget"),
     "semopsWorkshop": ("SemOps Manual 2.5 The workshop is a social event with a technical output", SEMOPS + "02-people-and-cognition.md#25-the-workshop-is-a-social-event-with-a-technical-output"),
     "blogTeam":       ("Winstanley, Team building: the importance of an ontology (2025)", BLOG_TEAM),
-    "blogUpper":      ("Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)", BLOG_UPPER),
+    "blogUpper":      ("Winstanley, Is an upper ontology useful? ISKO UK 2023, CEUR-WS Vol. 3661", UPPER),
     # Systematics
     "ontocleanWp":    ("OntoClean: the four meta-properties", ONTOCLEAN_WP),
     "ontocleanCacm":  ("Guarino and Welty, Evaluating ontological decisions with OntoClean, CACM 45(2), 2002", ONTOCLEAN_CACM),
@@ -307,6 +307,8 @@ READING_LIST = [
          "Forty subclass assertions from gist into BFO, each with a note saying why. Read as worked examples of alignment."),
         (GISTUFO, "gistUFO",
          "gist's classes typed as gUFO kinds, roles and phases. OntoClean applied to a real ontology."),
+        (UPPER, "Is an upper ontology useful?",
+         "Winstanley, ISKO UK 2023. A starter palette, a common vocabulary, a tool for thought, a hanger for data, and the Goldilocks level of abstraction. Module 09 opens with it."),
         (SEMOPS, "The SemOps Manual",
          "Running a semantic practice the way software is run. Chapters 2, 8, 9 and 12 are cited here: definitions are territory, the inner loop, the gate, and evidence-based versioning."),
         (OQUARE, "OQuaRE",

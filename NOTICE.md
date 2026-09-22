@@ -63,7 +63,7 @@ papers; Guizzardi's gUFO; Duque-Ramos, Fernández-Breis, Stevens and
 Aussenac-Gilles' OQuaRE; ANSI/NISO Z39.19; the OBO Foundry principles; the
 gist Style Guide, Namespace document and Deprecation and Deletion Policy; the
 gistBFO README and mapping notes; the SemOps Manual; the Ontology Quality
-Suite; and two Semantic Arts blog posts. `scripts/check_links.py` confirms
+Suite; a Semantic Arts blog post; and a conference paper, Is an upper ontology useful? (ISKO UK 2023, CEUR-WS). `scripts/check_links.py` confirms
 each link still lands. Quotations are short and attributed where they occur.
 
 ## Tools used, and not redistributed

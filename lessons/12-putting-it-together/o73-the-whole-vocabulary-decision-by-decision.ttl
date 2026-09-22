@@ -22,12 +22,13 @@
 #    1.2 triple term, which is where OWL 2 stops.
 #
 #    The measured line puts it through everything at once: OWL 2 DL and not
-#    in EL, QL or RL, because of the union domain and the transitive
-#    property; consistent, with nothing unsatisfiable; seventeen classes of
-#    its own and twenty-five with the borrowed ones; every local name
-#    conforming; no circular definition; the OQuaRE scores of module 10;
-#    and the Quality Suite's findings scoped to bs:, which are the SKOS
-#    policy question and the open domains left open on purpose.
+#    in EL, QL or RL, since EL and QL refuse a functional object property
+#    and RL the union domain of bs:locatedIn; consistent, with nothing
+#    unsatisfiable; seventeen classes of its own and twenty-five with the
+#    borrowed ones; every local name conforming; no circular definition;
+#    the OQuaRE scores of module 10; and the Quality Suite's findings
+#    scoped to bs:, which are the SKOS policy question and the open domains
+#    left open on purpose.
 #
 #    What it does not have is the two things the course added and the
 #    shipped file did not adopt: OntoClean annotations on the classes, and
@@ -63,7 +64,8 @@
 #  CORNER    all three
 #  DATA      01-vocabulary.ttl
 #  RUNS IN   the browser; the profile verdicts and HermiT are ROBOT; the findings are the Quality Suite; the metrics and audits are the course's scripts
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo73-the-whole-vocabulary-decision-by-decision.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo73-the-whole-vocabulary-decision-by-decision.ttl
 #  SOURCES   The SPARQL course: the questions this ontology exists to answer
 #            https://www.semantechs.co.uk/SPARQL_Course/
 #            The SHACL course: the constraints OWL cannot express

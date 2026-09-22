@@ -9,12 +9,15 @@
 #    it.
 #
 #  WHY
-#    gist's deprecation policy is short and worth copying whole. A term
-#    that is to go is marked owl:deprecated true in the next release, with
-#    a note saying why and what to use instead. It stays, deprecated, for
-#    at least one full major version, so that nobody's data breaks between
-#    one release and the next. Only at a later major release is it deleted,
-#    and the release notes say so. The Trail's bs:PublishedWork in o27
+#    gist's deprecation and deletion policy is short and worth copying
+#    whole. Deprecation is a minor change: a term that is to go is marked
+#    owl:deprecated true in the next minor release, with a note saying why
+#    and what to use instead, and stays available through the rest of that
+#    major version, so that nobody's data breaks between one release and
+#    the next. A major release contains no deprecations: every term
+#    deprecated during the previous major version is deleted in it, and the
+#    release notes say so. Renaming a term counts as a deletion plus an
+#    addition, and is therefore major. The Trail's bs:PublishedWork in o27
 #    followed the first half; this lesson adds the mechanics.
 #
 #    The migration annotation is the part that tooling reads. The SemOps
@@ -23,8 +26,9 @@
 #    the other way round, and that writing it backwards, which reads more
 #    naturally, silently drops a hundred-percent-confidence repair to a
 #    guess. owl:equivalentClass is symmetric to a reasoner and directional
-#    to a tool, and the rule is: assert it from the retiring IRI.
-#    dct:isReplacedBy says the same to a person.
+#    to a tool, and the rule is: assert it from the retiring IRI. gist adds
+#    gist:isSupersededBy for the same purpose, and dct:isReplacedBy says
+#    the same to a person.
 #
 #    A deprecated term still in use is a finding, QUA-003, and the measured
 #    line has it: this file types a work with the deprecated class so the
@@ -45,20 +49,28 @@
 #       release N+1 .. M   both present; QUA-003 reports any use of the old one
 #       release M+1        bs:PublishedWork deleted; the release notes say so
 #
-#       gist: deprecated for a full major version; deleted only at a major release
+#       gist: deprecation is a minor change; a major release deletes every deprecated term and adds none
 #
 #  WHAT TO TAKE AWAY
-#    - Deprecate in one release, keep for a full major version, delete in
-#      a later major one, and say so in the notes.
+#    - Deprecate in a minor release, keep for the rest of the major
+#      version, delete at the next major one, and say so in the notes.
 #    - Assert the migration from the retiring IRI: old
 #      owl:equivalentClass new. To a reasoner it is symmetric; to the
 #      tooling it is not.
 #    - QUA-003, a deprecated term still in use, is the check that decides
 #      whether a deletion can go ahead.
 #
+#  NOTE
+#    Scoped to the whole Trail namespace, the suite also reports the
+#    undocumented individual and the references it cannot resolve in a file
+#    this small (QUA-004, STR-006, DAT-002). That is the price of the wider
+#    scope, and the reason to scope narrowly by default and widen for the
+#    checks that need it. QUA-003 is the one this lesson is about.
+#
 #  CORNER    symbol
 #  RUNS IN   the browser; QUA-003 on the MEASURED line comes from the Ontology Quality Suite, scoped to the whole Trail namespace
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo70-deprecate%3B-do-not-delete.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo70-deprecate%3B-do-not-delete.ttl
 #  SOURCES   gist: deprecation and deletion policy
 #            https://github.com/semanticarts/gist/blob/develop/docs/DeprecationAndDeletionPolicy.md
 #            SemOps Manual 12.3 The migration annotation, and its direction

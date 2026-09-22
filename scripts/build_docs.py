@@ -313,14 +313,14 @@ def courses_html() -> str:
   <div class="module-head"><div class="module-num">Reference</div><h2>The three courses</h2>
   <p class="module-blurb">One dataset, one vocabulary, one editor, three courses. This one says what the terms mean; the
   <a href="{SPARQL_SITE}">SPARQL course</a> asks the questions; the <a href="{SHACL_SITE}">SHACL course</a> checks the data.
-  Lesson ids link across: <a href="#o52">o52</a> reaches the same 186 pairs as <a href="{SPARQL_SITE}#q28">q28</a> and
-  <a href="{SHACL_SITE}#s51">s51</a>.</p></div>
+  Lesson ids link across: <a href="#o52">o52</a> reaches the same 186 pairs as the SPARQL course's
+  <a href="{SPARQL_SITE}#m18">module 18</a> and the SHACL course's <a href="{SHACL_SITE}#s51">s51</a>.</p></div>
   <div class="tablewrap"><table><thead><tr><th>This course</th><th>The SPARQL course</th><th>The SHACL course</th></tr></thead><tbody>
   <tr><td><a href="#o29">o29</a> bs:founded left non-functional</td><td><a href="{SPARQL_SITE}#q61">q61</a> to q63, the disputed dates</td><td><a href="{SHACL_SITE}#s04">s04</a> exactly one founding year, as a shape</td></tr>
-  <tr><td><a href="#o36">o36</a> the uneven genre tree</td><td><a href="{SPARQL_SITE}#q28">q28</a> the fixed chain that misses branches</td><td><a href="{SHACL_SITE}#s20">s20</a> the same chain in a shape</td></tr>
+  <tr><td><a href="#o36">o36</a> the uneven genre tree</td><td><a href="{SPARQL_SITE}#q33">q33</a> every book of fiction however narrow the genre; <a href="{SPARQL_SITE}#q28">q28</a> the same lesson on the place hierarchy</td><td><a href="{SHACL_SITE}#s20">s20</a> the same chain in a shape, on places</td></tr>
   <tr><td><a href="#o38">o38</a> domain as an inference rule</td><td><a href="{SPARQL_SITE}#q143">q143</a> the inference nobody wanted</td><td><a href="{SHACL_SITE}#s59">s59</a> the inference that hides an error</td></tr>
   <tr><td><a href="#o43">o43</a> disjointness, as a query in the browser</td><td>module 13, debugging</td><td><a href="{SHACL_SITE}#s25">s25</a> sh:not</td></tr>
-  <tr><td><a href="#o47">o47</a> cardinality merges before it complains</td><td><a href="{SPARQL_SITE}#q04">q04</a></td><td><a href="{SHACL_SITE}#s04">s04</a> the shape that was meant</td></tr>
+  <tr><td><a href="#o47">o47</a> cardinality merges before it complains</td><td><a href="{SPARQL_SITE}#q03">q03</a> which town is each shop in</td><td><a href="{SHACL_SITE}#s04">s04</a> the shape that was meant</td></tr>
   <tr><td><a href="#o48">o48</a> bs:within transitive</td><td>module 18, the 186 pairs from a reasoner</td><td><a href="{SHACL_SITE}#s50">s50</a>, <a href="{SHACL_SITE}#s51">s51</a> the same by a rule</td></tr>
   <tr><td><a href="#o49">o49</a> the ISBN as a key</td><td><a href="{SPARQL_SITE}#q15">q15</a> works with no ISBN</td><td><a href="{SHACL_SITE}#s39">s39</a> the check digit</td></tr>
   <tr><td><a href="#o52">o52</a> three routes to one inference</td><td>module 00 &sect;3, the reasoner and the path</td><td><a href="{SHACL_SITE}#s51">s51</a> to a fixpoint</td></tr>

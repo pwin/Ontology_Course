@@ -59,7 +59,8 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser; the verdict on the MEASURED line is the Ontology Quality Suite's version-diff over the two companion files beside this lesson
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo71-the-version-number-decided-by-evidence.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo71-the-version-number-decided-by-evidence.ttl
 #  SOURCES   SemOps Manual 12.1 Evidence-based semver: version-diff
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#121-evidence-based-semver-version-diff
 #            OBO Foundry principle FP-004, versioning

@@ -2,7 +2,7 @@
 
 Measuring what was built, and knowing what the measurements cannot see. OQuaRE's metrics scored on the Trail and on gist; the Ontology Quality Suite's checks by identifier; style shapes like the ones gist runs on itself; competency questions as tests. Then the limits: a five-out-of-five ontology can still be wrong, and no metric sees rigidity.
 
-Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then open the LOAD IT link, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
+Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 
 The same lessons, with their measurements laid out in full, are in the [course document](https://www.semantechs.co.uk/Ontology_Course/#m10).
 

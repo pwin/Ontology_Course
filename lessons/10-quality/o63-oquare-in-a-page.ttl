@@ -58,7 +58,8 @@
 #  CORNER    thought
 #  DATA      01-vocabulary.ttl
 #  RUNS IN   the browser; the scores come from scripts/metrics.py on data/01-vocabulary.ttl
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo63-oquare-in-a-page.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo63-oquare-in-a-page.ttl
 #  SOURCES   Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
 #            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
 #            The Ontology Quality Suite

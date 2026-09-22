@@ -5,7 +5,8 @@
 .DESCRIPTION
     The editor is used online, at https://semantechs.co.uk/turtle-editor-viewer/.
     It accepts ?dot=<url> for the file to load and &shapes=<url> for a shapes
-    graph opened in a second tab. This script reads a lesson's LOAD IT line, or
+    graph opened in a second tab. This script reads the Open in the editor link
+    from a lesson's header, or
     builds a link for any file under lessons/ or data/, and opens it.
 
 .PARAMETER Lesson
@@ -49,7 +50,7 @@ function Link([string]$fileRelative, [string]$shapesRelative) {
 
 function LessonInfo([System.IO.FileInfo]$f) {
     $text = Get-Content -Raw -LiteralPath $f.FullName
-    $load = if ($text -match '(?m)^#  LOAD IT\s+(\S+)') { $Matches[1] } else { "" }
+    $load = if ($text -match '(?m)^#  OPEN IN THE EDITOR\s*\r?\n#\s+(\S+)') { $Matches[1] } else { "" }
     $rel = $f.FullName.Substring($lessonsDir.Length + 1).Replace("\", "/")
     return @{ Id = $f.Name.Substring(0, 3); Title = ($f.BaseName.Substring(4) -replace "-", " "); Rel = $rel; Load = $load }
 }

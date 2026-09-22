@@ -53,7 +53,8 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo33-built-with-the-people-who-will-read-it.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo33-built-with-the-people-who-will-read-it.ttl
 #  SOURCES   SemOps Manual 2.1 Definitions are territory
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/02-people-and-cognition.md#21-definitions-are-territory
 #            Winstanley, Team building: the importance of an ontology (2025)

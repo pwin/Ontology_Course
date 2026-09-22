@@ -220,9 +220,7 @@ o(
         "decision; leaving a hundred warnings in the report is not.\n\n"
         "The other findings are worth reading one at a time, with their "
         "remediation text, which is where the suite's knowledge lives. "
-        "STR-003, a property with neither domain nor range, fires on "
-        "bs:claimedBy and bs:confidence, both of which o31 left open on "
-        "purpose; the right response is an editorial note the check can "
+        "STR-003, a property with neither domain nor range, fires on bs:statedOn, whose subject is a reifier and whose value is a date the datatype map cannot hold, so o31 and o50 left both open on purpose; the right response is an editorial note the check can "
         "be pointed at, not a domain. A gate reports; a person decides.",
     diagram="""
    python -m ontology_suite checks --ontology data/01-vocabulary.ttl --own-namespace https://example.org/bookshop-trail/schema# --engine sparql
@@ -230,7 +228,7 @@ o(
    identifier   fires on               reading
    QUA-009      nearly every term      a policy not adopted: skos:prefLabel per language
    QUA-010      nearly every term      the same: skos:definition
-   STR-003      bs:claimedBy, ...      no domain or range, on purpose (o31); note it, do not fix it
+   STR-003      bs:statedOn            no domain or range, on purpose (o31, o50); note it, do not fix it
    STR-004      every class            no formal definition; most kinds are primitive, and should be (o46)
 
    assert on identifiers, never counts; scope to your namespace; read the remediation
@@ -348,7 +346,7 @@ o(
     shapes="style-shapes.ttl",
     check=dict(with_data=DVOCAB, shacl=STYLE_SHAPES),
     expect=dict(shacl_violations=0),
-    notes="The LOAD IT link opens this lesson with the shapes in a second tab; to validate the whole vocabulary, load data/01-vocabulary.ttl "
+    notes="Open in the editor opens this lesson with the shapes in a second tab; to validate the whole vocabulary, load data/01-vocabulary.ttl "
           "in the first tab instead, keep the shapes tab, and press Validate.",
 )
 specs.register("o67", "gistShapes", "semopsHouseRules")

@@ -48,7 +48,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the unsatisfiable classes on the MEASURED line come from HermiT through ROBOT, and REA-021 from the Quality Suite
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo54-unsatisfiable-classes-consistent-and-dead.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo54-unsatisfiable-classes-consistent-and-dead.ttl
 #  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
 #            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
 #            SemOps Manual 9.8 Testing the gate itself

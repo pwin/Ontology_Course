@@ -53,7 +53,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo09-the-subsumption-that-will-not-bear-weight.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo09-the-subsumption-that-will-not-bear-weight.ttl
 #  SOURCES   Guarino and Welty, Evaluating ontological decisions with OntoClean, CACM 45(2), 2002
 #            https://doi.org/10.1145/503124.503150
 #            Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009

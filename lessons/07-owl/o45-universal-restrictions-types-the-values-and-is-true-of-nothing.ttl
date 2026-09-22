@@ -54,7 +54,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo45-universal-restrictions-types-the-values-and-is-true-of-nothing.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo45-universal-restrictions-types-the-values-and-is-true-of-nothing.ttl
 #  SOURCES   OWL 2 Primer 5.2 Property Restrictions: universal quantification
 #            https://www.w3.org/TR/owl2-primer/#Property_Restrictions
 #            gist Style Guide: OWL restrictions, the eleven rules

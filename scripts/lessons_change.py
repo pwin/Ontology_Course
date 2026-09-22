@@ -104,12 +104,7 @@ o(
     title="Deprecate; do not delete",
     decides="A term whose meaning has moved is marked deprecated, kept for a full major version, given a change note and a replacement, and the migration is asserted from the retiring IRI so that tooling can find it.",
     corner="symbol",
-    why="gist's deprecation policy is short and worth copying whole. A "
-        "term that is to go is marked owl:deprecated true in the next "
-        "release, with a note saying why and what to use instead. It "
-        "stays, deprecated, for at least one full major version, so that "
-        "nobody's data breaks between one release and the next. Only at a "
-        "later major release is it deleted, and the release notes say so. "
+    why="gist's deprecation and deletion policy is short and worth copying whole. Deprecation is a minor change: a term that is to go is marked owl:deprecated true in the next minor release, with a note saying why and what to use instead, and stays available through the rest of that major version, so that nobody's data breaks between one release and the next. A major release contains no deprecations: every term deprecated during the previous major version is deleted in it, and the release notes say so. Renaming a term counts as a deletion plus an addition, and is therefore major. "
         "The Trail's bs:PublishedWork in o27 followed the first half; this "
         "lesson adds the mechanics.\n\n"
         "The migration annotation is the part that tooling reads. The "
@@ -117,10 +112,7 @@ o(
         "detection recognises owl:equivalentClass from the old IRI to the "
         "new one and not the other way round, and that writing it "
         "backwards, which reads more naturally, silently drops a "
-        "hundred-percent-confidence repair to a guess. owl:equivalentClass "
-        "is symmetric to a reasoner and directional to a tool, and the "
-        "rule is: assert it from the retiring IRI. dct:isReplacedBy says "
-        "the same to a person.\n\n"
+        "hundred-percent-confidence repair to a guess. owl:equivalentClass is symmetric to a reasoner and directional to a tool, and the rule is: assert it from the retiring IRI. gist adds gist:isSupersededBy for the same purpose, and dct:isReplacedBy says the same to a person.\n\n"
         "A deprecated term still in use is a finding, QUA-003, and the "
         "measured line has it: this file types a work with the deprecated "
         "class so the check can be seen to fire. It did not fire at first, "
@@ -140,10 +132,10 @@ o(
    release N+1 .. M   both present; QUA-003 reports any use of the old one
    release M+1        bs:PublishedWork deleted; the release notes say so
 
-   gist: deprecated for a full major version; deleted only at a major release
+   gist: deprecation is a minor change; a major release deletes every deprecated term and adds none
 """,
     learn=[
-        "Deprecate in one release, keep for a full major version, delete in a later major one, and say so in the notes.",
+        "Deprecate in a minor release, keep for the rest of the major version, delete at the next major one, and say so in the notes.",
         "Assert the migration from the retiring IRI: old owl:equivalentClass new. To a reasoner it is symmetric; to the tooling it is not.",
         "QUA-003, a deprecated term still in use, is the check that decides whether a deletion can go ahead.",
     ],
@@ -169,6 +161,9 @@ bt:book-old  a bs:PublishedWork .
     queries=[Query("Deprecated terms still in use", """
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 SELECT ?term (COUNT(?x) AS ?uses) WHERE { ?term owl:deprecated true . ?x a ?term } GROUP BY ?term""", rows=1)],
+    notes="Scoped to the whole Trail namespace, the suite also reports the undocumented individual and the references it "
+          "cannot resolve in a file this small (QUA-004, STR-006, DAT-002). That is the price of the wider scope, and the reason "
+          "to scope narrowly by default and widen for the checks that need it. QUA-003 is the one this lesson is about.",
     check=dict(profile=True, oqs="checks", own_namespace="https://example.org/bookshop-trail/"),
     expect=dict(dl=True, oqs=["QUA-003"]),
     local="QUA-003 on the MEASURED line comes from the Ontology Quality Suite, scoped to the whole Trail namespace",
@@ -277,10 +272,7 @@ o(
         "namespace served as one document or a slash namespace served a "
         "resource at a time, and content negotiation returning Turtle to "
         "a program and HTML to a person. The Best Practice Recipes note "
-        "gives the server configuration for each case. A persistent "
-        "redirector, w3id.org for gist, sits in front so that the "
-        "hosting can move and the IRIs need not; gist's IRIs have "
-        "survived three hosts that way.\n\n"
+        "gives the server configuration for each case. A persistent redirector, w3id.org for gist, sits in front so that the hosting can move and the IRIs need not.\n\n"
         "Documentation is generated, not written, so that it cannot "
         "drift: the Quality Suite's docgen produces a reference page from "
         "the file, classes, properties and diagrams, and the SemOps "

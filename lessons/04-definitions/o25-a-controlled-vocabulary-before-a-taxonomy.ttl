@@ -55,7 +55,8 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo25-a-controlled-vocabulary-before-a-taxonomy.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo25-a-controlled-vocabulary-before-a-taxonomy.ttl
 #  SOURCES   ANSI/NISO Z39.19, Guidelines for the construction of monolingual controlled vocabularies
 #            https://groups.niso.org/higherlogic/ws/public/download/12591/z39-19-2005r2010.pdf
 #            SKOS Reference 7 Documentation Properties

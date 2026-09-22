@@ -2,14 +2,14 @@
 
 An upper ontology is a vocabulary in common. This module hooks the Trail's classes onto gist, decides which of gist's patterns to adopt, and reads two published alignments, gistBFO and gistUFO, as worked examples of how a class is placed under a foundational one and why. Two of the placements disagree with each other, instructively.
 
-Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then open the LOAD IT link, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
+Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 
 The same lessons, with their measurements laid out in full, are in the [course document](https://www.semantechs.co.uk/Ontology_Course/#m09).
 
 **Sources.** What this module is defined by, or argued from:
 
 - [gist: a minimalist upper ontology](https://github.com/semanticarts/gist)
-- [Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)](https://www.semanticarts.com/team-building-the-importance-of-an-ontology/)
+- [Winstanley, Is an upper ontology useful? ISKO UK 2023, CEUR-WS Vol. 3661](https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf)
 - [gistBFO: gist mapped to the Basic Formal Ontology](https://github.com/semanticarts/gistBFO)
 - [BFO 2020](https://github.com/BFO-ontology/BFO-2020)
 - [gistUFO: gist aligned with gUFO](https://github.com/semanticarts/gistUFO)

@@ -49,7 +49,7 @@ o(
         "A label is a symbol for people. A definition is the thought written down. Neither is the thing.",
         "The brief is a pile of symbols. The first job is to find out how many referents are behind them, and it is rarely one per word.",
     ],
-    tryit="Open the LOAD IT link. The graph view draws each candidate as a node with its label and comment. Pick 'Subjects' and choose one; then ask "
+    tryit="Press Open in the editor. The graph view draws each candidate as a node with its label and comment. Pick 'Subjects' and choose one; then ask "
           "yourself which corner of the triangle each of the three things on screen is: the IRI, the label, the comment.",
     body="""
 # The candidate terms from the brief, as symbols with the thought written
@@ -102,7 +102,7 @@ o(
         "and the phrase has stuck because it is exactly right.\n\n"
         "The Trail keeps 'book' as one class, bs:Work, and gives it an ISBN, "
         "which is honestly an edition's property. That is a recorded "
-        "compromise (o09 comes back to it), and it is a better state than the "
+        "compromise (o10 comes back to it), and it is a better state than the "
         "brief's, where the compromise was invisible.",
     diagram="""
    HOMONYMY: one symbol, three referents           SYNONYMY: three symbols, one referent
@@ -138,7 +138,7 @@ bt:candidate-copy
 
 bt:candidate-bookshop
     rdfs:label    "bookshop"@en, "shop"@en, "store"@en ;
-    rdfs:comment  "A business that sells books from premises. The building it trades from is a different referent; o05 and o09."@en .
+    rdfs:comment  "A business that sells books from premises. The building it trades from is a different referent; o05 and o10."@en .
 """,
     queries=[Query("Every symbol with more than one node behind it", """
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

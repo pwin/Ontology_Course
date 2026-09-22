@@ -51,7 +51,7 @@ o(
 """,
     learn=[
         "A term is admitted by a question, not by a noun in the brief. Keep the question beside the term.",
-        "Properties are the number to watch. Each is a column someone fills, and the Trail has more than gist has classes.",
+        "Properties are the number to watch. Each is a column someone fills, and the Trail has nearly as many as gist has classes.",
         "Minimal means every term is still looked after. That is the size to aim for.",
     ],
     body=DECL + """
@@ -113,8 +113,7 @@ o(
         "value is a finding to read rather than a contradiction to "
         "resolve.\n\n"
         "The general habit is to constrain relationships less than feels "
-        "natural. A domain that is too narrow retypes things (o37); a "
-        "cardinality that is too tight merges or contradicts (o42); a "
+        "natural. A domain that is too narrow retypes things (o38); a cardinality that is too tight merges or contradicts (o47); a "
         "property declared functional because 'it always is' becomes false "
         "the day a second source appears. gist keeps domains and ranges "
         "sparse for this reason, and puts data constraints in shapes. "
@@ -170,7 +169,7 @@ bt:FoundedShape
     ] .
 """},
     shapes="founded-shape.ttl",
-    notes="The LOAD IT link opens founded-shape.ttl in a second tab. Validate: one warning. The editor's engine says conforms, because "
+    notes="Open in the editor opens founded-shape.ttl in a second tab. Validate: one warning. The editor's engine says conforms, because "
           "only violations count against conformance there; pySHACL, which measured this lesson, says does not conform for the same "
           "report, because the specification's default counts warnings too. The SHACL course's s03 is about that difference. Either way "
           "the shop is named and the graph is not contradicted; the reasoner's verdict on the same two triples is that the whole graph is "
@@ -337,9 +336,7 @@ o(
         "questions have been answered with one class. A class with two "
         "parents has two identity criteria to reconcile and two sets of "
         "inherited axioms to keep consistent, and a reader has to hold both "
-        "in mind to know what it means. OQuaRE measures the habit as "
-        "tangledness, TMOnto, the mean number of parents per class, and "
-        "scores anything over two badly.\n\n"
+        "in mind to know what it means. OQuaRE measures the habit as tangledness, TMOnto, the mean number of parents per class, and gives full marks only at two or fewer.\n\n"
         "The legitimate case is a rigid subkind that is both things in every circumstance. "
         "bs:Translation is a Work; it is not also something else. A "
         "hypothetical bs:PublisherBookshop, a shop that also publishes, "

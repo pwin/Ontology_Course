@@ -27,8 +27,8 @@ def module_readme(module: str, lessons: list) -> str:
     num = module.split("-")[0]
     lines = [f"# Module {num} · {title}", "", blurb, ""]
     lines.append("Each `.ttl` file carries its own explanation: what it decides, why, a diagram "
-                 "of the idea, and what to take away. Read the header, then open the LOAD IT "
-                 "link, which puts the file in the editor; the graph view draws it and the SPARQL "
+                 "of the idea, and what to take away. Read the header, then follow the Open in the "
+                 "editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL "
                  "panel can query it. Where a lesson has been reasoned over or measured, the "
                  "MEASURED line says what the tools found.")
     lines.append("")

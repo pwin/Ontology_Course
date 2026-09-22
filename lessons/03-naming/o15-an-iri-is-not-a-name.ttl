@@ -63,7 +63,8 @@
 #
 #  CORNER    symbol
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo15-an-iri-is-not-a-name.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo15-an-iri-is-not-a-name.ttl
 #  SOURCES   Architecture of the World Wide Web 2.5 URI Opacity
 #            https://www.w3.org/TR/webarch/#uri-opacity
 #            OBO Foundry principle FP-003, URI/identifier space

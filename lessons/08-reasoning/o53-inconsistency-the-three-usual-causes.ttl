@@ -52,12 +52,13 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; HermiT's verdict and the explanation come from ROBOT
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo53-inconsistency-the-three-usual-causes.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo53-inconsistency-the-three-usual-causes.ttl
 #  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
 #            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
 #            OWL 2 Primer 4.3 Class Disjointness
 #            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
-#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 3 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
+#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 2 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

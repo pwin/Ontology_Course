@@ -50,7 +50,8 @@
 #
 #  CORNER    thought
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo07-scope-and-the-questions-that-fix-it.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo07-scope-and-the-questions-that-fix-it.ttl
 #  SOURCES   OBO Foundry principle FP-005, scope
 #            https://obofoundry.org/principles/fp-005-delineated-content.html
 #            SemOps Manual 8.1 Competency questions as tests

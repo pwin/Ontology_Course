@@ -32,8 +32,8 @@
 #    contradiction to resolve.
 #
 #    The general habit is to constrain relationships less than feels
-#    natural. A domain that is too narrow retypes things (o37); a
-#    cardinality that is too tight merges or contradicts (o42); a property
+#    natural. A domain that is too narrow retypes things (o38); a
+#    cardinality that is too tight merges or contradicts (o47); a property
 #    declared functional because 'it always is' becomes false the day a
 #    second source appears. gist keeps domains and ranges sparse for this
 #    reason, and puts data constraints in shapes. Meaning in the ontology,
@@ -59,7 +59,7 @@
 #      constraint is a future contradiction with a date on it.
 #
 #  NOTE
-#    The LOAD IT link opens founded-shape.ttl in a second tab. Validate:
+#    Open in the editor opens founded-shape.ttl in a second tab. Validate:
 #    one warning. The editor's engine says conforms, because only
 #    violations count against conformance there; pySHACL, which measured
 #    this lesson, says does not conform for the same report, because the
@@ -70,7 +70,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo29-meaning-in-the-ontology-rules-in-the-shapes.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Ffounded-shape.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo29-meaning-in-the-ontology-rules-in-the-shapes.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Ffounded-shape.ttl
 #  SOURCES   gist Style Guide: OWL restrictions, the eleven rules
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#owl-restrictions
 #            SHACL: constraints on data, which OWL axioms are not

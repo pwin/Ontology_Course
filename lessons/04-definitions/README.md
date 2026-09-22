@@ -2,7 +2,7 @@
 
 The thought corner, written down. A definition is the agreement that makes a shared symbol carry a shared meaning, and a controlled vocabulary is a list of terms whose definitions someone has agreed to look after. This module covers the form of a good definition, the ways one fails, the set of annotations that carry it, and the decision that comes before any taxonomy: is this a class, or a category.
 
-Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then open the LOAD IT link, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
+Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 
 The same lessons, with their measurements laid out in full, are in the [course document](https://www.semantechs.co.uk/Ontology_Course/#m04).
 

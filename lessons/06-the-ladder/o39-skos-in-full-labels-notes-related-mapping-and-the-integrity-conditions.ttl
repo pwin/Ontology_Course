@@ -27,8 +27,9 @@
 #    other, in both directions, forever. skos:exactMatch says two concepts
 #    in two schemes can be used interchangeably for retrieval, which is a
 #    smaller and safer claim about two particulars that remain two. The
-#    Trail's crime fiction is closeMatch to Wikidata's, because the scope
-#    notes differ; it is not the same thing.
+#    Trail's crime fiction is closeMatch to Wikidata's crime fiction, which
+#    covers film and theatre as well as books; the scopes overlap and
+#    differ, which is what closeMatch is for.
 #
 #    The integrity conditions are checkable, and this lesson's shapes check
 #    the ones that matter: one preferred label per language, every concept
@@ -58,7 +59,8 @@
 #
 #  CORNER    all three
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fskos-shapes.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fskos-shapes.ttl
 #  SOURCES   SKOS Reference 10 Mapping Properties
 #            https://www.w3.org/TR/skos-reference/#mapping
 #            SKOS Reference 8.6 integrity condition S27, related and broaderTransitive are disjoint
@@ -93,7 +95,7 @@ bt:genre-crime-fiction  a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:pr
     skos:altLabel "Mystery"@en ; skos:hiddenLabel "Crime fition"@en ;
     skos:scopeNote "Works whose plot turns on a crime and its investigation."@en ;
     skos:broader bt:genre-fiction ;
-    skos:closeMatch wd:Q208505 .
+    skos:closeMatch wd:Q5937792 .
 bt:genre-tartan-noir    a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Tartan Noir"@en ;
     skos:broader bt:genre-crime-fiction ; skos:related bt:genre-scottish-interest .
 bt:genre-scottish-interest a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Scottish Interest"@en ;

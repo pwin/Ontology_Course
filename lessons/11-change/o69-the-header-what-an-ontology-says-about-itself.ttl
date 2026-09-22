@@ -58,7 +58,8 @@
 #
 #  CORNER    symbol and thought
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo69-the-header-what-an-ontology-says-about-itself.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo69-the-header-what-an-ontology-says-about-itself.ttl
 #  SOURCES   OWL 2 Structural Specification 3.1 Ontology IRI and Version IRI
 #            https://www.w3.org/TR/owl2-syntax/#Ontology_IRI_and_Version_IRI
 #            OBO Foundry principle FP-004, versioning

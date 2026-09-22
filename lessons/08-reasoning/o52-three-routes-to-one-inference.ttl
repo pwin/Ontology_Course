@@ -66,8 +66,8 @@
 #      reasoner.
 #
 #  NOTE
-#    The LOAD IT link opens this file with the rule in a second tab; to see
-#    the closure on the whole place hierarchy, load data/03-places.ttl
+#    Open in the editor opens this file with the rule in a second tab; to
+#    see the closure on the whole place hierarchy, load data/03-places.ttl
 #    instead, set Inference to 'rules, iterated', and validate; or press
 #    Show Facts for the reasoner's route. The AFTERWARDS queries run on the
 #    place file.
@@ -75,7 +75,8 @@
 #  CORNER    referent
 #  DATA      03-places.ttl
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo52-three-routes-to-one-inference.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fwithin-rule.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo52-three-routes-to-one-inference.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fwithin-rule.ttl
 #  SOURCES   SemOps Manual 11.2 Three ways to derive a triple
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/11-rules-and-inference.md#112-three-ways-to-derive-a-triple
 #            The SPARQL course, module 18: inference

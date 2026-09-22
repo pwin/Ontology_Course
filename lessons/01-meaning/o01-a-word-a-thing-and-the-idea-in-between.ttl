@@ -52,14 +52,15 @@
 #      many referents are behind them, and it is rarely one per word.
 #
 #  TRY IT
-#    Open the LOAD IT link. The graph view draws each candidate as a node
-#    with its label and comment. Pick 'Subjects' and choose one; then ask
-#    yourself which corner of the triangle each of the three things on
+#    Press Open in the editor. The graph view draws each candidate as a
+#    node with its label and comment. Pick 'Subjects' and choose one; then
+#    ask yourself which corner of the triangle each of the three things on
 #    screen is: the IRI, the label, the comment.
 #
 #  CORNER    all three, introduced
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo01-a-word-a-thing-and-the-idea-in-between.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo01-a-word-a-thing-and-the-idea-in-between.ttl
 #  SOURCES   Ogden and Richards, the triangle of reference (1923)
 #            https://en.wikipedia.org/wiki/Triangle_of_reference
 #            Peirce's theory of signs, Stanford Encyclopedia of Philosophy

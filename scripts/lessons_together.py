@@ -29,9 +29,7 @@ o(
         "scheme, o24 and o36. The borrowed terms are declared, o26 and "
         "o42. bs:disputes is an annotation property because it points at "
         "an RDF 1.2 triple term, which is where OWL 2 stops.\n\n"
-        "The measured line puts it through everything at once: OWL 2 DL "
-        "and not in EL, QL or RL, because of the union domain and the "
-        "transitive property; consistent, with nothing unsatisfiable; "
+        "The measured line puts it through everything at once: OWL 2 DL and not in EL, QL or RL, since EL and QL refuse a functional object property and RL the union domain of bs:locatedIn; consistent, with nothing unsatisfiable; "
         "seventeen classes of its own and twenty-five with the borrowed "
         "ones; every local name conforming; no circular definition; the "
         "OQuaRE scores of module 10; and the Quality Suite's findings "
@@ -104,9 +102,7 @@ o(
         "related disjoint from broader, no concept its own ancestor. It "
         "conforms. The queries count the concepts, find the deepest, and "
         "confirm that skos:broader+ from the top concept reaches all "
-        "thirty. That last one is the test that matters for question 4 "
-        "in the brief, which the SPARQL course's q28 answers with the "
-        "path and its q27 gets wrong with a fixed chain, on purpose.\n\n"
+        "thirty. That last one is the test that matters for question 4 in the brief, which the SPARQL course's q33 answers with skos:broader+, and which a fixed chain of two hops gets wrong, as q28 shows on the place hierarchy.\n\n"
         "The scheme stays a scheme. No question in the brief needs an "
         "axiom about the members of a genre, so o40's promotion is not "
         "taken, and the shelf plan can be rearranged by the shops without "
@@ -157,7 +153,7 @@ SELECT ?c WHERE { ?c skos:broader+ ?c }""", on="data", rows=0),
     ],
     check=dict(with_data=DGENRES, shacl=__import__("lessons_ladder").SKOS_SHAPES),
     expect=dict(shacl_conforms=True),
-    notes="The LOAD IT link opens this lesson with the shapes; to validate the whole scheme, load data/02-genres.ttl in the first tab, "
+    notes="Open in the editor opens this lesson with the shapes; to validate the whole scheme, load data/02-genres.ttl in the first tab, "
           "keep the shapes tab, and press Validate. The AFTERWARDS queries run on the scheme.",
 )
 specs.register("o74", "skosSchemes", "sparqlCourse")
@@ -196,7 +192,7 @@ o(
    1  shops in Wales / an area                          bs:within+           q28             --
    2  towns with no bookshop                            NOT EXISTS           q16             s21 (as a warning)
    3  walkable from The Inkwell, and how far            (connectsTo|^)+      q31, q32        s36
-   4  crime fiction shops, including its kinds          skos:broader*        q27, q28        --
+   4  crime fiction shops, including its kinds          skos:broader*        q33, q28        --
    5  events in York, and the cost                      heldAt/locatedIn     q20s            --
    6  works with no ISBN                                NOT EXISTS           q15             s39 (check digit)
    7  influenced at any remove by Rhona Blackwood       influencedBy+        q34             s30 (no cycles)

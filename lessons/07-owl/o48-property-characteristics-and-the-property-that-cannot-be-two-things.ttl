@@ -61,7 +61,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the profile refusal on the MEASURED line comes from ROBOT
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo48-property-characteristics-and-the-property-that-cannot-be-two-things.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo48-property-characteristics-and-the-property-that-cannot-be-two-things.ttl
 #  SOURCES   OWL 2 Primer 6 Advanced Use of Properties
 #            https://www.w3.org/TR/owl2-primer/#Advanced_Use_of_Properties
 #            OWL 2 Structural Specification 11 Global Restrictions on Axioms in OWL 2 DL

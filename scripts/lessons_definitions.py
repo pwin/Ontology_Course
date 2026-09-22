@@ -213,7 +213,7 @@ o(
    where relevant     skos:altLabel      any number
                       skos:editorialNote for the maintainers
    rarely             skos:changeNote, skos:historyNote
-   do not use         rdfs:label, rdfs:comment   (the Trail does; o30 says why)
+   do not use         rdfs:label, rdfs:comment   (the Trail does; the note above says why)
 """,
     learn=[
         "Two annotations are required and have a cardinality of one. Everything else is optional and plural.",

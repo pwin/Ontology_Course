@@ -74,8 +74,10 @@ bt:place-wigtown a bs:Settlement .
 """,
     check=dict(profiles=True, reason=True),
     expect=dict(dl=True, el=True, ql=True, rl=True, consistent=True),
-    tryit="Delete the line declaring bs:website and run python scripts/check_lessons.py o42: the file falls out of DL, and the "
-          "checker says which term did it. Put it back. The editor will not object either way; only the referee does.",
+    tryit="Delete the line declaring bs:locatedIn and run python scripts/check_lessons.py o42: the file falls out of DL, and the "
+          "checker says why: 'use of undeclared annotation property bs:locatedIn'. With no declaration, the OWL API reads the "
+          "assertion as an annotation, and DL requires annotation properties to be declared too. Deleting bs:website's line "
+          "changes nothing, because nothing uses it. Put the line back. The editor will not object either way; only the referee does.",
     local="the OWL 2 profile verdicts on the MEASURED line come from ROBOT",
 )
 specs.register("o42", "syntaxDeclarations", "syntaxTyping")
@@ -97,9 +99,7 @@ o(
         "rather than judges; it does not put up a sign saying "
         "inconsistent. The same contradiction is a query, though, and the "
         "query runs in the browser: find anything typed with two classes "
-        "that are declared disjoint. That query is the SHACL course's "
-        "sh:disjoint from the other side, and it is the one to keep in the "
-        "gate.\n\n"
+        "that are declared disjoint. That query is the SHACL course's s25, sh:not, from the other side, and it is the one to keep in the gate.\n\n"
         "Below the backbone, disjointness gets harder to justify. Author "
         "and TrailMember are roles; a shop can be a member and a person "
         "can be an author and a translator. gist declares disjointness "
@@ -161,8 +161,7 @@ o(
         "That is why gist's rules say to use someValuesFrom in an "
         "equivalence when you want to infer into a class, and why the "
         "shape that says 'every shop must have a town in this dataset' is "
-        "SHACL, not this. The SHACL course's s01 is that shape, and it "
-        "reports the shop with no town; this axiom never will.",
+        "SHACL, not this. The SHACL course's s04 is that shape, and it reports the shop with no town; this axiom never will.",
     diagram="""
    bs:Bookshop rdfs:subClassOf [ owl:onProperty bs:locatedIn ; owl:someValuesFrom bs:Settlement ]
 
@@ -172,7 +171,7 @@ o(
    a shop located in something          the something is not typed: 'some', not 'every'
    HermiT: consistent, nothing new      correct, and the point
 
-   want to find shops with no town?     a shape: sh:path bs:locatedIn ; sh:minCount 1   (SHACL course s01)
+   want to find shops with no town?     a shape: sh:path bs:locatedIn ; sh:minCount 1   (SHACL course s04)
 """,
     learn=[
         "A subclass existential is a necessary condition on the set. It rejects nothing and types nothing; it narrows what the world could be.",
@@ -614,8 +613,7 @@ o(
         "inverses, QL no existentials on the right, RL no existentials on "
         "the right either and no class as a superclass expression with a "
         "someValuesFrom. The measured line says which profiles this file "
-        "is in, and the shipped vocabulary is in DL and in none of the "
-        "three, because of one union domain and one transitive property. "
+        "is in, and the shipped vocabulary is in DL and in none of the three: EL and QL refuse its functional object properties, and RL the union domain of bs:locatedIn. "
         "Pick the profile the consumer's reasoner runs, and check it.",
     diagram="""
    in the OWL 2 datatype map              not in it

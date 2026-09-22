@@ -112,10 +112,7 @@ o(
         "and the depth is uneven because crime fiction has kinds that "
         "poetry does not. A model that forced every branch to the same "
         "depth would be tidier and false.\n\n"
-        "The unevenness carries the SPARQL course's best-known lesson, "
-        "q28: a fixed chain of two broader hops from Fiction finds some "
-        "genres and silently misses the rest, while skos:broader+ finds "
-        "them all. skos:broader is deliberately not transitive; "
+        "The unevenness carries the SPARQL course's best-known lesson, made on the place hierarchy in q28 and on this tree in q33: a fixed chain of two broader hops from Fiction finds some genres and silently misses the rest, while skos:broader+ finds them all. skos:broader is deliberately not transitive; "
         "skos:broaderTransitive is, and a path operator computes it "
         "without a reasoner. Module 08 comes back to that as the first of "
         "three routes to the same inference.",
@@ -127,7 +124,7 @@ o(
 
    promised: these particulars relate thus.  not promised: anything about a work.
 
-   q28:  skos:broader/skos:broader  from Fiction   misses the branches of other depths
+   q33:  skos:broader/skos:broader  from Fiction   misses the branches of other depths
          skos:broader+              from Fiction   finds every descendant
 """,
     learn=[
@@ -172,7 +169,7 @@ SELECT ?leaf (COUNT(?up) AS ?depth) WHERE {
     check=dict(profile=True, with_data=DGENRES),
     expect=dict(dl=True),
     notes="The counts in the AFTERWARDS queries are for the full scheme, data/02-genres.ttl; open it in the editor to run them. The two "
-          "COUNT queries return one row each, and the numbers inside differ: that difference is q28.",
+          "COUNT queries return one row each, and the numbers inside differ: that difference is q33, and q28 is the same lesson on places.",
 )
 specs.register("o36", "skosSchemes", "skosSemantic")
 
@@ -360,9 +357,7 @@ o(
         "true of the other, in both directions, forever. skos:exactMatch "
         "says two concepts in two schemes can be used interchangeably for "
         "retrieval, which is a smaller and safer claim about two "
-        "particulars that remain two. The Trail's crime fiction is "
-        "closeMatch to Wikidata's, because the scope notes differ; it is "
-        "not the same thing.\n\n"
+        "particulars that remain two. The Trail's crime fiction is closeMatch to Wikidata's crime fiction, which covers film and theatre as well as books; the scopes overlap and differ, which is what closeMatch is for.\n\n"
         "The integrity conditions are checkable, and this lesson's shapes "
         "check the ones that matter: one preferred label per language, "
         "every concept in a scheme, related disjoint from broader, and no "
@@ -403,7 +398,7 @@ bt:genre-crime-fiction  a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:pr
     skos:altLabel "Mystery"@en ; skos:hiddenLabel "Crime fition"@en ;
     skos:scopeNote "Works whose plot turns on a crime and its investigation."@en ;
     skos:broader bt:genre-fiction ;
-    skos:closeMatch wd:Q208505 .
+    skos:closeMatch wd:Q5937792 .
 bt:genre-tartan-noir    a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Tartan Noir"@en ;
     skos:broader bt:genre-crime-fiction ; skos:related bt:genre-scottish-interest .
 bt:genre-scottish-interest a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Scottish Interest"@en ;
@@ -444,8 +439,7 @@ o(
         "same IRI becomes an owl:Class as well as a skos:Concept, "
         "rdfs:subClassOf is written beside every skos:broader, and works "
         "are typed with the class. The reasoner does the rest. This "
-        "lesson's file has three works typed with leaf genres, and the "
-        "closure types each with every ancestor.\n\n"
+        "lesson's file has three works typed with genres, two of them leaves, and the closure types each with every ancestor.\n\n"
         "This is punning, and OWL 2 DL permits it: the class reading and "
         "the individual reading of bt:genre-crime-fiction are kept apart "
         "by the reasoner, so bs:specialises can still point at the "

@@ -10,11 +10,12 @@
 #    Strip a taxonomy down to its rigid classes and what is left is the
 #    backbone: the kinds every instance necessarily belongs to, arranged by
 #    subsumption. Guarino and Welty give the backbone its name and its
-#    test: every instance of a backbone class is an instance of exactly one
-#    lowest backbone class, and stays so. The roles and phases are then
-#    attached beneath the backbone class that plays them. A taxonomy built
-#    this way can be extended without collapsing, because the part that
-#    carries identity never depends on the part that changes.
+#    test: every instance in the domain falls under some backbone class,
+#    and stays under it, because the backbone is made only of classes
+#    nothing can leave. The roles and phases are then attached beneath the
+#    backbone class that plays them. A taxonomy built this way can be
+#    extended without collapsing, because the part that carries identity
+#    never depends on the part that changes.
 #
 #    The Trail's backbone has ten kinds at the top: Place, Bookshop,
 #    Person, Publisher, Work, Series, Event, TrailSegment, StockRecord and
@@ -23,12 +24,11 @@
 #    translation is a translation in every circumstance, so it is a
 #    subkind. Publisher is a fair argument: the Trail makes it a kind, and
 #    gist would call it a role of an organisation. That argument is
-#    recorded here rather than settled, and o13 gives the vocabulary to
+#    recorded here rather than settled, and o14 gives the vocabulary to
 #    record it in.
 #
-#    The set picture: the backbone partitions the domain. Every particular
-#    is in exactly one leaf set of the backbone, and the roles are subsets
-#    that cut across time.
+#    The set picture: the backbone is the family of sets that nothing
+#    leaves, and the roles are subsets of them that things enter and leave.
 #
 #  DIAGRAM
 #       the backbone (all +R)                          hanging off it (~R)
@@ -42,7 +42,7 @@
 #         Translation  (a subkind: a translation in every circumstance)
 #       Series   Event   TrailSegment   StockRecord   Source
 #
-#       backbone classes partition the domain; each particular has exactly one leaf
+#       every particular falls under a backbone class, and stays there
 #
 #  WHAT TO TAKE AWAY
 #    - The backbone is the rigid part of the taxonomy. Build it first,
@@ -55,7 +55,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo12-the-backbone.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo12-the-backbone.ttl
 #  SOURCES   Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
 #            https://doi.org/10.1007/978-3-540-92673-3_9
 #            Guarino and Welty, Evaluating ontological decisions with OntoClean, CACM 45(2), 2002

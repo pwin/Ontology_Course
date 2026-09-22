@@ -343,8 +343,7 @@ bt:event-inkwell-2025-03-08
     bs:eventDate  "2025-03-08T19:00:00"^^xsd:dateTime .
 """,
     notes="The Trail's data types event dates as xsd:date, which is not in the OWL 2 datatype map, so a file "
-          "that used one would fall out of OWL 2 DL. This file uses xsd:dateTime, which is in the map. o57 is "
-          "about that trap, and the SPARQL course's README has the full story.",
+          "that used one would fall out of OWL 2 DL. This file uses xsd:dateTime, which is in the map. o50 is about that trap, and the SPARQL course's README has the full story.",
     queries=[Query("Anti-rigid classes, and whether each is a role or a phase", """
 PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
 SELECT ?class (IF(?d = "+D", "role", "phase") AS ?kind) WHERE {
@@ -362,9 +361,7 @@ o(
     corner="referent",
     why="Strip a taxonomy down to its rigid classes and what is left is the "
         "backbone: the kinds every instance necessarily belongs to, arranged "
-        "by subsumption. Guarino and Welty give the backbone its name and its "
-        "test: every instance of a backbone class is an instance of exactly "
-        "one lowest backbone class, and stays so. The roles and phases are "
+        "by subsumption. Guarino and Welty give the backbone its name and its test: every instance in the domain falls under some backbone class, and stays under it, because the backbone is made only of classes nothing can leave. The roles and phases are "
         "then attached beneath the backbone class that plays them. A "
         "taxonomy built this way can be extended without collapsing, because "
         "the part that carries identity never depends on the part that "
@@ -375,11 +372,8 @@ o(
         "role in the shipped vocabulary; Translation is not a role, because a translation is a translation in every circumstance, so it is a subkind. "
         "Publisher is a fair argument: the Trail makes it a kind, and gist "
         "would call it a role of an organisation. That argument is recorded "
-        "here rather than settled, and o13 gives the vocabulary to record it "
-        "in.\n\n"
-        "The set picture: the backbone partitions the domain. Every "
-        "particular is in exactly one leaf set of the backbone, and the "
-        "roles are subsets that cut across time.",
+        "here rather than settled, and o14 gives the vocabulary to record it in.\n\n"
+        "The set picture: the backbone is the family of sets that nothing leaves, and the roles are subsets of them that things enter and leave.",
     diagram="""
    the backbone (all +R)                          hanging off it (~R)
 
@@ -392,7 +386,7 @@ o(
      Translation  (a subkind: a translation in every circumstance)
    Series   Event   TrailSegment   StockRecord   Source
 
-   backbone classes partition the domain; each particular has exactly one leaf
+   every particular falls under a backbone class, and stays there
 """,
     learn=[
         "The backbone is the rigid part of the taxonomy. Build it first, and let the roles hang off it.",

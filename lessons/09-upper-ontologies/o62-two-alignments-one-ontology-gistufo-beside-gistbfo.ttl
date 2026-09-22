@@ -58,7 +58,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser; consistency with gUFO and gist imported is HermiT through ROBOT
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo62-two-alignments-one-ontology-gistufo-beside-gistbfo.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo62-two-alignments-one-ontology-gistufo-beside-gistbfo.ttl
 #  SOURCES   gistUFO: gist aligned with gUFO
 #            https://github.com/semanticarts/gistUFO
 #            gUFO: a lightweight implementation of the Unified Foundational Ontology

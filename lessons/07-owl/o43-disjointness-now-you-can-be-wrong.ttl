@@ -20,8 +20,8 @@
 #    than judges; it does not put up a sign saying inconsistent. The same
 #    contradiction is a query, though, and the query runs in the browser:
 #    find anything typed with two classes that are declared disjoint. That
-#    query is the SHACL course's sh:disjoint from the other side, and it is
-#    the one to keep in the gate.
+#    query is the SHACL course's s25, sh:not, from the other side, and it
+#    is the one to keep in the gate.
 #
 #    Below the backbone, disjointness gets harder to justify. Author and
 #    TrailMember are roles; a shop can be a member and a person can be an
@@ -47,7 +47,8 @@
 #
 #  CORNER    referent
 #  RUNS IN   the browser
-#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo43-disjointness-now-you-can-be-wrong.ttl
+#  OPEN IN THE EDITOR
+#            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo43-disjointness-now-you-can-be-wrong.ttl
 #  SOURCES   OWL 2 Primer 4.3 Class Disjointness
 #            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
 #            The SHACL course, module 09: validating with inference
