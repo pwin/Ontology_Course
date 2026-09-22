@@ -1,0 +1,87 @@
+# ==========================================================================
+#  O19  Labels: one per language, in the right case
+# ==========================================================================
+#
+#  DECIDES
+#    Every term has exactly one skos:prefLabel per language, classes in
+#    title case and properties in lower case, alternatives in
+#    skos:altLabel; the rules are shapes, and they run in the editor.
+#
+#  WHY
+#    A preferred label is the one name a term shows in a list, and a list
+#    with two names for one thing is a list with a bug in it. SKOS makes
+#    this an integrity condition, S14: at most one preferred label per
+#    language tag. gist adds exactly one, and cases: title case for classes
+#    (Physical Identifiable Item), lower case for properties (has unit of
+#    measure), acronyms in capitals in both. Alternative labels are free-
+#    form and plural; that is what they are for.
+#
+#    gist enforces its label rules with SHACL shapes, run on every commit,
+#    and the escape hatch for a label that is right and non-conforming, a
+#    proper noun say, is an annotation gist:nonConformingLabel true that
+#    the shape reads. The same shapes, simplified, are in this lesson's
+#    check and in the editor: open them in a second tab, pick them in the
+#    Shapes dropdown, press Validate. Two of the labels here are wrong on
+#    purpose, and the report names them. This is the SHACL course's whole
+#    method applied to a vocabulary instead of to data, and the file is one
+#    you could run on any ontology you are handed.
+#
+#    Language tags are the other half. The Trail labels places in Welsh and
+#    Gaelic where those names exist, and a query for @cy labels is what the
+#    Welsh page of the website will run. A label without a tag is a label
+#    in no language, and STY-003 in the Quality Suite says so as an Info.
+#
+#  DIAGRAM
+#       term             prefLabel                          rule
+#
+#       bs:Bookshop      "Bookshop"@en                      title case, one per language
+#       bs:Settlement    "Settlement"@en  "Anheddiad"@cy    two languages, one each
+#       bs:floorArea     "floor area"@en                    lower case
+#       bs:isbn          "ISBN"@en                          acronym in capitals, allowed
+#
+#       seeded:  bs:Publisher  "publisher"@en               not title case      -> a violation
+#                bs:heldAt     "Held at"@en                 not lower case      -> a violation
+#                bs:Region     "Region"@en  "Rhanbarth"@cy  fine
+#
+#  WHAT TO TAKE AWAY
+#    - One preferred label per language, and altLabels for everything
+#      else. SKOS S14 makes the first a hard rule.
+#    - Title case for classes, lower case for properties, acronyms in
+#      capitals. gist's shapes check it; the editor runs them.
+#    - A label with no language tag is in no language. Tag every one.
+#
+#  NOTE
+#    The shapes are in label-shapes.ttl beside this lesson, and the LOAD IT
+#    link opens them in a second tab already selected; press Validate. The
+#    SHACL course's s16 covers sh:uniqueLang and s15 sh:pattern.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo19-labels-one-per-language-in-the-right-case.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Flabel-shapes.ttl
+#  SOURCES   gist Style Guide: labels
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#labels
+#            SKOS Reference 5.3 integrity condition S14, one preferred label per language
+#            https://www.w3.org/TR/skos-reference/#L1541
+#  MEASURED  parses, 23 triples; 4 classes, 1 object property, 2 datatype properties; OWL 2 DL in profile; does not conform (2 violations, 0 warnings, 0 info)
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+
+bs:Bookshop    a owl:Class ;            skos:prefLabel "Bookshop"@en ;    skos:altLabel "Shop"@en, "Store"@en .
+bs:Settlement  a owl:Class ;            skos:prefLabel "Settlement"@en, "Anheddiad"@cy .
+bs:Region      a owl:Class ;            skos:prefLabel "Region"@en, "Rhanbarth"@cy .
+bs:floorArea   a owl:DatatypeProperty ; skos:prefLabel "floor area"@en .
+bs:isbn        a owl:DatatypeProperty ; skos:prefLabel "ISBN"@en .
+
+# Two labels wrong on purpose, for the shapes to find.
+bs:Publisher   a owl:Class ;            skos:prefLabel "publisher"@en .
+bs:heldAt      a owl:ObjectProperty ;   skos:prefLabel "Held at"@en .

@@ -1,0 +1,90 @@
+# ==========================================================================
+#  O57  Reasoning over the whole Trail
+# ==========================================================================
+#
+#  DECIDES
+#    The shipped vocabulary and the whole dataset go through a description-
+#    logic reasoner together: consistent, one hundred and eighty-six within
+#    pairs, the reversed segments and inverses materialised, and not one
+#    new type, because the data types everything already.
+#
+#  WHY
+#    Everything in this module has been done on a few triples. The shipped
+#    vocabulary with the whole dataset is four thousand eight hundred, and
+#    HermiT classifies and realises it in about two seconds, which is the
+#    number to have in hand before anyone says a DL reasoner is too slow
+#    for real data. The OWL 2 DL copy of the dataset is used, because
+#    HermiT will not accept an xsd:gYear.
+#
+#    What it adds is exactly what the axioms promise and nothing else.
+#    bs:within is transitive, so sixty-three pairs become a hundred and
+#    eighty-six. bs:connectsTo is symmetric, so thirty-three segments gain
+#    their reverse. bs:hasImprint is the inverse of bs:imprintOf and
+#    asserted nowhere, so nine appear. bs:wrote is the inverse of
+#    bs:author, so six appear where the data used author. And not one new
+#    rdf:type on a Trail term, because the data types every individual
+#    already and the vocabulary defines no class by equivalence. The SPARQL
+#    course's module 18 measured the same and drew the same conclusion: the
+#    closure is real, and a property path gets most of it without a
+#    reasoner.
+#
+#    Consistent, too, which is the quiet confirmation that a vocabulary
+#    written with the habits of module 05, sparse domains, no functional
+#    property where sources disagree, disjointness only at the top, does
+#    not fight its own data. Change one of those habits, as o29 did, and
+#    the same run says inconsistent.
+#
+#  DIAGRAM
+#       data/bookshop-trail-owl-dl.ttl: 4,796 triples, through HermiT, about two seconds
+#
+#       inferred                         count   from
+#       bs:within                        +123    owl:TransitiveProperty      63 -> 186
+#       bs:connectsTo                    +33     owl:SymmetricProperty
+#       bs:hasImprint                    +9      owl:inverseOf bs:imprintOf  (asserted nowhere in the data)
+#       bs:wrote                         +6      owl:inverseOf bs:author
+#       rdf:type on a Trail class        0       everything is typed already
+#
+#       verdict: consistent
+#
+#  WHAT TO TAKE AWAY
+#    - A DL reasoner on a few thousand triples takes seconds. Measure
+#      before assuming it will not scale.
+#    - What it adds is what the axioms promise: closures and inverses.
+#      Where the data is already typed, no types.
+#    - Consistency on the whole dataset is the cheapest end-to-end test
+#      an ontology has. Run it in the gate.
+#
+#  CORNER    referent
+#  DATA      bookshop-trail-owl-dl.ttl
+#  RUNS IN   the browser; the reasoning over the whole dataset is HermiT through ROBOT; in the browser, load the file and press Show Facts for the RL closure
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo57-reasoning-over-the-whole-trail.ttl
+#  SOURCES   The SPARQL course, module 18: inference
+#            https://www.semantechs.co.uk/SPARQL_Course/#m18
+#            OWL 2 Primer 10.1 OWL 2 DL and OWL 2 Full
+#            https://www.w3.org/TR/owl2-primer/#OWL_2_DL_and_OWL_2_Full
+#  MEASURED  parses, 5 triples; HermiT: consistent, 173 inferred; RL closure +1126; 'Places within Scotland, afte' 1 row
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+# This lesson's own model is the ontology header; the checker merges the
+# whole OWL 2 DL copy of the dataset before reasoning.
+<https://example.org/bookshop-trail/schema>
+    a               owl:Ontology ;
+    skos:prefLabel  "The Bookshop Trail schema"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Places within Scotland, after the closure  (on the reasoned)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT (COUNT(*) AS ?n) WHERE { ?p bs:within bt:place-scotland }

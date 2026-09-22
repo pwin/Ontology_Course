@@ -1,0 +1,103 @@
+# ==========================================================================
+#  O32  One parent, mostly
+# ==========================================================================
+#
+#  DECIDES
+#    Every backbone class has one parent; a second parent is allowed only
+#    for a rigid subkind that is both things in every circumstance, and the
+#    tangledness is measured rather than assumed.
+#
+#  WHY
+#    Multiple inheritance is legal in OWL and usually a sign that two
+#    questions have been answered with one class. A class with two parents
+#    has two identity criteria to reconcile and two sets of inherited
+#    axioms to keep consistent, and a reader has to hold both in mind to
+#    know what it means. OQuaRE measures the habit as tangledness, TMOnto,
+#    the mean number of parents per class, and scores anything over two
+#    badly.
+#
+#    The legitimate case is a rigid subkind that is both things in every
+#    circumstance. bs:Translation is a Work; it is not also something else.
+#    A hypothetical bs:PublisherBookshop, a shop that also publishes, would
+#    be tempting and wrong: it is a Bookshop that plays the publishing
+#    role, and the role goes on the instance, not into the class tree.
+#    OntoClean's rule from module 02 sorts these out before the tree is
+#    drawn.
+#
+#    gist's answer is a different one. Its classes are mostly single-
+#    parented, and where a class has several conditions it is defined by an
+#    owl:equivalentClass over an intersection, which the reasoner
+#    classifies rather than a human asserting a second parent. That is not
+#    tangledness; it is the reasoner doing the tangling and showing its
+#    work. The metric run on this lesson's file counts the one seeded
+#    second parent; run on gist it finds the classes whose asserted parents
+#    number more than one, and there are few.
+#
+#  DIAGRAM
+#       single inheritance            seeded second parent                   the alternative
+#
+#       Work                          Bookshop   Publisher                   Bookshop
+#         Translation                     \       /                             ^
+#                                     PublisherBookshop  (two parents)     bt:shop-x a bs:Bookshop ;
+#                                     two identity criteria, two axiom          bs:publishes bt:work-y   (a role, on the instance)
+#                                     sets, one confused reader
+#
+#       TMOnto: mean parents per class, over classes with a parent. Score 5 at 2 or below.
+#
+#  WHAT TO TAKE AWAY
+#    - One parent per backbone class. A second parent is usually a role
+#      that belongs on the instance.
+#    - Let the reasoner do the tangling: define a class by an
+#      intersection and classify, rather than assert two parents.
+#    - Measure tangledness rather than guess. TMOnto is one number and it
+#      is easy to read.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo32-one-parent-mostly.ttl
+#  SOURCES   Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
+#            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
+#            Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
+#            https://doi.org/10.1007/978-3-540-92673-3_9
+#  MEASURED  parses, 20 triples; 5 classes, 1 object property, 2 individuals; OWL 2 DL in profile; OQuaRE DIT 2 (5), ANOnto 0.40 (2); 'Classes with more than one a' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+bs:Work         a owl:Class .
+bs:Translation  a owl:Class ; rdfs:subClassOf bs:Work ;
+    skos:scopeNote "One parent. A translation is a work in every circumstance."@en .
+bs:Bookshop     a owl:Class .
+bs:Publisher    a owl:Class .
+
+# The seeded second parent, for the metric to count.
+bs:PublisherBookshop  a owl:Class ; rdfs:subClassOf bs:Bookshop, bs:Publisher ;
+    skos:editorialNote "Two parents: a shop that also publishes. Wrong: publishing is a role, and belongs on the instance."@en .
+
+# The alternative: the role on the instance.
+bs:publishes  a owl:ObjectProperty ; rdfs:range bs:Work .
+bt:shop-marginalia  a bs:Bookshop ; bs:publishes bt:work-pamphlet .
+bt:work-pamphlet    a bs:Work .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Classes with more than one asserted parent  (on the model)
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?class (COUNT(?parent) AS ?parents) WHERE { ?class rdfs:subClassOf ?parent . FILTER(isIRI(?parent)) }
+#  GROUP BY ?class HAVING (COUNT(?parent) > 1)

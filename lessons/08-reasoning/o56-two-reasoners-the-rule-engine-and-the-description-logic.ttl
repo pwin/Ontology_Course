@@ -1,0 +1,97 @@
+# ==========================================================================
+#  O56  Two reasoners: the rule engine and the description logic
+# ==========================================================================
+#
+#  DECIDES
+#    The editor's OWL 2 RL closure is used for what it does well, typing
+#    individuals and closing properties, and a description-logic reasoner
+#    for what only it does, which is to classify, to find the dead classes,
+#    and to explain.
+#
+#  WHY
+#    Two kinds of reasoner, and it pays to know which you are holding. An
+#    OWL 2 RL engine, the editor's HyLAR and the owlrl closure this course
+#    measures with, applies rules to triples until nothing new appears:
+#    subclass typing, domain and range, transitive and symmetric closure,
+#    inverses, chains, sameAs from functional properties, allValuesFrom
+#    typing, and membership of defined classes when the fillers are named.
+#    It is fast, it scales, it runs in a browser, and it never says no.
+#
+#    A description-logic reasoner, HermiT here, decides entailment by
+#    searching for a model. It classifies classes, finds unsatisfiable
+#    ones, reports inconsistency, and explains: it can say which few axioms
+#    make an inference true. It handles existentials in superclass position
+#    and everything else DL allows. It is slower, it does not stream, and
+#    it needs the whole ontology in memory.
+#
+#    This file shows the line between them on two examples. Translation is
+#    a Work that is a translation of some Work; EnglishTranslation is a
+#    Work that is a translation of some EnglishWork, and EnglishWork is a
+#    kind of Work. Both engines type bt:book-x as a Translation, since its
+#    fillers are named, and both derive that Translation is under Work,
+#    since RL has a rule that an intersection lies inside each of its
+#    parts. Only HermiT derives that EnglishTranslation is under
+#    Translation, because that needs the two definitions compared as
+#    wholes, and RL has no rule for that. The measured line has both
+#    results. Use the RL engine for the data and the DL engine for the
+#    ontology, and run the DL engine in the gate, where somebody will read
+#    what it says.
+#
+#  DIAGRAM
+#                                OWL 2 RL (editor, owlrl)      DL (HermiT)
+#       types individuals        yes                            yes
+#       closes properties        yes                            yes
+#       sameAs from functional   yes                            yes
+#       classifies classes       no                             yes
+#       finds unsatisfiable      no                             yes
+#       reports inconsistency    no (materialises past it)      yes
+#       explains                 no                             yes (robot explain)
+#       runs in the browser      yes                            no
+#       cost                     linear-ish, streams            exponential worst case, whole ontology
+#
+#       measured here:  bt:book-x a bs:Translation                        both
+#                       bs:Translation subClassOf bs:Work                 both (RL: an intersection is inside each part)
+#                       bs:EnglishTranslation subClassOf bs:Translation   HermiT only
+#
+#  WHAT TO TAKE AWAY
+#    - RL: rules over triples; fast, browser-sized, never says no. DL:
+#      models; classifies, finds the dead classes, explains.
+#    - RL has schema rules too, and derives more of the hierarchy than
+#      people expect. What it cannot do is compare two definitions as
+#      wholes.
+#    - Use RL for the data and DL for the ontology. Run DL in the gate.
+#    - When a book says 'the reasoner infers', ask which kind. The answer
+#      changes what you can rely on.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo56-two-reasoners-the-rule-engine-and-the-description-logic.ttl
+#  SOURCES   OWL 2 Profiles 4 OWL 2 RL
+#            https://www.w3.org/TR/owl2-profiles/#OWL_2_RL
+#            OWL 2 Primer 10.1 OWL 2 DL and OWL 2 Full
+#            https://www.w3.org/TR/owl2-primer/#OWL_2_DL_and_OWL_2_Full
+#  MEASURED  parses, 30 triples; 4 classes, 1 object property, 2 individuals; OWL 2 DL in profile; HermiT: consistent, 3 inferred; RL closure +3
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Work  a owl:Class .
+bs:translationOf  a owl:ObjectProperty .
+
+bs:Translation  a owl:Class ;
+    owl:equivalentClass [ owl:intersectionOf ( bs:Work [ a owl:Restriction ; owl:onProperty bs:translationOf ; owl:someValuesFrom bs:Work ] ) ] .
+
+bs:EnglishWork  a owl:Class ; rdfs:subClassOf bs:Work .
+bs:EnglishTranslation  a owl:Class ;
+    owl:equivalentClass [ owl:intersectionOf ( bs:Work [ a owl:Restriction ; owl:onProperty bs:translationOf ; owl:someValuesFrom bs:EnglishWork ] ) ] .
+
+bt:book-x  a bs:Work ; bs:translationOf bt:book-w .
+bt:book-w  a bs:Work .

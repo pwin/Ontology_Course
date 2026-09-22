@@ -1,0 +1,115 @@
+# ==========================================================================
+#  O09  The subsumption that will not bear weight
+# ==========================================================================
+#
+#  DECIDES
+#    'Every bookshop is a trail member' is read as a role, not a subclass,
+#    and the draft that put Bookshop under TrailMember is reversed.
+#
+#  WHY
+#    The committee's first draft said 'a bookshop is a trail member', and
+#    someone wrote it down as Bookshop rdfs:subClassOf TrailMember. It
+#    reads naturally. It is wrong, and OntoClean says why in one line: an
+#    anti-rigid class cannot subsume a rigid one. Being on the trail is
+#    something a shop is for now; the brief says shops have left and one
+#    has joined twice. TrailMember is ~R. Bookshop is +R, because a shop
+#    that leaves the trail is still a bookshop. Put the rigid class under
+#    the anti-rigid one and every bookshop is a member by necessity, which
+#    is precisely what the brief denies.
+#
+#    The right way round is TrailMember under Bookshop: a member is a
+#    bookshop, for a while, in a relation to the trail. Then a shop can
+#    leave, and the model has no opinion about whether it stops being a
+#    shop.
+#
+#    The English 'is a' is the trap. 'A bookshop is a trail member' and 'a
+#    translation is a work' use the same two words for different claims:
+#    the first is about a role every current member happens to play, the
+#    second is about what a translation is in every circumstance. Rigidity
+#    is how you tell them apart when the grammar will not. This file keeps
+#    the wrong draft in place so the query at the end can find it; o12
+#    shows the corrected version.
+#
+#  DIAGRAM
+#       the draft                                the rule
+#
+#       bs:TrailMember   ~R  (for now)           an anti-rigid class (~R)
+#            ^                                    may not subsume
+#            |  rdfs:subClassOf    <- wrong       a rigid class (+R)
+#            |
+#       bs:Bookshop      +R  (always)
+#
+#       'every bookshop is a member by necessity': what the model says,
+#       and what the brief denies. Reversed, it says what was meant:
+#       a member is a bookshop, in a relation to the trail, for a while.
+#
+#  WHAT TO TAKE AWAY
+#    - 'Is a' in English covers both essence and role. Rigidity tells
+#      them apart.
+#    - ~R over +R is forbidden. It is the commonest error in a first
+#      draft, and a query over the annotations finds it.
+#    - Membership of a trail, a scheme, a club is a role. Model it under
+#      the kind that plays it, or as a relation.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo09-the-subsumption-that-will-not-bear-weight.ttl
+#  SOURCES   Guarino and Welty, Evaluating ontological decisions with OntoClean, CACM 45(2), 2002
+#            https://doi.org/10.1145/503124.503150
+#            Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
+#            https://doi.org/10.1007/978-3-540-92673-3_9
+#  MEASURED  parses, 26 triples; 2 classes; OWL 2 DL in profile; 'Rigid classes placed under a' 1 row
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+bs:Bookshop
+    a              owl:Class ;
+    rdfs:label     "Bookshop"@en ;
+    rdfs:comment   "A business that sells books from premises."@en ;
+    oc:rigidity    "+R" ;
+    oc:identity    "+O" .
+
+bs:TrailMember
+    a              owl:Class ;
+    rdfs:label     "Trail member"@en ;
+    rdfs:comment   "A bookshop that is currently on the trail. Shops join and leave."@en ;
+    oc:rigidity    "~R" ;
+    oc:identity    "+I" ;
+    oc:dependence  "+D" .
+
+# The draft, kept so the query below can find it: rigid under anti-rigid.
+bs:Bookshop
+    rdfs:subClassOf  bs:TrailMember .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Rigid classes placed under anti-rigid ones  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?sub ?super WHERE {
+#    ?sub rdfs:subClassOf ?super .
+#    ?sub oc:rigidity "+R" .
+#    ?super oc:rigidity "~R" .
+#  }

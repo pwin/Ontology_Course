@@ -1,0 +1,82 @@
+# ==========================================================================
+#  O58  What an upper ontology is for
+# ==========================================================================
+#
+#  DECIDES
+#    The Trail stands on gist rather than defining person, organisation,
+#    event and place again, because an upper ontology is a vocabulary in
+#    common, and gist is the smallest one that covers a business.
+#
+#  WHY
+#    An upper ontology is a set of classes general enough that every domain
+#    ontology needs them and few define them well: person, organisation,
+#    event, place, agreement, content, a quantity with a unit. Its value is
+#    the one o26 gave for reuse, at the level where reuse pays most. Two
+#    ontologies that both put their people under gist:Person can be joined
+#    without a mapping, and two teams that both learned gist's hundred
+#    classes have a vocabulary in common before they meet. An upper
+#    ontology is for that, and the argument in the blog post o03 cited, on
+#    team building, is that the vocabulary in common is worth more than the
+#    reasoning.
+#
+#    gist is built to be that vocabulary for enterprises, and its design
+#    choices are all in the service of being learnable: about a hundred
+#    classes, everyday names, sparse domains and ranges, no inverses,
+#    disjointness at the top, everything defined in SKOS annotations, CC-BY
+#    licensed, and released with a version number and a migration guide.
+#    The measured line has the counts, from the file itself. BFO, at the
+#    other end, has thirty-five classes and a philosophy; module 09 reads
+#    both.
+#
+#    The cost of standing on an upper ontology is that its commitments come
+#    too. Put bs:Bookshop under gist:Organization and gist's disjointness
+#    axioms now apply to bookshops: a bookshop cannot also be a
+#    gist:Building, however much it is a shop with a door. That is the
+#    right consequence, and o59 finds it.
+#
+#  DIAGRAM
+#       domain ontologies                        the upper ontology
+#
+#       the Trail       bs:Person   bs:Bookshop  \
+#       a supplier      sup:Staff   sup:Vendor    +---->  gist:Person   gist:Organization   gist:Event ...
+#       a library       lib:Reader  lib:Branch   /        one vocabulary in common; joins with no mapping
+#
+#       gist 14, measured from the file:  about a hundred classes, sixty-odd object properties,
+#       fifty datatype properties, everyday names, no inverses, CC-BY
+#
+#  WHAT TO TAKE AWAY
+#    - An upper ontology is a vocabulary in common. Its value is that two
+#      teams, or two datasets, meet already agreeing on what a person, an
+#      organisation or an event is.
+#    - gist is built to be learned: a hundred classes with ordinary
+#      names, and every design choice in module 05 comes from it.
+#    - Standing on an upper ontology imports its commitments. That is the
+#      point, and it is also the cost.
+#
+#  CORNER    thought
+#  RUNS IN   the browser; the counts on the MEASURED line are computed from gistCore.ttl, fetched by scripts/setup-tools.ps1
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo58-what-an-upper-ontology-is-for.ttl
+#  SOURCES   Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)
+#            https://www.semanticarts.com/team-building-the-importance-of-an-ontology/
+#            gist: a minimalist upper ontology
+#            https://github.com/semanticarts/gist
+#  MEASURED  parses, 11 triples; 2 classes; OWL 2 DL in profile; OQuaRE DIT 3 (4), ANOnto 3.66 (5)
+# ==========================================================================
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gist: <https://w3id.org/semanticarts/ns/ontology/gist/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Stands on gist 14.1.0 (https://w3id.org/semanticarts/ontology/gistCore), CC-BY-4.0, Semantic Arts. The bridge axioms are in o59."@en .
+
+gist:Person        a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Organization  a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .

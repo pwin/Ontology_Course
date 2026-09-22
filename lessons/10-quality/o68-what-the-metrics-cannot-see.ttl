@@ -1,0 +1,99 @@
+# ==========================================================================
+#  O68  What the metrics cannot see
+# ==========================================================================
+#
+#  DECIDES
+#    Metrics and checks are one part of a gate that also runs the reasoner,
+#    the OntoClean queries, the style shapes and the competency questions,
+#    because a five-out-of-five ontology can still be wrong and no metric
+#    sees rigidity or meaning.
+#
+#  WHY
+#    OQuaRE scores the Trail 5 on almost everything, and the Quality
+#    Suite's violations come out at zero once the policy questions are
+#    decided. Neither knows whether Author is a role, whether Work is one
+#    class or two, whether the definitions are circular, whether bs:founded
+#    should be functional, or whether the ontology can answer question 7 in
+#    the brief. Metrics count what is written; checks pattern-match it.
+#    Meaning is not in the graph unless someone put it there, and the parts
+#    of this course that put it there, modules 02 and 04, are the parts no
+#    metric reads.
+#
+#    So a gate has more than one instrument. The reasoner: consistent, no
+#    unsatisfiable classes, with the whole dataset loaded (o57). The
+#    OntoClean queries over the rigidity annotations (o13). The definition
+#    audit (o22). The style shapes (o67) and the checks by identifier
+#    (o66). And the competency questions, run as queries against the data,
+#    which are the only instrument that tests whether the ontology does its
+#    job. The SemOps Manual calls them the closest thing ontology work has
+#    to a requirement, and makes them executable as .cq.rq tests; this
+#    lesson runs three of the brief's questions against the Trail's data as
+#    its measured line, and module 12 runs more.
+#
+#    The critical literature on OQuaRE says the same from the other side:
+#    the thresholds were proposed rather than validated, the metrics
+#    overlap, and several measure a style choice as if it were a defect,
+#    which o65 showed on gist. None of that makes the metrics useless. It
+#    makes them one instrument among six, and the one to trust least on its
+#    own.
+#
+#  DIAGRAM
+#       instrument                    sees                                  blind to
+#       OQuaRE metrics                shape and counts                      meaning, rigidity, style choices it counts as absences
+#       OQS checks                    patterns, by identifier               whether the pattern is wanted
+#       style shapes                  the house style                       whether a definition is true
+#       the reasoner                  contradiction, dead classes           errors that are consistent
+#       OntoClean queries             rigidity, identity, dependence        anything not annotated
+#       competency questions          whether the questions get answered    questions nobody wrote down
+#
+#       a gate is all six; the last is the one that tests the job
+#
+#  WHAT TO TAKE AWAY
+#    - A five-out-of-five ontology can be wrong. Metrics count; they do
+#      not read.
+#    - Six instruments in the gate, and the competency questions are the
+#      one that tests whether the ontology does its job.
+#    - Trust the metrics least on their own. Their authors said so first.
+#
+#  CORNER    thought
+#  DATA      bookshop-trail-1.1.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo68-what-the-metrics-cannot-see.ttl
+#  SOURCES   SemOps Manual 8.1 Competency questions as tests
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#competency-questions-as-tests
+#            Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
+#            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
+#  MEASURED  parses, 6 triples; 'Question 2: towns on the tra' 4 rows; 'Question 1: shops in Wales, ' 4 rows; 'Question 7: authors influenc' 23 rows
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "The gate: HermiT over the whole dataset; the OntoClean queries; the definition audit; style-shapes.ttl; the Quality Suite scoped to bs:; and the competency questions as queries. Three of the questions run below."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Question 2: towns on the trail with no bookshop  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?town WHERE { ?town a bs:Settlement . FILTER NOT EXISTS { ?shop bs:locatedIn ?town } } ORDER BY ?town
+#
+#  -- Question 1: shops in Wales, by the path  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?shop WHERE { ?shop a bs:Bookshop ; bs:locatedIn ?town . ?town bs:within+ bt:place-wales } ORDER BY ?shop
+#
+#  -- Question 7: authors influenced, at any remove, by Rhona Blackwood  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?author WHERE { ?author bs:influencedBy+ bt:author-rhona-blackwood } ORDER BY ?author

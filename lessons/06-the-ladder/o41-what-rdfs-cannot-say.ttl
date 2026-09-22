@@ -1,0 +1,93 @@
+# ==========================================================================
+#  O41  What RDFS cannot say
+# ==========================================================================
+#
+#  DECIDES
+#    Disjointness, cardinality, inverses, defined classes and 'exactly one'
+#    are wanted and RDFS has none of them, so the list of what it cannot
+#    say becomes the agenda for the top of the ladder.
+#
+#  WHY
+#    RDFS has classes, subclasses, properties, subproperties, domains and
+#    ranges, and labels. With those it can say that every settlement is a
+#    place and that whatever is located somewhere is a shop. It cannot say
+#    that nothing is both a place and a shop. It cannot say that a shop is
+#    in one town, that a segment has two ends, that wrote and author are
+#    the same relation in opposite directions, or that an author is a
+#    person who wrote something. Most of all it cannot be contradicted:
+#    assert that one thing is a Place and a Bookshop, run the RDFS closure,
+#    and it types the thing with both and their superclasses and reports
+#    nothing, because in RDFS there is nothing to report.
+#
+#    That is not a flaw. A language in which you cannot be wrong is a
+#    language in which data from anywhere merges without argument, which is
+#    what RDFS was for. It means the cost of RDFS is that the errors it
+#    cannot see stay in the data until a query finds them, and the SPARQL
+#    course's module 13 is the collection of queries that do.
+#
+#    The list of what was wanted and could not be said is the agenda for
+#    module 07, in order: disjointness first, because it is the cheapest
+#    and catches the most; then restrictions, which say what a member must
+#    have; then defined classes, which let the reasoner decide membership;
+#    then the property characteristics; and last the datatypes and
+#    profiles, which are where the language draws its own limits.
+#
+#  DIAGRAM
+#       wanted                                          RDFS       OWL 2 (module 07)
+#
+#       nothing is both a Place and a Bookshop          --         owl:disjointWith            o43
+#       every Bookshop is in some Settlement            --         owl:someValuesFrom          o44
+#       a Bookshop stocks only Works                    --         owl:allValuesFrom           o45
+#       an Author is a Person who wrote something       --         owl:equivalentClass         o46
+#       a segment has exactly two ends                  --         owl:cardinality             o47
+#       wrote is author, backwards                      --         owl:inverseOf               o49
+#       within is transitive                            --         owl:TransitiveProperty      o48
+#
+#       a language in which you cannot be wrong merges anything; the errors wait for a query
+#
+#  WHAT TO TAKE AWAY
+#    - RDFS cannot be contradicted. A thing typed as two disjoint kinds
+#      is typed with both, and nothing is reported.
+#    - That is the design: data from anywhere merges. The cost is that
+#      errors wait for a query.
+#    - The list of what RDFS cannot say is the order to learn OWL in.
+#      Disjointness first.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo41-what-rdfs-cannot-say.ttl
+#  SOURCES   RDF 1.2 Semantics 9 RDFS Interpretations
+#            https://www.w3.org/TR/rdf12-semantics/#rdfs_interpretations
+#            OWL 2 Primer 4.3 Class Disjointness
+#            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
+#  MEASURED  parses, 14 triples; 3 classes, 1 individuals; RL closure +1; 'What the oddity is, after th' 3 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Place       a rdfs:Class ; skos:prefLabel "Place"@en .
+bs:Bookshop    a rdfs:Class ; skos:prefLabel "Bookshop"@en .
+bs:Settlement  a rdfs:Class ; rdfs:subClassOf bs:Place .
+
+# Both at once. RDFS has no way to object, and the closure types it with everything.
+bt:oddity  a bs:Settlement, bs:Bookshop ; skos:prefLabel "A thing that is a town and a shop"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- What the oddity is, after the RDFS closure  (on the reasoned)
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?type WHERE { bt:oddity a ?type }

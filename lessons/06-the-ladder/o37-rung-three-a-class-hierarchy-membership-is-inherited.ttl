@@ -1,0 +1,102 @@
+# ==========================================================================
+#  O37  Rung three, a class hierarchy: membership is inherited
+# ==========================================================================
+#
+#  DECIDES
+#    Places are a class hierarchy, not a concept scheme, because a query
+#    about Places must find every Settlement without being told;
+#    rdfs:subClassOf commits to that and a reasoner delivers it.
+#
+#  WHY
+#    rdfs:subClassOf is the first promise about members. Settlement under
+#    Place means every settlement is a place, and a reasoner, any reasoner,
+#    will type Wigtown as a Place without being told. RDF Semantics writes
+#    the rule down: if x is in A and A is a subclass of B, x is in B. The
+#    editor's Show Facts does it in the browser; the OWL 2 RL closure this
+#    lesson was measured with does the same on the place file and adds the
+#    typing for every settlement, council area, region and country in it.
+#
+#    The Trail chose a class hierarchy for places and a concept scheme for
+#    genres, and the reason is what each is asked. A question about places,
+#    'which shops are in Wales', needs every kind of place to be a place
+#    and never needs to say which kind on the way down. A question about
+#    genres, 'which shops specialise in crime fiction including its kinds',
+#    needs to walk the tree explicitly, and is answered by a path over
+#    particulars. Class hierarchy where membership must be inherited;
+#    concept scheme where the tree must be walked.
+#
+#    The subclass rule is also transitive: Settlement under Place under
+#    Feature makes every town a feature. Depth is what makes deep
+#    hierarchies risky and shallow ones cheap, and it is why the backbone
+#    from o12 is two levels deep.
+#
+#  DIAGRAM
+#       rung 3  a class hierarchy
+#
+#       bs:Settlement rdfs:subClassOf bs:Place       every settlement is a place: a promise about members
+#       bt:place-wigtown a bs:Settlement             ... so the reasoner adds:
+#                                                    bt:place-wigtown a bs:Place
+#
+#       the rule (RDF Semantics, rdfs9):  x type A . A subClassOf B  =>  x type B
+#
+#       places: a class hierarchy, membership inherited, 'which shops are in Wales' just works
+#       genres: a concept scheme, tree walked by a path, 'including its kinds' is explicit
+#
+#  WHAT TO TAKE AWAY
+#    - rdfs:subClassOf is the first promise about members, and the
+#      reasoner keeps it: every instance of the subclass is typed with
+#      the superclass.
+#    - Use a class hierarchy where membership must be inherited silently;
+#      a concept scheme where the tree must be walked explicitly.
+#    - Subclass is transitive. Depth multiplies inferences, which is a
+#      reason to keep the backbone shallow.
+#
+#  TRY IT
+#    Load data/03-places.ttl, hide types and annotations, choose the dot
+#    engine: the containment hierarchy. Then Show Facts, and count how many
+#    things are now typed bs:Place that the file never said were.
+#
+#  CORNER    referent
+#  DATA      03-places.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo37-rung-three-a-class-hierarchy-membership-is-inherited.ttl
+#  SOURCES   RDF Schema 3.4 rdfs:subClassOf
+#            https://www.w3.org/TR/rdf12-schema/#ch_subclassof
+#            RDF 1.2 Semantics 9.2 RDFS Entailment
+#            https://www.w3.org/TR/rdf12-semantics/#rdfs_entailment
+#  MEASURED  parses, 28 triples; 6 classes, 3 individuals; OWL 2 DL in profile; RL closure +10; 'What is a Place, after the c' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo:  <http://www.opengis.net/ont/geosparql#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+geo:Feature     a owl:Class ; skos:prefLabel "Feature"@en .
+bs:Place        a owl:Class ; rdfs:subClassOf geo:Feature ; skos:prefLabel "Place"@en .
+bs:Settlement   a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Settlement"@en .
+bs:CouncilArea  a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Council Area"@en .
+bs:Region       a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Region"@en .
+bs:Country      a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Country"@en .
+
+bt:place-wigtown            a bs:Settlement ;  skos:prefLabel "Wigtown"@en .
+bt:place-dumfries-galloway  a bs:CouncilArea ; skos:prefLabel "Dumfries and Galloway"@en .
+bt:place-scotland           a bs:Country ;     skos:prefLabel "Scotland"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- What is a Place, after the closure  (on the reasoned)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT (COUNT(DISTINCT ?p) AS ?places) WHERE { ?p a bs:Place }

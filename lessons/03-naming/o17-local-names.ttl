@@ -1,0 +1,84 @@
+# ==========================================================================
+#  O17  Local names
+# ==========================================================================
+#
+#  DECIDES
+#    Classes are UpperCamelCase, properties lowerCamelCase, letters and
+#    digits only, acronyms camel-cased, no home-made abbreviations; a draft
+#    that breaks each rule is corrected.
+#
+#  WHY
+#    The gist style guide's orthographic rules fit on a card. Classes start
+#    with a capital and properties with a lower-case letter, both camel-
+#    cased. Only letters and digits: Isbn10, not ISBN-10, because a hyphen
+#    ends a prefixed name in Turtle and an underscore is a word boundary
+#    nobody agreed on. Acronyms are camel-cased too, so that word
+#    boundaries stay unambiguous: UriScheme, not URIScheme. ID is the one
+#    exception, because the dictionary spells it that way. And no
+#    abbreviations of your own: hasUnitOfMeasure, not hasUoM, because the
+#    person reading the query in five years was not in the room.
+#
+#    The rules are not arbitrary and they are not about taste. A convention
+#    followed by every term is a convention a tool can check, and a tool
+#    that checks it stops the one hyphenated name from being found in
+#    production. The Ontology Quality Suite's STY-001 and STY-002 check
+#    exactly these two rules, and this file makes them fire.
+#
+#    This file holds the committee's draft, with four names that break a
+#    rule each, beside the corrected forms. The audit counts three:
+#    noOfStaff is perfectly good lowerCamelCase, and no pattern can tell an
+#    abbreviation from a word. That one is caught by a reader, or by a list
+#    of forbidden abbreviations, which is how gist handles it. The
+#    corrected names are the Trail's real ones.
+#
+#  DIAGRAM
+#       rule                                    draft             corrected
+#
+#       classes UpperCamelCase                  bs:Book_shop      bs:Bookshop
+#       properties lowerCamelCase               bs:StaffCount     bs:staffCount
+#       letters and digits only                 bs:ISBN13         bs:isbn13  (and camel-case the acronym)
+#       no home-made abbreviations              bs:noOfStaff      bs:staffCount
+#                                               bs:hasUoM         bs:hasUnitOfMeasure
+#
+#       a convention every term follows is a convention a tool can check
+#
+#  WHAT TO TAKE AWAY
+#    - UpperCamelCase classes, lowerCamelCase properties, letters and
+#      digits only. Four rules, no exceptions worth having.
+#    - Camel-case acronyms so that word boundaries are unambiguous.
+#      Isbn13, UriScheme; ID is the one dictionary exception.
+#    - Never abbreviate on your own account. The reader in five years was
+#      not in the room, and no regular expression will catch it for you.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo17-local-names.ttl
+#  SOURCES   gist Style Guide: orthographic conventions for local names
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#orthographic-conventions-for-class-and-property-local-names
+#            OBO Foundry principle FP-012, naming conventions
+#            https://obofoundry.org/principles/fp-012-naming-conventions.html
+#  MEASURED  parses, 24 triples; 2 classes, 5 datatype properties; 3 local names break the conventions; OWL 2 DL in profile; OQS: QUA-010, STR-003, STR-004, STY-001, STY-002
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+
+# The draft, kept so the audit can count it.
+bs:Book_shop   a owl:Class ;            skos:prefLabel "Book shop"@en ;      skos:editorialNote "Underscore; and the two words are one."@en .
+bs:StaffCount  a owl:DatatypeProperty ; skos:prefLabel "staff count"@en ;    skos:editorialNote "A property with a capital."@en .
+bs:ISBN13      a owl:DatatypeProperty ; skos:prefLabel "ISBN-13"@en ;        skos:editorialNote "An acronym in capitals; the word boundary is lost."@en .
+bs:noOfStaff   a owl:DatatypeProperty ; skos:prefLabel "no. of staff"@en ;   skos:editorialNote "An abbreviation nobody agreed."@en .
+
+# The corrected names: the Trail's own.
+bs:Bookshop    a owl:Class ;            skos:prefLabel "Bookshop"@en .
+bs:staffCount  a owl:DatatypeProperty ; skos:prefLabel "staff count"@en .
+bs:isbn        a owl:DatatypeProperty ; skos:prefLabel "ISBN"@en ;
+    skos:editorialNote "The Trail calls it isbn rather than isbn13, since every ISBN in the data is thirteen digits. gist would say Isbn13 for a class."@en .

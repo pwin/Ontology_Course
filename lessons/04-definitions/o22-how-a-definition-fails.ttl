@@ -1,0 +1,99 @@
+# ==========================================================================
+#  O22  How a definition fails
+# ==========================================================================
+#
+#  DECIDES
+#    Five failing definitions from the draft are named for what they are,
+#    circular, too broad, by example, negative and by IRI, and each is
+#    rewritten.
+#
+#  WHY
+#    Circular: 'A publisher is an organisation that publishes.' The reader
+#    who did not know what publishing was is no further on. Too broad: 'An
+#    event is something that happens.' True of a sneeze. By example only:
+#    'Genre: crime, poetry, nature writing and so on.' The list is not the
+#    meaning, and 'and so on' is where the next disagreement lives.
+#    Negative: 'A bookshop is a business that is not a publisher.' Says
+#    what it is not, which leaves everything else. By IRI: 'The class
+#    bs:Bookshop.' A definition that could only be read by someone who
+#    already had the ontology open.
+#
+#    Each has a repair and it is the same repair: find the genus, find the
+#    differentia, write one sentence. 'A publisher is an organisation that
+#    issues works for sale under its own name.' 'An event is an occasion
+#    held at a bookshop on a given day, open to the public.' 'A genre is a
+#    category of works by their subject and manner, used to shelve books
+#    and to describe what a shop is known for.'
+#
+#    The audit catches three by looking for the term's own stem in the
+#    first sentence: the two circular ones, and the one by IRI, which is
+#    circular in the plainest way, since it names the term. The other two
+#    need a reader, and the SemOps Manual's point about cognitive budget
+#    applies: a definition is read by many people once each, so a minute
+#    spent on it is repaid many times, and a definition that makes the
+#    reader do the work is a cost paid by everyone.
+#
+#  DIAGRAM
+#       failure          draft                                           repair
+#
+#       circular         a publisher is an organisation that publishes    ... that issues works for sale under its own name
+#       too broad        an event is something that happens               ... an occasion held at a bookshop on a given day
+#       by example       genre: crime, poetry, and so on                  ... a category of works by subject and manner
+#       negative         a bookshop is a business that is not a publisher ... a business that sells books from premises
+#       by IRI           the class bs:Bookshop                            (the same)
+#
+#       the audit finds three (circular twice, and by IRI); a reader finds the rest
+#
+#  WHAT TO TAKE AWAY
+#    - The reader who does not already know must be able to decide
+#      membership from the sentence. Every failure here breaks that.
+#    - Circularity is mechanical to find and common. Too broad and by
+#      example are commoner and need a reader.
+#    - A definition is read many times by many people. It is the cheapest
+#      place to spend a careful minute.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo22-how-a-definition-fails.ttl
+#  SOURCES   OBO Foundry principle FP-006, textual definitions
+#            https://obofoundry.org/principles/fp-006-textual-definitions.html
+#            SemOps Manual 2.4 Cognitive capacity is a hard budget
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/02-people-and-cognition.md#24-cognitive-capacity-is-a-hard-budget
+#  MEASURED  parses, 32 triples; 5 classes; 3 circular definitions; OWL 2 DL in profile
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+# The draft, kept so the audit can find its circular members.
+bs:Publisher  a owl:Class ; skos:prefLabel "Publisher"@en ;
+    skos:definition "An organisation that publishes books."@en ;
+    skos:editorialNote "Circular. Repair: an organisation that issues works for sale under its own name."@en .
+bs:Event      a owl:Class ; skos:prefLabel "Event"@en ;
+    skos:definition "Something that happens at an event venue."@en ;
+    skos:editorialNote "Circular and too broad. Repair: an occasion held at a bookshop on a given day, open to the public."@en .
+bs:Genre      a owl:Class ; skos:prefLabel "Genre"@en ;
+    skos:definition "Crime, poetry, nature writing, history and so on."@en ;
+    skos:editorialNote "By example only. Repair: a category of works by subject and manner, used to shelve books and to describe what a shop is known for."@en .
+bs:Bookshop   a owl:Class ; skos:prefLabel "Bookshop"@en ;
+    skos:definition "A business that is not a publisher."@en ;
+    skos:editorialNote "Negative. Repair: a business that sells books to the public from premises."@en .
+bs:Source     a owl:Class ; skos:prefLabel "Source"@en ;
+    skos:definition "The class bs:Source."@en ;
+    skos:editorialNote "By IRI. Repair: a document or organisation that makes claims about shops, such as a guidebook, a survey or a register."@en .

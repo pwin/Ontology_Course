@@ -1,0 +1,82 @@
+# ==========================================================================
+#  O45  Universal restrictions: types the values, and is true of nothing
+# ==========================================================================
+#
+#  DECIDES
+#    'A bookshop stocks only works' is written with owl:allValuesFrom,
+#    which types every value of bs:stocks on a bookshop as a Work and is
+#    trivially satisfied by a shop that stocks nothing.
+#
+#  WHY
+#    The universal restriction is the set of things all of whose bs:stocks
+#    values are Works, including the things that have no values at all. Put
+#    bs:Bookshop under it and the reasoner types every stocked thing as a
+#    Work: this is a local range, and both HermiT and the RL closure
+#    produce the triple. A shop that stocks nothing satisfies it vacuously,
+#    which surprises people who read 'only' as 'at least one and only'.
+#
+#    gist's fifth rule says what a subclass universal is good for: it adds
+#    information about the class without inferring anything into it. And
+#    rules one and two say what an equivalence to a universal is good for,
+#    which is inferring into the complement: since nothing can be shown to
+#    have only Work values under the open world, no individual is ever
+#    classified into the class, but one with a non-Work value can be
+#    classified out of it. That is a subtle tool and o47 uses its cousin.
+#
+#    The everyday use is the range you cannot declare globally. bs:stocks
+#    on a bookshop points at works; the same property on a library, if the
+#    vocabulary had one, might point at editions. A global rdfs:range would
+#    type both; the local universal types only the bookshop's values.
+#
+#  DIAGRAM
+#       bs:Bookshop rdfs:subClassOf [ owl:onProperty bs:stocks ; owl:allValuesFrom bs:Work ]
+#
+#       set reading:  B is a subset of { x : for every y, stocks(x, y) implies y in W }
+#
+#       bt:shop-inkwell bs:stocks bt:thing     =>  bt:thing a bs:Work         (HermiT and the RL closure)
+#       bt:shop-errata stocks nothing          =>  satisfied, vacuously
+#
+#       a local range: types the values of this property on this class only
+#
+#  WHAT TO TAKE AWAY
+#    - allValuesFrom types the values. It is a range scoped to one class.
+#    - 'Only' includes 'none'. A thing with no values satisfies every
+#      universal restriction.
+#    - Under the open world nothing can be proved to have only such
+#      values, so an equivalence to a universal never infers into the
+#      class. It can infer out of it.
+#
+#  TRY IT
+#    Show Facts: bt:thing is a bs:Work. Add a second value that is declared
+#    a bs:Person, with Person disjoint from Work, and the RL closure will
+#    type it a Work anyway; HermiT will call the file inconsistent. Same
+#    axiom, two engines, o43's lesson again.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo45-universal-restrictions-types-the-values-and-is-true-of-nothing.ttl
+#  SOURCES   OWL 2 Primer 5.2 Property Restrictions: universal quantification
+#            https://www.w3.org/TR/owl2-primer/#Property_Restrictions
+#            gist Style Guide: OWL restrictions, the eleven rules
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#owl-restrictions
+#  MEASURED  parses, 14 triples; 2 classes, 1 object property, 2 individuals; OWL 2 DL in profile; HermiT: consistent, 1 inferred; RL closure +1
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Work      a owl:Class .
+bs:Bookshop  a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:stocks ; owl:allValuesFrom bs:Work ] .
+bs:stocks    a owl:ObjectProperty .
+
+bt:shop-inkwell  a bs:Bookshop ; bs:stocks bt:thing .
+bt:thing         skos:prefLabel "Something the shop stocks; the axiom will say what"@en .
+bt:shop-errata   a bs:Bookshop .

@@ -1,0 +1,123 @@
+# ==========================================================================
+#  O13  The taxonomy checks itself
+# ==========================================================================
+#
+#  DECIDES
+#    OntoClean's constraints are written as SPARQL queries over the
+#    annotations, so that a taxonomy can be checked in the editor before a
+#    reasoner ever sees it.
+#
+#  WHY
+#    Each meta-property inherits downward in one direction, and each
+#    constraint is the same sentence with a different letter: a class
+#    marked one way may not subsume a class marked the other. Anti-rigid
+#    may not subsume rigid. A class with a criterion of identity may not
+#    subsume one without. Unity may not subsume non-unity, and anti-unity
+#    may not subsume unity. Dependent may not subsume independent. And two
+#    classes with incompatible criteria of identity must be disjoint.
+#
+#    Because the marks are annotations in the graph, each constraint is a
+#    SPARQL query, and a taxonomy can be checked in the editor's SPARQL
+#    panel with nothing installed. This file seeds two violations, the
+#    TrailMember draft from o09 and a dependent class over an independent
+#    one, and the queries find both. A clean run is an empty result, which
+#    is the same thing the SHACL course warns about: an empty result also
+#    means the query matched nothing, so keep the seeded file to prove the
+#    queries fire.
+#
+#    The Ontology Quality Suite has no OntoClean check and OQuaRE has no
+#    OntoClean metric. That is not an oversight in either; rigidity is not
+#    in the graph unless someone writes it there. This is the cheapest way
+#    to write it there.
+#
+#  DIAGRAM
+#       inherits downward     so the constraint is            query
+#
+#       ~R                    ~R may not subsume +R            rigid under anti-rigid
+#       +I                    +I may not subsume -I            no-identity under identity
+#       +U, ~U                +U may not subsume -U            non-unity under unity
+#                             ~U may not subsume +U            unity under anti-unity
+#       +D                    +D may not subsume -D            independent under dependent
+#       (identity)            incompatible IC => disjoint      checked in o10
+#
+#       seeded here: Bookshop (+R, -D) under TrailMember (~R, +D)
+#                    Person   (+R, -D) under Author      (~R, +D)
+#       each link breaks the rigidity rule and the dependence rule at once
+#
+#  WHAT TO TAKE AWAY
+#    - Every OntoClean constraint has the form 'X may not subsume Y'.
+#      Written as a query over the annotations, each is a one-line check.
+#    - Keep a file with the violations in it. A check that has never
+#      fired is indistinguishable from a check that cannot.
+#    - No metric suite sees rigidity. It has to be recorded, and once
+#      recorded it can be checked like anything else.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo13-the-taxonomy-checks-itself.ttl
+#  SOURCES   Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
+#            https://doi.org/10.1007/978-3-540-92673-3_9
+#            SemOps Manual 9.8 Testing the gate itself
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#98-testing-the-gate-itself
+#  MEASURED  parses, 48 triples; 6 classes; OWL 2 DL in profile; 'Rigid under anti-rigid' 2 rows; 'Independent under dependent' 2 rows; 'No identity under identity' 0 rows; 'Non-unity under unity' 0 rows
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+bs:Bookshop     a owl:Class ; oc:rigidity "+R" ; oc:identity "+O" ; oc:unity "+U" ; oc:dependence "-D" .
+bs:TrailMember  a owl:Class ; oc:rigidity "~R" ; oc:identity "+I" ; oc:unity "+U" ; oc:dependence "+D" .
+bs:Person       a owl:Class ; oc:rigidity "+R" ; oc:identity "+O" ; oc:unity "+U" ; oc:dependence "-D" .
+bs:Author       a owl:Class ; oc:rigidity "~R" ; oc:identity "+I" ; oc:unity "+U" ; oc:dependence "+D" .
+bs:Place        a owl:Class ; oc:rigidity "+R" ; oc:identity "+O" ; oc:unity "-U" ; oc:dependence "-D" .
+bs:Settlement   a owl:Class ; oc:rigidity "+R" ; oc:identity "+I" ; oc:unity "+U" ; oc:dependence "-D" .
+
+# Two seeded violations, so that the queries can be seen to fire.
+bs:Bookshop  rdfs:subClassOf  bs:TrailMember .     # rigid under anti-rigid
+bs:Person    rdfs:subClassOf  bs:Author .          # independent under dependent
+
+# Two sound links, for contrast.
+bs:Settlement  rdfs:subClassOf  bs:Place .
+bs:Author      rdfs:subClassOf  bs:Person .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Rigid under anti-rigid  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?sub ?super WHERE { ?sub rdfs:subClassOf ?super ; oc:rigidity "+R" . ?super oc:rigidity "~R" }
+#
+#  -- Independent under dependent  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?sub ?super WHERE { ?sub rdfs:subClassOf ?super ; oc:dependence "-D" . ?super oc:dependence "+D" }
+#
+#  -- No identity under identity  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?sub ?super WHERE { ?sub rdfs:subClassOf ?super ; oc:identity "-I" . ?super oc:identity ?i . FILTER(?i IN ("+I", "+O")) }
+#
+#  -- Non-unity under unity  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?sub ?super WHERE { ?sub rdfs:subClassOf ?super ; oc:unity "-U" . ?super oc:unity "+U" }

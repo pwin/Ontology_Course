@@ -1,0 +1,110 @@
+# ==========================================================================
+#  O10  Identity: what makes two of them the same
+# ==========================================================================
+#
+#  DECIDES
+#    Work, Edition and Copy carry different criteria of identity, so they
+#    are three classes and disjoint; Work is what the Trail keeps, with the
+#    compromise written on it.
+#
+#  WHY
+#    A class carries a criterion of identity if there is a way to tell
+#    whether two of its instances are one thing or two. Two works are the
+#    same if they have the same author and the same text, whatever printing
+#    you hold. Two editions are the same if they have the same ISBN,
+#    whatever copy you hold. Two copies are the same only if they are the
+#    same object, on the same shelf. Same word, three tests, and a thing
+#    that passes one can fail another: two copies of one edition are the
+#    same edition and different copies.
+#
+#    OntoClean's rule follows: classes with incompatible criteria of
+#    identity are disjoint, and a class that carries a criterion (+I) may
+#    not sit above one that carries none (-I), because the criterion is
+#    inherited downward. The practical use is in the other direction. When
+#    a draft has one class doing two jobs, the criterion of identity is how
+#    you notice, and it is how you decide how many classes there really
+#    are.
+#
+#    The Trail's bs:Work is a work and an edition in one class: it has an
+#    author and a text, and it also has an ISBN, pages and a price. That is
+#    a compromise, made because the dataset never needs to say that two
+#    editions are one work. It is written on the class as an editorial
+#    note, which is the difference between a compromise and a mistake. The
+#    set picture makes it plain: a set needs a rule for when two members
+#    are one member, and 'same ISBN' and 'same text' are different rules.
+#
+#  DIAGRAM
+#       class            two of them are the same if       identity   unity
+#
+#       Work             same author and text               +O         +U  (a whole under 'is a text')
+#       Edition          same ISBN                          +O         +U
+#       Copy             same physical object               +O         +U
+#       StockLine        same shop and same edition         +O         -U  (a count, not a whole)
+#
+#       incompatible criteria  =>  disjoint classes
+#       bs:Work in the Trail = Work + Edition, by a recorded decision
+#
+#  WHAT TO TAKE AWAY
+#    - A criterion of identity is the test for 'one or two'. A class that
+#      has one is a sortal; different tests mean different classes.
+#    - Book is three sortals: work, edition, copy. Deciding how many you
+#      need is a scope decision, and it should be written on the class.
+#    - Unity asks whether each instance is a whole. A stock line is a
+#      count of copies; a work is one thing. Mereological sums are ~U.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo10-identity-what-makes-two-of-them-the-same.ttl
+#  SOURCES   Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
+#            https://doi.org/10.1007/978-3-540-92673-3_9
+#            OntoClean: the four meta-properties
+#            https://en.wikipedia.org/wiki/OntoClean
+#  MEASURED  parses, 41 triples; 3 classes; OWL 2 DL in profile; HermiT: consistent, nothing new
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+bs:Work
+    a                   owl:Class ;
+    rdfs:label          "Work"@en ;
+    rdfs:comment        "A book: what an author wrote, in a particular published form."@en ;
+    skos:editorialNote  "Work and Edition in one class, by decision: the Trail never needs two editions of one work. The ISBN, pages and price are an edition's; the author and title are a work's. Split the class the day a second edition appears."@en ;
+    oc:rigidity         "+R" ;
+    oc:identity         "+O" ;
+    oc:unity            "+U" .
+
+bs:Copy
+    a                   owl:Class ;
+    rdfs:label          "Copy"@en ;
+    rdfs:comment        "A physical copy of a work, on a shelf. Not modelled individually in the Trail; counted in bs:StockRecord."@en ;
+    oc:rigidity         "+R" ;
+    oc:identity         "+O" ;
+    oc:unity            "+U" .
+
+bs:StockRecord
+    a                   owl:Class ;
+    rdfs:label          "Stock record"@en ;
+    rdfs:comment        "How many copies of a work one shop holds, at what price. A count, not a whole."@en ;
+    oc:rigidity         "+R" ;
+    oc:identity         "+O" ;
+    oc:unity            "-U" .
+
+[] a owl:AllDisjointClasses ;
+   owl:members ( bs:Work bs:Copy bs:StockRecord ) .

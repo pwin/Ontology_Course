@@ -1,0 +1,102 @@
+# ==========================================================================
+#  O28  Minimal: as few terms as will answer the questions
+# ==========================================================================
+#
+#  DECIDES
+#    The Trail has twenty-five classes because ten questions need them; a
+#    class that no question needs is not added, and gist's ninety-six for a
+#    whole enterprise is the standard to be measured against.
+#
+#  WHY
+#    gist describes itself as 'the maximum coverage of typical business
+#    ontology concepts with the fewest number of primitives and the least
+#    amount of ambiguity', and it does it in about a hundred classes,
+#    sixty-odd object properties and fifty datatype properties. That is an
+#    enterprise. The Trail, with ten questions to answer, has twenty-five
+#    classes and eighty-four properties, and the properties are the number
+#    to watch: every one is a column someone will have to fill.
+#
+#    Every term costs the same whether it is used or not: a label in each
+#    language, a definition, a review, a place in the documentation, a
+#    check in the gate, and a decision every time someone wonders whether
+#    to use it or its neighbour. A term nobody uses is defined badly,
+#    because nobody finds out. The discipline is the one from o07: a term
+#    is admitted when a question needs it, and the question is written down
+#    beside it.
+#
+#    The same discipline applies to axioms. gist keeps domains and ranges
+#    sparse and declares no inverses, not from laziness but because each
+#    one is a commitment that some future dataset will break, and o31 takes
+#    those two up. Minimal is not small for its own sake. It is the number
+#    of terms at which each one is still looked after.
+#
+#  DIAGRAM
+#                               classes   object props   datatype props   for
+#       gist 14                    ~96          ~66             ~50       an enterprise
+#       the Trail                   25           32              42       ten questions
+#
+#       each term costs: a label per language, a definition, a review,
+#       a place in the docs, a check in the gate, and a decision every
+#       time someone wonders whether to use it
+#
+#  WHAT TO TAKE AWAY
+#    - A term is admitted by a question, not by a noun in the brief. Keep
+#      the question beside the term.
+#    - Properties are the number to watch. Each is a column someone
+#      fills, and the Trail has more than gist has classes.
+#    - Minimal means every term is still looked after. That is the size
+#      to aim for.
+#
+#  CORNER    thought
+#  DATA      01-vocabulary.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo28-minimal-as-few-terms-as-will-answer-the-questions.ttl
+#  SOURCES   gist: a minimalist upper ontology
+#            https://github.com/semanticarts/gist
+#            OBO Foundry principle FP-005, scope
+#            https://obofoundry.org/principles/fp-005-delineated-content.html
+#  MEASURED  parses, 17 triples; 2 classes; OWL 2 DL in profile; OQuaRE DIT 2 (5), ANOnto 2.17 (5); 'Every class in the shipped v' 17 rows
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Twenty-five classes, thirty-two object properties, forty-two datatype properties, ten annotation properties, for ten competency questions. Compare gist 14: about ninety-six classes for an enterprise."@en .
+
+# One class and its question, side by side.
+bs:TrailSegment
+    a                owl:Class ;
+    skos:prefLabel   "Trail Segment"@en ;
+    skos:definition  "A walking route between two bookshops, with a length."@en ;
+    skos:scopeNote   "Exists for question 3: what can be walked to from a shop, and how far."@en .
+
+# One that was proposed and refused.
+bs:Festival
+    a                   owl:Class ;
+    owl:deprecated      true ;
+    skos:prefLabel      "Festival"@en ;
+    skos:editorialNote  "Proposed because Wigtown and Hay have festivals. Refused: no competency question mentions one. Kept as a deprecated stub so the refusal is on record."@en .
+owl:deprecated  a owl:AnnotationProperty .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every class in the shipped vocabulary, with what it exists for  (on the data)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?class ?comment WHERE { ?class a owl:Class ; rdfs:comment ?comment . FILTER(STRSTARTS(STR(?class), "https://example.org/bookshop-trail/schema#")) } ORDER BY ?class

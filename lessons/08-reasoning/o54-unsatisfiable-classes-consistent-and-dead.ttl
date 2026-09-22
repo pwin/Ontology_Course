@@ -1,0 +1,83 @@
+# ==========================================================================
+#  O54  Unsatisfiable classes: consistent, and dead
+# ==========================================================================
+#
+#  DECIDES
+#    A class that can have no instances is found by the reasoner before any
+#    data arrives; the ontology stays consistent, and the class is fixed
+#    rather than shipped.
+#
+#  WHY
+#    An unsatisfiable class is one whose extension is empty in every
+#    interpretation: no possible thing could be a member. The ontology is
+#    consistent, since nothing has been asserted to be in the class, and
+#    that is what makes the fault a quiet one. It sits there until the
+#    first individual is typed with it, and then the whole graph is
+#    inconsistent and the cause is a class defined months ago.
+#
+#    The usual shapes: a class under two disjoint parents, like the
+#    Translation that o34 seeded disjoint from Work; a class whose
+#    restrictions contradict, located in some Settlement and located in
+#    only Publishers; a class defined as the intersection of two disjoint
+#    classes. All are found by classification with no data at all, and
+#    ROBOT's reason command lists them and refuses to write the reasoned
+#    file until they are fixed, which is the right default for a gate. The
+#    Quality Suite reports the same as REA-021, and LOG-001 catches the
+#    disjoint-parent case without a reasoner.
+#
+#    The set reading: an unsatisfiable class is a subset of the empty set.
+#    owl:Nothing is the empty set's name, and 'equivalent to owl:Nothing'
+#    is what a reasoner says when it finds one.
+#
+#  DIAGRAM
+#       bs:Work owl:disjointWith bs:Person
+#       bs:Memoir rdfs:subClassOf bs:Work, bs:Person          M inside W and inside P, and W and P share nothing
+#                                                              => M is empty in every interpretation
+#                                                              => M is equivalent to owl:Nothing
+#
+#       consistent (nobody is a Memoir yet); unsatisfiable (nobody ever can be)
+#       the first bt:book-x a bs:Memoir makes the whole graph inconsistent
+#
+#  WHAT TO TAKE AWAY
+#    - An unsatisfiable class is a fault with no data in it yet. Classify
+#      before you load, and fix what the reasoner names.
+#    - The gate should refuse an ontology with one. ROBOT does by
+#      default; the Quality Suite reports REA-021.
+#    - Under two disjoint parents, or two restrictions that contradict:
+#      those are the shapes to look for when a class comes back empty.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the unsatisfiable classes on the MEASURED line come from HermiT through ROBOT, and REA-021 from the Quality Suite
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo54-unsatisfiable-classes-consistent-and-dead.ttl
+#  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
+#            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
+#            SemOps Manual 9.8 Testing the gate itself
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#98-testing-the-gate-itself
+#  MEASURED  parses, 25 triples; 7 classes, 1 object property; OWL 2 DL in profile; HermiT: 3 unsatisfiable classes; OQS: REA-020, REA-021
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Work a owl:Class . bs:Person a owl:Class . bs:Settlement a owl:Class . bs:Publisher a owl:Class .
+bs:Work  owl:disjointWith  bs:Person .
+bs:locatedIn  a owl:ObjectProperty .
+
+# Under two disjoint parents.
+bs:Memoir  a owl:Class ; rdfs:subClassOf bs:Work, bs:Person ;
+    skos:editorialNote "A memoir is a work about a person; someone made it both. Unsatisfiable."@en .
+
+# The trivial case: a class declared empty outright.
+bs:Ghost  a owl:Class ; rdfs:subClassOf owl:Nothing .
+
+# Restrictions that contradict.
+bs:Settlement  owl:disjointWith  bs:Publisher .
+bs:OddShop  a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:someValuesFrom bs:Settlement ] ,
+                    [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:allValuesFrom  bs:Publisher ] .

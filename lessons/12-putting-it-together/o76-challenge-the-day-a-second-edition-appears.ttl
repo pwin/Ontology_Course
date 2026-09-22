@@ -1,0 +1,84 @@
+# ==========================================================================
+#  O76  Challenge: the day a second edition appears
+# ==========================================================================
+#
+#  DECIDES
+#    Split bs:Work into Work and Edition so that the compromise of o10 is
+#    retired, every assertion made under the old meaning stays true, the
+#    competency questions still answer, and the reasoner agrees; an answer
+#    is beside the lesson, to be read after yours.
+#
+#  WHY
+#    The brief that arrives after the site launches: Bell Rock has issued a
+#    second edition of The Book Town, with a new ISBN and a different page
+#    count, and the committee wants both stocked and told apart. Under the
+#    shipped vocabulary a work has one ISBN, functionally, so there is no
+#    way to say it. o10 recorded the compromise and o27 said what the fix
+#    must respect: the meaning of bs:Work must not move under the data
+#    already written.
+#
+#    The task, then. Introduce bs:Edition with an identity criterion of its
+#    own, the ISBN, as a key. Decide which of bs:Work's properties are the
+#    work's (author, title, genre, original language) and which are the
+#    edition's (publisher, ISBN, pages, price, publication year), and move
+#    only the second group, with a change note on each. Decide how existing
+#    bs:Work assertions carrying an ISBN are migrated: a first edition
+#    minted per work is one answer. Keep Work and Edition disjoint, since
+#    their criteria of identity differ. Decide the version number by the
+#    diff (o71). Then check: OWL 2 DL; consistent with the data; the stock
+#    records now point at editions, and question 10 in the brief still
+#    answers; and a query for 'the editions of The Book Town' returns two.
+#
+#    answer.ttl beside this lesson is one way to do it, measured: DL,
+#    consistent, with the migration of one work shown. It is not the only
+#    way. A version that keeps bs:Work for editions and mints a new
+#    bs:AbstractWork above it is defensible, and the argument about which
+#    is better is the argument this course was about.
+#
+#  DIAGRAM
+#       before                                   after
+#       bs:Work  isbn, pages, publishedBy,       bs:Work      author, title, genre, originalLanguage
+#                author, title, genre            bs:Edition   editionOf (functional), isbn (key), pages, publishedBy, rrp, publicationYear
+#                                                Work and Edition disjoint: different criteria of identity
+#
+#       acceptance
+#       - OWL 2 DL; consistent with the data
+#       - every 2.x assertion still true of something (the work, or its first edition)
+#       - question 10 still answers; 'editions of The Book Town' returns two
+#       - version-diff says MAJOR, and the change notes say why
+#
+#  WHAT TO TAKE AWAY
+#    - The day the identity criterion changes is the day a class splits.
+#      The split is a new term, not a new meaning for the old one.
+#    - Sort the properties by which referent they belong to. The design
+#      work is that sorting; the axioms follow.
+#    - Acceptance is measured: profile, reasoner, competency questions,
+#      diff. Read the answer only after yours passes them.
+#
+#  NOTE
+#    The checker measures answer.ttl as well: python
+#    scripts/check_lessons.py o76 --show prints what HermiT and the profile
+#    checker made of it. To measure your own, put it in place of answer.ttl
+#    and run the same command.
+#
+#  CORNER    all three
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo76-challenge-the-day-a-second-edition-appears.ttl
+#  SOURCES   OBO Foundry principle FP-019, stability of term meaning
+#            https://obofoundry.org/principles/fp-019-term-stability.html
+#            SemOps Manual 12.1 Evidence-based semver: version-diff
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#121-evidence-based-semver-version-diff
+#  MEASURED  parses, 6 triples; OWL 2 DL in profile; answer.ttl: OWL 2 DL, consistent
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema, 3.0.0 (the challenge)"@en ;
+    skos:editorialNote  "Your answer goes here. answer.ttl beside this lesson is one answer, measured."@en .

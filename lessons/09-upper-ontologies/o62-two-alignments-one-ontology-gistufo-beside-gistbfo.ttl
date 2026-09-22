@@ -1,0 +1,111 @@
+# ==========================================================================
+#  O62  Two alignments, one ontology: gistUFO beside gistBFO
+# ==========================================================================
+#
+#  DECIDES
+#    The Trail's classes are typed the gUFO way, as gistUFO types gist's,
+#    and set beside their BFO placements; where the two published
+#    alignments disagree about gist:Event, the disagreement is kept as
+#    instruction.
+#
+#  WHY
+#    gistUFO is the second published alignment of gist, to gUFO, and it
+#    works differently from gistBFO. It does not put gist classes under
+#    gUFO classes so much as type them: gist:Person is a gufo:Kind,
+#    gist:Offer a gufo:Phase, gist:ContractTerm a gufo:Role, gist:Category
+#    a gufo:AbstractIndividualType. That is module 02's analysis, applied
+#    by other people to a real ontology and published, and o14 used it. A
+#    second file places gist classes under gUFO's individuals hierarchy:
+#    gist:Person under gufo:FunctionalComplex, gist:Agreement under
+#    gufo:Relator, gist:Event under gufo:Event.
+#
+#    Set the two alignments side by side and they agree on most things and
+#    disagree on one, instructively. gistBFO says a gist:Event is a
+#    generically dependent continuant or a process, because a scheduled
+#    event is a plan. gistUFO says a gist:Event is a gufo:Event, a
+#    perdurant, something that happens, and types gist:ScheduledEvent as an
+#    intrinsic mode of the thing that plans it. Neither is wrong; they draw
+#    the line between the plan and the happening in different places, and
+#    an ontology that imports both would have to choose. An alignment is
+#    that: a set of decisions, each with a note, and two sets of decisions
+#    by careful people will not always coincide.
+#
+#    The Trail types its classes the gUFO way here, with gUFO imported, and
+#    the profile checker and HermiT accept the punning. The query at the
+#    end lists every class with both its gUFO type and, through gist, its
+#    BFO superclass, which is as much foundational commitment as a bookshop
+#    trail could want.
+#
+#  DIAGRAM
+#       class            gUFO (gistUFO)                     BFO (gistBFO)                          agree?
+#       gist:Person      Kind; FunctionalComplex            material entity, via LivingThing       yes
+#       gist:Organization Kind; FunctionalComplex           object aggregate                       yes
+#       gist:Content     Category; Object                   generically dependent continuant       roughly
+#       gist:Category    AbstractIndividualType; QualityValue  generically dependent continuant    roughly
+#       gist:Event       EventType; gufo:Event (a perdurant) GDC or process                        no: the plan vs the happening
+#       gist:Offer       Phase (of a Commitment)            (a commitment: relational quality)     different questions
+#
+#       an alignment is a set of decisions with notes; two careful sets will not always coincide
+#
+#  WHAT TO TAKE AWAY
+#    - gistUFO types classes by what kind of class they are; gistBFO
+#      places them under what kind of thing they are. Both are alignment.
+#    - Two published alignments of one ontology disagree about events.
+#      Keep the disagreement; it says where the line between plan and
+#      happening is drawn.
+#    - The Trail can carry both typings, and the checker accepts it.
+#      Whether to adopt either is a scope decision.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; consistency with gUFO and gist imported is HermiT through ROBOT
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo62-two-alignments-one-ontology-gistufo-beside-gistbfo.ttl
+#  SOURCES   gistUFO: gist aligned with gUFO
+#            https://github.com/semanticarts/gistUFO
+#            gUFO: a lightweight implementation of the Unified Foundational Ontology
+#            https://nemo-ufes.github.io/gufo/
+#  MEASURED  parses, 37 triples; 15 classes, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 852 inferred; 'Every class, its gUFO type, ' 6 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gist: <https://w3id.org/semanticarts/ns/ontology/gist/> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+# gUFO's types, declared so the file stands alone; the checker imports gUFO.
+gufo:Kind     a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:SubKind  a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:Role     a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:EventType a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:AbstractIndividualType a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gist:Organization  a owl:Class .  gist:Person a owl:Class .  gist:Event a owl:Class .  gist:Category a owl:Class .
+
+bs:Person       a owl:Class, gufo:Kind ;      rdfs:subClassOf gist:Person .
+bs:Bookshop     a owl:Class, gufo:Kind ;      rdfs:subClassOf gist:Organization .
+bs:Settlement   a owl:Class, gufo:SubKind ;   rdfs:subClassOf bs:Place .
+bs:Place        a owl:Class, gufo:Kind .
+bs:Author       a owl:Class, gufo:Role ;      rdfs:subClassOf bs:Person .
+bs:Event        a owl:Class, gufo:EventType ; rdfs:subClassOf gist:Event .
+bt:genre-crime-fiction  a gist:Category ;
+    skos:editorialNote "gistUFO types gist:Category as a gufo:AbstractIndividualType, and gistBFO places it under a generically dependent continuant."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every class, its gUFO type, and its gist parent  (on the model)
+#  PREFIX gufo: <http://purl.org/nemo/gufo#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?class ?gufoType ?gistParent WHERE {
+#    ?class a ?gufoType . FILTER(STRSTARTS(STR(?gufoType), STR(gufo:)))
+#    OPTIONAL { ?class rdfs:subClassOf ?gistParent . FILTER(STRSTARTS(STR(?gistParent), "https://w3id.org/semanticarts/")) }
+#  } ORDER BY ?class

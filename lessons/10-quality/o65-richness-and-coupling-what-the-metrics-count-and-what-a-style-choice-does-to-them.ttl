@@ -1,0 +1,78 @@
+# ==========================================================================
+#  O65  Richness and coupling: what the metrics count, and what a style choice does to them
+# ==========================================================================
+#
+#  DECIDES
+#    The richness metrics are read with their small print: they count
+#    properties by declared domain, so an ontology that keeps domains
+#    sparse on principle scores low on richness, and gist does.
+#
+#  WHY
+#    AROnto is attributes per class, INROnto relationships per class,
+#    RROnto the share of properties that are attributes, ANOnto annotations
+#    per class, CROnto individuals per class. The paper does not say how a
+#    property is assigned to a class, and the only workable reading is by
+#    rdfs:domain: a property belongs to the class it is declared on.
+#    scripts/metrics.py does that, and counts each member of a union
+#    domain.
+#
+#    The consequence is on the diagram. The Trail declares a domain on
+#    nearly every property, so it scores 5 on attribute and relationship
+#    richness. gist declares domains sparingly, as a matter of principle
+#    set out in its README and in o31, so it scores 1 and 2 on the same
+#    metrics with sixty-six object properties and fifty datatype properties
+#    in the file. Nothing is poorer about gist; a design choice the metric
+#    cannot see has been counted as an absence. That is the general lesson
+#    about richness metrics, and it applies to CROnto too, which scores
+#    every pure vocabulary 1 because a schema has no individuals.
+#
+#    ANOnto is the one to watch, because it measures the thing most
+#    ontologies neglect. The Trail has a label and a comment on every
+#    class, so it scores 5; gist has a preferred label, a definition, and
+#    often an example and a scope note, and scores higher still. The
+#    coupling metrics, CBOOnto, RFCOnto, WMCOnto and NOMOnto, are the
+#    software ones with the least ontological content: they add
+#    superclasses and properties per class, and for both ontologies come
+#    out low, which the thresholds read as good.
+#
+#  DIAGRAM
+#       metric      what                                    Trail         gist         note
+#       AROnto      datatype properties per class           1.82 (5)      0.31 (2)     by declared domain
+#       INROnto     object properties per class             1.47 (5)      0.12 (1)     gist keeps domains sparse, on purpose
+#       RROnto      attributes among all properties         74% (4)       28% (2)
+#       ANOnto      annotations per class                   2.0  (5)      3.6  (5)     the one that measures care
+#       CROnto      individuals per class                   0    (1)      0.08 (1)     a schema has no individuals
+#       RFCOnto     properties + superclasses per class     6.2  (3)      1.9  (5)
+#       WMCOnto     properties and relationships per class  3.3  (5)      0.4  (5)
+#
+#       a metric counts what it can see; a principle it cannot see is counted as an absence
+#
+#  WHAT TO TAKE AWAY
+#    - Richness metrics assign properties to classes by domain. Read
+#      their small print before reading their scores.
+#    - gist scores low on richness because it keeps domains sparse on
+#      principle. The metric measured the principle, not the quality.
+#    - ANOnto is the metric that tracks care. It is the one to put in a
+#      gate.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the gist metrics on the MEASURED line come from scripts/metrics.py over gistCore.ttl
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo65-richness-and-coupling-what-the-metrics-count-and-what-a-style-choice-does-to-them.ttl
+#  SOURCES   Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
+#            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
+#            gist: a minimalist upper ontology
+#            https://github.com/semanticarts/gist
+#  MEASURED  parses, 6 triples; OQuaRE DIT 3 (4), ANOnto 3.63 (5)
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Richness and coupling metrics: MEASURED line for the Trail; gist in the diagram. Properties are assigned to classes by rdfs:domain, each member of a union counted; that is scripts/metrics.py's reading of a formula the paper leaves open."@en .

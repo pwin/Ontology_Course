@@ -1,0 +1,131 @@
+# ==========================================================================
+#  O24  Class or category: when a concept becomes a class
+# ==========================================================================
+#
+#  DECIDES
+#    A genre stays a concept, a particular that a work belongs to and a
+#    shop specialises in, and is promoted to a class only when something
+#    must be said about its members as a set.
+#
+#  WHY
+#    Every ontology has things that could be a class or an individual, and
+#    the choice is the most consequential one it makes. Crime fiction is
+#    the Trail's case. As a class, bs:CrimeFiction is a set of works: every
+#    crime novel is a member, and anything true of the set, that its
+#    members have a detective say, can be written as an axiom and
+#    inherited. As a particular, bt:genre-crime-fiction is a thing in its
+#    own right, with a Welsh label, a broader concept, a scope note, and,
+#    decisively, the property of being what The Inkwell specialises in. A
+#    shop cannot specialise in a set of works by being a member of it.
+#
+#    The test is set-theoretic. Do you need to say things about the
+#    members, as a set, that a reasoner should apply to each? Then it is a
+#    class, and rdfs:subClassOf is subset. Do you need to say things about
+#    the category itself, point other kinds of thing at it, arrange it in a
+#    hierarchy that curators will rearrange, or carry a few thousand of
+#    them? Then it is a concept or a category, and skos:broader is a
+#    relation between two particulars that promises nothing about members.
+#    gist says it outright in the scope note on gist:Category: use a
+#    category 'if you don't care much about the formal structure of the
+#    different types, or if there is a whole hierarchy of them'.
+#
+#    The promotion happens when the first axiom about members is needed.
+#    OWL 2 allows both at once by punning: one IRI that is an owl:Class and
+#    a skos:Concept, with rdfs:subClassOf and skos:broader running in
+#    parallel. It costs a second reading of every term and it is the right
+#    answer for a vocabulary that is both a shelf plan and a reasoning
+#    target. The Trail needs only the shelf plan, so it stops at the
+#    concept, and the query at the end shows the cost of the other choice:
+#    as a class, the shop's specialism has nowhere to point.
+#
+#  DIAGRAM
+#       as a concept (a particular)                 as a class (a set)
+#
+#       bt:genre-crime-fiction                      bs:CrimeFiction
+#         a skos:Concept                              a owl:Class ; rdfs:subClassOf bs:Work
+#         skos:broader bt:genre-fiction               members: every crime novel
+#         skos:prefLabel "Crime Fiction"@en           axioms about members are inherited
+#         <- bt:shop-inkwell bs:specialises           <- a shop cannot be a member of it
+#         <- bt:book-x bs:genre
+#
+#       promote when the first axiom about the members is needed
+#       both at once: punning, subClassOf and broader in parallel
+#
+#  WHAT TO TAKE AWAY
+#    - A class is a set you need to say things about. A concept is a
+#      thing you need to point at. Ask which you need before you type
+#      owl:Class.
+#    - Promotion is triggered by the first axiom about members. Until
+#      then, a concept scheme is cheaper, more flexible, and truer to
+#      what is known.
+#    - Punning lets one IRI be both. Pay for it only when the vocabulary
+#      is both a shelf plan and a reasoning target.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo24-class-or-category-when-a-concept-becomes-a-class.ttl
+#  SOURCES   SKOS Reference 3 The skos:Concept Class
+#            https://www.w3.org/TR/skos-reference/#concepts
+#            SKOS Primer 4.6 Combining SKOS and OWL
+#            https://www.w3.org/TR/skos-primer/#secskosowl
+#  MEASURED  parses, 43 triples; 4 classes, 3 object properties, 2 concepts, 4 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; 'What points at the genre as ' 2 rows; 'What is a member of the genr' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+skos:Concept    a owl:Class .
+skos:broader    a owl:ObjectProperty .
+
+bs:Work         a owl:Class ; skos:prefLabel "Work"@en .
+bs:Bookshop     a owl:Class ; skos:prefLabel "Bookshop"@en .
+bs:genre        a owl:ObjectProperty ; rdfs:domain bs:Work ;     rdfs:range skos:Concept .
+bs:specialises  a owl:ObjectProperty ; rdfs:domain bs:Bookshop ; rdfs:range skos:Concept .
+
+# The genre as a concept: what the Trail does.
+bt:genre-fiction        a skos:Concept ; skos:prefLabel "Fiction"@en, "Ffuglen"@cy .
+bt:genre-crime-fiction  a skos:Concept ; skos:prefLabel "Crime Fiction"@en ; skos:altLabel "Mystery"@en ;
+    skos:broader bt:genre-fiction ;
+    skos:scopeNote "Works whose plot turns on a crime and its investigation. Includes cosy crime and tartan noir."@en .
+
+bt:book-the-book-town  a bs:Work ;     skos:prefLabel "The Book Town"@en ; bs:genre bt:genre-crime-fiction .
+bt:shop-inkwell        a bs:Bookshop ; skos:prefLabel "The Inkwell"@en ;   bs:specialises bt:genre-crime-fiction .
+
+# The same genre promoted to a class: what you would write if you needed
+# to say something about every crime novel. A shop has no way to specialise
+# in it, and the query below shows the asymmetry.
+bs:CrimeFiction  a owl:Class ; rdfs:subClassOf bs:Work ; skos:prefLabel "Crime Fiction (as a class)"@en ;
+    skos:definition "A Work whose plot turns on a crime and its investigation."@en .
+bt:book-the-book-town  a bs:CrimeFiction .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- What points at the genre as a concept  (on the model)
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?thing ?property WHERE { ?thing ?property bt:genre-crime-fiction }
+#
+#  -- What is a member of the genre as a class  (on the model)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?member WHERE { ?member a bs:CrimeFiction }

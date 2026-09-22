@@ -1,0 +1,97 @@
+# ==========================================================================
+#  O30  Pragmatism and purity
+# ==========================================================================
+#
+#  DECIDES
+#    A departure from a principle is allowed when it changes only a name or
+#    a convenience, refused when it changes an inference or a query, and
+#    written on the term either way.
+#
+#  WHY
+#    Every ontology that is used has compromises in it, and the good ones
+#    have them written down. The Trail has five. bs:Work is a work and an
+#    edition. Four properties are named against the gist standard. Inverses
+#    are declared, which gist forbids, so that a reasoning lesson has
+#    something to infer. xsd:gYear is kept for years although it puts the
+#    data outside OWL 2 DL, because the portability trap it creates is one
+#    of the SPARQL course's best lessons. Authors are minted under a role
+#    name. Each is on the term as an editorial note, and this file collects
+#    them.
+#
+#    The rule that decides is about consequences. A departure that changes
+#    only a name or a convenience is cheap: nothing a reasoner does depends
+#    on whether the property is called author or hasAuthor, and 145 queries
+#    depend on the first. A departure that changes an inference or a query
+#    result is not cheap, because it will be paid by someone who does not
+#    know it is there. Declaring inverses changes what a reasoner derives;
+#    the Trail does it on purpose and says so, and the note is what makes
+#    that a decision.
+#
+#    Purity has its own costs. BFO is philosophically rigorous and its IRIs
+#    are numbers; gist chose everyday words and a hundred classes, and both
+#    are used by people who had to ship something. Chapter 14 of the SemOps
+#    Manual is a ledger of what a toolchain does not do, and that is the
+#    model: an ontology should carry its own ledger. The unrecorded
+#    compromise is the only kind that is a mistake.
+#
+#  DIAGRAM
+#       compromise                          changes           verdict          recorded on
+#
+#       Work = work + edition               an identity        allowed, noted   bs:Work
+#       author, not hasAuthor               a name only        allowed, noted   the property
+#       inverses declared                   an inference       allowed on purpose, noted
+#       xsd:gYear kept                      a profile          allowed for the lesson, noted
+#       author- as an instance infix        a name only        allowed, noted   bs:Author
+#
+#       rule: cheap if it changes a name; dear if it changes an inference or a result; write it down either way
+#
+#  WHAT TO TAKE AWAY
+#    - The unrecorded compromise is the only kind that is a mistake.
+#      Write each one on the term it affects.
+#    - Weigh a departure by what it changes: a name is cheap, an
+#      inference or a query result is dear.
+#    - Rigour and usefulness are both virtues, and an ontology carries a
+#      ledger of where it traded one for the other.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo30-pragmatism-and-purity.ttl
+#  SOURCES   gist: a minimalist upper ontology
+#            https://github.com/semanticarts/gist
+#            Winstanley, on an upper ontology as a vocabulary in common (in Team building: the importance of an ontology)
+#            https://www.semanticarts.com/team-building-the-importance-of-an-ontology/
+#  MEASURED  parses, 16 triples; 2 classes, 2 object properties, 1 datatype property; OWL 2 DL in profile; 'The ledger: every recorded c' 5 rows
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+bs:Work       a owl:Class ;
+    skos:editorialNote "Compromise: work and edition in one class. Changes an identity criterion; allowed because the dataset never needs two editions of one work. Split the day it does."@en .
+bs:author     a owl:ObjectProperty ;
+    skos:editorialNote "Compromise: gist style would be hasAuthor. Changes a name only; 145 queries use this one."@en .
+bs:wrote      a owl:ObjectProperty ; owl:inverseOf bs:author ;
+    skos:editorialNote "Compromise: gist declares no inverses. Changes what a reasoner derives; kept on purpose so that module 08 has an inference to show, and the SPARQL course's q44 something to construct."@en .
+bs:founded    a owl:DatatypeProperty ;
+    skos:editorialNote "Compromise: values are xsd:gYear, outside the OWL 2 datatype map. Changes the profile of the data, not the vocabulary; kept for the SPARQL course's portability lesson. A conformant copy ships beside it."@en .
+bs:Author     a owl:Class ;
+    skos:editorialNote "Compromise: instances minted as author-, a role name. Changes a name only."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- The ledger: every recorded compromise  (on the model)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?term ?note WHERE { ?term skos:editorialNote ?note . FILTER(STRSTARTS(?note, "Compromise:")) } ORDER BY ?term

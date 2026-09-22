@@ -1,0 +1,80 @@
+# ==========================================================================
+#  O67  Style shapes: the vocabulary validated like data
+# ==========================================================================
+#
+#  DECIDES
+#    The house style is written as SHACL shapes that target owl:Class and
+#    the property types, as gist does for itself, and the shipped
+#    vocabulary is validated against them in the editor.
+#
+#  WHY
+#    An ontology is an RDF graph, so a shape can target it. gist's
+#    repository has validation/shapes/ontologyShapes.ttl, run on every
+#    commit: a class shape that requires title-case preferred labels and a
+#    definition, a property shape that requires lower-case labels, and an
+#    instance shape that requires every rdf:type value to be a declared
+#    class. The targets are SPARQL-based, selecting terms in the gist
+#    namespace; the version here uses sh:targetClass owl:Class and
+#    sh:targetObjectsOf rdf:type so that it stays in SHACL Core and runs in
+#    the editor.
+#
+#    On the shipped vocabulary the shapes report what o66's checks
+#    reported, in the vocabulary of the SHACL course: every class has a
+#    label and a comment, so the two Violation-level constraints pass; no
+#    class has a skos:definition, so the Warning fires seventeen times,
+#    once per Trail class; every type in the file is a declared class, so
+#    the instance shape is quiet. The report is the same fact as QUA-010
+#    from a different tool, and the SemOps Manual's advice is to write a
+#    check both ways, as a query and as a shape, so that two engines
+#    corroborate rather than agree by construction.
+#
+#    This is the SHACL course's whole method turned on the vocabulary: a
+#    shapes graph, a report, a severity chosen by whoever owns the policy.
+#    It runs on any vocabulary you are handed, which is how to form a first
+#    opinion of one.
+#
+#  DIAGRAM
+#       shape                  targets                   checks                          on the Trail
+#       ClassStyleShape        owl:Class in bs:          rdfs:label (Violation)          17 pass
+#                                                        rdfs:comment (Violation)        17 pass
+#                                                        skos:definition (Warning)       17 warnings: the policy not adopted
+#       PropertyStyleShape     properties in bs:         rdfs:label (Warning)            all pass
+#       DeclaredTypeShape      every rdf:type value      is a declared class             quiet
+#
+#       the editor: vocabulary in one tab, shapes in another, Validate
+#
+#  WHAT TO TAKE AWAY
+#    - A vocabulary is a graph; shapes can target it. gist validates its
+#      own style that way on every commit.
+#    - Write a check as a shape and as a query. Two engines that
+#      corroborate are worth more than one that agrees with itself.
+#    - Run style shapes on any vocabulary you are handed. It is the
+#      fastest first opinion there is.
+#
+#  NOTE
+#    The LOAD IT link opens this lesson with the shapes in a second tab; to
+#    validate the whole vocabulary, load data/01-vocabulary.ttl in the
+#    first tab instead, keep the shapes tab, and press Validate.
+#
+#  CORNER    symbol and thought
+#  DATA      01-vocabulary.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo67-style-shapes-the-vocabulary-validated-like-data.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fstyle-shapes.ttl
+#  SOURCES   gist: the shapes that enforce its own style
+#            https://github.com/semanticarts/gist/blob/develop/validation/shapes/ontologyShapes.ttl
+#            SemOps Manual 8.4 Your own rules, without forking anything
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#84-your-own-rules-without-forking-anything
+#  MEASURED  parses, 6 triples; does not conform (0 violations, 17 warnings, 0 info)
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Validated against style-shapes.ttl beside this lesson. The vocabulary passes every Violation-level constraint and collects a warning per class for the missing skos:definition."@en .

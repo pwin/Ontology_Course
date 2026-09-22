@@ -1,0 +1,127 @@
+# ==========================================================================
+#  O08  A concrete kind and a role: Person and Author
+# ==========================================================================
+#
+#  DECIDES
+#    Person is a rigid kind and Author is a role a person plays, so Author
+#    is placed under Person and never the other way round.
+#
+#  WHY
+#    Ask of a class: could one of its instances stop being one and still
+#    exist? Rhona Blackwood cannot stop being a person; if she is not a
+#    person she is not anything. Person is rigid, written +R. She could
+#    have stopped being an author, by never writing the second book, or
+#    never the first; she would still be Rhona Blackwood. Author is anti-
+#    rigid, written ~R: every instance of it could, in principle, fail to
+#    be one. Guarino and Welty call the first kind of class a type and the
+#    second a role, and the distinction is the most useful single thing
+#    OntoClean offers.
+#
+#    A role has two more marks. It is anti-rigid, and it is dependent,
+#    written +D: nobody is an author except by way of a work. Author exists
+#    only in relation to Work, in the way that Customer exists only in
+#    relation to a sale and Employee only in relation to an employer. The
+#    Trail's own definition says so: 'someone who wrote at least one work
+#    in this dataset'.
+#
+#    The consequence for the hierarchy is a rule, not a preference. An
+#    anti-rigid class may sit under a rigid one, because a role is played
+#    by things of some kind: Author under Person is fine. A rigid class may
+#    never sit under an anti-rigid one, because every person would then be
+#    an author by necessity, which contradicts the role being optional. o09
+#    shows what that looks like when it goes wrong. The set picture is the
+#    same: the set of authors is a subset of the set of persons, and which
+#    subset it is changes as books are written; the set of persons does not
+#    change because of it.
+#
+#  DIAGRAM
+#                         bs:Person   +R   rigid: an instance cannot stop being one
+#                            |             (Rhona is a person in every circumstance)
+#                            |  rdfs:subClassOf   allowed: anti-rigid under rigid
+#                            |
+#                         bs:Author   ~R   anti-rigid: every instance could stop
+#                                      +D   dependent: on some Work
+#
+#       the set of authors is a subset of the set of persons, and
+#       which subset it is depends on what has been written. The set
+#       of persons does not depend on the books.
+#
+#  WHAT TO TAKE AWAY
+#    - Rigidity is the first question to ask of a class: could an
+#      instance stop being one and still exist? +R if never, ~R if always
+#      possible.
+#    - A role is anti-rigid and dependent. Author, Customer, Employee,
+#      Patient, Member: things of some kind, in a relation, for a while.
+#    - A role goes under the kind that plays it. Never put a kind under a
+#      role.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo08-a-concrete-kind-and-a-role-person-and-author.ttl
+#  SOURCES   Guarino and Welty, Evaluating ontological decisions with OntoClean, CACM 45(2), 2002
+#            https://doi.org/10.1145/503124.503150
+#            OntoClean: the four meta-properties
+#            https://en.wikipedia.org/wiki/OntoClean
+#  MEASURED  parses, 34 triples; 3 classes, 1 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; 'The rigidity of every class' 3 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+bs:Person
+    a              owl:Class ;
+    rdfs:label     "Person"@en ;
+    rdfs:comment   "A human being."@en ;
+    oc:rigidity    "+R" ;
+    oc:identity    "+O" ;
+    oc:dependence  "-D" .
+
+bs:Author
+    a                owl:Class ;
+    rdfs:subClassOf  bs:Person ;
+    rdfs:label       "Author"@en ;
+    rdfs:comment     "Someone who wrote at least one work. A role: played by a person, for as long as the works exist."@en ;
+    oc:rigidity      "~R" ;
+    oc:identity      "+I" ;
+    oc:dependence    "+D" .
+
+bs:Work
+    a              owl:Class ;
+    rdfs:label     "Work"@en ;
+    oc:rigidity    "+R" ;
+    oc:identity    "+O" .
+
+bt:author-rhona-blackwood
+    a           bs:Author, bs:Person ;
+    rdfs:label  "Rhona Blackwood"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- The rigidity of every class  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?class ?rigidity ?under WHERE {
+#    ?class oc:rigidity ?rigidity .
+#    OPTIONAL { ?class rdfs:subClassOf ?under }
+#  } ORDER BY ?class

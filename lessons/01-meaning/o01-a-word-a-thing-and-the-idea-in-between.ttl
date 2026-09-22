@@ -1,0 +1,98 @@
+# ==========================================================================
+#  O01  A word, a thing, and the idea in between
+# ==========================================================================
+#
+#  DECIDES
+#    Every term in the brief is a symbol standing for a referent by way of
+#    a thought, and the three are kept apart from the first line.
+#
+#  WHY
+#    Ogden and Richards drew it in 1923 and nobody has improved on it. At
+#    one corner is the symbol: the word 'Wigtown', the string in the
+#    spreadsheet. At another is the referent: the town itself, on the
+#    Solway coast, which does not care what it is called. At the third is
+#    the thought, the idea of the town in somebody's head, and it is the
+#    thought that connects the other two. The symbol does not refer to the
+#    town directly; it refers by way of someone's understanding of it,
+#    which is why the base of the triangle is drawn as a dotted line.
+#
+#    That dotted line is where every data integration problem lives. Two
+#    people share the symbol 'area' and hold different thoughts under it,
+#    one of square metres and one of council boundaries, and nothing in the
+#    spreadsheet says which. An ontology is a way of fixing the thought
+#    corner in writing, so that a shared symbol carries a shared meaning.
+#
+#    This file is the smallest possible start. Each candidate term from the
+#    brief becomes a node with a label (the symbol) and a comment (the
+#    thought, written down). The referent stays where it is; the node
+#    points at it. Nothing here is a class or a property yet. That comes
+#    later, and it comes more easily once the three corners are habit.
+#
+#  DIAGRAM
+#                          THOUGHT
+#                     (the idea of the town)
+#                         /          \
+#            symbolises  /            \  refers to
+#                       /              \
+#                 SYMBOL  . . . . . . . REFERENT
+#                "Wigtown"               the town
+#                 a string           on the Solway coast
+#
+#       The dotted base: a symbol stands for a referent only through
+#       a thought. Share the symbol, and you have not yet shared the
+#       thought. Writing the thought down is what an ontology is for.
+#
+#  WHAT TO TAKE AWAY
+#    - Symbol, thought, referent. Keep the three apart and most
+#      confusions about naming, defining and identity become easy to
+#      state.
+#    - A label is a symbol for people. A definition is the thought
+#      written down. Neither is the thing.
+#    - The brief is a pile of symbols. The first job is to find out how
+#      many referents are behind them, and it is rarely one per word.
+#
+#  TRY IT
+#    Open the LOAD IT link. The graph view draws each candidate as a node
+#    with its label and comment. Pick 'Subjects' and choose one; then ask
+#    yourself which corner of the triangle each of the three things on
+#    screen is: the IRI, the label, the comment.
+#
+#  CORNER    all three, introduced
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo01-a-word-a-thing-and-the-idea-in-between.ttl
+#  SOURCES   Ogden and Richards, the triangle of reference (1923)
+#            https://en.wikipedia.org/wiki/Triangle_of_reference
+#            Peirce's theory of signs, Stanford Encyclopedia of Philosophy
+#            https://plato.stanford.edu/entries/peirce-semiotics/
+#  MEASURED  parses, 12 triples
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# The candidate terms from the brief, as symbols with the thought written
+# beside them. No classes, no properties: nodes, labels, comments.
+
+bt:candidate-wigtown
+    rdfs:label    "Wigtown"@en ;
+    rdfs:comment  "The town in Dumfries and Galloway, Scotland's book town. Not the festival, the ward or the bay."@en .
+
+bt:candidate-area
+    rdfs:label    "area"@en ;
+    rdfs:comment  "Used in the brief for two things: a shop's floor area in square metres, and a council area. Two thoughts under one symbol; see o02."@en .
+
+bt:candidate-book
+    rdfs:label    "book"@en ;
+    rdfs:comment  "Used in the brief for a title, an edition and a copy on a shelf. Three thoughts under one symbol; see o02."@en .
+
+bt:candidate-author
+    rdfs:label    "author"@en ;
+    rdfs:comment  "Someone who wrote a book. Also used for whoever appears at an event, who may be a translator."@en .
+
+bt:candidate-shop
+    rdfs:label    "shop"@en ;
+    rdfs:comment  "One symbol of three: shop, bookshop, store. One thought; see o02."@en .
+
+bt:candidate-founded
+    rdfs:label    "founded"@en ;
+    rdfs:comment  "The year a shop opened. The guidebooks disagree for four shops, and the brief asks that both dates be kept with their source."@en .

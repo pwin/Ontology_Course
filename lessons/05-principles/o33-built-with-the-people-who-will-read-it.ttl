@@ -1,0 +1,116 @@
+# ==========================================================================
+#  O33  Built with the people who will read it
+# ==========================================================================
+#
+#  DECIDES
+#    Every definition records who agreed it and when, the domain experts
+#    review the model in a form they can read, and a disagreement about
+#    territory is modelled rather than adjudicated by the modeller.
+#
+#  WHY
+#    The process of bringing an ontology into an organisation is a social
+#    one. People have to get together and work out what kinds of things
+#    they have, what words are used for them across the business, and how
+#    each can be defined without going round in a circle. That process
+#    builds a team, and sometimes it exposes a fault line that was already
+#    there. The output is a vocabulary in common; the process is at least
+#    half the value.
+#
+#    The SemOps Manual names the two ways it goes wrong. Definitions are
+#    territory: when two departments disagree about a term, each definition
+#    is load-bearing for someone, and a modeller who picks one without
+#    saying so has made a decision they had no authority to make. Model the
+#    disagreement, get the adjudication from someone who can make it stick,
+#    and record who decided. And the priesthood problem: when only three
+#    people can read the model, the domain experts stop correcting it, and
+#    the model records the modeller's understanding rather than theirs. The
+#    remedy is not to teach everyone OWL. It is to put the model in front
+#    of them in a form they can check, which is what the editor's graph
+#    view is for, and why every lesson in this course opens in it.
+#
+#    OBO Foundry principles FP-010 and FP-011 say the same from the other
+#    side: development is collaborative, and a named person is responsible
+#    for communication. This file puts both on the ontology node, and puts
+#    the decision trail on the terms.
+#
+#  DIAGRAM
+#       the workshop                                   the record
+#
+#       who has what kinds of thing ---.               skos:editorialNote "Agreed by the committee, 12 March 2025 ..."
+#       what words are used for them ---+--> terms --> dct:contributor  bt:committee-2025-03-12
+#       how each is defined, non-circularly            a named person responsible (FP-011)
+#
+#       the graph view: the form a domain expert can check without reading OWL
+#       territory: model both meanings; someone with authority chooses; write down who
+#
+#  WHAT TO TAKE AWAY
+#    - Building the vocabulary is a social process, and the team it
+#      builds is part of the return.
+#    - Model a disagreement about territory; do not settle it. Get a
+#      decision from someone who can make it stick, and record who.
+#    - If the experts cannot read the model, they cannot correct it. Show
+#      them the graph, not the axioms.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo33-built-with-the-people-who-will-read-it.ttl
+#  SOURCES   SemOps Manual 2.1 Definitions are territory
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/02-people-and-cognition.md#21-definitions-are-territory
+#            Winstanley, Team building: the importance of an ontology (2025)
+#            https://www.semanticarts.com/team-building-the-importance-of-an-ontology/
+#  MEASURED  parses, 26 triples; 1 class, 2 object properties; OWL 2 DL in profile; 'Every decision on record, wi' 2 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+dct:contributor  a owl:AnnotationProperty .
+dct:created      a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                owl:Ontology ;
+    skos:prefLabel   "The Bookshop Trail schema"@en ;
+    dct:contributor  bt:committee-2025-03-12, bt:person-events-secretary ;
+    skos:editorialNote "Responsible for communication about this vocabulary: the events secretary (FP-011). Reviewed by the committee in the editor's graph view before each release."@en .
+
+bt:committee-2025-03-12   skos:prefLabel "Trail committee, 12 March 2025"@en .
+bt:person-events-secretary skos:prefLabel "The events secretary"@en .
+
+# A term with its decision trail.
+bs:Bookshop
+    a                   owl:Class ;
+    skos:prefLabel      "Bookshop"@en ;
+    skos:definition     "A business that sells books to the public from premises."@en ;
+    skos:editorialNote  "Agreed by the committee, 12 March 2025. The Hay shops asked whether a market stall counts; decided no, and 'from premises' was added."@en ;
+    dct:contributor     bt:committee-2025-03-12 .
+
+# A disagreement modelled rather than settled: two meanings of 'in stock'.
+bs:stocks
+    a                   owl:ObjectProperty ;
+    skos:prefLabel      "stocks"@en ;
+    skos:definition     "The shop has at least one copy of the work on the shelf now."@en ;
+    skos:editorialNote  "The website team and the buyers disagreed: on the shelf now, or on the list to order. Both terms kept; the website uses this one. Decided by the chair, 9 April 2025."@en .
+bs:lists
+    a                   owl:ObjectProperty ;
+    skos:prefLabel      "lists"@en ;
+    skos:definition     "The shop lists the work for sale and can order it."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every decision on record, with who made it  (on the model)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?term ?note WHERE { ?term skos:editorialNote ?note . FILTER(CONTAINS(?note, "ecided") || CONTAINS(?note, "Agreed")) }

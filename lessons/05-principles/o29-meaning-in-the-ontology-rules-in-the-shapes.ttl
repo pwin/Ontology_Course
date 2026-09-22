@@ -1,0 +1,108 @@
+# ==========================================================================
+#  O29  Meaning in the ontology, rules in the shapes
+# ==========================================================================
+#
+#  DECIDES
+#    An axiom is written only when it is true of every dataset the ontology
+#    could describe; anything that is a rule about this dataset, for this
+#    purpose, is a SHACL shape, and bs:founded stays non-functional for
+#    exactly that reason.
+#
+#  WHY
+#    An OWL axiom is a claim about the world. It holds for every dataset
+#    that uses the term, forever, and a reasoner will draw conclusions from
+#    it whether or not anyone wanted them. A SHACL shape is a rule about a
+#    dataset: this data, for this website, must look like this, and a
+#    validator will report where it does not. The two look alike on the
+#    page and behave nothing alike, and gist's tenth rule for restrictions
+#    is the test that tells them apart: if an instance of X did not conform
+#    to Y, would it still be an X? If yes, Y is a rule, not meaning, and it
+#    belongs in a shape.
+#
+#    The Trail's bs:founded is the case. Every shop has one founding year;
+#    that is surely true. But four shops have two recorded, because the
+#    guidebooks disagree, and the brief asks for both to be kept. Declare
+#    the property functional and the reasoner does not flag a disagreement:
+#    it concludes that 1921 and 1923 are the same value, which for literals
+#    is a contradiction, and the whole dataset is inconsistent. This
+#    lesson's file does exactly that, and HermiT says so. The shipped
+#    vocabulary leaves bs:founded non-functional and says why in its
+#    comment; the SHACL course's s04 carries 'exactly one founding year' as
+#    a shape, where a second value is a finding to read rather than a
+#    contradiction to resolve.
+#
+#    The general habit is to constrain relationships less than feels
+#    natural. A domain that is too narrow retypes things (o37); a
+#    cardinality that is too tight merges or contradicts (o42); a property
+#    declared functional because 'it always is' becomes false the day a
+#    second source appears. gist keeps domains and ranges sparse for this
+#    reason, and puts data constraints in shapes. Meaning in the ontology,
+#    rules in the shapes, and when in doubt, a shape.
+#
+#  DIAGRAM
+#       "every shop has exactly one founding year"
+#
+#       as an axiom                                    as a shape
+#       bs:founded a owl:FunctionalProperty            sh:path bs:founded ; sh:maxCount 1
+#       two values => the reasoner says                two values => the validator reports
+#       INCONSISTENT, for the whole dataset            one row, naming the shop; severity is yours
+#
+#       the test (gist rule 10):
+#       if a shop had two founding years on record, would it still be a shop?  yes  => a shape
+#
+#  WHAT TO TAKE AWAY
+#    - An axiom holds for every dataset forever. A shape holds for this
+#      dataset for this purpose. Ask which you mean.
+#    - Would it still be an X? If yes, it is a rule about data, and it
+#      belongs in SHACL.
+#    - Constrain relationships less than feels natural. Every tight
+#      constraint is a future contradiction with a date on it.
+#
+#  NOTE
+#    The LOAD IT link opens founded-shape.ttl in a second tab. Validate:
+#    one warning. The editor's engine says conforms, because only
+#    violations count against conformance there; pySHACL, which measured
+#    this lesson, says does not conform for the same report, because the
+#    specification's default counts warnings too. The SHACL course's s03 is
+#    about that difference. Either way the shop is named and the graph is
+#    not contradicted; the reasoner's verdict on the same two triples is
+#    that the whole graph is inconsistent.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo29-meaning-in-the-ontology-rules-in-the-shapes.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Ffounded-shape.ttl
+#  SOURCES   gist Style Guide: OWL restrictions, the eleven rules
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#owl-restrictions
+#            SHACL: constraints on data, which OWL axioms are not
+#            https://www.w3.org/TR/shacl/
+#  MEASURED  parses, 16 triples; 1 class, 1 datatype property, 1 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; does not conform (0 violations, 1 warnings, 0 info)
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+bs:Bookshop  a owl:Class ; skos:prefLabel "Bookshop"@en .
+
+# The axiom that turns a disagreement into a contradiction.
+bs:founded
+    a                owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain      bs:Bookshop ;
+    skos:prefLabel   "founded"@en ;
+    skos:definition  "The year a shop began trading."@en ;
+    skos:editorialNote "Declared functional here to show what happens. The shipped vocabulary does not, because sources disagree for four shops."@en .
+
+bt:shop-ex-libris
+    a           bs:Bookshop ;
+    bs:founded  "1921"^^xsd:integer, "1923"^^xsd:integer .

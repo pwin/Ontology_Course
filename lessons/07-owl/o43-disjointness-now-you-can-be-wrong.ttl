@@ -1,0 +1,84 @@
+# ==========================================================================
+#  O43  Disjointness: now you can be wrong
+# ==========================================================================
+#
+#  DECIDES
+#    The top-level kinds are declared pairwise disjoint, so that one thing
+#    typed as two of them is a contradiction a reasoner reports, and a
+#    query finds in the browser.
+#
+#  WHY
+#    Disjointness is the first OWL construct because it is the first that
+#    can be contradicted. Place and Bookshop disjoint says the two sets
+#    share no member. Type one thing with both and there is no
+#    interpretation in which the axioms hold: the ontology is inconsistent,
+#    and HermiT says so. This is the thing RDFS could not do in o41, and it
+#    is cheap: one owl:AllDisjointClasses over the backbone catches the
+#    commonest data-loading error there is, a row typed as the wrong kind.
+#
+#    The editor's reasoner is an OWL 2 RL engine and materialises rather
+#    than judges; it does not put up a sign saying inconsistent. The same
+#    contradiction is a query, though, and the query runs in the browser:
+#    find anything typed with two classes that are declared disjoint. That
+#    query is the SHACL course's sh:disjoint from the other side, and it is
+#    the one to keep in the gate.
+#
+#    Below the backbone, disjointness gets harder to justify. Author and
+#    TrailMember are roles; a shop can be a member and a person can be an
+#    author and a translator. gist declares disjointness 'extensively at
+#    the highest level' and sparingly below, and that is the shape to copy.
+#
+#  DIAGRAM
+#       bs:Place  owl:disjointWith  bs:Bookshop        the sets share no member
+#
+#       bt:oddity a bs:Place, bs:Bookshop              no interpretation satisfies this
+#                                                      HermiT: the ontology is inconsistent
+#
+#       in the browser, the same fact as a query:
+#       SELECT ?x WHERE { ?a owl:disjointWith ?b . ?x a ?a, ?b }     -> bt:oddity
+#
+#  WHAT TO TAKE AWAY
+#    - Disjointness is the cheapest axiom and the first that can be
+#      contradicted. Declare it across the backbone.
+#    - A DL reasoner reports the contradiction; an RL reasoner
+#      materialises past it. Keep the query that finds it.
+#    - Disjointness below the backbone is where roles start to overlap.
+#      Declare it there only with a reason.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo43-disjointness-now-you-can-be-wrong.ttl
+#  SOURCES   OWL 2 Primer 4.3 Class Disjointness
+#            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
+#            The SHACL course, module 09: validating with inference
+#            https://www.semantechs.co.uk/SHACL_Course/#m09
+#  MEASURED  parses, 21 triples; 4 classes, 1 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; RL closure +0; 'Anything typed with two disj' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Place a owl:Class . bs:Bookshop a owl:Class . bs:Person a owl:Class . bs:Work a owl:Class .
+[] a owl:AllDisjointClasses ; owl:members ( bs:Place bs:Bookshop bs:Person bs:Work ) .
+
+# For the query, which reads pairwise disjointness: the same fact stated
+# pairwise for the two classes the oddity breaks.
+bs:Place  owl:disjointWith  bs:Bookshop .
+
+bt:oddity  a bs:Place, bs:Bookshop ; skos:prefLabel "A row loaded with the wrong kind"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Anything typed with two disjoint classes  (on the model)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?x ?a ?b WHERE { ?a owl:disjointWith ?b . ?x a ?a, ?b }

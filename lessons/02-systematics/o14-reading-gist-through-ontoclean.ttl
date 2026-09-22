@@ -1,0 +1,119 @@
+# ==========================================================================
+#  O14  Reading gist through OntoClean
+# ==========================================================================
+#
+#  DECIDES
+#    The Trail's classes are typed with gUFO's Kind, SubKind, Role and
+#    Phase, the way gistUFO types gist's, and the typing is checked to
+#    agree with the annotations.
+#
+#  WHY
+#    gistUFO is a small published file that types every gist class with one
+#    of gUFO's kinds of class: gist:Person is a gufo:Kind, gist:Contract a
+#    gufo:SubKind, gist:ContractTerm a gufo:Role, gist:Offer a gufo:Phase,
+#    gist:Category a gufo:AbstractIndividualType. Those are OntoClean's
+#    distinctions with names: a Kind is rigid and supplies identity, a
+#    SubKind is rigid and inherits it, a Role is anti-rigid and relational,
+#    a Phase is anti-rigid and intrinsic. Reading the file is the fastest
+#    way to see the theory applied to a real ontology by people who had to
+#    live with the result.
+#
+#    The typing is done by punning: gist:Person is an owl:Class, and it is
+#    also an individual of the class gufo:Kind. OWL 2 DL allows one IRI to
+#    be both, and the reasoner keeps the two readings apart. Module 07 says
+#    more; here it is enough that the profile checker agrees.
+#
+#    This file types the Trail's classes the same way and adds one query: a
+#    class typed gufo:Role must carry ~R and +D in the annotations, and a
+#    gufo:Kind must carry +R. If the two disagree, one of them is wrong,
+#    and the disagreement is worth more than either alone. gist's own
+#    naming rule for instances, 'the most specific rigid class', is the
+#    same theory used for a practical end: never name an instance after a
+#    role, because the role may end and the name should not.
+#
+#  DIAGRAM
+#       gUFO type          OntoClean marks        gist example (from gistUFO)    Trail
+#
+#       gufo:Kind          +R, +O                 gist:Person, gist:Agreement    bs:Person, bs:Bookshop, bs:Work
+#       gufo:SubKind       +R, +I (inherited)     gist:Contract, gist:Account    bs:Settlement, bs:Translation
+#       gufo:Role          ~R, +D                 gist:ContractTerm, gist:Message bs:Author, bs:TrailMember
+#       gufo:Phase         ~R, -D                 gist:Offer, gist:ContingentObligation  (bs:PastEvent, o11)
+#       gufo:Category      +R, -I (a mixin)       gist:Content, gist:Composite   --
+#
+#       one IRI, two readings:  bs:Author a owl:Class .   bs:Author a gufo:Role .
+#
+#  WHAT TO TAKE AWAY
+#    - gUFO's Kind, SubKind, Role, Phase and Category are OntoClean's
+#      distinctions as a vocabulary you can assert. gistUFO applies them
+#      to all of gist.
+#    - Typing a class with a metaclass is punning, and it is OWL 2 DL.
+#      The profile checker confirms it.
+#    - Two records of the same decision, checked against each other,
+#      catch more than either. Here the gUFO type and the OntoClean marks
+#      must agree.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo14-reading-gist-through-ontoclean.ttl
+#  SOURCES   gistUFO: gist aligned with gUFO
+#            https://github.com/semanticarts/gistUFO
+#            gUFO: a lightweight implementation of the Unified Foundational Ontology
+#            https://nemo-ufes.github.io/gufo/
+#  MEASURED  parses, 66 triples; 14 classes; OWL 2 DL in profile; HermiT: consistent, nothing new; 'Where the gUFO type and the ' 1 row
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+# gUFO's types, declared so this file stands on its own in OWL 2 DL.
+gufo:Kind     a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:SubKind  a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:Role     a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+gufo:Phase    a owl:Class ; rdfs:isDefinedBy <http://purl.org/nemo/gufo> .
+
+bs:Person       a owl:Class, gufo:Kind ;    oc:rigidity "+R" ; oc:dependence "-D" .
+bs:Bookshop     a owl:Class, gufo:Kind ;    oc:rigidity "+R" ; oc:dependence "-D" .
+bs:Work         a owl:Class, gufo:Kind ;    oc:rigidity "+R" ; oc:dependence "-D" .
+bs:Place        a owl:Class, gufo:Kind ;    oc:rigidity "+R" ; oc:dependence "-D" .
+bs:Settlement   a owl:Class, gufo:SubKind ; oc:rigidity "+R" ; oc:dependence "-D" ; rdfs:subClassOf bs:Place .
+bs:Translation  a owl:Class, gufo:SubKind ; oc:rigidity "+R" ; oc:dependence "-D" ; rdfs:subClassOf bs:Work .
+bs:Author       a owl:Class, gufo:Role ;    oc:rigidity "~R" ; oc:dependence "+D" ; rdfs:subClassOf bs:Person .
+bs:TrailMember  a owl:Class, gufo:Role ;    oc:rigidity "~R" ; oc:dependence "+D" ; rdfs:subClassOf bs:Bookshop .
+bs:PastEvent    a owl:Class, gufo:Phase ;   oc:rigidity "~R" ; oc:dependence "-D" .
+
+# A deliberate disagreement, for the query to find: typed a Kind, marked a role.
+bs:Publisher    a owl:Class, gufo:Kind ;    oc:rigidity "~R" ; oc:dependence "+D" .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Where the gUFO type and the OntoClean marks disagree  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX gufo: <http://purl.org/nemo/gufo#>
+#  SELECT ?class ?type ?rigidity ?dependence WHERE {
+#    ?class a ?type ; oc:rigidity ?rigidity ; oc:dependence ?dependence .
+#    FILTER(?type IN (gufo:Kind, gufo:SubKind, gufo:Role, gufo:Phase))
+#    FILTER( (?type IN (gufo:Kind, gufo:SubKind) && ?rigidity != "+R")
+#         || (?type = gufo:Role  && !(?rigidity = "~R" && ?dependence = "+D"))
+#         || (?type = gufo:Phase && !(?rigidity = "~R" && ?dependence = "-D")) )
+#  }

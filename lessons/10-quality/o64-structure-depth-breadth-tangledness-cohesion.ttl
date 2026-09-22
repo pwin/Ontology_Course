@@ -1,0 +1,93 @@
+# ==========================================================================
+#  O64  Structure: depth, breadth, tangledness, cohesion
+# ==========================================================================
+#
+#  DECIDES
+#    The Trail's hierarchy is two deep, one wide on average, untangled and
+#    cohesive, which the structural metrics confirm; and gist, measured the
+#    same way, shows sixty-two roots because its structure lives in
+#    definitions the metrics do not read.
+#
+#  WHY
+#    Five metrics describe the shape of the class tree. DITOnto is the
+#    longest path from the root to a leaf: the Trail's is 2 (Place, then
+#    Settlement), which scores 5, and gist's is 3. NOCOnto is the mean
+#    number of children per non-root class: 1 for both. NACOnto is the mean
+#    number of ancestors per leaf: under half for both, because most
+#    classes are roots. TMOnto is the mean number of parents per class that
+#    has one: 1 for both, which is to say no multiple inheritance anywhere,
+#    and o32 said why. LCOMOnto, the paper's cohesion measure, is the mean
+#    path length from leaf to root: about 1.4 for both.
+#
+#    The number that stands out is gist's sixty-two root classes out of
+#    ninety-six. gist is not flat; it is defined. gist:Contract is
+#    Agreement and isUnderJurisdictionOf some GovernmentOrganization, by
+#    owl:equivalentClass, and a reasoner places it under Agreement. The
+#    metric reads rdfs:subClassOf and sees a root. Run the metrics on the
+#    reasoned ontology and the tree appears; run them on the asserted one
+#    and gist looks like a list. That is the first thing to know about
+#    structural metrics: they measure what was written, and an ontology
+#    that lets the reasoner do the tangling (o32, o55) will score as if it
+#    had no structure at all.
+#
+#    The scores themselves are on the measured line for the Trail and in
+#    the diagram for both. On structure, both ontologies score 5 on nearly
+#    everything, which says less than it seems: a small, shallow, single-
+#    parented hierarchy is the easy case, and OQuaRE's thresholds were set
+#    for ontologies with thousands of classes.
+#
+#  DIAGRAM
+#       metric      what                                  Trail        gist        threshold for 5
+#       DITOnto     longest root-to-leaf path             2  (5)       3  (4)      at most 2
+#       NOCOnto     mean children per non-root class      1  (5)       1  (5)      at most 3
+#       NACOnto     mean ancestors per leaf               0.43 (5)     0.46 (5)    at most 2
+#       TMOnto      mean parents per class with a parent  1  (5)       1  (5)      at most 2
+#       LCOMOnto    mean leaf-to-root path length         1.43 (5)     1.46 (5)    at most 2
+#
+#       gist: 62 roots of 96 classes, asserted. Reasoned, most of them have a parent.
+#       the metrics read rdfs:subClassOf; a defined hierarchy is invisible to them
+#
+#  WHAT TO TAKE AWAY
+#    - Depth, breadth, ancestors, tangledness, cohesion: five numbers,
+#      and for a small ontology all five come out well.
+#    - Structural metrics read what is asserted. An ontology that defines
+#      its classes and lets the reasoner classify looks flat to them.
+#    - Measure the reasoned ontology as well as the written one when the
+#      structure is in the definitions.
+#
+#  CORNER    referent
+#  DATA      01-vocabulary.ttl
+#  RUNS IN   the browser; the metrics come from scripts/metrics.py; the gist column from the same script on gistCore.ttl
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo64-structure-depth-breadth-tangledness-cohesion.ttl
+#  SOURCES   Duque-Ramos, Fernandez-Breis, Stevens and Aussenac-Gilles, OQuaRE: a SQuaRE-based approach for evaluating the quality of ontologies, JRPIT 43(2), 2011
+#            http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf
+#            Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
+#            https://doi.org/10.1007/978-3-540-92673-3_9
+#  MEASURED  parses, 6 triples; OQuaRE DIT 2 (5), ANOnto 2.00 (5); 'Depth of every class in the ' 17 rows
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Structural metrics: see the MEASURED line, computed over the shipped vocabulary. gist's, for comparison, are in this lesson's diagram."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Depth of every class in the shipped vocabulary  (on the data)
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?class (COUNT(?up) AS ?depth) WHERE {
+#    ?class a owl:Class . FILTER(STRSTARTS(STR(?class), "https://example.org/bookshop-trail/schema#"))
+#    OPTIONAL { ?class rdfs:subClassOf+ ?up . FILTER(isIRI(?up)) }
+#  } GROUP BY ?class ORDER BY DESC(?depth) ?class

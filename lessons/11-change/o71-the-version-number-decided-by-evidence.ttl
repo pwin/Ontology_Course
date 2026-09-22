@@ -1,0 +1,109 @@
+# ==========================================================================
+#  O71  The version number decided by evidence
+# ==========================================================================
+#
+#  DECIDES
+#    A release's version number is derived from what happened to the
+#    axioms, by diffing the old and new files, rather than from what the
+#    author believed the change was; a removed class makes it major
+#    whatever else was added.
+#
+#  WHY
+#    Semantic versioning for an ontology follows the software rule with the
+#    terms translated: a change that can break a consumer is major, an
+#    addition is minor, a wording change is a patch. The hard part is
+#    knowing which a given release is, and the SemOps Manual's answer is
+#    not to ask the author. The Quality Suite's version-diff compares two
+#    files axiom by axiom and reports what was removed, what was added, and
+#    the bump that follows: one removed class makes it MAJOR regardless of
+#    the seven additive changes around it, and regardless of anyone's view
+#    that nobody was using it.
+#
+#    This lesson's two companion files are version 1.1.0 and 2.0.0 of a
+#    small vocabulary. Between them bs:PublishedWork is gone, bs:Edition
+#    and bs:website have arrived, and bs:isbn's domain has moved. The diff
+#    on the measured line says MAJOR, and the lines it prints are the
+#    evidence a steward signs off on. --fail-on major makes it a gate: a
+#    pull request that removes a class cannot merge without a named
+#    reviewer, and the argument in the meeting becomes 'the diff says
+#    major; who signs off', which is a better argument than 'do you think
+#    this is breaking'.
+#
+#    OBO Foundry FP-004 asks for documented versioning procedures; gist has
+#    release notes per version and a major-version migration guide. The
+#    procedure that costs least is the one where the number is computed.
+#
+#  DIAGRAM
+#       1.1.0                                   2.0.0                              version-diff
+#       bs:PublishedWork                        (gone)                             Removed classes [MAJOR]
+#       bs:isbn domain PublishedWork            bs:isbn domain Edition             changed
+#       --                                      bs:Edition                         Added classes [minor]
+#       --                                      bs:website                         Added properties [minor]
+#
+#       Suggested version bump: MAJOR           one removal outweighs any number of additions
+#       --fail-on major: the gate; a named reviewer signs off
+#
+#  WHAT TO TAKE AWAY
+#    - Major if a consumer can break, minor if only additions, patch if
+#      only wording. Derive it from the diff, not the author.
+#    - One removal makes a release major whatever else it contains. That
+#      is the property that makes the number trustworthy.
+#    - Make it a gate with --fail-on major. The decision stays human; the
+#      basis stops being who argued hardest.
+#
+#  NOTE
+#    The two versions are schema-1.1.0.ttl and schema-2.0.0.ttl beside this
+#    lesson. Open either in the editor; to run the diff, python -m
+#    ontology_suite version-diff schema-1.1.0.ttl schema-2.0.0.ttl
+#    --exclude-imports. Old first, then new.
+#
+#  CORNER    thought
+#  RUNS IN   the browser; the verdict on the MEASURED line is the Ontology Quality Suite's version-diff over the two companion files beside this lesson
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo71-the-version-number-decided-by-evidence.ttl
+#  SOURCES   SemOps Manual 12.1 Evidence-based semver: version-diff
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#121-evidence-based-semver-version-diff
+#            OBO Foundry principle FP-004, versioning
+#            https://obofoundry.org/principles/fp-004-versioning.html
+#  MEASURED  parses, 31 triples; OWL 2 DL in profile; version-diff: MAJOR
+# ==========================================================================
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+dct:title           a owl:AnnotationProperty .
+dct:description     a owl:AnnotationProperty .
+dct:creator         a owl:AnnotationProperty .
+dct:contributor     a owl:AnnotationProperty .
+dct:created         a owl:AnnotationProperty .
+dct:modified        a owl:AnnotationProperty .
+dct:license         a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+vann:preferredNamespacePrefix  a owl:AnnotationProperty .
+vann:preferredNamespaceUri     a owl:AnnotationProperty .
+owl:deprecated      a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                              owl:Ontology ;
+    owl:versionIRI                 <https://example.org/bookshop-trail/schema/2.0.0> ;
+    owl:versionInfo                "2.0.0" ;
+    owl:priorVersion               <https://example.org/bookshop-trail/schema/1.1.0> ;
+    dct:title                      "The Bookshop Trail schema"@en ;
+    skos:prefLabel                 "The Bookshop Trail schema"@en ;
+    dct:description                "A vocabulary for a fictional network of independent bookshops at real British locations: shops, places, works, people, events, trail segments, stock and sources. OWL 2 DL."@en ;
+    dct:creator                    <https://github.com/pwin> ;
+    dct:created                    "2025-09-09"^^xsd:date ;
+    dct:modified                   "2026-09-21"^^xsd:date ;
+    dct:license                    <https://opensource.org/license/mit> ;
+    vann:preferredNamespacePrefix  "bs" ;
+    vann:preferredNamespaceUri     "https://example.org/bookshop-trail/schema#" ;
+    rdfs:seeAlso                   <https://www.semantechs.co.uk/Ontology_Course/> ;
+    skos:editorialNote             "Responsible for this vocabulary and for answering questions about it: the Trail committee, via the repository's issue tracker."@en .

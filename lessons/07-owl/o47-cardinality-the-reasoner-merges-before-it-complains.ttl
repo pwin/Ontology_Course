@@ -1,0 +1,105 @@
+# ==========================================================================
+#  O47  Cardinality: the reasoner merges before it complains
+# ==========================================================================
+#
+#  DECIDES
+#    Cardinality restrictions are written for meaning and never for
+#    validation, because two values under a maximum of one make the
+#    reasoner conclude they are the same thing, not that the data is wrong.
+#
+#  WHY
+#    'A shop is in exactly one settlement.' Written as a cardinality
+#    restriction or a functional property, it means what it says, and what
+#    it says has a consequence nobody wants at first: a shop recorded in
+#    Wigtown and in Hay-on-Wye is no error. The reasoner reads it as
+#    evidence that Wigtown and Hay-on-Wye are one place. The RL closure of
+#    this file contains owl:sameAs between the two towns, and HermiT agrees
+#    the file is consistent. No unique name assumption is made in OWL; two
+#    IRIs may name one thing until something says otherwise. Add
+#    owl:differentFrom between the towns and the same file is inconsistent.
+#
+#    That is the whole argument for gist's rules seven to eleven and for
+#    o29. Use someValuesFrom rather than a minimum of one; use minimum
+#    cardinalities above one when you mean them; never a minimum of zero,
+#    which says nothing; and express data constraints with SHACL, where
+#    'more than one town' is a row in a report and the towns stay two.
+#
+#    Qualified cardinality is the useful cousin: a TrailSegment has exactly
+#    two bs:end values that are Bookshops. It carries meaning, a segment is
+#    a pair, and the reasoner uses it the same way: a third end merges with
+#    one of the other two.
+#
+#  DIAGRAM
+#       bs:locatedIn a owl:FunctionalProperty          at most one value, in every interpretation
+#
+#       bt:shop-x bs:locatedIn bt:place-wigtown, bt:place-hay
+#         =>  bt:place-wigtown owl:sameAs bt:place-hay      (the RL closure; HermiT: consistent)
+#
+#       + bt:place-wigtown owl:differentFrom bt:place-hay
+#         =>  inconsistent
+#
+#       the shape that was meant:  sh:path bs:locatedIn ; sh:maxCount 1   (SHACL course s04)
+#
+#  WHAT TO TAKE AWAY
+#    - No unique name assumption: two IRIs may be one thing. A maximum
+#      cardinality merges before it contradicts.
+#    - Cardinality is for meaning. 'A segment has two ends' is meaning;
+#      'a shop row has one town' is a shape.
+#    - differentFrom, AllDifferent and inverse-functional keys are how
+#      you tell the reasoner two things are two.
+#
+#  TRY IT
+#    Show Facts: the two towns are owl:sameAs. Add 'bt:place-wigtown
+#    owl:differentFrom bt:place-hay .', Get All, and run the checker:
+#    HermiT now reports the file inconsistent. The editor's closure will
+#    show both triples and say nothing.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo47-cardinality-the-reasoner-merges-before-it-complains.ttl
+#  SOURCES   OWL 2 Primer 5.2.3 Property Cardinality Restrictions
+#            https://www.w3.org/TR/owl2-primer/#Property_Cardinality_Restrictions
+#            OWL 2 Primer 4.7 Equality and Inequality of Individuals
+#            https://www.w3.org/TR/owl2-primer/#Equality_and_Inequality_of_Individuals
+#  MEASURED  parses, 34 triples; 3 classes, 2 object properties, 3 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; RL closure +8; 'Things the closure has decid' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Settlement  a owl:Class .
+bs:Bookshop    a owl:Class .
+bs:locatedIn   a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:range bs:Settlement .
+
+# The same commitment as restrictions, in the three unqualified forms: a
+# bookshop is located in at most one, at least one, and so exactly one.
+bs:Bookshop
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:maxCardinality 1 ] ,
+                    [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:minCardinality 1 ] ,
+                    [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:cardinality 1 ] .
+
+bt:shop-x         a bs:Bookshop ; bs:locatedIn bt:place-wigtown, bt:place-hay .
+bt:place-wigtown  a bs:Settlement ; skos:prefLabel "Wigtown"@en .
+bt:place-hay      a bs:Settlement ; skos:prefLabel "Hay-on-Wye"@en .
+
+# A segment is a pair: qualified cardinality carrying meaning.
+bs:TrailSegment  a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:end ; owl:qualifiedCardinality 2 ; owl:onClass bs:Bookshop ] .
+bs:end  a owl:ObjectProperty .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Things the closure has decided are the same  (on the reasoned)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?a ?b WHERE { ?a owl:sameAs ?b . FILTER(?a != ?b && STR(?a) < STR(?b)) }

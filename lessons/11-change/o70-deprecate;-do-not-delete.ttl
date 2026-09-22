@@ -1,0 +1,138 @@
+# ==========================================================================
+#  O70  Deprecate; do not delete
+# ==========================================================================
+#
+#  DECIDES
+#    A term whose meaning has moved is marked deprecated, kept for a full
+#    major version, given a change note and a replacement, and the
+#    migration is asserted from the retiring IRI so that tooling can find
+#    it.
+#
+#  WHY
+#    gist's deprecation policy is short and worth copying whole. A term
+#    that is to go is marked owl:deprecated true in the next release, with
+#    a note saying why and what to use instead. It stays, deprecated, for
+#    at least one full major version, so that nobody's data breaks between
+#    one release and the next. Only at a later major release is it deleted,
+#    and the release notes say so. The Trail's bs:PublishedWork in o27
+#    followed the first half; this lesson adds the mechanics.
+#
+#    The migration annotation is the part that tooling reads. The SemOps
+#    Manual's chapter 12 found that the Quality Suite's rename detection
+#    recognises owl:equivalentClass from the old IRI to the new one and not
+#    the other way round, and that writing it backwards, which reads more
+#    naturally, silently drops a hundred-percent-confidence repair to a
+#    guess. owl:equivalentClass is symmetric to a reasoner and directional
+#    to a tool, and the rule is: assert it from the retiring IRI.
+#    dct:isReplacedBy says the same to a person.
+#
+#    A deprecated term still in use is a finding, QUA-003, and the measured
+#    line has it: this file types a work with the deprecated class so the
+#    check can be seen to fire. It did not fire at first, and the reason is
+#    worth a sentence. The finding's focus node is the work, in the data
+#    namespace, and the gate was scoped to the schema namespace, so the
+#    finding was filtered out as somebody else's. Scope the gate to the
+#    whole Trail for this check, or it will never see a deprecated term in
+#    use, which is the check's whole purpose. That is the finding to watch
+#    for in the release before a deletion. If it fires, the deletion waits.
+#
+#  DIAGRAM
+#       release N          bs:PublishedWork in use
+#       release N+1        bs:PublishedWork owl:deprecated true ;
+#                            skos:changeNote "..." ; dct:isReplacedBy bs:Edition ;
+#                            owl:equivalentClass bs:Edition .        <- from the retiring IRI, for the tooling
+#                          bs:Edition a owl:Class ...
+#       release N+1 .. M   both present; QUA-003 reports any use of the old one
+#       release M+1        bs:PublishedWork deleted; the release notes say so
+#
+#       gist: deprecated for a full major version; deleted only at a major release
+#
+#  WHAT TO TAKE AWAY
+#    - Deprecate in one release, keep for a full major version, delete in
+#      a later major one, and say so in the notes.
+#    - Assert the migration from the retiring IRI: old
+#      owl:equivalentClass new. To a reasoner it is symmetric; to the
+#      tooling it is not.
+#    - QUA-003, a deprecated term still in use, is the check that decides
+#      whether a deletion can go ahead.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser; QUA-003 on the MEASURED line comes from the Ontology Quality Suite, scoped to the whole Trail namespace
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo70-deprecate%3B-do-not-delete.ttl
+#  SOURCES   gist: deprecation and deletion policy
+#            https://github.com/semanticarts/gist/blob/develop/docs/DeprecationAndDeletionPolicy.md
+#            SemOps Manual 12.3 The migration annotation, and its direction
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#123-the-migration-annotation-and-its-direction
+#  MEASURED  parses, 43 triples; 3 classes, 1 individuals; OWL 2 DL in profile; OQS: DAT-002, QUA-003, QUA-004, QUA-010, STR-004, STR-006; 'Deprecated terms still in us' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+dct:title           a owl:AnnotationProperty .
+dct:description     a owl:AnnotationProperty .
+dct:creator         a owl:AnnotationProperty .
+dct:contributor     a owl:AnnotationProperty .
+dct:created         a owl:AnnotationProperty .
+dct:modified        a owl:AnnotationProperty .
+dct:license         a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+vann:preferredNamespacePrefix  a owl:AnnotationProperty .
+vann:preferredNamespaceUri     a owl:AnnotationProperty .
+owl:deprecated      a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                              owl:Ontology ;
+    owl:versionIRI                 <https://example.org/bookshop-trail/schema/2.0.0> ;
+    owl:versionInfo                "2.0.0" ;
+    owl:priorVersion               <https://example.org/bookshop-trail/schema/1.1.0> ;
+    dct:title                      "The Bookshop Trail schema"@en ;
+    skos:prefLabel                 "The Bookshop Trail schema"@en ;
+    dct:description                "A vocabulary for a fictional network of independent bookshops at real British locations: shops, places, works, people, events, trail segments, stock and sources. OWL 2 DL."@en ;
+    dct:creator                    <https://github.com/pwin> ;
+    dct:created                    "2025-09-09"^^xsd:date ;
+    dct:modified                   "2026-09-21"^^xsd:date ;
+    dct:license                    <https://opensource.org/license/mit> ;
+    vann:preferredNamespacePrefix  "bs" ;
+    vann:preferredNamespaceUri     "https://example.org/bookshop-trail/schema#" ;
+    rdfs:seeAlso                   <https://www.semantechs.co.uk/Ontology_Course/> ;
+    skos:editorialNote             "Responsible for this vocabulary and for answering questions about it: the Trail committee, via the repository's issue tracker."@en .
+
+bs:Work  a owl:Class ; skos:prefLabel "Work"@en .
+
+bs:PublishedWork
+    a                    owl:Class ;
+    owl:deprecated       true ;
+    skos:prefLabel       "Published Work"@en ;
+    skos:changeNote      "Deprecated in 2.0.0: works acquired more than one edition, and the meaning moved to bs:Edition. Retained through 2.x; to be deleted in 3.0.0."@en ;
+    dct:isReplacedBy     bs:Edition ;
+    owl:equivalentClass  bs:Edition .
+
+bs:Edition
+    a                owl:Class ;
+    skos:prefLabel   "Edition"@en ;
+    skos:definition  "A printing of a Work by a publisher, with an ISBN if made after 1970."@en .
+
+# Still in use, for QUA-003 to find.
+bt:book-old  a bs:PublishedWork .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Deprecated terms still in use  (on the model)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?term (COUNT(?x) AS ?uses) WHERE { ?term owl:deprecated true . ?x a ?term } GROUP BY ?term

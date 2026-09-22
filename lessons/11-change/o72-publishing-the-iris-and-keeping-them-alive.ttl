@@ -1,0 +1,110 @@
+# ==========================================================================
+#  O72  Publishing the IRIs, and keeping them alive
+# ==========================================================================
+#
+#  DECIDES
+#    The vocabulary is published where its IRIs resolve, with a persistent
+#    redirector in front, documentation generated from the file, a channel
+#    for requests, and notice of changes; and where the Trail cannot do
+#    that, it says so.
+#
+#  WHY
+#    An IRI that resolves is the last leg of o04's promise: fetch it and
+#    get the definition. Cool URIs sets out how, with a hash namespace
+#    served as one document or a slash namespace served a resource at a
+#    time, and content negotiation returning Turtle to a program and HTML
+#    to a person. The Best Practice Recipes note gives the server
+#    configuration for each case. A persistent redirector, w3id.org for
+#    gist, sits in front so that the hosting can move and the IRIs need
+#    not; gist's IRIs have survived three hosts that way.
+#
+#    Documentation is generated, not written, so that it cannot drift: the
+#    Quality Suite's docgen produces a reference page from the file,
+#    classes, properties and diagrams, and the SemOps Manual's chapter 13
+#    makes it a build step. Then the OBO Foundry's social principles: a
+#    channel for community participation (FP-020), responsiveness to
+#    requests (FP-016), and notice of major changes to those who depend on
+#    the ontology (FP-013). None is technical and each is the reason an
+#    ontology is still used in five years.
+#
+#    The Trail says which of these it does. Its namespace is example.org,
+#    reserved for documentation, so nothing resolves and nothing ever will;
+#    the point of the course is the thinking, not the hosting. Its
+#    documentation is generated; its channel is the repository's issue
+#    tracker; its notice of change is the commit log and this course
+#    document. That is stated on the header, which is the SemOps ledger
+#    again: say what you do not do, in the place someone will look.
+#
+#  DIAGRAM
+#       a program asks for bs:Bookshop     Accept: text/turtle        ->  the schema document, Turtle
+#       a person asks for bs:Bookshop      Accept: text/html          ->  the generated documentation, at #Bookshop
+#       the host moves                     w3id.org redirects         ->  the IRIs do not change
+#
+#       docgen  ->  reference page from the file, every build       (SemOps 13.2)
+#       FP-020  a channel        FP-016  responsiveness        FP-013  notice of major changes
+#
+#       the Trail: example.org, so nothing resolves; the header says so
+#
+#  WHAT TO TAKE AWAY
+#    - Resolving IRIs close the loop from symbol to definition. A
+#      redirector in front is what keeps them resolving when the host
+#      changes.
+#    - Generate the documentation from the file. Written documentation
+#      drifts; generated documentation cannot.
+#    - The last three principles are social: a channel, responsiveness,
+#      notice of change. They decide whether the ontology is alive in
+#      five years.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo72-publishing-the-iris-and-keeping-them-alive.ttl
+#  SOURCES   Best Practice Recipes for Publishing RDF Vocabularies
+#            https://www.w3.org/TR/swbp-vocab-pub/
+#            OBO Foundry principle FP-013, notification of changes
+#            https://obofoundry.org/principles/fp-013-notification.html
+#  MEASURED  parses, 32 triples; OWL 2 DL in profile
+# ==========================================================================
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+dct:title           a owl:AnnotationProperty .
+dct:description     a owl:AnnotationProperty .
+dct:creator         a owl:AnnotationProperty .
+dct:contributor     a owl:AnnotationProperty .
+dct:created         a owl:AnnotationProperty .
+dct:modified        a owl:AnnotationProperty .
+dct:license         a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+vann:preferredNamespacePrefix  a owl:AnnotationProperty .
+vann:preferredNamespaceUri     a owl:AnnotationProperty .
+owl:deprecated      a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                              owl:Ontology ;
+    owl:versionIRI                 <https://example.org/bookshop-trail/schema/2.0.0> ;
+    owl:versionInfo                "2.0.0" ;
+    owl:priorVersion               <https://example.org/bookshop-trail/schema/1.1.0> ;
+    dct:title                      "The Bookshop Trail schema"@en ;
+    skos:prefLabel                 "The Bookshop Trail schema"@en ;
+    dct:description                "A vocabulary for a fictional network of independent bookshops at real British locations: shops, places, works, people, events, trail segments, stock and sources. OWL 2 DL."@en ;
+    dct:creator                    <https://github.com/pwin> ;
+    dct:created                    "2025-09-09"^^xsd:date ;
+    dct:modified                   "2026-09-21"^^xsd:date ;
+    dct:license                    <https://opensource.org/license/mit> ;
+    vann:preferredNamespacePrefix  "bs" ;
+    vann:preferredNamespaceUri     "https://example.org/bookshop-trail/schema#" ;
+    rdfs:seeAlso                   <https://www.semantechs.co.uk/Ontology_Course/> ;
+    skos:editorialNote             "Responsible for this vocabulary and for answering questions about it: the Trail committee, via the repository's issue tracker."@en .
+
+<https://example.org/bookshop-trail/schema>
+    skos:editorialNote  "Not published at a resolving IRI: example.org is reserved for documentation, and this vocabulary is a teaching one. Documentation is generated by scripts/build_docs.py and the Quality Suite's docgen; requests and questions go to the repository's issue tracker; changes are announced in the release notes and the course document."@en .

@@ -1,0 +1,112 @@
+# ==========================================================================
+#  O04  A symbol that is globally unique, and that a machine can read
+# ==========================================================================
+#
+#  DECIDES
+#    Every referent gets an IRI, because an IRI is the one kind of symbol
+#    that cannot collide with anyone else's and that a machine can compare,
+#    join on and look up.
+#
+#  WHY
+#    A label is a symbol for people. 'Wigtown' works in a conversation and
+#    fails in a database, where the festival and the town both answer to it
+#    and no machine can tell them apart. A code works inside one system:
+#    EVT-001, row 14, the shop id. It fails the moment two systems meet,
+#    because both of them have an EVT-001.
+#
+#    An IRI is a symbol built to survive that meeting. It is globally
+#    unique by construction: the http scheme delegates the right to mint
+#    names under a domain to whoever holds the domain, so
+#    example.org/bookshop-trail/place-wigtown can only have been coined by
+#    one party, and nobody else's place-wigtown can be confused with it.
+#    The Web Architecture document calls this URI ownership.
+#
+#    It is machine-readable in a precise and modest sense. A machine cannot
+#    understand it, but it can test two of them for equality by comparing
+#    strings, join two graphs wherever the same IRI appears in both, and,
+#    because it is an http IRI, fetch it and get back the definition.
+#    Nothing more is claimed and nothing more is needed. The same document
+#    also asks for opacity: a machine should read nothing into the spelling
+#    of an IRI, which is why gist and BFO can both be right about naming,
+#    one readable and one numeric, as o15 discusses.
+#
+#    The IRI is still not the referent. It is a third kind of symbol,
+#    sitting on the symbol corner beside the label, and RDF Concepts
+#    section 1.3 says in as many words that what it refers to is fixed by
+#    convention and definition, not by the IRI itself. owl:sameAs is the
+#    statement that two IRIs share a referent; the Trail uses it to say
+#    that its Wigtown is DBpedia's.
+#
+#  DIAGRAM
+#       symbols on the symbol corner            what a machine can do with each
+#
+#       label   "Wigtown"@en                    match a string; collide with the festival
+#       code    WGT-04                          match inside one system; collide outside it
+#       IRI     bt:place-wigtown                compare for identity anywhere
+#               = https://example.org/          join two graphs on it
+#                 bookshop-trail/place-wigtown  fetch it and read the definition
+#                                               cannot be minted by anyone but the owner of example.org
+#
+#       bt:place-wigtown  owl:sameAs  <http://dbpedia.org/resource/Wigtown>
+#       "these two symbols, minted by two owners, share one referent"
+#
+#  WHAT TO TAKE AWAY
+#    - Globally unique comes from ownership: only the holder of a domain
+#      can mint IRIs under it. That is the whole trick, and it is enough.
+#    - Machine-readable means comparable, joinable and fetchable. It does
+#      not mean understood.
+#    - An IRI is opaque to a machine. Its spelling is for people, and the
+#      definition it resolves to is what fixes the referent.
+#    - owl:sameAs joins two owners' symbols at the referent. Use it when
+#      you mean identity, not resemblance.
+#
+#  TRY IT
+#    In the SPARQL panel, count how many distinct subjects have the label
+#    'Wigtown'. Then count distinct IRIs. The first number is what a string
+#    search sees; the second is what a graph sees.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo04-a-symbol-that-is-globally-unique-and-that-a-machine-can-read.ttl
+#  SOURCES   Architecture of the World Wide Web 2.2.2.1 URI Ownership
+#            https://www.w3.org/TR/webarch/#uri-ownership
+#            RDF 1.2 Concepts 1.3 The Referent of an IRI
+#            https://www.w3.org/TR/rdf12-concepts/#referents
+#  MEASURED  parses, 8 triples; 'Symbols that name more than ' 1 row; 'What the Trail's Wigtown is ' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+bt:place-wigtown
+    rdfs:label    "Wigtown"@en, "Baile na h-Uige"@gd ;
+    rdfs:comment  "The town. The IRI is the Trail's own; the labels are anyone's."@en ;
+    owl:sameAs    <http://dbpedia.org/resource/Wigtown> .
+
+bt:festival-wigtown
+    rdfs:label    "Wigtown Book Festival"@en, "Wigtown"@en ;
+    rdfs:comment  "The festival, which people also call Wigtown. A different referent, so a different IRI."@en .
+
+# A local code, kept for the spreadsheet's sake. It identifies inside the
+# Trail's own systems and nowhere else, so it is a label here, not a name.
+bt:place-wigtown
+    skos:notation  "WGT-04" .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Symbols that name more than one thing  (on the model)
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?label (COUNT(DISTINCT ?thing) AS ?things)
+#  WHERE { ?thing rdfs:label ?label }
+#  GROUP BY ?label
+#  HAVING (COUNT(DISTINCT ?thing) > 1)
+#
+#  -- What the Trail's Wigtown is the same as  (on the model)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?ours ?theirs WHERE { ?ours owl:sameAs ?theirs }

@@ -1,0 +1,120 @@
+# ==========================================================================
+#  O39  SKOS in full: labels, notes, related, mapping, and the integrity conditions
+# ==========================================================================
+#
+#  DECIDES
+#    The genre scheme carries one preferred label per language,
+#    alternatives, scope notes, associative links kept apart from
+#    hierarchy, and mappings to outside schemes by match properties rather
+#    than owl:sameAs; and its integrity is checked by shapes.
+#
+#  WHY
+#    SKOS is small and complete. Labels: prefLabel, altLabel, hiddenLabel
+#    for misspellings, with the condition S14 that a concept has at most
+#    one preferred label per language. Notes: definition, scopeNote,
+#    example, historyNote, changeNote, editorialNote, the same set gist
+#    recommends for ontologies, which is not a coincidence. Hierarchy:
+#    broader and narrower, and the transitive versions for queries.
+#    Association: skos:related, for Tartan Noir and Scottish Interest,
+#    which are neither above nor below each other, with the condition S27
+#    that a concept is not both related and broader to another. Grouping:
+#    skos:Collection, for 'the Welsh-language shelf', a set of concepts
+#    that is not itself a concept. And mapping: exactMatch, closeMatch,
+#    broadMatch to concepts in other schemes.
+#
+#    The mapping properties are the ones to get right. owl:sameAs says two
+#    IRIs have one referent, and everything true of one becomes true of the
+#    other, in both directions, forever. skos:exactMatch says two concepts
+#    in two schemes can be used interchangeably for retrieval, which is a
+#    smaller and safer claim about two particulars that remain two. The
+#    Trail's crime fiction is closeMatch to Wikidata's, because the scope
+#    notes differ; it is not the same thing.
+#
+#    The integrity conditions are checkable, and this lesson's shapes check
+#    the ones that matter: one preferred label per language, every concept
+#    in a scheme, related disjoint from broader, and no concept its own
+#    ancestor. Run on the shipped scheme they report conformance; on this
+#    file, with a seeded cycle and a doubled label, they report both. The
+#    SHACL course's s30 does the cycle check in the same way.
+#
+#  DIAGRAM
+#       labels     prefLabel (one per language, S14)   altLabel   hiddenLabel
+#       notes      definition  scopeNote  example  historyNote  changeNote  editorialNote
+#       hierarchy  broader  narrower       (broaderTransitive for the closure)
+#       association related                 (disjoint from broaderTransitive, S27)
+#       grouping   Collection, member       (not a concept)
+#       mapping    exactMatch  closeMatch  broadMatch  narrowMatch  relatedMatch
+#
+#       owl:sameAs      one referent, two names, everything transfers
+#       skos:closeMatch two concepts, interchangeable for retrieval, nothing else transfers
+#
+#  WHAT TO TAKE AWAY
+#    - SKOS has six kinds of statement and each has its property. Labels,
+#      notes, hierarchy, association, grouping, mapping.
+#    - Map between schemes with match properties. owl:sameAs merges
+#      referents; exactMatch leaves them two.
+#    - The integrity conditions are shapes. Run them in the editor before
+#      publishing a scheme, and keep a file that breaks them.
+#
+#  CORNER    all three
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fskos-shapes.ttl
+#  SOURCES   SKOS Reference 10 Mapping Properties
+#            https://www.w3.org/TR/skos-reference/#mapping
+#            SKOS Reference 8.6 integrity condition S27, related and broaderTransitive are disjoint
+#            https://www.w3.org/TR/skos-reference/#L2422
+#  MEASURED  parses, 50 triples; 3 classes, 5 object properties, 6 concepts, 7 individuals; OWL 2 DL in profile; does not conform (4 violations, 0 warnings, 0 info); 'Concepts that are their own ' 3 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix wd:   <http://www.wikidata.org/entity/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+skos:Concept        a owl:Class .
+skos:ConceptScheme  a owl:Class .
+skos:Collection     a owl:Class .
+skos:inScheme       a owl:ObjectProperty .
+skos:broader        a owl:ObjectProperty .
+skos:related        a owl:ObjectProperty, owl:SymmetricProperty .
+skos:member         a owl:ObjectProperty .
+skos:closeMatch     a owl:ObjectProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+
+bt:genre-scheme         a skos:ConceptScheme ; skos:prefLabel "Bookshop Trail genre scheme"@en .
+bt:genre-fiction        a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Fiction"@en .
+bt:genre-crime-fiction  a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Crime Fiction"@en ;
+    skos:altLabel "Mystery"@en ; skos:hiddenLabel "Crime fition"@en ;
+    skos:scopeNote "Works whose plot turns on a crime and its investigation."@en ;
+    skos:broader bt:genre-fiction ;
+    skos:closeMatch wd:Q208505 .
+bt:genre-tartan-noir    a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Tartan Noir"@en ;
+    skos:broader bt:genre-crime-fiction ; skos:related bt:genre-scottish-interest .
+bt:genre-scottish-interest a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Scottish Interest"@en ;
+    skos:broader bt:genre-literature .
+bt:genre-literature     a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Literature"@en .
+
+bt:shelf-welsh  a skos:Collection ; skos:prefLabel "The Welsh-language shelf"@en ;
+    skos:member bt:genre-fiction, bt:genre-crime-fiction .
+
+# Two seeded faults for the shapes: a doubled English label, and a cycle.
+bt:genre-cosy-crime  a skos:Concept ; skos:inScheme bt:genre-scheme ;
+    skos:prefLabel "Cosy Crime"@en, "Cozy Crime"@en ;
+    skos:broader bt:genre-crime-fiction .
+bt:genre-fiction     skos:broader bt:genre-cosy-crime .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Concepts that are their own ancestor  (on the model)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT DISTINCT ?c WHERE { ?c skos:broader+ ?c }

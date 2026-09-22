@@ -1,0 +1,110 @@
+# ==========================================================================
+#  O53  Inconsistency: the three usual causes
+# ==========================================================================
+#
+#  DECIDES
+#    A contradiction is traced to one of three habits: a thing typed with
+#    two disjoint kinds, a functional property with two values declared
+#    different, or a value that its datatype cannot hold; each is seeded,
+#    and the reasoner names the axioms responsible.
+#
+#  WHY
+#    An ontology is inconsistent when no interpretation satisfies it. It is
+#    one verdict for the whole graph, and the first thing to know is that
+#    it is rarely subtle. Almost every inconsistency in practice has one of
+#    three shapes. A thing typed with two classes declared disjoint,
+#    usually a data load with the wrong kind (o43). A functional property
+#    with two values that are declared, or can be proved, different: two
+#    towns for one shop with owl:differentFrom between them, or two
+#    integers, since literals are different when they differ (o47). Or a
+#    value a datatype cannot hold, 'four' as an xsd:integer, which the
+#    reasoner treats as no value at all and the axiom that requires one
+#    then fails.
+#
+#    This file seeds all three, so that HermiT's verdict is unmistakable,
+#    and the reasoner can be asked to explain. ROBOT's explain command in
+#    inconsistency mode returns the smallest sets of axioms that produce
+#    the contradiction, one per cause, and the measured line carries the
+#    first of them. That is the tool to reach for when a large ontology
+#    turns inconsistent after a change: not reading the ontology, but
+#    asking which few axioms are to blame.
+#
+#    The editor's RL closure will show the sameAs and the types and say
+#    nothing about a contradiction. For the browser, each cause is a query,
+#    and the three queries here find the three seeds.
+#
+#  DIAGRAM
+#       cause                                   seed                                               query
+#       two disjoint kinds                      bt:oddity a bs:Place, bs:Bookshop                  ?x a ?a, ?b . ?a owl:disjointWith ?b
+#       functional, two values, different       bt:shop-x locatedIn wigtown, hay ; wigtown differentFrom hay
+#                                                                                                  ?x ?p ?a, ?b . ?p a owl:FunctionalProperty . ?a owl:differentFrom ?b
+#       a value outside its datatype            bt:shop-y bs:staffCount -3 ; range: integer >= 0   FILTER(?v < 0) on the restricted property
+#
+#       HermiT: inconsistent.  robot explain --mode inconsistency: the axioms responsible, one set per cause
+#
+#  WHAT TO TAKE AWAY
+#    - Inconsistency is one verdict for the whole graph, and it almost
+#      always has one of three shapes.
+#    - Ask the reasoner to explain. The smallest set of axioms behind a
+#      contradiction is a few lines, however large the ontology.
+#    - The browser cannot report a contradiction, but each cause is a
+#      query, and the queries belong in the gate.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; HermiT's verdict and the explanation come from ROBOT
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo53-inconsistency-the-three-usual-causes.ttl
+#  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
+#            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
+#            OWL 2 Primer 4.3 Class Disjointness
+#            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
+#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 3 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Place a owl:Class . bs:Bookshop a owl:Class . bs:Settlement a owl:Class .
+bs:Place  owl:disjointWith  bs:Bookshop .
+bs:locatedIn   a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:range bs:Settlement .
+bs:staffCount  a owl:DatatypeProperty ;
+    rdfs:range [ a rdfs:Datatype ; owl:onDatatype xsd:integer ; owl:withRestrictions ( [ xsd:minInclusive 0 ] ) ] .
+
+# 1. two disjoint kinds
+bt:oddity  a bs:Place, bs:Bookshop .
+
+# 2. functional, two values, declared different
+bt:shop-x         a bs:Bookshop ; bs:locatedIn bt:place-wigtown, bt:place-hay .
+bt:place-wigtown  a bs:Settlement ; owl:differentFrom bt:place-hay .
+bt:place-hay      a bs:Settlement .
+# The plural form, for a whole list of things that are pairwise distinct:
+[] a owl:AllDifferent ; owl:members ( bt:place-wigtown bt:place-hay bt:place-sedbergh ) .
+bt:place-sedbergh a bs:Settlement .
+
+# 3. a value outside its datatype
+bt:shop-y  a bs:Bookshop ; bs:staffCount -3 .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Cause 1: a thing with two disjoint types  (on the model)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?x WHERE { ?a owl:disjointWith ?b . ?x a ?a, ?b }
+#
+#  -- Cause 2: a functional property with two values known to differ  (on the model)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?x ?p WHERE { ?p a owl:FunctionalProperty . ?x ?p ?a, ?b . ?a owl:differentFrom ?b }
+#
+#  -- Cause 3: a staff count below zero  (on the model)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?x ?v WHERE { ?x bs:staffCount ?v . FILTER(?v < 0) }

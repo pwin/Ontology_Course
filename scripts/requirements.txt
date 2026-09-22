@@ -1,0 +1,5 @@
+# The checker's Python dependencies. The course itself needs none of them.
+rdflib>=7.0
+owlrl>=7.0
+pyshacl>=0.30
+ontology-quality-suite>=0.14

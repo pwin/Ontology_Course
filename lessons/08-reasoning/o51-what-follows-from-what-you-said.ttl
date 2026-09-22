@@ -1,0 +1,90 @@
+# ==========================================================================
+#  O51  What follows from what you said
+# ==========================================================================
+#
+#  DECIDES
+#    An inference is a statement true in every interpretation that
+#    satisfies the ontology; a reasoner finds them; adding axioms never
+#    removes one; and 'not said' is not 'false'.
+#
+#  WHY
+#    Every settlement is a place. Wigtown is a settlement. So Wigtown is a
+#    place. Nobody wrote the third sentence and it is true anyway, because
+#    there is no way for the first two to hold and the third to fail. That
+#    is entailment, and it is the whole of what a reasoner does: find the
+#    statements that hold in every interpretation the axioms allow. The set
+#    reading makes it plain. S is inside P; w is in S; so w is in P. There
+#    is nothing to decide.
+#
+#    Three things can follow. A new triple, which a materialising reasoner
+#    writes into the graph, as the editor's Show Facts does. A
+#    classification, that one class is inside another though nobody said
+#    so. And a contradiction, that no interpretation exists at all. RDFS
+#    can give the first; OWL 2 gives all three.
+#
+#    Two properties of the logic decide how it feels to use. It is
+#    monotonic: adding an axiom can add conclusions and never remove one,
+#    so a conclusion drawn today stays drawn. Monotonicity is what makes
+#    materialisation safe, and it is why a SHACL rule with a negation in
+#    it, which the SHACL course's s52 shows going stale, is a different
+#    kind of thing. And it is open-world: a statement not in the graph is
+#    not false, it is unknown, so absence entails nothing. The reasoner
+#    will never tell you that a shop has no website. A query will, and the
+#    difference is the subject of the next lesson.
+#
+#  DIAGRAM
+#       axioms                                     what follows
+#
+#       bs:Settlement rdfs:subClassOf bs:Place     w in S, S inside P  =>  w in P
+#       bt:place-wigtown a bs:Settlement            a new triple:      bt:place-wigtown a bs:Place
+#
+#       three kinds of consequence:  a triple  |  a classification  |  a contradiction
+#       monotonic:  more axioms, never fewer conclusions
+#       open world: not said is not false; absence entails nothing
+#
+#  WHAT TO TAKE AWAY
+#    - Entailment is what holds in every interpretation the axioms allow.
+#      A reasoner finds it; a query finds what is written.
+#    - Monotonic: nothing you add takes a conclusion away. That is why
+#      materialising is safe and why rules with negation are not the same
+#      thing.
+#    - Open world: the reasoner never concludes from absence. For 'has no
+#      website', ask a query.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo51-what-follows-from-what-you-said.ttl
+#  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
+#            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
+#            OWL 2 Primer 2.2 Modeling Knowledge: Basic Notions (the open world, no unique names)
+#            https://www.w3.org/TR/owl2-primer/#Modeling_Knowledge:_Basic_Notions
+#  MEASURED  parses, 12 triples; 3 classes, 1 datatype property, 2 individuals; OWL 2 DL in profile; HermiT: consistent, 1 inferred; RL closure +1; 'What the reasoner cannot say' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Place       a owl:Class ; skos:prefLabel "Place"@en .
+bs:Settlement  a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Settlement"@en .
+bs:Bookshop    a owl:Class .
+bs:website     a owl:DatatypeProperty .
+
+bt:place-wigtown  a bs:Settlement .
+bt:shop-marginalia a bs:Bookshop .     # no website recorded: the reasoner concludes nothing
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- What the reasoner cannot say: shops with no website  (on the model)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?shop WHERE { ?shop a bs:Bookshop . FILTER NOT EXISTS { ?shop bs:website ?w } }

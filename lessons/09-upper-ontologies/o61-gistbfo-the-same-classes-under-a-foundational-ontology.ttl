@@ -1,0 +1,133 @@
+# ==========================================================================
+#  O61  gistBFO: the same classes under a foundational ontology
+# ==========================================================================
+#
+#  DECIDES
+#    The Trail reaches BFO through gist's published bridge, reads each
+#    mapping note as a worked example of alignment reasoning, and reasons
+#    over the three ontologies together.
+#
+#  WHY
+#    BFO is a foundational ontology of a different temperament. Thirty-five
+#    classes, every IRI a number, and a philosophy: everything is a
+#    continuant, which persists through time, or an occurrent, which
+#    unfolds in it; a continuant is independent, a material object say, or
+#    dependent on one, a quality or a piece of information. The OBO Foundry
+#    builds its biomedical ontologies on it, and a great deal of careful
+#    thought is in it. gist chose everyday names and no philosophy, and
+#    gistBFO is the published bridge between them: about forty subclass
+#    axioms from gist classes into their most specific BFO superclass, each
+#    with a note saying why.
+#
+#    The notes are the useful part, because they show the reasoning an
+#    alignment needs. gist:Organization goes under object aggregate, partly
+#    to agree with the Common Core Ontologies. gist:Content under
+#    generically dependent continuant: a work is information that can be
+#    carried by any copy. gist:Category under the same, with a note
+#    explaining why not a quality: a category is a bucket things fall into,
+#    not a redness a car has. And gist:Event, which BFO splits: a scheduled
+#    event is a plan, a generically dependent continuant, while one that
+#    has happened is a process, so gist:Event goes under the union of the
+#    two, which is a mapping that admits it is two things.
+#
+#    The Trail inherits the bridge. bs:Bookshop under gist:Organization is
+#    under object aggregate; bs:Work under gist:Content is a generically
+#    dependent continuant; bs:Event is whatever gist:Event is. HermiT,
+#    given the Trail's bridge, gistCore, gistBFO and BFO 2020 core
+#    together, reports the four consistent in a few seconds, which is the
+#    measured line. Whether the Trail wants BFO's commitments is a separate
+#    question, and the plain answer is that a bookshop website does not;
+#    the value here is in seeing an alignment done well.
+#
+#  DIAGRAM
+#       Trail             gist                  BFO (gistBFO)                                   note
+#       bs:Bookshop  ->   gist:Organization ->  obo:BFO_0000027  object aggregate               partly to agree with CCO
+#       bs:Work      ->   gist:Content      ->  obo:BFO_0000031  generically dependent continuant  carried by any copy
+#       bt:genre-*   ->   gist:Category     ->  obo:BFO_0000031                                 a bucket, not a quality
+#       bs:Event     ->   gist:Event        ->  GDC or process                                  a plan, or a happening
+#       bs:Person    ->   gist:Person       ->  (via LivingThing) material entity
+#
+#       measured: the Trail + gistCore + gistBFO + BFO 2020 core, consistent under HermiT
+#
+#  WHAT TO TAKE AWAY
+#    - A foundational ontology brings a philosophy. Read the bridge's
+#      notes to see what each placement commits you to.
+#    - The hard mappings are the candid ones: gist:Event under a union,
+#      because it is two kinds of thing in BFO's terms.
+#    - Inheriting a bridge is cheap and reasoning over it is quick.
+#      Deciding whether you want its commitments is the real work.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the four-ontology consistency check is HermiT through ROBOT; gistBFO and BFO are fetched by scripts/setup-tools.ps1
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo61-gistbfo-the-same-classes-under-a-foundational-ontology.ttl
+#  SOURCES   gistBFO: gist mapped to the Basic Formal Ontology
+#            https://github.com/semanticarts/gistBFO
+#            BFO 2020
+#            https://github.com/BFO-ontology/BFO-2020
+#  MEASURED  parses, 70 triples; 25 classes, 4 object properties, 1 datatype property, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 900 inferred; RL closure +1649; 'What The Inkwell is, all the' 32 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gist: <https://w3id.org/semanticarts/ns/ontology/gist/> .
+@prefix obo:  <http://purl.obolibrary.org/obo/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+gist:Organization        a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Person              a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Content             a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Event               a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GeoRegion           a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GovernedGeoRegion   a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:OrderedCollection   a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GeoRoute            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Category            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Magnitude           a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Aspect              a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:UnitOfMeasure       a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Building            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:isCategorizedBy     a owl:ObjectProperty .
+gist:hasMagnitude        a owl:ObjectProperty .
+gist:hasAspect           a owl:ObjectProperty .
+gist:hasUnitOfMeasure    a owl:ObjectProperty .
+gist:numericValue        a owl:DatatypeProperty .
+
+obo:BFO_0000001  a owl:Class ; skos:prefLabel "entity"@en .
+obo:BFO_0000002  a owl:Class ; skos:prefLabel "continuant"@en .
+obo:BFO_0000003  a owl:Class ; skos:prefLabel "occurrent"@en .
+obo:BFO_0000015  a owl:Class ; skos:prefLabel "process"@en .
+obo:BFO_0000027  a owl:Class ; skos:prefLabel "object aggregate"@en .
+obo:BFO_0000030  a owl:Class ; skos:prefLabel "object"@en .
+obo:BFO_0000031  a owl:Class ; skos:prefLabel "generically dependent continuant"@en .
+obo:BFO_0000040  a owl:Class ; skos:prefLabel "material entity"@en .
+
+bs:Bookshop  a owl:Class ; rdfs:subClassOf gist:Organization .
+bs:Work      a owl:Class ; rdfs:subClassOf gist:Content .
+bs:Event     a owl:Class ; rdfs:subClassOf gist:Event .
+bs:Person    a owl:Class ; rdfs:subClassOf gist:Person .
+
+# The gistBFO axioms these inherit, restated here with labels so the file
+# reads on its own; the checker imports the real gistBFO and BFO.
+gist:Organization  rdfs:subClassOf obo:BFO_0000027 .
+gist:Content       rdfs:subClassOf obo:BFO_0000031 .
+gist:Category      rdfs:subClassOf obo:BFO_0000031 .
+gist:Event         rdfs:subClassOf [ a owl:Class ; owl:unionOf ( obo:BFO_0000031 obo:BFO_0000015 ) ] .
+
+bt:shop-inkwell  a bs:Bookshop .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- What The Inkwell is, all the way up  (on the reasoned)
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?type WHERE { bt:shop-inkwell a ?type }

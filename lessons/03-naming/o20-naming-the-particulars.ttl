@@ -1,0 +1,99 @@
+# ==========================================================================
+#  O20  Naming the particulars
+# ==========================================================================
+#
+#  DECIDES
+#    Instance IRIs carry a type infix and a slug, never a role, and are
+#    minted once; the Trail's shop-inkwell and gist's _Bookshop_The_Inkwell
+#    are the same rule in two spellings.
+#
+#  WHY
+#    The Trail names its particulars with a lower-case type and a slug:
+#    shop-inkwell, place-wigtown, author-rhona-blackwood, event-
+#    inkwell-2025-03-08. gist's convention is a leading underscore, the
+#    type, an underscore, and the name with its case kept:
+#    _Bookshop_The_Inkwell. The spelling differs; the rule is the same, and
+#    it is the rule from module 02. The infix is the most specific rigid
+#    class the instance belongs to. Never a role, because the role may end
+#    and the IRI may not.
+#
+#    The Trail breaks its own rule once, and the break is worth looking at.
+#    Authors are named author-rhona-blackwood, and Author is a role. gist's
+#    guide would say _Person_Rhona_Blackwood. The Trail's defence is that
+#    its Person class exists only to have authors in it, so the role never
+#    ends within the dataset. That is a pragmatic argument, openly made,
+#    and the editorial note records it.
+#
+#    gist's guide also allows a fallback: when the data being mapped does
+#    not say which specific kind a row is, use a higher class as the infix
+#    for the whole table, _Organization_ rather than guessing between
+#    corporations and charities. That is the same rule applied with
+#    humility, and it is better than an infix that is wrong for a third of
+#    the rows.
+#
+#  DIAGRAM
+#       the Trail                        gist                              the rule
+#
+#       bt:shop-inkwell                  gistd:_Bookshop_The_Inkwell       most specific rigid class + name
+#       bt:place-wigtown                 gistd:_Settlement_Wigtown
+#       bt:author-rhona-blackwood        gistd:_Person_Rhona_Blackwood     never a role (Author is one)
+#       bt:event-inkwell-2025-03-08      gistd:_Event_...                  a slug that will not change
+#
+#       fallback when the kind is not known from the data: the nearest rigid class
+#
+#  WHAT TO TAKE AWAY
+#    - Infix the most specific rigid class. It is the one thing about the
+#      instance that will not change.
+#    - Never name an instance after a role. The Trail does, for authors,
+#      and says why on the class.
+#    - When the source data cannot tell you the kind, use a higher one
+#      for the whole table rather than guess.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo20-naming-the-particulars.ttl
+#  SOURCES   gist Style Guide: instance local names, and the most specific rigid class
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#instance-local-names
+#            gist: the namespace document
+#            https://github.com/semanticarts/gist/blob/develop/docs/Namespace.md
+#  MEASURED  parses, 31 triples; 4 classes, 6 individuals; OWL 2 DL in profile; HermiT: consistent, 4 inferred; 'Instances whose IRI names a ' 1 row
+# ==========================================================================
+
+@prefix bt:    <https://example.org/bookshop-trail/> .
+@prefix bs:    <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix gistd: <https://w3id.org/semanticarts/ns/data/gist/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+
+bs:Person  a owl:Class ; skos:prefLabel "Person"@en .
+bs:Author  a owl:Class ; rdfs:subClassOf bs:Person ; skos:prefLabel "Author"@en ;
+    skos:editorialNote "Instances are minted as author-<name>, against the rule that an infix is a rigid class. Person exists in the Trail only to hold authors, so the role never ends inside the dataset. Mint under person- the day a non-author person appears."@en .
+
+bt:author-rhona-blackwood  a bs:Author, bs:Person ; skos:prefLabel "Rhona Blackwood"@en .
+bt:shop-inkwell            a bs:Bookshop ;          skos:prefLabel "The Inkwell"@en .
+bt:place-wigtown           a bs:Settlement ;        skos:prefLabel "Wigtown"@en .
+bs:Bookshop    a owl:Class ; skos:prefLabel "Bookshop"@en .
+bs:Settlement  a owl:Class ; skos:prefLabel "Settlement"@en .
+
+# The same three, as gist would mint them.
+gistd:_Person_Rhona_Blackwood  a bs:Person ;     skos:prefLabel "Rhona Blackwood"@en ; owl:sameAs bt:author-rhona-blackwood .
+gistd:_Bookshop_The_Inkwell    a bs:Bookshop ;   skos:prefLabel "The Inkwell"@en ;     owl:sameAs bt:shop-inkwell .
+gistd:_Settlement_Wigtown      a bs:Settlement ; skos:prefLabel "Wigtown"@en ;         owl:sameAs bt:place-wigtown .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Instances whose IRI names a role  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  SELECT DISTINCT ?instance WHERE { ?instance a ?class . FILTER(CONTAINS(STR(?instance), "/author-")) }

@@ -1,0 +1,79 @@
+# ==========================================================================
+#  O66  The checks, by identifier
+# ==========================================================================
+#
+#  DECIDES
+#    The shipped vocabulary goes through the Ontology Quality Suite scoped
+#    to its own namespace, and the findings are read by identifier: a check
+#    that fires on every term is a policy not adopted, not a hundred
+#    mistakes.
+#
+#  WHY
+#    The Ontology Quality Suite runs sixty-one checks in ten categories,
+#    each with an identifier, a severity, a message and a remediation: STR
+#    for structure, LOG for logic, QUA for documentation and metadata, STY
+#    for naming style, REA for what a reasoner finds, and so on. The SemOps
+#    Manual's chapter 9 is about running it as a gate, and its two rules
+#    are the ones o34 gave: scope to your own namespace, and assert on
+#    identifiers.
+#
+#    Run on the shipped vocabulary with --own-namespace set to bs:, it
+#    reports a small set of identifiers, on the measured line. Two of them
+#    fire on nearly every term: QUA-009, no skos:prefLabel per language,
+#    and QUA-010, no skos:definition. The Trail uses rdfs:label and
+#    rdfs:comment, the pair gist's guide says not to use, so from the
+#    registry's point of view it has no labels or definitions at all. That
+#    is the manual's point exactly: a check that fires on every term is
+#    telling you about a policy you have not adopted. Adopt SKOS
+#    annotations, one pass of work, or drop the two checks from the
+#    registry with a note saying why. Either is a decision; leaving a
+#    hundred warnings in the report is not.
+#
+#    The other findings are worth reading one at a time, with their
+#    remediation text, which is where the suite's knowledge lives. STR-003,
+#    a property with neither domain nor range, fires on bs:claimedBy and
+#    bs:confidence, both of which o31 left open on purpose; the right
+#    response is an editorial note the check can be pointed at, not a
+#    domain. A gate reports; a person decides.
+#
+#  DIAGRAM
+#       python -m ontology_suite checks --ontology data/01-vocabulary.ttl --own-namespace https://example.org/bookshop-trail/schema# --engine sparql
+#
+#       identifier   fires on               reading
+#       QUA-009      nearly every term      a policy not adopted: skos:prefLabel per language
+#       QUA-010      nearly every term      the same: skos:definition
+#       STR-003      bs:claimedBy, ...      no domain or range, on purpose (o31); note it, do not fix it
+#       STR-004      every class            no formal definition; most kinds are primitive, and should be (o46)
+#
+#       assert on identifiers, never counts; scope to your namespace; read the remediation
+#
+#  WHAT TO TAKE AWAY
+#    - Read a report by identifier. Each has a remediation, and the
+#      remediation is the knowledge.
+#    - A check that fires on every term is a policy question. Adopt the
+#      policy or drop the check, and write down which.
+#    - Some findings are correct and wanted. STR-003 on a property left
+#      open on purpose is one; the answer is a note, not a change.
+#
+#  CORNER    thought
+#  DATA      01-vocabulary.ttl
+#  RUNS IN   the browser; the identifiers on the MEASURED line come from the Ontology Quality Suite: pip install ontology-quality-suite
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo66-the-checks-by-identifier.ttl
+#  SOURCES   The Ontology Quality Suite
+#            https://github.com/pwin/consolidated-ontology-quality-suite-python
+#            SemOps Manual 9.4 The right fix: --own-namespace
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#94-the-right-fix---own-namespace
+#  MEASURED  parses, 6 triples; OQS: QUA-009, QUA-010, STR-003, STR-004
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Checked with the Ontology Quality Suite, scoped to this namespace. QUA-009 and QUA-010 fire on most terms because the vocabulary uses rdfs:label and rdfs:comment; adopting SKOS annotations is one pass of work and is recorded as a decision to take."@en .

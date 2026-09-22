@@ -1,0 +1,118 @@
+# ==========================================================================
+#  O60  gist's patterns, and when to keep your own
+# ==========================================================================
+#
+#  DECIDES
+#    Floor area is modelled gist's way, as a Magnitude with an Aspect and a
+#    Unit, beside the Trail's way, a datatype property with the unit in its
+#    name; the Trail keeps the simple form and records what it gives up.
+#
+#  WHY
+#    gist has a pattern for measured quantities, and it is worth
+#    understanding even where it is not adopted. A gist:Magnitude is a node
+#    with a numeric value, a gist:Aspect saying what was measured, area,
+#    and a gist:UnitOfMeasure saying in what, square metres. Every shop's
+#    floor area becomes four triples instead of one. In return the unit is
+#    data rather than a hint in a property name, a query can convert
+#    between units, and a floor area and a plot area are the same aspect on
+#    different things. gist uses the same pattern for money, durations and
+#    probabilities, and defines several classes by it: a GeoRegion is a
+#    location with a magnitude whose aspect is area.
+#
+#    The Trail says bs:floorArea 140.0 and puts 'square metres' in the
+#    definition. That is the pragmatic form: one triple, a column in the
+#    spreadsheet, a number a query can compare. It gives up the unit as
+#    data and the possibility of a second unit, and o30's rule applies: a
+#    departure that changes only convenience is allowed, and the note says
+#    what was traded. The day the website needs square feet, the note is
+#    the migration plan.
+#
+#    gist:isCategorizedBy is the other pattern the Trail could borrow: the
+#    event kinds of o25 are gist:Category instances, and an event
+#    isCategorizedBy one. That one costs nothing and gains a shared
+#    property, and the shipped vocabulary should probably adopt it.
+#
+#  DIAGRAM
+#       the Trail's way                        gist's way
+#
+#       bt:shop-inkwell bs:floorArea 140.0     bt:shop-inkwell gist:hasMagnitude bt:mag-inkwell-area .
+#       (unit: in the definition)              bt:mag-inkwell-area a gist:Magnitude ;
+#                                                  gist:numericValue 140.0 ;
+#                                                  gist:hasAspect gistd:_Aspect_area ;
+#                                                  gist:hasUnitOfMeasure bt:unit-square-metre .
+#
+#       one triple, unit as a hint             four triples, unit as data, convertible, shareable
+#       the note records the trade
+#
+#  WHAT TO TAKE AWAY
+#    - gist's Magnitude pattern makes the unit data. It costs three
+#      triples a value and pays when units vary or values are shared.
+#    - A datatype property with the unit in its definition is the
+#      pragmatic form. Record what it gives up.
+#    - Borrow the cheap patterns wholesale. gist:isCategorizedBy for a
+#      controlled list costs nothing.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo60-gist-s-patterns-and-when-to-keep-your-own.ttl
+#  SOURCES   gist: a minimalist upper ontology
+#            https://github.com/semanticarts/gist
+#            gist Style Guide: OWL restrictions, the eleven rules
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#owl-restrictions
+#  MEASURED  parses, 59 triples; 15 classes, 4 object properties, 2 datatype properties, 6 individuals; OWL 2 DL in profile; HermiT: consistent, 826 inferred
+# ==========================================================================
+
+@prefix bt:    <https://example.org/bookshop-trail/> .
+@prefix bs:    <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix gist:  <https://w3id.org/semanticarts/ns/ontology/gist/> .
+@prefix gistd: <https://w3id.org/semanticarts/ns/data/gist/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+gist:Organization        a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Person              a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Content             a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Event               a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GeoRegion           a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GovernedGeoRegion   a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:OrderedCollection   a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GeoRoute            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Category            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Magnitude           a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Aspect              a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:UnitOfMeasure       a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Building            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:isCategorizedBy     a owl:ObjectProperty .
+gist:hasMagnitude        a owl:ObjectProperty .
+gist:hasAspect           a owl:ObjectProperty .
+gist:hasUnitOfMeasure    a owl:ObjectProperty .
+gist:numericValue        a owl:DatatypeProperty .
+
+bs:Bookshop  a owl:Class ; rdfs:subClassOf gist:Organization .
+
+# The Trail's way.
+bs:floorArea  a owl:DatatypeProperty ; rdfs:domain bs:Bookshop ; rdfs:range xsd:decimal ;
+    skos:definition "Selling floor in square metres."@en ;
+    skos:editorialNote "Compromise: the unit is in the definition, not in the data. gist's Magnitude pattern is the alternative; adopt it if a second unit is ever needed."@en .
+bt:shop-inkwell  a bs:Bookshop ; bs:floorArea 140.0 .
+
+# gist's way, for the same fact.
+gistd:_Aspect_area     a gist:Aspect ;        skos:prefLabel "area"@en .
+bt:unit-square-metre   a gist:UnitOfMeasure ; skos:prefLabel "square metre"@en .
+bt:mag-inkwell-area    a gist:Magnitude ;
+    gist:numericValue      140.0 ;
+    gist:hasAspect         gistd:_Aspect_area ;
+    gist:hasUnitOfMeasure  bt:unit-square-metre .
+bt:shop-inkwell  gist:hasMagnitude bt:mag-inkwell-area .
+
+# The cheap pattern: a controlled list as categories.
+bs:Event  a owl:Class ; rdfs:subClassOf gist:Event .
+bt:kind-reading  a gist:Category ; skos:prefLabel "Reading"@en .
+bt:event-1       a bs:Event ; gist:isCategorizedBy bt:kind-reading .

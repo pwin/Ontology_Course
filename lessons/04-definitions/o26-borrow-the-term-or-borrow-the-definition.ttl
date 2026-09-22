@@ -1,0 +1,107 @@
+# ==========================================================================
+#  O26  Borrow the term, or borrow the definition
+# ==========================================================================
+#
+#  DECIDES
+#    A term is reused by IRI only when its published meaning is the meaning
+#    wanted; otherwise the Trail mints its own and cites the source; and
+#    every borrowed term is declared.
+#
+#  WHY
+#    Reuse is a principle in every guide. OBO FP-007 requires existing
+#    relations to be reused rather than reinvented; gist exists so that
+#    'person', 'organisation' and 'agreement' need not be defined again.
+#    The reason is the triangle: two ontologies that share an IRI share a
+#    referent, and their data joins without a mapping. Two that each mint a
+#    Person need a mapping, and a mapping is a place for an argument.
+#
+#    But reusing an IRI means reusing its definition and its semantics, all
+#    of them. dct:title is safe; it is an annotation and says nothing a
+#    reasoner acts on. schema:Book comes with a hierarchy under
+#    schema:CreativeWork and a loose contract about what a Book is.
+#    dct:isPartOf is defined in RDFS only, which is why the Trail declares
+#    it an annotation property to stay in OWL 2 DL. So the rule has three
+#    branches. Borrow the IRI when the published definition is the one you
+#    want, and declare it in your own file so the profile checker knows
+#    what it is. Borrow the definition, citing it with dct:source, when the
+#    words are right but the semantics are not. Mint your own when neither
+#    fits, and say what you looked at first.
+#
+#    The Trail borrows skos:, geo:, wgs84:, prov: and dct: terms by IRI,
+#    and declares every one, which is what lets a file of its own stand as
+#    OWL 2 DL without importing anything. It mints bs:Person rather than
+#    reuse gist:Person or foaf:Person, and module 09 shows the bridge that
+#    costs.
+#
+#  DIAGRAM
+#       want                                     do                              example
+#
+#       the published meaning, exactly           reuse the IRI, declare it       skos:prefLabel, geo:hasGeometry
+#       the words, not the semantics             mint, cite with dct:source      bs:Person (source: gist:Person)
+#       neither                                  mint, say what you looked at    bs:TrailSegment
+#
+#       a shared IRI is a shared referent: data joins with no mapping
+#       a borrowed IRI brings its whole definition, and its hierarchy, and its profile
+#
+#  WHAT TO TAKE AWAY
+#    - Reuse an IRI when you mean exactly what its owner means. Then
+#      declare it in your file, so the checker knows its type.
+#    - Borrow a definition and cite it when the words fit and the
+#      semantics do not.
+#    - Mint your own when neither fits, and record what you considered.
+#      The note is cheaper than the second argument.
+#
+#  CORNER    symbol and thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo26-borrow-the-term-or-borrow-the-definition.ttl
+#  SOURCES   OBO Foundry principle FP-007, relations: reuse existing ones
+#            https://obofoundry.org/principles/fp-007-relations.html
+#            OWL 2 Structural Specification 5.8 Entity Declarations and Typing
+#            https://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing
+#  MEASURED  parses, 34 triples; 4 classes, 1 object property, 1 datatype property; OWL 2 DL in profile
+# ==========================================================================
+
+@prefix bs:    <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gist:  <https://w3id.org/semanticarts/ns/ontology/gist/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+# Borrowed by IRI, and declared: the published meaning is the meaning wanted.
+skos:Concept       a owl:Class ;          rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core> .
+geo:Feature        a owl:Class ;          rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> .
+geo:hasGeometry    a owl:ObjectProperty ; rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> .
+wgs84:lat          a owl:DatatypeProperty ; rdfs:range xsd:decimal ; rdfs:isDefinedBy <http://www.w3.org/2003/01/geo/wgs84_pos> .
+dct:title          a owl:AnnotationProperty .
+dct:isPartOf       a owl:AnnotationProperty ;
+    skos:editorialNote "Defined only in RDFS by DCMI, so declared here as an annotation property to stay in OWL 2 DL."@en .
+rdfs:isDefinedBy   a owl:AnnotationProperty .
+
+# Minted, with the definition borrowed and cited.
+bs:Person  a owl:Class ; skos:prefLabel "Person"@en ;
+    skos:definition "A human being who was or is alive."@en ;
+    dct:source      gist:Person ;
+    skos:editorialNote "Definition after gist:Person. Minted rather than reused so that the Trail's files stand alone; module 09 adds the bridge."@en .
+
+# Minted, with the search recorded.
+bs:TrailSegment  a owl:Class ; skos:prefLabel "Trail Segment"@en ;
+    skos:definition "A walking route between two bookshops, with a length."@en ;
+    skos:editorialNote "Considered gist:GeoRoute (an ordered set of points; ours has two ends and a length) and gist:NetworkLink. Neither said 'walkable'. Minted."@en .

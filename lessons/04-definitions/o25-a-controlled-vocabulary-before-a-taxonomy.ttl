@@ -1,0 +1,125 @@
+# ==========================================================================
+#  O25  A controlled vocabulary before a taxonomy
+# ==========================================================================
+#
+#  DECIDES
+#    The event kinds stop being strings in the data and become a controlled
+#    list of seven terms with one preferred label each, synonyms, a scope
+#    note and a maintainer.
+#
+#  WHY
+#    The Trail's events carry bs:eventKind as a string: 'Reading',
+#    'Signing', 'Launch', 'Workshop', 'Panel', 'Book Club', 'Lecture'. The
+#    vocabulary lists the seven in a comment, which is the only thing
+#    stopping an eighth spelt 'reading' from appearing. A string that
+#    should be a thing is the commonest smell in a dataset, and the cure is
+#    the oldest technique in information science: a controlled vocabulary.
+#    ANSI/NISO Z39.19 sets out what one is. Each concept has exactly one
+#    preferred term; every synonym is recorded and points at it; each term
+#    has a scope note saying what it does and does not cover; and somebody
+#    is named as responsible for the list.
+#
+#    None of that needs a hierarchy. A controlled vocabulary is a flat list
+#    with discipline, and it is where most vocabularies should start and
+#    where many should stop. The hierarchy, when it is needed, is the next
+#    rung of the ladder, module 06. gist has the same shape in its own
+#    terms: a gist:ControlledVocabulary is a collection of gist:Category
+#    instances governed by an organisation or person.
+#
+#    The seven kinds become seven particulars in this file, each with a
+#    notation, a preferred label, its synonyms as alternative labels, and a
+#    scope note. 'Talk' and 'Author event' are recorded as synonyms of
+#    Lecture and Reading, because the spreadsheet had them. The query at
+#    the end counts events by kind after the migration, which is what the
+#    website will do and what the strings could not do reliably.
+#
+#  DIAGRAM
+#       before                                    after
+#
+#       bs:eventKind  "Reading"                   bs:eventKind  bt:kind-reading
+#       bs:eventKind  "reading"    (an eighth)    bt:kind-reading  a bs:EventKind ;
+#       bs:eventKind  "Author event"                 skos:notation "RD" ;
+#                                                    skos:prefLabel "Reading"@en ;
+#                                                    skos:altLabel "Author event"@en, "reading"@en ;
+#                                                    skos:scopeNote "An author reads from a work ..." .
+#
+#       one preferred term, synonyms recorded, a scope note, a named maintainer
+#
+#  WHAT TO TAKE AWAY
+#    - A string that is one of a fixed set is a thing pretending to be a
+#      value. Give it an IRI.
+#    - A controlled vocabulary is a flat list with four disciplines: one
+#      preferred term, recorded synonyms, scope notes, a maintainer.
+#    - Start flat. Add the hierarchy when a question needs it, and not
+#      before.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo25-a-controlled-vocabulary-before-a-taxonomy.ttl
+#  SOURCES   ANSI/NISO Z39.19, Guidelines for the construction of monolingual controlled vocabularies
+#            https://groups.niso.org/higherlogic/ws/public/download/12591/z39-19-2005r2010.pdf
+#            SKOS Reference 7 Documentation Properties
+#            https://www.w3.org/TR/skos-reference/#notes
+#  MEASURED  parses, 58 triples; 2 classes, 1 object property, 10 individuals; OWL 2 DL in profile; 'Events by kind, by preferred' 7 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+bs:EventKind  a owl:Class ; skos:prefLabel "Event Kind"@en ;
+    skos:definition "A kind of event a bookshop holds, from the Trail's controlled list."@en ;
+    skos:editorialNote "Maintained by the events secretary. Additions by committee only."@en .
+bs:eventKind  a owl:ObjectProperty ; rdfs:range bs:EventKind ; skos:prefLabel "event kind"@en .
+
+bt:kind-reading   a bs:EventKind ; skos:notation "RD" ; skos:prefLabel "Reading"@en ;   skos:altLabel "Author event"@en, "reading"@en ;
+    skos:scopeNote "An author reads from a work and takes questions. Not a signing, though one may follow."@en .
+bt:kind-signing   a bs:EventKind ; skos:notation "SG" ; skos:prefLabel "Signing"@en ;
+    skos:scopeNote "An author signs copies. No reading."@en .
+bt:kind-launch    a bs:EventKind ; skos:notation "LN" ; skos:prefLabel "Launch"@en ;
+    skos:scopeNote "The first public event for a new work, at or near publication."@en .
+bt:kind-workshop  a bs:EventKind ; skos:notation "WS" ; skos:prefLabel "Workshop"@en ;
+    skos:scopeNote "Participants write or make something. Ticketed, usually."@en .
+bt:kind-panel     a bs:EventKind ; skos:notation "PN" ; skos:prefLabel "Panel"@en ;
+    skos:scopeNote "Several speakers in discussion, with a chair."@en .
+bt:kind-book-club a bs:EventKind ; skos:notation "BC" ; skos:prefLabel "Book Club"@en ; skos:altLabel "Reading group"@en ;
+    skos:scopeNote "A recurring meeting to discuss one work. The author is not usually present."@en .
+bt:kind-lecture   a bs:EventKind ; skos:notation "LC" ; skos:prefLabel "Lecture"@en ;  skos:altLabel "Talk"@en ;
+    skos:scopeNote "One speaker on a subject, not necessarily an author of a work in stock."@en .
+
+# Three events, migrated.
+bt:event-1  a bs:Event ; bs:eventKind bt:kind-reading .
+bt:event-2  a bs:Event ; bs:eventKind bt:kind-reading .
+bt:event-3  a bs:Event ; bs:eventKind bt:kind-lecture .
+bs:Event    a owl:Class .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Events by kind, by preferred label  (on the model)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?kind (COUNT(?event) AS ?events) WHERE {
+#    ?k a bs:EventKind ; skos:prefLabel ?kind .
+#    OPTIONAL { ?event bs:eventKind ?k }
+#  } GROUP BY ?kind ORDER BY DESC(?events)

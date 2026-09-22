@@ -1,0 +1,98 @@
+# ==========================================================================
+#  O03  Shared meaning is an agreement
+# ==========================================================================
+#
+#  DECIDES
+#    A definition is treated as the record of an agreement, with who made
+#    it and when, and a disagreement is modelled rather than settled by the
+#    modeller.
+#
+#  WHY
+#    Two people looking at the same referent hold two thoughts, and the
+#    triangle has no mechanism for making them one. What makes a meaning
+#    shared is an agreement: this symbol, from now on, means this, and here
+#    is the sentence we all signed up to. The sentence is the definition.
+#    It is a social artefact before it is a technical one, and the process
+#    of arriving at it is where a team finds out what it actually thinks.
+#
+#    Some disagreements are not misunderstandings. The SemOps Manual's
+#    example is 'active customer', where finance and product each need a
+#    different definition for reasons that are load-bearing for them. The
+#    right move is to model both, well labelled, and let someone with the
+#    authority decide which goes in the board pack; the modeller's job is
+#    to make the difference visible, not to adjudicate it. The wrong move
+#    is the one that happens by default: the modeller picks one, ships it,
+#    and half the business ignores the model from then on.
+#
+#    The Trail has a small version. 'Founded' and 'opened' are agreed to
+#    mean the same; the committee said so. The founding year of Ex Libris
+#    is not agreed, and the brief asks for both claims to be kept with
+#    their source. That is a disagreement about a fact, not about a
+#    meaning, and the RDF 1.2 layer of the data records it as such. What
+#    this lesson adds is the record of the agreement itself: who decided
+#    that founded means opened, and when.
+#
+#  DIAGRAM
+#       your thought          my thought
+#           |                      |
+#           '------> agreement <---'
+#                       |
+#                written down as
+#                       |
+#                  a definition       + who decided, and when
+#                       |
+#                 carried by the symbol, from now on
+#
+#       A disagreement that will not close is modelled as two terms,
+#       each defined, and the choice between them is somebody's decision.
+#
+#  WHAT TO TAKE AWAY
+#    - A definition is an agreement in writing. It is the thing that
+#      makes a shared symbol carry a shared thought.
+#    - Record who agreed it and when. Definitions get argued over again,
+#      and the trail of the decision is what stops the argument
+#      repeating.
+#    - Do not resolve a disagreement that is really about territory.
+#      Model both meanings with clear labels and hand the choice to
+#      someone with the authority to make it.
+#    - Building the vocabulary is a social process, and often the most
+#      useful part of it. People find out what they mean.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo03-shared-meaning-is-an-agreement.ttl
+#  SOURCES   SemOps Manual 2.1 Definitions are territory
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/02-people-and-cognition.md#21-definitions-are-territory
+#            Winstanley, Team building: the importance of an ontology (2025)
+#            https://www.semanticarts.com/team-building-the-importance-of-an-ontology/
+#  MEASURED  parses, 11 triples
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# The agreement that 'founded' and 'opened' are one term, with the record of
+# who agreed it. dct:source and skos:editorialNote carry the trail.
+
+bt:candidate-founded
+    rdfs:label          "founded"@en, "opened"@en ;
+    rdfs:comment        "The year a shop or publisher began trading."@en ;
+    skos:editorialNote  "Agreed at the committee of 12 March 2025 that 'founded' and 'opened' are the same term. Where sources disagree about the year, keep every claim with its source; do not choose."@en ;
+    dct:source          bt:committee-2025-03-12 .
+
+bt:committee-2025-03-12
+    rdfs:label    "Trail committee, 12 March 2025"@en ;
+    rdfs:comment  "The meeting that agreed the first list of terms."@en .
+
+# A disagreement that stays open: two claims about one fact, each with a
+# source. This is what the brief asked for, and it is data, not vocabulary.
+
+bt:claim-ex-libris-1921
+    rdfs:label    "Ex Libris founded in 1921, per the national register"@en ;
+    dct:source    bt:source-national-register .
+
+bt:claim-ex-libris-1923
+    rdfs:label    "Ex Libris founded in 1923, per the trail guide"@en ;
+    dct:source    bt:source-trail-guide-2024 .

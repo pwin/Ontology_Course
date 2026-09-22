@@ -1,0 +1,97 @@
+# ==========================================================================
+#  O16  Namespaces: one for the vocabulary, one for the data
+# ==========================================================================
+#
+#  DECIDES
+#    The schema lives in a hash namespace and the data in a slash
+#    namespace, the ontology IRI is not the namespace IRI, and both are
+#    declared on the ontology node.
+#
+#  WHY
+#    A namespace is a prefix that an owner mints names under. The Trail has
+#    two: https://example.org/bookshop-trail/schema# for the classes and
+#    properties, and https://example.org/bookshop-trail/ for the
+#    particulars. gist has three, and its Namespace document explains why:
+#    ontology terms, taxonomy terms and instance data change at different
+#    rates and are governed by different people, and a namespace is the
+#    unit of governance.
+#
+#    Hash or slash is the other choice. With a hash, everything after the #
+#    is a fragment, so a browser asking for bs:Bookshop fetches the whole
+#    schema document and finds the term inside it. That is right for a
+#    vocabulary of a few hundred terms that is read as a whole. With a
+#    slash, each IRI can be served on its own, which is right for thirty-
+#    three shops and will still be right for thirty thousand. Cool URIs for
+#    the Semantic Web sets the two out and, sensibly, declines to pick one
+#    for every case.
+#
+#    The ontology's own IRI, https://example.org/bookshop-trail/schema
+#    without the hash, names the document. It is not the same as the
+#    namespace, and the Ontology Quality Suite's check QUA-006 fires when
+#    the two are conflated, because a term whose IRI equals the ontology
+#    IRI plus nothing is a term that cannot be told from the ontology. The
+#    vann vocabulary gives a place to write the preferred prefix and
+#    namespace on the ontology node, so that tools and people agree on
+#    'bs:' without being told.
+#
+#  DIAGRAM
+#       https://example.org/bookshop-trail/schema        the ontology IRI: the document
+#       https://example.org/bookshop-trail/schema#       the schema namespace   (hash)   bs:
+#       https://example.org/bookshop-trail/              the data namespace     (slash)  bt:
+#
+#       bs:Bookshop   = schema# + Bookshop     fetch the document, find the fragment
+#       bt:shop-inkwell = / + shop-inkwell     fetch the one resource
+#
+#       gist's three:   .../ns/ontology/gist/   .../ns/taxonomy/gist/   .../ns/data/gist/
+#       a namespace is a unit of governance
+#
+#  WHAT TO TAKE AWAY
+#    - Vocabulary and data in different namespaces, because they are
+#      governed and versioned differently.
+#    - Hash for a vocabulary read as a document; slash for data served a
+#      resource at a time.
+#    - The ontology IRI names the document and is not the namespace.
+#      Declare the prefix and namespace on the ontology node with vann.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo16-namespaces-one-for-the-vocabulary-one-for-the-data.ttl
+#  SOURCES   gist Style Guide: namespaces
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#namespaces
+#            Cool URIs for the Semantic Web 4.4 Choosing between 303 and Hash
+#            https://www.w3.org/TR/cooluris/#choosing
+#  MEASURED  parses, 17 triples; 1 class, 1 individuals; OWL 2 DL in profile; OQS: QUA-010, STR-004
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+
+vann:preferredNamespacePrefix  a owl:AnnotationProperty .
+vann:preferredNamespaceUri     a owl:AnnotationProperty .
+dct:title                      a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                              owl:Ontology ;
+    dct:title                      "The Bookshop Trail schema"@en ;
+    vann:preferredNamespacePrefix  "bs" ;
+    vann:preferredNamespaceUri     "https://example.org/bookshop-trail/schema#" ;
+    skos:editorialNote             "Instance data is minted under https://example.org/bookshop-trail/ with the prefix bt. The two are governed separately."@en .
+
+bs:Bookshop
+    a               owl:Class ;
+    skos:prefLabel  "Bookshop"@en .
+
+bt:shop-inkwell
+    a               bs:Bookshop ;
+    skos:prefLabel  "The Inkwell"@en .

@@ -1,0 +1,96 @@
+# ==========================================================================
+#  O23  The annotation set
+# ==========================================================================
+#
+#  DECIDES
+#    Each term carries prefLabel and definition exactly once, scopeNote and
+#    example where they help, editorialNote for the maintainers, and never
+#    rdfs:comment as a dumping ground.
+#
+#  WHY
+#    gist's guide sorts the annotations into required, recommended, use
+#    where relevant, use rarely, and do not use, and the sorting is more
+#    useful than any single rule. Required: skos:prefLabel and
+#    skos:definition, exactly one each. Recommended: skos:scopeNote and
+#    skos:example. Where relevant: skos:altLabel and skos:editorialNote,
+#    the last being for the maintainers rather than the users. Rarely:
+#    skos:changeNote and skos:historyNote, because the version control
+#    system usually has that. Do not use: rdfs:label and rdfs:comment,
+#    because SKOS gives a finer set and a comment becomes the place
+#    everything goes.
+#
+#    The Trail's shipped vocabulary uses rdfs:label and rdfs:comment, and
+#    its comments carry definitions, usage notes and provenance in one
+#    string. That was a reasonable choice for a teaching dataset whose
+#    queries wanted one property to read, and it is exactly the case the
+#    guide warns about. This lesson shows bs:Bookshop with the full set,
+#    beside a term with the minimum missing, and the shapes find the gap.
+#    The Quality Suite's QUA-010 fires for the same reason.
+#
+#    Cardinality is the rule that pays. One label per language and one
+#    definition per term means a tool can pick the label and print the
+#    definition without deciding between candidates, and a reader never
+#    wonders which of two sentences is current.
+#
+#  DIAGRAM
+#       required           skos:prefLabel     exactly one per language
+#                          skos:definition    exactly one
+#       recommended        skos:scopeNote     usage, boundaries
+#                          skos:example       instances, negative examples
+#       where relevant     skos:altLabel      any number
+#                          skos:editorialNote for the maintainers
+#       rarely             skos:changeNote, skos:historyNote
+#       do not use         rdfs:label, rdfs:comment   (the Trail does; o30 says why)
+#
+#  WHAT TO TAKE AWAY
+#    - Two annotations are required and have a cardinality of one.
+#      Everything else is optional and plural.
+#    - An editorial note is for whoever maintains the term; a scope note
+#      is for whoever uses it. Different readers, different property.
+#    - rdfs:comment is where everything ends up if nothing else is
+#      provided. Provide something else.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo23-the-annotation-set.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fannotation-shapes.ttl
+#  SOURCES   gist Style Guide: conventions for annotation use
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#conventions-for-annotation-use
+#            gist Style Guide: annotation cardinality
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#annotation-cardinality
+#  MEASURED  parses, 24 triples; 2 classes; OWL 2 DL in profile; OQS: QUA-010, STR-004, STY-004; does not conform (1 violations, 0 warnings, 0 info)
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+bs:Bookshop
+    a                   owl:Class ;
+    skos:prefLabel      "Bookshop"@en, "Siop Lyfrau"@cy ;
+    skos:altLabel       "Shop"@en, "Store"@en ;
+    skos:definition     "A business that sells books to the public from premises."@en ;
+    skos:scopeNote      "The business, not the building. A shop that moves premises keeps its identity; a building that changes hands does not become the new tenant."@en ;
+    skos:example        "The Inkwell; Marginalia. Negative examples: a publisher's warehouse; an online-only seller."@en ;
+    skos:editorialNote  "Definition agreed 12 March 2025. Chains are out of scope; revisit if one joins the trail."@en ;
+    rdfs:seeAlso        <https://en.wikipedia.org/wiki/Bookselling> .
+
+# The minimum missing, for the shapes to find.
+bs:Series
+    a                   owl:Class ;
+    skos:prefLabel      "Series"@en .

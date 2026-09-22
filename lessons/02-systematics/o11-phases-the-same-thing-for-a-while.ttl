@@ -1,0 +1,138 @@
+# ==========================================================================
+#  O11  Phases: the same thing, for a while
+# ==========================================================================
+#
+#  DECIDES
+#    Living and dead authors, and past and scheduled events, are phases of
+#    one kind, not kinds of their own; gist's ContemporaryEvent and
+#    HistoricalEvent are the published example.
+#
+#  WHY
+#    A role is anti-rigid because of a relation to something else: an
+#    author because of a work, a member because of a trail. A phase is
+#    anti-rigid because of a condition inside the thing itself: a living
+#    person, a scheduled event, a child. The instance passes through it.
+#    Both are ~R; a phase is -D, a role is +D, and that is the whole
+#    difference. Guizzardi's UFO keeps the two apart as Phase and Role, and
+#    gUFO carries them as gufo:Phase and gufo:Role.
+#
+#    gist has two phases in plain sight. gist:ContemporaryEvent is an event
+#    that has started and not ended; gist:HistoricalEvent is one that has
+#    ended. The scope note on the first says it exactly: 'when the event
+#    actually ends, it will cease being contemporary'. The same event
+#    passes from one to the other, and it stays a gist:Event throughout.
+#    gistUFO types gist:Offer and gist:ContingentObligation as phases of a
+#    commitment for the same reason.
+#
+#    The Trail records death as the absence of bs:died, and an event's
+#    pastness by its date. Neither is a class. That is the usual and right
+#    choice: a phase is often better carried by a property than by a
+#    subclass, because the property changes and a class assertion should
+#    not have to. Model a phase as a class when you need to say things
+#    about the members of the phase as a set; leave it as a property when
+#    you only need to ask.
+#
+#  DIAGRAM
+#       anti-rigid, two ways
+#
+#       ROLE    ~R  +D    by a relation to something else
+#               Author (to a Work)   TrailMember (to the trail)   Publisher (to works published)
+#
+#       PHASE   ~R  -D    by a condition in the thing itself
+#               LivingPerson (no bs:died)     ScheduledEvent (a planned start, no actual one)
+#               gist:ContemporaryEvent -> gist:HistoricalEvent, one event, two phases
+#
+#       In the Trail, both phases here are properties, not classes:
+#       ask 'FILTER NOT EXISTS { ?p bs:died ?y }' rather than type a class.
+#
+#  WHAT TO TAKE AWAY
+#    - A phase is anti-rigid from the inside; a role is anti-rigid from a
+#      relation. Both go under the kind, never above it.
+#    - gist models the two phases of an event as classes because it wants
+#      to say things about all current events. The Trail does not, so it
+#      uses a property.
+#    - A class is for saying something about a set of members. If all you
+#      will do is ask, a property and a query are cheaper and change more
+#      gracefully.
+#
+#  NOTE
+#    The Trail's data types event dates as xsd:date, which is not in the
+#    OWL 2 datatype map, so a file that used one would fall out of OWL 2
+#    DL. This file uses xsd:dateTime, which is in the map. o57 is about
+#    that trap, and the SPARQL course's README has the full story.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo11-phases-the-same-thing-for-a-while.ttl
+#  SOURCES   gUFO: a lightweight implementation of the Unified Foundational Ontology
+#            https://nemo-ufes.github.io/gufo/
+#            gistUFO: gist aligned with gUFO
+#            https://github.com/semanticarts/gistUFO
+#  MEASURED  parses, 36 triples; 3 classes, 1 datatype property, 1 individuals; OWL 2 DL in profile; 'Anti-rigid classes, and whet' 2 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+bs:Event
+    a             owl:Class ;
+    rdfs:label    "Event"@en ;
+    rdfs:comment  "Something that happened, or will happen, at a bookshop on a given day."@en ;
+    oc:rigidity   "+R" ;
+    oc:identity   "+O" .
+
+# Two phases of an event, as gist has them. Shown here as classes so the
+# distinction is visible; the Trail carries the same information as dates.
+bs:ScheduledEvent
+    a                owl:Class ;
+    rdfs:subClassOf  bs:Event ;
+    rdfs:label       "Scheduled event"@en ;
+    rdfs:comment     "An event with a planned date that has not yet happened. A phase: the same event becomes a past event."@en ;
+    oc:rigidity      "~R" ;
+    oc:dependence    "-D" .
+
+bs:PastEvent
+    a                owl:Class ;
+    rdfs:subClassOf  bs:Event ;
+    rdfs:label       "Past event"@en ;
+    rdfs:comment     "An event that has taken place. A phase."@en ;
+    oc:rigidity      "~R" ;
+    oc:dependence    "-D" .
+
+# The same distinction as a property and a query, which is what the Trail does.
+bs:eventDate  a owl:DatatypeProperty ; rdfs:label "event date"@en .
+
+bt:event-inkwell-2025-03-08
+    a             bs:Event ;
+    rdfs:label    "Reading with Rab Fingal"@en ;
+    bs:eventDate  "2025-03-08T19:00:00"^^xsd:dateTime .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Anti-rigid classes, and whether each is a role or a phase  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  SELECT ?class (IF(?d = "+D", "role", "phase") AS ?kind) WHERE {
+#    ?class oc:rigidity "~R" ; oc:dependence ?d .
+#  }

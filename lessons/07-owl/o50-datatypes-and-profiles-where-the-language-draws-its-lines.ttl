@@ -1,0 +1,93 @@
+# ==========================================================================
+#  O50  Datatypes and profiles: where the language draws its lines
+# ==========================================================================
+#
+#  DECIDES
+#    Values are typed only with datatypes in the OWL 2 map, which excludes
+#    xsd:gYear and xsd:date; the year properties are left without a range
+#    for that reason; and the profile a consumer needs is checked, not
+#    assumed.
+#
+#  WHY
+#    OWL 2 has a datatype map, and it is shorter than XML Schema's.
+#    xsd:integer, xsd:decimal, xsd:string, xsd:boolean, xsd:dateTime and
+#    xsd:anyURI are in it. xsd:gYear and xsd:date are not. A range of
+#    xsd:gYear on bs:founded puts the vocabulary outside OWL 2 DL;
+#    declaring xsd:gYear as an rdfs:Datatype makes it a user-defined
+#    datatype and makes things worse, since using one in an assertion is a
+#    second violation. So the shipped vocabulary declares no range on its
+#    four year properties and its two date properties and says why in each
+#    comment, and the SPARQL course keeps the gYear values in the data
+#    because the portability lesson they teach is worth more than
+#    conformance. This file states the range and takes the consequence,
+#    which the profile checker reports.
+#
+#    Datatype restrictions are the useful part of the map: a staff count is
+#    an integer of at least zero, written as a restriction on xsd:integer
+#    with xsd:minInclusive. That is meaning, and a reasoner uses it.
+#
+#    The profiles are three smaller languages inside DL, each with a
+#    reasoning guarantee. EL for large class hierarchies with existentials;
+#    QL for querying data through the ontology; RL for rule engines, which
+#    is what the editor's reasoner and the owlrl closure are. Each drops
+#    something: EL has no universals or inverses, QL no existentials on the
+#    right, RL no existentials on the right either and no class as a
+#    superclass expression with a someValuesFrom. The measured line says
+#    which profiles this file is in, and the shipped vocabulary is in DL
+#    and in none of the three, because of one union domain and one
+#    transitive property. Pick the profile the consumer's reasoner runs,
+#    and check it.
+#
+#  DIAGRAM
+#       in the OWL 2 datatype map              not in it
+#       xsd:integer xsd:decimal xsd:string     xsd:gYear   xsd:date   xsd:gMonth ...
+#       xsd:boolean xsd:dateTime xsd:anyURI    (a range of one: not DL; declaring it: worse)
+#
+#       a datatype restriction:  bs:staffCount rdfs:range [ owl:onDatatype xsd:integer ; owl:withRestrictions ( [ xsd:minInclusive 0 ] ) ]
+#
+#       profile   guarantee                          drops
+#       EL        polynomial classification          universals, inverses, disjunction
+#       QL        query rewriting over data          existentials on the right, chains
+#       RL        rule-based closure (the editor)    existentials on the right; someValuesFrom in a superclass
+#
+#  WHAT TO TAKE AWAY
+#    - The datatype map is the list. xsd:gYear and xsd:date are not on
+#      it, and a range naming them leaves DL; declaring them makes it
+#      worse.
+#    - A datatype restriction is meaning about values, and cheap. A
+#      missing range is often the right choice.
+#    - Choose a profile by the reasoner that will run, then check it. The
+#      editor's is RL.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the profile verdicts come from ROBOT; the editor parses the file without complaint
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo50-datatypes-and-profiles-where-the-language-draws-its-lines.ttl
+#  SOURCES   OWL 2 Structural Specification 4 Datatype Maps
+#            https://www.w3.org/TR/owl2-syntax/#Datatype_Maps
+#            OWL 2 Primer 10.2 OWL 2 Profiles
+#            https://www.w3.org/TR/owl2-primer/#OWL_2_Profiles
+#  MEASURED  parses, 20 triples; 1 class, 2 datatype properties, 1 individuals; not DL/EL/QL/RL
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Bookshop  a owl:Class .
+
+# Outside the map: the range the shipped vocabulary declines to state.
+bs:founded  a owl:DatatypeProperty ; rdfs:domain bs:Bookshop ; rdfs:range xsd:gYear ;
+    skos:editorialNote "xsd:gYear is not in the OWL 2 datatype map. The profile checker refuses this file for it."@en .
+
+# Inside the map, with a restriction: a staff count is an integer of at least zero.
+bs:staffCount  a owl:DatatypeProperty ; rdfs:domain bs:Bookshop ;
+    rdfs:range [ a rdfs:Datatype ; owl:onDatatype xsd:integer ; owl:withRestrictions ( [ xsd:minInclusive 0 ] ) ] .
+
+bt:shop-inkwell  a bs:Bookshop ; bs:founded "1979"^^xsd:gYear ; bs:staffCount 4 .

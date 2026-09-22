@@ -1,0 +1,102 @@
+# ==========================================================================
+#  O38  Rung four, domain and range: inference rules, not constraints
+# ==========================================================================
+#
+#  DECIDES
+#    A domain is declared only when everything that will ever have the
+#    property is of that class, because the reasoner will type whatever has
+#    it; the Trail's bs:locatedIn gets a union domain for that reason.
+#
+#  WHY
+#    Every newcomer reads rdfs:domain as a constraint: 'only bookshops may
+#    have a location'. RDF Semantics reads it as a rule: 'whatever has a
+#    location is a bookshop'. The two agree on clean data and part company
+#    on the first publisher with an address. Declare bs:locatedIn's domain
+#    as bs:Bookshop, load the people file, and the reasoner types Northwind
+#    Press as a bookshop, without error or warning. This lesson's file does
+#    that, and the closure measured on it contains the triple.
+#
+#    Range is the same rule in the other direction: whatever is the value
+#    of bs:locatedIn is a Settlement. That one is usually wanted, and it
+#    still bites: a range of xsd:integer on a property whose values are
+#    strings does not reject the strings, it declares them integers.
+#
+#    The habit that follows is the one from o31. Declare a domain only when
+#    every use will agree with it, and when two classes will share a
+#    property, declare the union, which is the next rung's vocabulary. Or
+#    declare nothing, as gist mostly does, and let the shapes say what the
+#    data must look like. The retyping is not a bug in RDFS. It is RDFS
+#    doing exactly what it says, and the SHACL course's s59, the inference
+#    that hides an error, is the same fact seen from the validator's side.
+#
+#  DIAGRAM
+#       rdfs:domain, read as a constraint (wrong)       rdfs:domain, read as a rule (right)
+#
+#       only Bookshops may be locatedIn                 whatever is locatedIn is a Bookshop
+#       Northwind Press locatedIn Edinburgh => error    Northwind Press locatedIn Edinburgh
+#                                                         => Northwind Press a Bookshop   (no error, no warning)
+#
+#       the rule (rdfs2):  p domain C . x p y  =>  x type C
+#
+#       the fix: a union domain, or none, and a shape for the constraint
+#
+#  WHAT TO TAKE AWAY
+#    - rdfs:domain and rdfs:range add types. They never reject anything.
+#    - Declare a domain only when every use of the property will agree
+#      with it. Two classes sharing a property want a union or nothing.
+#    - The constraint you meant is a shape. The SHACL course's s59 shows
+#      the other half of this lesson.
+#
+#  TRY IT
+#    Show Facts. Northwind Press is now a bs:Bookshop. Change the domain to
+#    a union of Bookshop and Publisher, press Get All, Show Facts again:
+#    the union is a class with no name, and Northwind is typed with that
+#    instead, which is true and useless. Remove the domain.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo38-rung-four-domain-and-range-inference-rules-not-constraints.ttl
+#  SOURCES   RDF Schema 3.2 rdfs:domain
+#            https://www.w3.org/TR/rdf12-schema/#ch_domain
+#            RDF Schema 3.1 rdfs:range
+#            https://www.w3.org/TR/rdf12-schema/#ch_range
+#  MEASURED  parses, 21 triples; 3 classes, 1 object property, 2 individuals; OWL 2 DL in profile; RL closure +3; 'Every bookshop, after the cl' 2 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Bookshop    a owl:Class ; skos:prefLabel "Bookshop"@en .
+bs:Publisher   a owl:Class ; skos:prefLabel "Publisher"@en .
+bs:Settlement  a owl:Class ; skos:prefLabel "Settlement"@en .
+
+# The narrow domain, declared to show what it does.
+bs:locatedIn
+    a            owl:ObjectProperty ;
+    rdfs:domain  bs:Bookshop ;
+    rdfs:range   bs:Settlement ;
+    skos:editorialNote "Domain too narrow, on purpose: the reasoner will type every publisher with an address as a bookshop."@en .
+
+bt:shop-inkwell   a bs:Bookshop ;  bs:locatedIn bt:place-wigtown .
+bt:pub-northwind  a bs:Publisher ; bs:locatedIn bt:place-edinburgh .
+bt:place-wigtown    skos:prefLabel "Wigtown"@en .
+bt:place-edinburgh  skos:prefLabel "Edinburgh"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every bookshop, after the closure  (on the reasoned)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?shop WHERE { ?shop a bs:Bookshop }

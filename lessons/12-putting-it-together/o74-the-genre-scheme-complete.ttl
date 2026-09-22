@@ -1,0 +1,107 @@
+# ==========================================================================
+#  O74  The genre scheme, complete
+# ==========================================================================
+#
+#  DECIDES
+#    The shipped genre scheme, thirty-one concepts two to four levels deep,
+#    passes the SKOS integrity shapes of o39 and the cycle and depth
+#    queries, and is kept a concept scheme rather than promoted.
+#
+#  WHY
+#    data/02-genres.ttl is the shelf plan: one concept scheme, one top
+#    concept, thirty-one concepts, preferred labels in English with Welsh
+#    and Gaelic where they exist, alternative labels for the American
+#    spellings and the trade names, scope notes, and a tree that is two
+#    levels deep under Poetry and four under Science Fiction, because that
+#    is how the shops shelve them. o36 said why the depth is uneven and why
+#    that is right; o24 said why the genres are particulars; o39 gave the
+#    integrity conditions.
+#
+#    The measured line runs the o39 shapes on the whole scheme: one
+#    preferred label per language, every concept in the scheme, related
+#    disjoint from broader, no concept its own ancestor. It conforms. The
+#    queries count the concepts, find the deepest, and confirm that
+#    skos:broader+ from the top concept reaches all thirty. That last one
+#    is the test that matters for question 4 in the brief, which the SPARQL
+#    course's q28 answers with the path and its q27 gets wrong with a fixed
+#    chain, on purpose.
+#
+#    The scheme stays a scheme. No question in the brief needs an axiom
+#    about the members of a genre, so o40's promotion is not taken, and the
+#    shelf plan can be rearranged by the shops without a reasoner retyping
+#    a single work.
+#
+#  DIAGRAM
+#       bt:genre-scheme  a skos:ConceptScheme ; skos:hasTopConcept bt:genre-literature
+#         Literature
+#           Fiction: Crime (Cosy, Tartan Noir, Police Procedural), Speculative (SF: Hard, Space Opera, Climate; Fantasy: Folk, Portal), ...
+#           Non-fiction: Nature Writing, History (Maritime, Industrial), Travel, Biography, ...
+#           Poetry
+#
+#       31 concepts, depth 2 to 4, one preferred label per language, alt labels, scope notes
+#       integrity shapes: conforms.  broader+ from the top: reaches every concept.
+#
+#  WHAT TO TAKE AWAY
+#    - A concept scheme is finished when its integrity conditions pass
+#      and its questions are answered by paths. Neither needs a reasoner.
+#    - Uneven depth is a fact about the domain. The queries that walk it
+#      must not assume otherwise.
+#    - Not promoting is a decision. Record it, and revisit it the day an
+#      axiom about members is needed.
+#
+#  NOTE
+#    The LOAD IT link opens this lesson with the shapes; to validate the
+#    whole scheme, load data/02-genres.ttl in the first tab, keep the
+#    shapes tab, and press Validate. The AFTERWARDS queries run on the
+#    scheme.
+#
+#  CORNER    all three
+#  DATA      02-genres.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo74-the-genre-scheme-complete.ttl&shapes=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fskos-shapes.ttl
+#  SOURCES   SKOS Reference 4 Concept Schemes
+#            https://www.w3.org/TR/skos-reference/#schemes
+#            The SPARQL course: the questions this ontology exists to answer
+#            https://www.semantechs.co.uk/SPARQL_Course/
+#  MEASURED  parses, 9 triples; 1 class, 1 object property; conforms (0 violations, 0 warnings, 0 info); 'How many concepts, and how m' 1 row; 'The deepest concepts' 5 rows; 'Concepts that are their own ' 0 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+skos:ConceptScheme  a owl:Class .
+skos:hasTopConcept  a owl:ObjectProperty .
+
+bt:genre-scheme
+    a                   skos:ConceptScheme ;
+    skos:prefLabel      "Bookshop Trail genre scheme"@en ;
+    skos:hasTopConcept  bt:genre-literature ;
+    skos:editorialNote  "Kept as a concept scheme: no competency question needs an axiom about the members of a genre. Promote (o40) only if one does."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- How many concepts, and how many the top concept reaches  (on the data)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT (COUNT(DISTINCT ?c) AS ?concepts) (COUNT(DISTINCT ?reached) AS ?reachedFromTop) WHERE {
+#    ?c a skos:Concept .
+#    OPTIONAL { ?reached skos:broader+ bt:genre-literature . FILTER(?reached = ?c) }
+#  }
+#
+#  -- The deepest concepts  (on the data)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?leaf (COUNT(?up) AS ?depth) WHERE { ?leaf a skos:Concept ; skos:broader+ ?up }
+#  GROUP BY ?leaf ORDER BY DESC(?depth) LIMIT 5
+#
+#  -- Concepts that are their own ancestor (none)  (on the data)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?c WHERE { ?c skos:broader+ ?c }

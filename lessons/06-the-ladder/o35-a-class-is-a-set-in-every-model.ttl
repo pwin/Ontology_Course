@@ -1,0 +1,114 @@
+# ==========================================================================
+#  O35  A class is a set, in every model
+# ==========================================================================
+#
+#  DECIDES
+#    Classes are read as sets and the vocabulary's structural words as set
+#    operations: rdf:type is membership, rdfs:subClassOf is subset,
+#    equivalence is equality, disjointness is an empty intersection.
+#
+#  WHY
+#    OWL 2's Direct Semantics says what an interpretation is: a domain of
+#    things, and for every class a subset of that domain, called its
+#    extension. An individual is in the class if it is in the subset.
+#    rdfs:subClassOf means the one subset is contained in the other.
+#    owl:equivalentClass means they are the same subset. owl:disjointWith
+#    means they share nothing. A restriction is a set defined by a
+#    condition on its members: the things that have some bs:locatedIn value
+#    in Settlement. Every construct from here to the top of the ladder is a
+#    way of saying something about sets, and reading them that way is what
+#    makes RDFS, SKOS and OWL one idea rather than three.
+#
+#    Two cautions keep the picture straight. First, the open world: the
+#    extension is not the thirty-three shops in the file. It is a set the
+#    axioms constrain and the data samples, and a shop the file does not
+#    mention is in it just the same. 'Every Bookshop is located in some
+#    Settlement' is true of the set even where the file records no town.
+#    Second, a class is not its extension. Two classes that happen to have
+#    the same members in this data are not the same class, because in
+#    another interpretation they need not; and OWL 2's punning lets the
+#    same IRI be a class and an individual, read separately, which is how
+#    o14 typed bs:Author as a gufo:Role.
+#
+#    SKOS does not use sets. A skos:Concept is a particular, and
+#    skos:broader is a relation between two particulars that promises
+#    nothing about any members. That is no weakness, and it is the reason
+#    the concept scheme is the rung below the class hierarchy, and why o40
+#    has to do work to climb from one to the other.
+#
+#  DIAGRAM
+#       in every interpretation                      set reading
+#
+#       bs:Bookshop                                   a subset B of the domain
+#       bt:shop-inkwell a bs:Bookshop                 inkwell is in B
+#       bs:Settlement rdfs:subClassOf bs:Place        S is a subset of P
+#       bs:Work owl:equivalentClass bs:Book           W = K
+#       bs:Place owl:disjointWith bs:Bookshop         P and B share no member
+#       owl:Thing, owl:Nothing                        the whole domain; the empty set
+#       [ owl:onProperty bs:locatedIn ;               { x : some y with locatedIn(x, y), y in S }
+#         owl:someValuesFrom bs:Settlement ]
+#
+#       cautions: the data samples the set; it does not enumerate it
+#                 a class is not its extension; two with the same members here may differ elsewhere
+#
+#  WHAT TO TAKE AWAY
+#    - Read every class as a set and every structural axiom as a set
+#      claim. It is the reading the specification gives, and it makes the
+#      ladder one ladder.
+#    - The open world: the set is constrained by the axioms and sampled
+#      by the data. Absence in the file is not absence from the set.
+#    - A concept is a particular and broader is a relation between
+#      particulars. No sets are involved, which is why it is a lower
+#      rung.
+#
+#  TRY IT
+#    Press Show Facts. The implicit triples include bt:place-wigtown
+#    rdf:type bs:Place: the set reading, computed. Nothing is said about
+#    the concepts, because broader promises nothing about members.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo35-a-class-is-a-set-in-every-model.ttl
+#  SOURCES   OWL 2 Direct Semantics 2.2 Interpretations
+#            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
+#            OWL 2 Primer 2.2 Modeling Knowledge: Basic Notions (the open world, no unique names)
+#            https://www.w3.org/TR/owl2-primer/#Modeling_Knowledge:_Basic_Notions
+#  MEASURED  parses, 23 triples; 4 classes, 1 object property, 2 concepts, 4 individuals; OWL 2 DL in profile; HermiT: consistent, 1 inferred; RL closure +1; 'Membership by subset: what i' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+# owl:Thing is the whole domain; every class is a subset of it, and saying
+# so is harmless and occasionally clarifying.
+bs:Place       a owl:Class ; rdfs:subClassOf owl:Thing ; skos:prefLabel "Place"@en .
+bs:Settlement  a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Settlement"@en .
+bs:Bookshop    a owl:Class ; owl:disjointWith bs:Place ; skos:prefLabel "Bookshop"@en .
+
+bt:place-wigtown  a bs:Settlement ; skos:prefLabel "Wigtown"@en .
+bt:shop-inkwell   a bs:Bookshop ;   skos:prefLabel "The Inkwell"@en .
+
+# A concept is a particular. No set is involved.
+skos:Concept  a owl:Class .
+skos:broader  a owl:ObjectProperty .
+bt:genre-crime-fiction  a skos:Concept ; skos:broader bt:genre-fiction .
+bt:genre-fiction        a skos:Concept .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Membership by subset: what is a Place, after the closure  (on the reasoned)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?place WHERE { ?place a bs:Place }

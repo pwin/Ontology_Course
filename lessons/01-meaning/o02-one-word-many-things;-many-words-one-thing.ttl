@@ -1,0 +1,93 @@
+# ==========================================================================
+#  O02  One word, many things; many words, one thing
+# ==========================================================================
+#
+#  DECIDES
+#    'Book' is split into three referents and 'shop', 'bookshop' and
+#    'store' are merged into one, because identity follows the referent and
+#    not the word.
+#
+#  WHY
+#    A word fails in two directions. Homonymy is one symbol over several
+#    referents: 'book' in the brief means the title someone wrote, the
+#    edition with an ISBN, and the copy on the shelf at a price. Ask 'do
+#    you have the book?' and three different answers are correct. Synonymy
+#    is several symbols over one referent: shop, bookshop, store are one
+#    thing three ways, and a search that matches on the string will find a
+#    third of them.
+#
+#    Both failures have the same cure. Decide how many referents there are,
+#    give each its own identifier, and hang the words off the identifiers
+#    as labels. The identifier decides identity; the words are free to
+#    vary. Google called this 'things, not strings' in 2012 and the phrase
+#    has stuck because it is exactly right.
+#
+#    The Trail keeps 'book' as one class, bs:Work, and gives it an ISBN,
+#    which is honestly an edition's property. That is a recorded compromise
+#    (o09 comes back to it), and it is a better state than the brief's,
+#    where the compromise was invisible.
+#
+#  DIAGRAM
+#       HOMONYMY: one symbol, three referents           SYNONYMY: three symbols, one referent
+#
+#            "book" ---.---> the title (a work)              "shop"     --.
+#                      |---> the edition (an ISBN)            "bookshop" --+--> bt:shop-inkwell
+#                      '---> the copy (a shelf price)         "store"    --'
+#
+#       cure: one identifier per referent               cure: one identifier, three labels
+#
+#  WHAT TO TAKE AWAY
+#    - Count referents, not words. A symbol with two referents needs two
+#      identifiers; two symbols with one referent need one.
+#    - Labels are cheap and plural. Identifiers are the thing that must
+#      be unique.
+#    - The Trail's bs:Work is a title and an edition in one class.
+#      Written down, that is a decision; unwritten, it is a trap.
+#
+#  CORNER    symbol and referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo02-one-word-many-things%3B-many-words-one-thing.ttl
+#  SOURCES   Google, 'things, not strings' (2012)
+#            https://blog.google/products/search/introducing-knowledge-graph-things-not/
+#            RDF 1.2 Concepts 1.3 The Referent of an IRI
+#            https://www.w3.org/TR/rdf12-concepts/#referents
+#  MEASURED  parses, 14 triples; 'Every symbol with more than ' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# 'book', split by referent. Three things, three identifiers; the word is a
+# label on all of them.
+
+bt:candidate-work
+    rdfs:label    "book"@en, "work"@en, "title"@en ;
+    rdfs:comment  "What an author wrote, independent of any printing. Translated, it becomes another work."@en .
+
+bt:candidate-edition
+    rdfs:label    "book"@en, "edition"@en ;
+    rdfs:comment  "A printing of a work by a publisher, with an ISBN if made after 1970."@en .
+
+bt:candidate-copy
+    rdfs:label    "book"@en, "copy"@en ;
+    rdfs:comment  "A physical copy of an edition, on a shelf in one shop at one price. The Trail counts these in bs:StockRecord rather than naming each."@en .
+
+# 'shop', merged by referent. One thing, three labels.
+
+bt:candidate-bookshop
+    rdfs:label    "bookshop"@en, "shop"@en, "store"@en ;
+    rdfs:comment  "A business that sells books from premises. The building it trades from is a different referent; o05 and o09."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every symbol with more than one node behind it  (on the model)
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?label (COUNT(?node) AS ?referents)
+#  WHERE { ?node rdfs:label ?label }
+#  GROUP BY ?label
+#  HAVING (COUNT(?node) > 1)
+#  ORDER BY DESC(?referents)

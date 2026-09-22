@@ -1,0 +1,116 @@
+# ==========================================================================
+#  O49  Inverses, chains and keys
+# ==========================================================================
+#
+#  DECIDES
+#    bs:wrote is declared the inverse of bs:author so that one assertion
+#    yields both directions; a property chain gives an event its town; and
+#    a key on ISBN says what identifies a work, without leaving OWL 2 DL.
+#
+#  WHY
+#    owl:inverseOf says two properties are one relation read in opposite
+#    directions: every bs:author triple yields a bs:wrote triple and the
+#    reverse. The reasoner materialises the half that was not asserted,
+#    which is what the SPARQL course's q44 constructs by hand and what gist
+#    declines to do at all, on the grounds that a caret in a query costs
+#    nothing (o31). The Trail declares two inverses on purpose so that this
+#    and module 08 have something to show.
+#
+#    A property chain is an inverse's bigger sibling: bs:heldAt followed by
+#    bs:locatedIn implies bs:eventTown, so an event held at a shop in
+#    Wigtown is an event in Wigtown, and the reasoner adds the triple. The
+#    RL closure supports chains, and so does the editor. The global
+#    restriction from o48 applies here too: a property defined by a chain
+#    is non-simple. And rdfs:subPropertyOf is the property hierarchy's own
+#    inheritance: bs:author and bs:translatedBy are both under
+#    bs:hasContributor, so a query for everyone who contributed to a work
+#    in any capacity is one pattern after the closure.
+#
+#    A key is the DL-safe way to say that a value identifies a thing. An
+#    inverse-functional datatype property, 'no two works share an ISBN',
+#    would say it too, and is outside OWL 2 DL for datatype properties.
+#    owl:hasKey says it inside DL: two Works with the same bs:isbn are one
+#    Work, with the merging behaviour of o47. That is meaning, since an
+#    ISBN really does identify an edition; the shape that says 'no two rows
+#    share an ISBN' is the SHACL course's s39, which also checks the check
+#    digit.
+#
+#  DIAGRAM
+#       inverse     bs:wrote owl:inverseOf bs:author
+#                   bt:book-x bs:author bt:person-y   =>  bt:person-y bs:wrote bt:book-x
+#
+#       chain       bs:heldAt o bs:locatedIn  =>  bs:eventTown
+#                   bt:event-1 bs:heldAt bt:shop-inkwell . bt:shop-inkwell bs:locatedIn bt:place-wigtown .
+#                     =>  bt:event-1 bs:eventTown bt:place-wigtown
+#
+#       key         bs:Work owl:hasKey ( bs:isbn )
+#                   two Works, one ISBN  =>  one Work (sameAs)        inside OWL 2 DL
+#                   bs:isbn a owl:InverseFunctionalProperty           outside OWL 2 DL for a datatype property
+#
+#  WHAT TO TAKE AWAY
+#    - An inverse is one relation both ways. Declare it when a reasoner
+#      will be there to use it; otherwise the query language walks it
+#      backwards for free.
+#    - A property chain derives a relation from a path. The RL closure
+#      and the editor both compute it.
+#    - owl:hasKey is the way to say a value identifies a thing while
+#      staying in DL. It merges, like every identity axiom.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo49-inverses-chains-and-keys.ttl
+#  SOURCES   OWL 2 Primer 6 Advanced Use of Properties: inverse properties
+#            https://www.w3.org/TR/owl2-primer/#Advanced_Use_of_Properties
+#            OWL 2 Primer 6.5 Keys
+#            https://www.w3.org/TR/owl2-primer/#Keys
+#  MEASURED  parses, 39 triples; 4 classes, 8 object properties, 1 datatype property, 5 individuals; OWL 2 DL in profile; HermiT: consistent, 7 inferred; RL closure +8; 'The inferred inverse, the ch' 5 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Work      a owl:Class .
+bs:Person    a owl:Class .
+bs:Event     a owl:Class .
+bs:Bookshop  a owl:Class .
+
+bs:author    a owl:ObjectProperty ; rdfs:subPropertyOf bs:hasContributor .
+bs:wrote     a owl:ObjectProperty ; owl:inverseOf bs:author .
+bs:translatedBy   a owl:ObjectProperty ; rdfs:subPropertyOf bs:hasContributor .
+bs:hasContributor a owl:ObjectProperty .   # anyone who contributed in any capacity: a sub-property hierarchy
+
+bs:heldAt     a owl:ObjectProperty .
+bs:locatedIn  a owl:ObjectProperty .
+bs:eventTown  a owl:ObjectProperty ; owl:propertyChainAxiom ( bs:heldAt bs:locatedIn ) .
+
+bs:isbn  a owl:DatatypeProperty .
+bs:Work  owl:hasKey ( bs:isbn ) .
+
+# Inverse-functional on an object property is inside DL: a website resource
+# identifies its shop. On a datatype property it is not, which is why the
+# ISBN is a key instead.
+bs:hasWebsite  a owl:ObjectProperty, owl:InverseFunctionalProperty ; rdfs:domain bs:Bookshop .
+
+bt:book-the-loom  a bs:Work ; bs:author bt:author-rhona-blackwood ; bs:isbn "9787063088596" .
+bt:book-duplicate a bs:Work ; bs:isbn "9787063088596" .
+bt:author-rhona-blackwood  a bs:Person .
+bt:event-1        a bs:Event ; bs:heldAt bt:shop-inkwell .
+bt:shop-inkwell   a bs:Bookshop ; bs:locatedIn bt:place-wigtown .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- The inferred inverse, the chain, and the key's merge  (on the reasoned)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(?p IN (bs:wrote, bs:eventTown, owl:sameAs) && ?s != ?o) } ORDER BY ?p

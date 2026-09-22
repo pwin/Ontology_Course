@@ -1,0 +1,113 @@
+# ==========================================================================
+#  O27  Once published, a term means what it meant
+# ==========================================================================
+#
+#  DECIDES
+#    A definition may be clarified but never changed to denote different
+#    things; when the meaning must change, a new term is minted and the old
+#    one deprecated with a pointer.
+#
+#  WHY
+#    OBO Foundry principle FP-019 is the shortest in the list and the one
+#    most often broken: the definition of a term must always denote the
+#    same things. Clarify the wording, correct a typo, add an example, and
+#    it is still the same term. Widen it to cover something it did not, or
+#    narrow it, and every dataset that used the old meaning is now silently
+#    wrong, with no error anywhere.
+#
+#    The Trail's case is bs:Work, which o10 recorded as a work and an
+#    edition in one. The day a second edition appears, the class must
+#    split. The wrong move is to redefine bs:Work as 'a work, independent
+#    of edition' and start typing editions differently: every existing
+#    bs:Work assertion was made under the old meaning. The right move is a
+#    new term for the new meaning, bs:Edition say, and a deprecation on
+#    anything whose meaning has moved, with a pointer to what replaces it.
+#    gist's deprecation policy, module 11, is the mechanics; this is the
+#    principle.
+#
+#    skos:historyNote and skos:changeNote are where the story goes. gist
+#    uses them rarely because git holds the history, and that is fair for
+#    an ontology whose users read the repository. For one whose users read
+#    the terms, a sentence on the term is worth more.
+#
+#  DIAGRAM
+#       allowed: same referents, better words          not allowed: new referents, same IRI
+#
+#       "A book."                                       "A book."   ->   "A work, independent of edition."
+#         -> "A book: what an author wrote,               every bs:Work assertion made under the
+#             in a particular published form."            old meaning is now silently wrong
+#
+#       the move: mint bs:Edition, deprecate what changed, point from old to new
+#       owl:deprecated true ; dct:isReplacedBy bs:Edition ; skos:changeNote "..."
+#
+#  WHAT TO TAKE AWAY
+#    - Clarify freely; never change what a term denotes. FP-019, and
+#      every guide agrees.
+#    - When the meaning must move, mint a new IRI and deprecate the old
+#      one with a pointer. The data made under the old meaning stays
+#      true.
+#    - A change note on the term is worth more to a user than a commit
+#      message they will never read.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo27-once-published-a-term-means-what-it-meant.ttl
+#  SOURCES   OBO Foundry principle FP-019, stability of term meaning
+#            https://obofoundry.org/principles/fp-019-term-stability.html
+#            gist: deprecation and deletion policy
+#            https://github.com/semanticarts/gist/blob/develop/docs/DeprecationAndDeletionPolicy.md
+#  MEASURED  parses, 26 triples; 3 classes; OWL 2 DL in profile; OQS: STR-004; 'Deprecated terms and what re' 1 row
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+owl:deprecated  a owl:AnnotationProperty .
+
+bs:Work
+    a                 owl:Class ;
+    skos:prefLabel    "Work"@en ;
+    skos:definition   "A book: what an author wrote, in a particular published form."@en ;
+    skos:historyNote  "Defined 2025 as 'A book. Translations are Works in their own right.' Reworded 2026 without change of meaning."@en .
+
+# What the split would look like the day a second edition appears. The old
+# term keeps its meaning and its data; the new term carries the new meaning.
+bs:PublishedWork
+    a                 owl:Class ;
+    owl:deprecated    true ;
+    skos:prefLabel    "Published Work"@en ;
+    skos:definition   "A book with an ISBN, as first modelled."@en ;
+    skos:changeNote   "Deprecated 2026: the meaning moved to bs:Edition when works acquired more than one edition. Not deleted; assertions made under it remain true."@en ;
+    dct:isReplacedBy  bs:Edition .
+
+bs:Edition
+    a                 owl:Class ;
+    skos:prefLabel    "Edition"@en ;
+    skos:definition   "A printing of a Work by a publisher, with an ISBN if made after 1970."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Deprecated terms and what replaces them  (on the model)
+#  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#  PREFIX dct: <http://purl.org/dc/terms/>
+#  SELECT ?old ?new WHERE { ?old owl:deprecated true ; dct:isReplacedBy ?new }

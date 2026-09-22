@@ -1,0 +1,110 @@
+# ==========================================================================
+#  O05  A particular or a kind
+# ==========================================================================
+#
+#  DECIDES
+#    Wigtown, The Inkwell and Rhona Blackwood are particulars; Settlement,
+#    Bookshop and Person are kinds; rdf:type is the link, and a kind is a
+#    referent with an IRI like any other.
+#
+#  WHY
+#    Some symbols in the brief pick out one thing: Wigtown, The Inkwell,
+#    Rhona Blackwood, the Lodestone Group. Others pick out a kind of thing:
+#    town, shop, author, publisher. The first are particulars, called
+#    individuals in OWL; the second are kinds, called classes. The relation
+#    between them is rdf:type, and it is the first relation worth writing
+#    down, because most of the brief's questions are questions about kinds:
+#    which shops, which towns, which events.
+#
+#    A kind is a referent too. bs:Settlement refers to the kind, town, in
+#    the same way bt:place-wigtown refers to the town, and it gets an IRI
+#    on the same terms. The IRI is what lets you say things about the kind
+#    itself: what it is called in Welsh, what its definition is, which
+#    other kinds it falls under. The class hierarchy of module 02 is just
+#    statements about kinds.
+#
+#    The line between particular and kind is not always where the brief
+#    puts it. 'Crime fiction' looks like a kind of book, and a class of
+#    works is one fair reading. It is also a thing a shop specialises in,
+#    and a shop is not a member of a class of books. The Trail treats
+#    genres as particulars, concepts in a scheme, so that both a work and a
+#    shop can point at the same one. o24 returns to that choice; it is the
+#    most consequential one in the course.
+#
+#  DIAGRAM
+#       particulars (individuals)          rdf:type        kinds (classes)
+#
+#       bt:place-wigtown        ------------------------>  bs:Settlement
+#       bt:shop-inkwell         ------------------------>  bs:Bookshop
+#       bt:author-rhona-blackwood --------------------->  bs:Person
+#       bt:genre-crime-fiction  ------------------------>  skos:Concept   <- a particular, on purpose
+#
+#       Both columns are referents with IRIs. The right-hand ones can be
+#       labelled, defined and arranged under each other, like anything else.
+#
+#  WHAT TO TAKE AWAY
+#    - rdf:type says which kind a particular belongs to. It is the first
+#      structural statement, and the one every question about 'which
+#      shops' depends on.
+#    - A class is a referent, with an IRI, a label and a definition.
+#      Saying things about kinds is what a taxonomy is.
+#    - Whether something is a particular or a kind is a decision, and
+#      genre is the case where the obvious answer is not the best one.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo05-a-particular-or-a-kind.ttl
+#  SOURCES   RDF Schema 3.3 rdf:type
+#            https://www.w3.org/TR/rdf12-schema/#ch_type
+#            RDF Schema 2.2 rdfs:Class
+#            https://www.w3.org/TR/rdf12-schema/#ch_class
+#  MEASURED  parses, 17 triples; 3 classes, 1 concepts, 4 individuals; 'Every particular and its kin' 4 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+bs:Settlement
+    a             rdfs:Class ;
+    rdfs:label    "Settlement"@en ;
+    rdfs:comment  "A town or city."@en .
+
+bs:Bookshop
+    a             rdfs:Class ;
+    rdfs:label    "Bookshop"@en ;
+    rdfs:comment  "A business that sells books from premises."@en .
+
+bs:Person
+    a             rdfs:Class ;
+    rdfs:label    "Person"@en ;
+    rdfs:comment  "A human being."@en .
+
+bt:place-wigtown
+    a           bs:Settlement ;
+    rdfs:label  "Wigtown"@en .
+
+bt:shop-inkwell
+    a           bs:Bookshop ;
+    rdfs:label  "The Inkwell"@en .
+
+bt:author-rhona-blackwood
+    a           bs:Person ;
+    rdfs:label  "Rhona Blackwood"@en .
+
+# A genre is a particular here, not a class: something a shop specialises in
+# and a work belongs to. Module 04 and module 06 make the case in full.
+bt:genre-crime-fiction
+    a           skos:Concept ;
+    rdfs:label  "Crime Fiction"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every particular and its kind  (on the model)
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?thing ?kind WHERE { ?thing a ?kind . FILTER(?kind != rdfs:Class) } ORDER BY ?kind

@@ -1,0 +1,123 @@
+# ==========================================================================
+#  O12  The backbone
+# ==========================================================================
+#
+#  DECIDES
+#    The rigid classes of the Trail form its backbone taxonomy; roles and
+#    phases hang off it and never form part of it.
+#
+#  WHY
+#    Strip a taxonomy down to its rigid classes and what is left is the
+#    backbone: the kinds every instance necessarily belongs to, arranged by
+#    subsumption. Guarino and Welty give the backbone its name and its
+#    test: every instance of a backbone class is an instance of exactly one
+#    lowest backbone class, and stays so. The roles and phases are then
+#    attached beneath the backbone class that plays them. A taxonomy built
+#    this way can be extended without collapsing, because the part that
+#    carries identity never depends on the part that changes.
+#
+#    The Trail's backbone has ten kinds at the top: Place, Bookshop,
+#    Person, Publisher, Work, Series, Event, TrailSegment, StockRecord and
+#    Source. Place has four subkinds, Work has one. Author is the one role
+#    in the shipped vocabulary; Translation is not a role, because a
+#    translation is a translation in every circumstance, so it is a
+#    subkind. Publisher is a fair argument: the Trail makes it a kind, and
+#    gist would call it a role of an organisation. That argument is
+#    recorded here rather than settled, and o13 gives the vocabulary to
+#    record it in.
+#
+#    The set picture: the backbone partitions the domain. Every particular
+#    is in exactly one leaf set of the backbone, and the roles are subsets
+#    that cut across time.
+#
+#  DIAGRAM
+#       the backbone (all +R)                          hanging off it (~R)
+#
+#       Place
+#         Settlement  CouncilArea  Region  Country
+#       Bookshop  . . . . . . . . . . . . . . . . . . . TrailMember (role)
+#       Person  . . . . . . . . . . . . . . . . . . . . Author (role)
+#       Publisher  (a kind here; a role of Organization in gist)
+#       Work
+#         Translation  (a subkind: a translation in every circumstance)
+#       Series   Event   TrailSegment   StockRecord   Source
+#
+#       backbone classes partition the domain; each particular has exactly one leaf
+#
+#  WHAT TO TAKE AWAY
+#    - The backbone is the rigid part of the taxonomy. Build it first,
+#      and let the roles hang off it.
+#    - A subkind is rigid and inherits its identity criterion:
+#      Translation under Work, Settlement under Place. A role is not a
+#      subkind.
+#    - Where a class could be either, say which you chose and why.
+#      Publisher is the Trail's example.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F02-systematics%2Fo12-the-backbone.ttl
+#  SOURCES   Guarino and Welty, An overview of OntoClean, Handbook on Ontologies, 2009
+#            https://doi.org/10.1007/978-3-540-92673-3_9
+#            Guarino and Welty, Evaluating ontological decisions with OntoClean, CACM 45(2), 2002
+#            https://doi.org/10.1145/503124.503150
+#  MEASURED  parses, 90 triples; 17 classes; OWL 2 DL in profile; HermiT: consistent, nothing new; OQuaRE DIT 2 (5), ANOnto 1.06 (5); 'The backbone: rigid classes ' 15 rows; 'Roles, and the backbone clas' 2 rows
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix oc:   <https://example.org/bookshop-trail/ontoclean#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+oc:rigidity    a owl:AnnotationProperty ; rdfs:label "rigidity"@en ;
+    rdfs:comment "+R rigid: no instance can stop being one. ~R anti-rigid: every instance could stop. -R neither."@en .
+oc:identity    a owl:AnnotationProperty ; rdfs:label "identity"@en ;
+    rdfs:comment "+I carries a criterion of identity; +O supplies its own; -I carries none."@en .
+oc:unity       a owl:AnnotationProperty ; rdfs:label "unity"@en ;
+    rdfs:comment "+U every instance is a whole under one relation; ~U no instance is; -U neither."@en .
+oc:dependence  a owl:AnnotationProperty ; rdfs:label "dependence"@en ;
+    rdfs:comment "+D an instance exists only if some other thing does; -D it does not."@en .
+
+bs:Place        a owl:Class ; rdfs:label "Place"@en ;       oc:rigidity "+R" ; oc:identity "+O" .
+bs:Settlement   a owl:Class ; rdfs:subClassOf bs:Place ; rdfs:label "Settlement"@en ;   oc:rigidity "+R" ; oc:identity "+I" .
+bs:CouncilArea  a owl:Class ; rdfs:subClassOf bs:Place ; rdfs:label "Council area"@en ; oc:rigidity "+R" ; oc:identity "+I" .
+bs:Region       a owl:Class ; rdfs:subClassOf bs:Place ; rdfs:label "Region"@en ;       oc:rigidity "+R" ; oc:identity "+I" .
+bs:Country      a owl:Class ; rdfs:subClassOf bs:Place ; rdfs:label "Country"@en ;      oc:rigidity "+R" ; oc:identity "+I" .
+bs:Bookshop     a owl:Class ; rdfs:label "Bookshop"@en ;    oc:rigidity "+R" ; oc:identity "+O" .
+bs:Person       a owl:Class ; rdfs:label "Person"@en ;      oc:rigidity "+R" ; oc:identity "+O" .
+bs:Publisher    a owl:Class ; rdfs:label "Publisher"@en ;   oc:rigidity "+R" ; oc:identity "+O" ;
+    skos:editorialNote "Treated as a kind here. gist would make it a role of an Organization; the Trail has no organisations that are not publishers or shops, so the role has nothing to be a role of."@en .
+bs:Work         a owl:Class ; rdfs:label "Work"@en ;        oc:rigidity "+R" ; oc:identity "+O" .
+bs:Translation  a owl:Class ; rdfs:subClassOf bs:Work ; rdfs:label "Translation"@en ; oc:rigidity "+R" ; oc:identity "+I" .
+bs:Series       a owl:Class ; rdfs:label "Series"@en ;      oc:rigidity "+R" ; oc:identity "+O" .
+bs:Event        a owl:Class ; rdfs:label "Event"@en ;       oc:rigidity "+R" ; oc:identity "+O" .
+bs:TrailSegment a owl:Class ; rdfs:label "Trail segment"@en ; oc:rigidity "+R" ; oc:identity "+O" .
+bs:StockRecord  a owl:Class ; rdfs:label "Stock record"@en ; oc:rigidity "+R" ; oc:identity "+O" .
+bs:Source       a owl:Class ; rdfs:label "Source"@en ;      oc:rigidity "+R" ; oc:identity "+O" .
+
+# The roles, hanging off the backbone.
+bs:Author       a owl:Class ; rdfs:subClassOf bs:Person ;   rdfs:label "Author"@en ;       oc:rigidity "~R" ; oc:dependence "+D" .
+bs:TrailMember  a owl:Class ; rdfs:subClassOf bs:Bookshop ; rdfs:label "Trail member"@en ; oc:rigidity "~R" ; oc:dependence "+D" .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- The backbone: rigid classes and their rigid parents  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?class ?parent WHERE {
+#    ?class oc:rigidity "+R" .
+#    OPTIONAL { ?class rdfs:subClassOf ?parent . ?parent oc:rigidity "+R" }
+#  } ORDER BY ?parent ?class
+#
+#  -- Roles, and the backbone class each hangs from  (on the model)
+#  PREFIX oc: <https://example.org/bookshop-trail/ontoclean#>
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  SELECT ?role ?kind WHERE { ?role oc:rigidity "~R" ; rdfs:subClassOf ?kind . ?kind oc:rigidity "+R" }

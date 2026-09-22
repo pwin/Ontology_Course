@@ -1,0 +1,87 @@
+# ==========================================================================
+#  O34  Ontologies like code: the loop and the gate
+# ==========================================================================
+#
+#  DECIDES
+#    The vocabulary lives in version control, is checked in the editor as
+#    it is written and at the gate before it merges, and the checks are
+#    asserted by identifier and scoped to the Trail's own namespace.
+#
+#  WHY
+#    The SemOps Manual's maturity model has five levels and says most of
+#    the return is in the step from two to three: from 'we treat ontologies
+#    like code' to 'the standards are enforced without anyone remembering
+#    to enforce them'. Level two is a decision: put the files in git, check
+#    them in the editor as you type, run the checks locally. Level three is
+#    a gate: the same checks in CI, with a non-zero exit code when
+#    something is wrong.
+#
+#    Two lessons from the manual's chapter 9 decide whether the gate
+#    survives its first month. First, scope the findings to your own
+#    namespace. The Trail borrows SKOS, GeoSPARQL and PROV terms; a gate
+#    that reports the W3C's documentation habits alongside the Trail's will
+#    be switched off by the second week. The Quality Suite's --own-
+#    namespace flag keeps the imports resolved and filters the report to
+#    the terms you control. Second, assert on check identifiers, not
+#    counts: 'LOG-001 must fire on the fixture with the seeded
+#    contradiction' survives a registry upgrade; 'expected 23 findings'
+#    does not.
+#
+#    This course is built that way. Every lesson is generated from a
+#    catalogue, every measured line comes from a run, the checker fails on
+#    any expectation that does not hold, and the seeded faults exist so
+#    that the checks can be seen to fire. That is the practice the manual
+#    describes, applied to a course about ontologies rather than to an
+#    ontology.
+#
+#  DIAGRAM
+#       level 2: ontologies like code            level 3: the gate
+#
+#       files in git                             the same checks in CI
+#       check in the editor, in seconds          --fail-on Violation, non-zero exit
+#       competency questions as .cq.rq tests     --own-namespace: findings about your terms only
+#       review in the graph view                 assert by check id, never by count
+#
+#       this lesson's file, through the suite with --own-namespace: the ids below, and only those
+#
+#  WHAT TO TAKE AWAY
+#    - Put the vocabulary in version control and check it as you type.
+#      That is level two, and it is a decision, not a project.
+#    - The gate reports your namespace only, and tests assert check
+#      identifiers. Both are what keep a gate switched on.
+#    - A check that has never fired is indistinguishable from a clean
+#      model. Keep a fixture that makes each one fire.
+#
+#  CORNER    thought
+#  RUNS IN   the browser; the gate itself is the Ontology Quality Suite from the command line: pip install ontology-quality-suite
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo34-ontologies-like-code-the-loop-and-the-gate.ttl
+#  SOURCES   SemOps Manual 6.3 The five maturity levels
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/06-stages-and-stories.md#63-the-five-maturity-levels
+#            SemOps Manual 9.4 The right fix: --own-namespace
+#            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#94-the-right-fix---own-namespace
+#  MEASURED  parses, 17 triples; 2 classes; OWL 2 DL in profile; HermiT: 1 unsatisfiable class; OQS: LOG-001, REA-020, REA-021
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a               owl:Ontology ;
+    skos:prefLabel  "The Bookshop Trail schema"@en ;
+    skos:editorialNote "Checked in the editor as written; gated in CI with the Ontology Quality Suite, scoped to the bs: namespace, failing on Violation."@en .
+
+# A seeded fault for the gate to find: a class disjoint with its own ancestor.
+bs:Work         a owl:Class ; skos:prefLabel "Work"@en ; skos:definition "A book."@en .
+bs:Translation  a owl:Class ; rdfs:subClassOf bs:Work ; owl:disjointWith bs:Work ;
+    skos:prefLabel "Translation"@en ; skos:definition "A work that is a translation of another."@en ;
+    skos:editorialNote "Seeded: disjoint with its own parent. LOG-001 must fire, and REA-021 when the reasoner runs."@en .

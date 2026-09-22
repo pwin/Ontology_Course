@@ -1,0 +1,119 @@
+# ==========================================================================
+#  O36  Rung one, a list; rung two, a concept scheme
+# ==========================================================================
+#
+#  DECIDES
+#    The genres are a SKOS concept scheme: particulars with labels,
+#    arranged by broader and narrower, promising nothing about the works in
+#    them; and the scheme's uneven depth is kept because it is true.
+#
+#  WHY
+#    The lowest rung is a list of terms with IRIs and labels, which is
+#    where module 01 started: it promises only that the terms exist and are
+#    distinct. The next rung is a concept scheme. Each genre is a
+#    skos:Concept in a skos:ConceptScheme; each has one preferred label per
+#    language and any number of alternatives; broader and narrower arrange
+#    them in a tree, or a lattice, since SKOS allows a concept two broader
+#    ones. What has been promised is this: these particulars are related in
+#    this way. Nothing has been said about any work. A reasoner given the
+#    scheme will not conclude that a cosy crime novel is a work of fiction,
+#    because the scheme has no members to conclude it about.
+#
+#    This is why SKOS is the right rung for a shelf plan. Curators move
+#    genres about; broader changes; no data needs retyping. The Trail's
+#    scheme has thirty-one concepts, two to four levels deep, and the depth
+#    is uneven because crime fiction has kinds that poetry does not. A
+#    model that forced every branch to the same depth would be tidier and
+#    false.
+#
+#    The unevenness carries the SPARQL course's best-known lesson, q28: a
+#    fixed chain of two broader hops from Fiction finds some genres and
+#    silently misses the rest, while skos:broader+ finds them all.
+#    skos:broader is deliberately not transitive; skos:broaderTransitive
+#    is, and a path operator computes it without a reasoner. Module 08
+#    comes back to that as the first of three routes to the same inference.
+#
+#  DIAGRAM
+#       rung 1  a list         bt:genre-cosy-crime  skos:prefLabel "Cosy Crime"@en          exists, is distinct
+#       rung 2  a scheme       bt:genre-cosy-crime  skos:broader  bt:genre-crime-fiction   related, as particulars
+#                              bt:genre-crime-fiction skos:broader bt:genre-fiction
+#                              bt:genre-poetry      skos:broader  bt:genre-literature       (two levels, not four)
+#
+#       promised: these particulars relate thus.  not promised: anything about a work.
+#
+#       q28:  skos:broader/skos:broader  from Fiction   misses the branches of other depths
+#             skos:broader+              from Fiction   finds every descendant
+#
+#  WHAT TO TAKE AWAY
+#    - A concept scheme relates particulars. It promises nothing about
+#      members, which is why it can be rearranged without retyping data.
+#    - Keep a hierarchy as uneven as the world is. A fixed depth is a lie
+#      a query will trip on.
+#    - skos:broader is not transitive on purpose. A path operator, or
+#      broaderTransitive, gives the closure when a question needs it.
+#
+#  NOTE
+#    The counts in the AFTERWARDS queries are for the full scheme,
+#    data/02-genres.ttl; open it in the editor to run them. The two COUNT
+#    queries return one row each, and the numbers inside differ: that
+#    difference is q28.
+#
+#  CORNER    symbol and thought
+#  DATA      02-genres.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo36-rung-one-a-list%3B-rung-two-a-concept-scheme.ttl
+#  SOURCES   SKOS Reference 4 Concept Schemes
+#            https://www.w3.org/TR/skos-reference/#schemes
+#            SKOS Reference 8 Semantic Relations
+#            https://www.w3.org/TR/skos-reference/#semantic-relations
+#  MEASURED  parses, 41 triples; 2 classes, 3 object properties, 6 concepts, 6 individuals; OWL 2 DL in profile; 'Two hops down from Fiction, ' 1 row; 'Every descendant of Fiction,' 1 row; 'Depth of every leaf, to see ' 22 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+skos:Concept        a owl:Class .
+skos:ConceptScheme  a owl:Class .
+skos:inScheme       a owl:ObjectProperty .
+skos:hasTopConcept  a owl:ObjectProperty .
+skos:broader        a owl:ObjectProperty .
+
+bt:genre-scheme  a skos:ConceptScheme ; skos:prefLabel "Bookshop Trail genre scheme"@en ; skos:hasTopConcept bt:genre-literature .
+
+bt:genre-literature     a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Literature"@en .
+bt:genre-fiction        a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Fiction"@en, "Ffuglen"@cy ; skos:broader bt:genre-literature .
+bt:genre-poetry         a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Poetry"@en, "Barddoniaeth"@cy ; skos:altLabel "Verse"@en ; skos:broader bt:genre-literature .
+bt:genre-crime-fiction  a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Crime Fiction"@en ; skos:altLabel "Mystery"@en ; skos:broader bt:genre-fiction .
+bt:genre-cosy-crime     a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Cosy Crime"@en ; skos:altLabel "Cozy Mystery"@en ; skos:broader bt:genre-crime-fiction .
+bt:genre-tartan-noir    a skos:Concept ; skos:inScheme bt:genre-scheme ; skos:prefLabel "Tartan Noir"@en ; skos:broader bt:genre-crime-fiction .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Two hops down from Fiction, in the full scheme  (on the data)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT (COUNT(DISTINCT ?g) AS ?found) WHERE { ?g skos:broader/skos:broader bt:genre-fiction }
+#
+#  -- Every descendant of Fiction, however deep  (on the data)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT (COUNT(DISTINCT ?g) AS ?found) WHERE { ?g skos:broader+ bt:genre-fiction }
+#
+#  -- Depth of every leaf, to see the unevenness  (on the data)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?leaf (COUNT(?up) AS ?depth) WHERE {
+#    ?leaf a skos:Concept ; skos:broader+ ?up .
+#    FILTER NOT EXISTS { ?below skos:broader ?leaf }
+#  } GROUP BY ?leaf ORDER BY DESC(?depth)

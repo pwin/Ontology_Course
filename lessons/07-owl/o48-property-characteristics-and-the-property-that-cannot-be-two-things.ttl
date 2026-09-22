@@ -1,0 +1,107 @@
+# ==========================================================================
+#  O48  Property characteristics, and the property that cannot be two things
+# ==========================================================================
+#
+#  DECIDES
+#    bs:within is transitive, bs:connectsTo symmetric, bs:imprintOf
+#    asymmetric and irreflexive; and because a transitive property is non-
+#    simple, bs:within may not also be functional, which the profile
+#    checker enforces.
+#
+#  WHY
+#    A property characteristic is an axiom about the relation as a whole.
+#    Transitive: if Wigtown is within Dumfries and Galloway and that is
+#    within Scotland, Wigtown is within Scotland, and the reasoner writes
+#    the triple. Symmetric: a segment from A to B is a segment from B to A,
+#    so bs:connectsTo asserted once holds both ways. Asymmetric and
+#    irreflexive: nothing is an imprint of itself, or of its own imprint,
+#    and asserting either is a contradiction. Functional and inverse-
+#    functional: at most one value, or at most one subject, with the
+#    merging behaviour of o47. Reflexive is rare and the Trail has none.
+#
+#    OWL 2 DL has a rule about combining them, and it is the rule that bit
+#    the Trail's vocabulary first: a transitive property is non-simple, and
+#    a non-simple property may not be functional, inverse-functional,
+#    irreflexive, asymmetric, disjoint with another, or used in a
+#    cardinality restriction. The reason is decidability; the practical
+#    effect is that bs:within, being transitive, cannot also be declared
+#    functional, however natural 'directly within one place' sounds. This
+#    lesson's file declares both, and the profile checker refuses it,
+#    naming the property. The measured line records the refusal; the fix is
+#    to drop the functional declaration, or to have a separate non-
+#    transitive 'directlyWithin' that is functional and a transitive
+#    'within' above it.
+#
+#    The SPARQL course's module 18 measures what a reasoner does with
+#    bs:within on the whole Trail: sixty-three asserted pairs become a
+#    hundred and eighty-six. Module 08 reaches the same number three ways.
+#
+#  DIAGRAM
+#       characteristic        axiom                                   consequence
+#
+#       transitive            bs:within a owl:TransitiveProperty      within chains close: 63 pairs -> 186
+#       symmetric             bs:connectsTo a owl:SymmetricProperty   A connectsTo B => B connectsTo A
+#       asymmetric            bs:imprintOf a owl:AsymmetricProperty   A imprintOf B and B imprintOf A: contradiction
+#       irreflexive           bs:imprintOf a owl:IrreflexiveProperty  A imprintOf A: contradiction
+#       functional            bs:locatedIn a owl:FunctionalProperty   two values merge (o47)
+#
+#       the global restriction: transitive => non-simple => not functional, not in a cardinality
+#       bs:within a owl:TransitiveProperty, owl:FunctionalProperty     NOT in OWL 2 DL
+#       ... and an RL engine, which does not check, concludes:
+#       bt:place-dumfries-galloway owl:sameAs bt:place-scotland
+#
+#  WHAT TO TAKE AWAY
+#    - A characteristic is an axiom about the whole relation, and each
+#      has a consequence the reasoner acts on.
+#    - Transitive makes a property non-simple, and non-simple properties
+#      cannot be functional or counted. The checker enforces it; an RL
+#      engine does not, and merges a council area with a country instead.
+#    - When you want both, split the property: a functional direct
+#      relation and a transitive closure above it.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the profile refusal on the MEASURED line comes from ROBOT
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo48-property-characteristics-and-the-property-that-cannot-be-two-things.ttl
+#  SOURCES   OWL 2 Primer 6 Advanced Use of Properties
+#            https://www.w3.org/TR/owl2-primer/#Advanced_Use_of_Properties
+#            OWL 2 Structural Specification 11 Global Restrictions on Axioms in OWL 2 DL
+#            https://www.w3.org/TR/owl2-syntax/#Global_Restrictions_on_Axioms_in_OWL_2_DL
+#  MEASURED  parses, 29 triples; 3 classes, 3 object properties, 5 individuals; not DL; RL closure +5; 'What the closure adds: the t' 8 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Place       a owl:Class .
+bs:Bookshop    a owl:Class .
+bs:Publisher   a owl:Class .
+
+bs:connectsTo  a owl:ObjectProperty, owl:SymmetricProperty ;   rdfs:domain bs:Bookshop ;  rdfs:range bs:Bookshop .
+bs:imprintOf   a owl:ObjectProperty, owl:AsymmetricProperty, owl:IrreflexiveProperty ; rdfs:domain bs:Publisher ; rdfs:range bs:Publisher .
+
+# The combination OWL 2 DL forbids, declared to show the refusal.
+bs:within      a owl:ObjectProperty, owl:TransitiveProperty, owl:FunctionalProperty ; rdfs:domain bs:Place ; rdfs:range bs:Place ;
+    skos:editorialNote "Transitive and functional at once: outside OWL 2 DL. The shipped vocabulary drops the functional declaration."@en .
+
+bt:place-wigtown            a bs:Place ; bs:within bt:place-dumfries-galloway .
+bt:place-dumfries-galloway  a bs:Place ; bs:within bt:place-scotland .
+bt:place-scotland           a bs:Place .
+bt:shop-inkwell             a bs:Bookshop ; bs:connectsTo bt:shop-marginalia .
+bt:shop-marginalia          a bs:Bookshop .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- What the closure adds: the transitive and symmetric consequences  (on the reasoned)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(?p IN (bs:within, bs:connectsTo)) } ORDER BY ?p ?s

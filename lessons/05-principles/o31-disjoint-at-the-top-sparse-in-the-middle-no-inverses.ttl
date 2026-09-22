@@ -1,0 +1,106 @@
+# ==========================================================================
+#  O31  Disjoint at the top, sparse in the middle, no inverses
+# ==========================================================================
+#
+#  DECIDES
+#    The top-level kinds are declared pairwise disjoint, domains and ranges
+#    are declared only where every use will agree, and inverses are not
+#    declared unless a lesson needs one.
+#
+#  WHY
+#    gist's README lists its structural habits in one breath: sparse domain
+#    and range specifications for broader applicability, no inverse
+#    properties, and extensive fine-grained disjointness at the highest
+#    level. The three go together and each is a bet about the future.
+#
+#    Disjointness at the top is the cheap axiom that catches the expensive
+#    mistake. Nothing is both a place and a bookshop, and saying so lets a
+#    reasoner notice when a data load types one thing as both. The Trail
+#    declares its ten top-level kinds disjoint in one
+#    owl:AllDisjointClasses, and four subkinds of Place disjoint in
+#    another. Below that it stops: Author and TrailMember are roles and a
+#    shop can be both a member and a shop, so disjointness lower down is
+#    where the tenth rule from o29 starts to bite.
+#
+#    Sparse domains and ranges are the opposite bet. A domain is an
+#    inference rule: whatever has this property is of this class. State
+#    bs:locatedIn's domain as Bookshop and every publisher with an address
+#    becomes a bookshop; the Trail states a union instead, and leaves
+#    bs:claimedBy with no domain at all because its subject is a statement.
+#    gist goes further and leaves most domains open, on the principle that
+#    a property is more reusable than any class it was first used with.
+#
+#    No inverses is the bet that one direction is enough. Every inverse
+#    doubles the query paths, the data, the shapes and the reasoner's work,
+#    and buys nothing a SPARQL caret or a SHACL inverse path does not. gist
+#    removed all of them in version 12 and picks the direction with fewer
+#    results, child to parent. The Trail keeps two on purpose (o30).
+#
+#  DIAGRAM
+#       disjoint at the top      [] a owl:AllDisjointClasses ; owl:members ( Place Bookshop Person Publisher Work ... )
+#                                cheap; catches a thing typed as two kinds at once
+#
+#       sparse in the middle     bs:locatedIn  rdfs:domain [ unionOf ( Bookshop Publisher ) ]
+#                                bs:claimedBy  no domain: its subject is a statement
+#                                a domain is an inference rule, and a narrow one retypes things
+#
+#       no inverses              isPartOf, not hasPart; ^bs:imprintOf in SPARQL, sh:inversePath in SHACL
+#                                one direction, fewer results, half the paths
+#
+#  WHAT TO TAKE AWAY
+#    - Declare the top-level kinds disjoint. It is one axiom and it
+#      catches the worst data error there is.
+#    - A domain is an inference rule. Declare one only when every use of
+#      the property will agree with it, and use a union when two will
+#      not.
+#    - One direction per relationship. The query language and the shapes
+#      language both walk it backwards for free.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo31-disjoint-at-the-top-sparse-in-the-middle-no-inverses.ttl
+#  SOURCES   gist Style Guide: inverses, and why gist has none
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#inverses
+#            OWL 2 Primer 4.3 Class Disjointness
+#            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
+#  MEASURED  parses, 45 triples; 7 classes, 3 object properties, 1 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+
+bs:Place a owl:Class . bs:Bookshop a owl:Class . bs:Person a owl:Class .
+bs:Publisher a owl:Class . bs:Work a owl:Class . bs:Event a owl:Class .
+[] a owl:AllDisjointClasses ; owl:members ( bs:Place bs:Bookshop bs:Person bs:Publisher bs:Work bs:Event ) .
+
+bs:locatedIn
+    a            owl:ObjectProperty ;
+    rdfs:domain  [ a owl:Class ; owl:unionOf ( bs:Bookshop bs:Publisher ) ] ;
+    rdfs:range   bs:Place ;
+    skos:scopeNote "Domain is a union: shops and publishers both have one. A domain of Bookshop alone would retype every publisher."@en .
+
+bs:claimedBy
+    a            owl:ObjectProperty ;
+    rdfs:range   bs:Source ;
+    skos:scopeNote "No domain. The subject is a claim about a statement, which no class here describes."@en .
+bs:Source  a owl:Class .
+
+bs:imprintOf
+    a            owl:ObjectProperty ;
+    rdfs:domain  bs:Publisher ;
+    rdfs:range   bs:Publisher ;
+    skos:scopeNote "Child to parent, the direction with fewer results. No hasImprint declared here; ask for ^bs:imprintOf."@en .
+
+# What the disjointness catches: one thing typed as two kinds.
+bt:oddity  a bs:Place, bs:Bookshop .

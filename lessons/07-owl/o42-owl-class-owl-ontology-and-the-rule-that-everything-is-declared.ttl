@@ -1,0 +1,96 @@
+# ==========================================================================
+#  O42  owl:Class, owl:Ontology, and the rule that everything is declared
+# ==========================================================================
+#
+#  DECIDES
+#    The vocabulary becomes an OWL 2 DL ontology: an owl:Ontology node,
+#    every class an owl:Class, every property exactly one of object,
+#    datatype or annotation, every borrowed term declared, and the profile
+#    checker as referee.
+#
+#  WHY
+#    The step from RDFS to OWL 2 DL is mostly declarations. rdfs:Class
+#    becomes owl:Class. rdf:Property becomes one of owl:ObjectProperty,
+#    owl:DatatypeProperty or owl:AnnotationProperty, and exactly one,
+#    because a DL reasoner needs to know whether a property's values are
+#    things, values or commentary before it can reason at all. Every term
+#    the file mentions is declared, including the borrowed ones, because
+#    the profile is checked over the imports closure and the Trail imports
+#    nothing. And an owl:Ontology node says what the document is.
+#
+#    The reward for the discipline is that a checker can now say whether
+#    the file is OWL 2 DL, and this lesson's file is. The SPARQL course's
+#    README records what it took to get the shipped vocabulary there, and
+#    the rules that bit were the ones RDFS never mentions: everything
+#    declared; a property is one kind only; a transitive property is non-
+#    simple and may not be functional; and an RDF 1.2 triple term has no
+#    OWL type, so the property that points at one is an annotation
+#    property. Each is a lesson in this module.
+#
+#    The set reading from o35 now has teeth: an owl:Class is a set the
+#    reasoner will draw conclusions about, and a class that was rdfs:Class
+#    in module 06 was a set nobody could contradict. The profiles table in
+#    the measured line shows where this small file sits: in DL, and in EL,
+#    QL and RL too, because it says so little.
+#
+#  DIAGRAM
+#       RDFS                                OWL 2 DL
+#
+#       bs:Bookshop a rdfs:Class            bs:Bookshop a owl:Class
+#       bs:locatedIn a rdf:Property         bs:locatedIn a owl:ObjectProperty      (values are things)
+#       bs:founded a rdf:Property           bs:founded a owl:DatatypeProperty      (values are values)
+#       rdfs:comment (used, undeclared)     rdfs:comment is built in; skos:definition a owl:AnnotationProperty
+#       (no header)                         <.../schema> a owl:Ontology
+#
+#       the referee:  robot validate-profile --profile DL      in profile / NOT in profile, with the reason
+#
+#  WHAT TO TAKE AWAY
+#    - OWL 2 DL is RDFS plus declarations, and the declarations are what
+#      let a reasoner and a checker work.
+#    - A property is object, datatype or annotation. One. Decide by
+#      asking whether its values are things, values or commentary.
+#    - Declare what you borrow. The profile is checked over what is
+#      imported, and nothing is.
+#
+#  TRY IT
+#    Delete the line declaring bs:website and run python
+#    scripts/check_lessons.py o42: the file falls out of DL, and the
+#    checker says which term did it. Put it back. The editor will not
+#    object either way; only the referee does.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the OWL 2 profile verdicts on the MEASURED line come from ROBOT
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo42-owl-class-owl-ontology-and-the-rule-that-everything-is-declared.ttl
+#  SOURCES   OWL 2 Structural Specification 5.8 Entity Declarations and Typing
+#            https://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing
+#            OWL 2 Structural Specification 5.8.1 Typing Constraints of OWL 2 DL
+#            https://www.w3.org/TR/owl2-syntax/#Typing_Constraints_of_OWL_2_DL
+#  MEASURED  parses, 26 triples; 4 classes, 1 object property, 2 datatype properties, 2 individuals; OWL 2 DL/EL/QL/RL; HermiT: consistent, 1 inferred
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a               owl:Ontology ;
+    skos:prefLabel  "The Bookshop Trail schema"@en .
+
+bs:Place       a owl:Class ; skos:prefLabel "Place"@en .
+bs:Settlement  a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Settlement"@en .
+bs:Bookshop    a owl:Class ; skos:prefLabel "Bookshop"@en .
+
+bs:locatedIn   a owl:ObjectProperty ;   rdfs:range bs:Settlement ; skos:prefLabel "located in"@en .
+bs:founded     a owl:DatatypeProperty ; rdfs:range xsd:integer ;   skos:prefLabel "founded"@en .
+bs:website     a owl:DatatypeProperty ; rdfs:range xsd:anyURI ;    skos:prefLabel "website"@en .
+skos:Concept   a owl:Class .
+
+bt:shop-inkwell  a bs:Bookshop ; bs:locatedIn bt:place-wigtown ; bs:founded 1979 .
+bt:place-wigtown a bs:Settlement .

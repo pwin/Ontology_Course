@@ -1,0 +1,22 @@
+# Build output: the checker's results, ROBOT's reasoned copies, the metrics ----
+build/
+
+# Third-party tools and ontologies, fetched by scripts/setup-tools.ps1 --------
+# They are not redistributed here; each carries its own licence:
+#   lib/owl/robot.jar        ROBOT, BSD-3-Clause. 82 MB.
+#   lib/gist/*.ttl           gist, gistBFO and gistUFO, CC-BY-4.0, Semantic Arts.
+#   lib/gufo/*.ttl           gUFO, CC-BY-4.0, NEMO / UFES.
+lib/
+
+# Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors and OS ----------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,99 @@
+# ==========================================================================
+#  O18  Naming a property so that it reads
+# ==========================================================================
+#
+#  DECIDES
+#    Object properties are verb-initial and read as a sentence, datatype
+#    properties are nouns, direction is unambiguous and runs up the tree;
+#    the Trail's departures from that are listed rather than hidden.
+#
+#  WHY
+#    A property name is read in the middle of a triple, so the test is
+#    whether the triple reads. 'The Inkwell isLocatedIn Wigtown' reads;
+#    'The Inkwell locatedIn Wigtown' nearly does; 'The Inkwell location
+#    Wigtown' does not. The gist guide's textual standards come down to
+#    that test plus a handful of tie-breakers: object properties verb-
+#    initial (isAbout, not about); the 'is' prefix on -ed forms
+#    (isGovernedBy); prefer an ordinary verb to hasX (precedes, not
+#    isFollowedBy); datatype properties as nouns (baseConversionFactor, not
+#    convertToBase); present tense; a final preposition where it helps
+#    (hasJurisdictionOver).
+#
+#    Two rules are about direction. Make it unambiguous: hasBroader, not
+#    broader, which SKOS itself gets wrong by this standard. And where
+#    there is a hierarchy, name the property going up it, child to parent,
+#    because that is the direction with fewer results: isPartOf rather than
+#    hasPart, hasSuperCategory rather than hasSubCategory. That rule is
+#    what lets gist do without inverses altogether, which o27 comes to.
+#
+#    The Trail's vocabulary was written before these rules were adopted
+#    here, and it departs from them in four places: locatedIn, publishedBy,
+#    author and genre would be isLocatedIn, isPublishedBy, hasAuthor and
+#    hasGenre. The departures are recorded on each property as an editorial
+#    note. Renaming them would break 145 queries in the SPARQL course for a
+#    gain in consistency, and that trade is discussed under pragmatism in
+#    o30; the point here is that the departure is written down.
+#
+#  DIAGRAM
+#       test: does the triple read as a sentence?
+#
+#       bt:shop-inkwell   bs:locatedIn     bt:place-wigtown     nearly; gist: isLocatedIn
+#       bt:book-x         bs:publishedBy   bt:pub-bell-rock     nearly; gist: isPublishedBy
+#       bt:book-x         bs:author        bt:author-y          no;     gist: hasAuthor
+#       bt:pub-northwind  bs:imprintOf     bt:pub-lodestone     yes, and up the tree
+#       bt:shop-a         bs:connectsTo    bt:shop-b            yes
+#
+#       datatype properties are nouns:  bs:floorArea  bs:staffCount  bs:founded
+#
+#  WHAT TO TAKE AWAY
+#    - Read the triple aloud. If it is not a sentence, rename the
+#      property.
+#    - Name a hierarchical property going up: isPartOf, isMemberOf,
+#      hasBroader. One direction, fewer results, no inverse needed.
+#    - Where an ontology departs from its own rules, say so on the term.
+#      A recorded departure is a decision; a silent one is drift.
+#
+#  CORNER    symbol
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F03-naming%2Fo18-naming-a-property-so-that-it-reads.ttl
+#  SOURCES   gist Style Guide: textual standards for property local names
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#textual-standards-for-property-local-names
+#            gist Style Guide: inverses, and why gist has none
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#inverses
+#  MEASURED  parses, 26 triples; 6 object properties, 2 datatype properties; 0 local names break the conventions; OWL 2 DL in profile; 'Properties whose name depart' 4 rows
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+
+bs:locatedIn    a owl:ObjectProperty ; skos:prefLabel "located in"@en ;
+    skos:editorialNote "gist style would be isLocatedIn. Kept for the queries that use it."@en .
+bs:publishedBy  a owl:ObjectProperty ; skos:prefLabel "published by"@en ;
+    skos:editorialNote "gist style would be isPublishedBy."@en .
+bs:author       a owl:ObjectProperty ; skos:prefLabel "author"@en ;
+    skos:editorialNote "gist style would be hasAuthor: a noun does not read in the middle of a triple."@en .
+bs:genre        a owl:ObjectProperty ; skos:prefLabel "genre"@en ;
+    skos:editorialNote "gist style would be hasGenre, or isCategorizedBy."@en .
+bs:imprintOf    a owl:ObjectProperty ; skos:prefLabel "imprint of"@en ;
+    skos:editorialNote "Reads, and runs up the tree: child to parent."@en .
+bs:connectsTo   a owl:ObjectProperty ; skos:prefLabel "connects to"@en .
+bs:floorArea    a owl:DatatypeProperty ; skos:prefLabel "floor area"@en .
+bs:staffCount   a owl:DatatypeProperty ; skos:prefLabel "staff count"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Properties whose name departs from the gist standard  (on the model)
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?property ?note WHERE { ?property skos:editorialNote ?note . FILTER(CONTAINS(?note, "gist style would be")) }

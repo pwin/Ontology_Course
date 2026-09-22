@@ -1,0 +1,109 @@
+# ==========================================================================
+#  O75  The questions answered, and the rules kept elsewhere
+# ==========================================================================
+#
+#  DECIDES
+#    The brief's ten questions are run against the whole dataset as the
+#    acceptance test of the vocabulary, and the constraints the ontology
+#    declined to express are found in the SHACL course, where they belong.
+#
+#  WHY
+#    An ontology exists to answer questions, o07 said, and the SPARQL
+#    course is the Trail's questions written down: 145 of them, run on
+#    three engines and compared value by value. This lesson runs the
+#    brief's ten as the acceptance test, on the shipped vocabulary and
+#    data, in the editor's SPARQL panel or in the checker. Each is a row
+#    count on the measured line: four towns with no bookshop, four shops in
+#    Wales, the shops reachable on foot from The Inkwell, the imprints that
+#    belong ultimately to the Lodestone Group, the works with no ISBN, the
+#    two founding claims for Ex Libris. Where the SPARQL course has the
+#    question, its number is given.
+#
+#    The other half of the package is the SHACL course, and it holds the
+#    rules this course refused to put in the ontology. Exactly one town per
+#    shop is s04; one founding year is s04 as well, as a finding rather
+#    than a contradiction, o29; a valid ISBN check digit is s39; a
+#    segment's ends are two different shops, s36; nothing is within itself,
+#    s30. Each is a rule about the dataset, with a severity somebody chose,
+#    and each is exactly the kind of thing gist's tenth rule sends to
+#    SHACL.
+#
+#    Three courses, one data set, one vocabulary. The ontology says what
+#    the terms mean; the queries ask; the shapes check. A question that
+#    cannot be asked, or a rule that cannot be checked, is a gap in the
+#    vocabulary, and this is how it would be found.
+#
+#  DIAGRAM
+#       question (the brief)                                 answered by          SPARQL course   rule kept in SHACL course
+#       1  shops in Wales / an area                          bs:within+           q28             --
+#       2  towns with no bookshop                            NOT EXISTS           q16             s21 (as a warning)
+#       3  walkable from The Inkwell, and how far            (connectsTo|^)+      q31, q32        s36
+#       4  crime fiction shops, including its kinds          skos:broader*        q27, q28        --
+#       5  events in York, and the cost                      heldAt/locatedIn     q20s            --
+#       6  works with no ISBN                                NOT EXISTS           q15             s39 (check digit)
+#       7  influenced at any remove by Rhona Blackwood       influencedBy+        q34             s30 (no cycles)
+#       8  imprints ultimately of the Lodestone Group        imprintOf+           q44             --
+#       9  when Ex Libris opened, and who says so            RDF 1.2 layer        q61 to q63      s53 to s55
+#       10 who stocks a book, cheapest                       StockRecord          q21             s47
+#
+#  WHAT TO TAKE AWAY
+#    - The competency questions are the acceptance test. Run them on the
+#      whole dataset before every release.
+#    - The rules the ontology refused are not lost. They are shapes, in
+#      the SHACL course, with severities somebody chose.
+#    - Three courses, one package: meaning, questions, checks. A gap in
+#      one shows up in another.
+#
+#  CORNER    all three
+#  DATA      bookshop-trail-1.1.ttl
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F12-putting-it-together%2Fo75-the-questions-answered-and-the-rules-kept-elsewhere.ttl
+#  SOURCES   The SPARQL course: the questions this ontology exists to answer
+#            https://www.semantechs.co.uk/SPARQL_Course/
+#            The SHACL course: the constraints OWL cannot express
+#            https://www.semantechs.co.uk/SHACL_Course/
+#  MEASURED  parses, 6 triples; 'Q3: shops reachable on foot ' 1 row; 'Q4: shops specialising in cr' 4 rows; 'Q6: works with no ISBN' 1 row; 'Q8: imprints that belong, ul' 5 rows; 'Q10: who stocks The Book Tow' 3 rows
+# ==========================================================================
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+<https://example.org/bookshop-trail/schema>
+    a                   owl:Ontology ;
+    skos:prefLabel      "The Bookshop Trail schema"@en ;
+    skos:editorialNote  "Acceptance test: the brief's ten questions as queries, run on bookshop-trail-1.1.ttl. The SPARQL course holds the full suite; the SHACL course holds the rules."@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Q3: shops reachable on foot from The Inkwell  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT (COUNT(DISTINCT ?shop) AS ?reachable) WHERE { bt:shop-inkwell (bs:connectsTo|^bs:connectsTo)+ ?shop . FILTER(?shop != bt:shop-inkwell) }
+#
+#  -- Q4: shops specialising in crime fiction, including its kinds  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?shop ?genre WHERE { ?shop bs:specialises ?g . ?g skos:broader* bt:genre-crime-fiction ; skos:prefLabel ?genre . FILTER(LANG(?genre) = "en") } ORDER BY ?shop
+#
+#  -- Q6: works with no ISBN  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT (COUNT(?w) AS ?withoutIsbn) WHERE { ?w a bs:Work . FILTER NOT EXISTS { ?w bs:isbn ?i } }
+#
+#  -- Q8: imprints that belong, ultimately, to the Lodestone Group  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?imprint WHERE { ?imprint bs:imprintOf+ bt:pub-lodestone-group } ORDER BY ?imprint
+#
+#  -- Q10: who stocks The Book Town, cheapest first  (on the data)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?shop ?price WHERE { ?rec bs:ofWork bt:book-the-book-town ; bs:atShop ?shop ; bs:shelfPrice ?price } ORDER BY ?price

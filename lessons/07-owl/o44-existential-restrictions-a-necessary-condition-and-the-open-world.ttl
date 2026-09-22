@@ -1,0 +1,92 @@
+# ==========================================================================
+#  O44  Existential restrictions: a necessary condition, and the open world
+# ==========================================================================
+#
+#  DECIDES
+#    'Every bookshop is located in some settlement' is written as a
+#    subclass axiom with owl:someValuesFrom, which constrains the set
+#    without producing a triple, and a shop with no recorded town is not an
+#    error.
+#
+#  WHY
+#    A restriction is a set defined by a condition: the things that have
+#    some bs:locatedIn value in bs:Settlement. Writing bs:Bookshop
+#    rdfs:subClassOf that set says every bookshop is such a thing. It is a
+#    necessary condition: to be a bookshop you must be located in a
+#    settlement. It is not sufficient, because other things are located in
+#    settlements too, and it is not a defined class; o46 is that.
+#
+#    What does the reasoner do with it? Less than newcomers expect. Given a
+#    bookshop with no recorded town, it does not complain: the open world
+#    says the town exists and is not in the file. Given a bookshop located
+#    in something, it does not type the something as a Settlement, because
+#    the axiom says some value is a settlement, not every value. HermiT
+#    reports this file consistent and infers nothing visible, and that is
+#    correct. The axiom has narrowed the set of interpretations, which is
+#    what an axiom does, and nothing in the data happened to be decided by
+#    it.
+#
+#    That is why gist's rules say to use someValuesFrom in an equivalence
+#    when you want to infer into a class, and why the shape that says
+#    'every shop must have a town in this dataset' is SHACL, not this. The
+#    SHACL course's s01 is that shape, and it reports the shop with no
+#    town; this axiom never will.
+#
+#  DIAGRAM
+#       bs:Bookshop rdfs:subClassOf [ owl:onProperty bs:locatedIn ; owl:someValuesFrom bs:Settlement ]
+#
+#       set reading:  B is a subset of { x : some y, locatedIn(x, y), y in S }
+#
+#       a shop with no town in the file      consistent: the town exists, unrecorded (open world)
+#       a shop located in something          the something is not typed: 'some', not 'every'
+#       HermiT: consistent, nothing new      correct, and the point
+#
+#       want to find shops with no town?     a shape: sh:path bs:locatedIn ; sh:minCount 1   (SHACL course s01)
+#
+#  WHAT TO TAKE AWAY
+#    - A subclass existential is a necessary condition on the set. It
+#      rejects nothing and types nothing; it narrows what the world could
+#      be.
+#    - Absence is not error. The open world says the missing value exists
+#      and is unrecorded.
+#    - To find the missing value, write a shape. To infer membership from
+#      a value, use an equivalence (o46).
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F07-owl%2Fo44-existential-restrictions-a-necessary-condition-and-the-open-world.ttl
+#  SOURCES   OWL 2 Primer 5.2 Property Restrictions: existential quantification
+#            https://www.w3.org/TR/owl2-primer/#Property_Restrictions
+#            OWL 2 Primer 2.2 Modeling Knowledge: Basic Notions (the open world, no unique names)
+#            https://www.w3.org/TR/owl2-primer/#Modeling_Knowledge:_Basic_Notions
+#  MEASURED  parses, 14 triples; 2 classes, 1 object property, 2 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; RL closure +0; 'Shops with no recorded town ' 1 row
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Settlement  a owl:Class .
+bs:Bookshop    a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:someValuesFrom bs:Settlement ] .
+bs:locatedIn   a owl:ObjectProperty .
+
+bt:shop-inkwell   a bs:Bookshop ; bs:locatedIn bt:place-wigtown .   # the town's type is not inferred
+bt:shop-errata    a bs:Bookshop .                                   # no town recorded: not an error
+bt:place-wigtown  skos:prefLabel "Wigtown"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Shops with no recorded town (what a shape would report)  (on the model)
+#  PREFIX bs: <https://example.org/bookshop-trail/schema#>
+#  SELECT ?shop WHERE { ?shop a bs:Bookshop . FILTER NOT EXISTS { ?shop bs:locatedIn ?town } }

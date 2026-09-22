@@ -1,0 +1,84 @@
+# ==========================================================================
+#  O55  Classification: the hierarchy the reasoner infers
+# ==========================================================================
+#
+#  DECIDES
+#    Subclass relations that follow from definitions are left for the
+#    reasoner to infer rather than asserted, and the inferred hierarchy is
+#    compared with the asserted one as a check on both.
+#
+#  WHY
+#    Classification is the reasoner working out the subclass relations
+#    between every pair of classes, asserted or not. Define Author as
+#    Person and wrote some Work, and Author is under Person without anyone
+#    writing rdfs:subClassOf. Define LocalPublisher as Publisher and
+#    locatedIn some Settlement, and PublisherInWigtown as Publisher and
+#    locatedIn value Wigtown, and the reasoner places the second under the
+#    first, because a value is a special case of some. Nobody said so. It
+#    follows.
+#
+#    That is the reason to define rather than declare wherever a definition
+#    is possible. An asserted hierarchy records what somebody believed; an
+#    inferred one records what the definitions entail, and the two can be
+#    compared. Where they differ, one of them is wrong, and it is usually
+#    the assertion. gist's habit of defining classes by equivalence to an
+#    intersection (o32) is this habit at scale.
+#
+#    ROBOT's reason command writes the inferred axioms into the ontology;
+#    the measured line counts them. The editor's RL closure does not
+#    classify, since deriving a subclass axiom from restrictions is outside
+#    RL; it types individuals, which is the other half of the same work,
+#    and o56 sets the two side by side.
+#
+#  DIAGRAM
+#       asserted                                              inferred (HermiT)
+#
+#       bs:Author = Person and (wrote some Work)              bs:Author rdfs:subClassOf bs:Person
+#       bs:LocalPublisher = Publisher and (locatedIn some Settlement)
+#       bs:WigtownPublisher = Publisher and (locatedIn value bt:place-wigtown)
+#                                                              bs:WigtownPublisher rdfs:subClassOf bs:LocalPublisher
+#       (bt:place-wigtown a bs:Settlement)                     because 'value w' is a case of 'some S' when w is in S
+#
+#       define where you can; assert where you must; compare the two
+#
+#  WHAT TO TAKE AWAY
+#    - Classification infers the subclass relations the definitions
+#      entail. Define rather than assert, and let it.
+#    - Compare the inferred hierarchy with the asserted one. A difference
+#      means a belief and a definition disagree.
+#    - The RL closure types individuals; it does not classify classes.
+#      That is the line between the editor's reasoner and a DL one.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; the inferred hierarchy comes from HermiT through ROBOT; Show Facts will not derive it
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F08-reasoning%2Fo55-classification-the-hierarchy-the-reasoner-infers.ttl
+#  SOURCES   OWL 2 Primer 5.1 Complex Classes
+#            https://www.w3.org/TR/owl2-primer/#Complex_Classes
+#            OWL 2 Profiles 4 OWL 2 RL
+#            https://www.w3.org/TR/owl2-profiles/#OWL_2_RL
+#  MEASURED  parses, 40 triples; 7 classes, 2 object properties, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 3 inferred; RL closure +3
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+bs:Person a owl:Class . bs:Work a owl:Class . bs:Publisher a owl:Class . bs:Settlement a owl:Class .
+bs:wrote     a owl:ObjectProperty .
+bs:locatedIn a owl:ObjectProperty .
+
+bs:Author  a owl:Class ;
+    owl:equivalentClass [ owl:intersectionOf ( bs:Person [ a owl:Restriction ; owl:onProperty bs:wrote ; owl:someValuesFrom bs:Work ] ) ] .
+
+bs:LocalPublisher  a owl:Class ;
+    owl:equivalentClass [ owl:intersectionOf ( bs:Publisher [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:someValuesFrom bs:Settlement ] ) ] .
+
+bs:WigtownPublisher  a owl:Class ;
+    owl:equivalentClass [ owl:intersectionOf ( bs:Publisher [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:hasValue bt:place-wigtown ] ) ] .
+
+bt:place-wigtown  a bs:Settlement .

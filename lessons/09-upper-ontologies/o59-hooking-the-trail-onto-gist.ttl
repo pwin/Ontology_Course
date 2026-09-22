@@ -1,0 +1,146 @@
+# ==========================================================================
+#  O59  Hooking the Trail onto gist
+# ==========================================================================
+#
+#  DECIDES
+#    Each Trail kind is placed under its most specific gist class with a
+#    note saying why, two are left unplaced because nothing fits, and the
+#    whole is reasoned over with gist imported to see what gist's own
+#    axioms make of it.
+#
+#  WHY
+#    Alignment is placing each of your classes under the most specific
+#    class of the upper ontology that is true of every instance, and
+#    writing down the argument. gistBFO's README states the standard: a
+#    mapping that puts everything under the top class is not interesting,
+#    so aim low and be able to say why. The bridge for the Trail is seven
+#    subclass axioms, one typing, and two refusals.
+#
+#    Most are easy. bs:Person under gist:Person, whose definition, a human
+#    being who was or is alive, is the Trail's. bs:Publisher and
+#    bs:Bookshop under gist:Organization, a structured entity formed to
+#    achieve goals. bs:Event under gist:Event. bs:Series under
+#    gist:OrderedCollection. The genres, as particulars, are gist:Category,
+#    which gist defines as a concept used to categorise without formal
+#    semantics, the same call o24 made. Some take an argument. bs:Bookshop
+#    is the business, not the premises, so it goes under Organization and
+#    not Building; the identity criterion from o10 decides it, and gist's
+#    disjointness would object if it went under both. bs:Work is a work and
+#    an edition, and gist's example for Content is Huckleberry Finn
+#    independent of any edition, so bs:Work goes under gist:Content with
+#    the compromise noted. Places go under gist:GovernedGeoRegion, since
+#    every one of them is governed by exactly the council or country it is
+#    within.
+#
+#    Two are refused. bs:StockRecord, a count of copies at a price, is not
+#    a Magnitude, an Offer or a Collection in gist's sense, and a forced
+#    placement would be worse than none. bs:TrailSegment is close to
+#    gist:GeoRoute, but a route is an ordered set of points and a segment
+#    is a pair of shops with a length. Both are noted, as the SemOps ledger
+#    marks a gap grey rather than painting it green. HermiT, with gistCore
+#    imported, finds the bridge consistent.
+#
+#  DIAGRAM
+#       Trail                    gist                          why
+#       bs:Person                gist:Person                   same definition
+#       bs:Bookshop              gist:Organization             the business, not the building (identity, o10)
+#       bs:Publisher             gist:Organization
+#       bs:Work                  gist:Content                  gist's own example: a literary work, independent of edition
+#       bs:Event                 gist:Event
+#       bs:Series                gist:OrderedCollection
+#       bs:Place                 gist:GovernedGeoRegion        each is governed by the area or country it is within
+#       bt:genre-*               gist:Category  (individuals)  a concept used to categorise, no formal semantics
+#       bs:StockRecord           --                            nothing fits; noted, not forced
+#       bs:TrailSegment          --                            GeoRoute is an ordered set of points; noted
+#
+#       measured: consistent, with gistCore imported
+#
+#  WHAT TO TAKE AWAY
+#    - Place each class under the most specific upper class true of every
+#      instance, and write the argument on the axiom.
+#    - Identity decides the hard ones. A bookshop is the business; the
+#      building is a different referent.
+#    - Refuse a placement rather than force one. A gap written down is a
+#      decision; a wrong placement is a contradiction waiting for data.
+#
+#  TRY IT
+#    Add 'bs:Bookshop rdfs:subClassOf gist:Building .' and run the checker:
+#    gist declares Organization and Building disjoint, so bs:Bookshop
+#    becomes unsatisfiable, and The Inkwell makes the whole graph
+#    inconsistent. Identity, enforced by someone else's axiom.
+#
+#  CORNER    referent
+#  RUNS IN   the browser; consistency with gist imported is HermiT through ROBOT; gistCore.ttl is fetched by scripts/setup-tools.ps1
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F09-upper-ontologies%2Fo59-hooking-the-trail-onto-gist.ttl
+#  SOURCES   gist: a minimalist upper ontology
+#            https://github.com/semanticarts/gist
+#            OBO Foundry principle FP-007, relations: reuse existing ones
+#            https://obofoundry.org/principles/fp-007-relations.html
+#  MEASURED  parses, 62 triples; 23 classes, 4 object properties, 1 datatype property, 1 concepts, 2 individuals; OWL 2 DL in profile; HermiT: consistent, 825 inferred; 'The bridge, and what each pl' 7 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gist: <https://w3id.org/semanticarts/ns/ontology/gist/> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+rdfs:isDefinedBy    a owl:AnnotationProperty .
+
+gist:Organization        a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Person              a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Content             a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Event               a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GeoRegion           a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GovernedGeoRegion   a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:OrderedCollection   a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:GeoRoute            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Category            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Magnitude           a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Aspect              a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:UnitOfMeasure       a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:Building            a owl:Class ; rdfs:isDefinedBy <https://w3id.org/semanticarts/ontology/gistCore> .
+gist:isCategorizedBy     a owl:ObjectProperty .
+gist:hasMagnitude        a owl:ObjectProperty .
+gist:hasAspect           a owl:ObjectProperty .
+gist:hasUnitOfMeasure    a owl:ObjectProperty .
+gist:numericValue        a owl:DatatypeProperty .
+
+bs:Person        a owl:Class ; rdfs:subClassOf gist:Person .
+bs:Bookshop      a owl:Class ; rdfs:subClassOf gist:Organization ;
+    skos:editorialNote "Under Organization, not Building: the shop is the business. gist declares the two disjoint, so a shop that is both would be a contradiction."@en .
+bs:Publisher     a owl:Class ; rdfs:subClassOf gist:Organization .
+bs:Work          a owl:Class ; rdfs:subClassOf gist:Content ;
+    skos:editorialNote "gist:Content's example is a literary work independent of edition. bs:Work is also an edition (o10); the compromise stands."@en .
+bs:Event         a owl:Class ; rdfs:subClassOf gist:Event .
+bs:Series        a owl:Class ; rdfs:subClassOf gist:OrderedCollection .
+bs:Place         a owl:Class ; rdfs:subClassOf gist:GovernedGeoRegion ;
+    skos:editorialNote "Every Trail place is governed by the council area or country it is within."@en .
+bs:StockRecord   a owl:Class ;
+    skos:editorialNote "Not placed. Neither gist:Magnitude, gist:Offer nor gist:Collection is true of every stock record."@en .
+bs:TrailSegment  a owl:Class ;
+    skos:editorialNote "Not placed. gist:GeoRoute is an ordered set of points; a segment is two shops and a length."@en .
+
+skos:Concept  a owl:Class .
+bt:genre-crime-fiction  a skos:Concept, gist:Category ; skos:prefLabel "Crime Fiction"@en .
+
+bt:shop-inkwell  a bs:Bookshop ; skos:prefLabel "The Inkwell"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- The bridge, and what each placement says  (on the model)
+#  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#  SELECT ?trail ?upper ?why WHERE {
+#    ?trail rdfs:subClassOf ?upper .
+#    FILTER(STRSTARTS(STR(?trail), "https://example.org/bookshop-trail/schema#") && STRSTARTS(STR(?upper), "https://w3id.org/semanticarts/"))
+#    OPTIONAL { ?trail skos:editorialNote ?why }
+#  } ORDER BY ?trail

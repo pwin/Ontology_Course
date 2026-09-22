@@ -1,0 +1,107 @@
+# ==========================================================================
+#  O21  A definition is not a label
+# ==========================================================================
+#
+#  DECIDES
+#    Every class and property gets a definition in the form 'a genus that
+#    differs thus', one sentence, and anything else that was in the comment
+#    moves to a scope note.
+#
+#  WHY
+#    A label is a symbol. A definition is the thought written down, and it
+#    has a shape that has served since Aristotle: name the nearest kind the
+#    thing belongs to, then say what distinguishes it from the other things
+#    of that kind. 'A Settlement is a Place that is a town or city.' Genus,
+#    Place; differentia, town or city. Someone who has never seen the data
+#    can now decide whether a given thing is one, which is the whole test
+#    of a definition. OBO Foundry principle FP-006 asks for exactly this
+#    form, and for a definition on most classes as a condition of
+#    membership; gist's guide asks for exactly one, as a full sentence
+#    ending in a period, subject optional.
+#
+#    The Trail's shipped comments are a mixture. 'A town or city' is a
+#    definition. 'The only kind of Place a bookshop sits in' is true and
+#    useful and is not one; it is a note about how the term is used. SKOS
+#    gives the two their own properties, skos:definition and
+#    skos:scopeNote, and keeping them apart is what stops a definition
+#    growing into a paragraph nobody reads. Examples go in skos:example,
+#    including negative ones: gist's LivingThing gives 'unicorns or Mickey
+#    Mouse' as what it is not.
+#
+#    The audit in this lesson is rough and deliberate. It flags a
+#    definition whose first sentence contains the term's own name, which
+#    catches circularity (o22) and nothing subtler. It finds none here.
+#
+#  DIAGRAM
+#       "A Settlement is a Place that is a town or city."
+#                          -----       -----------------
+#                          genus       differentia
+#
+#       skos:definition   one sentence, genus and differentia, ends with a period
+#       skos:scopeNote    how the term is used, what it does not cover
+#       skos:example      instances, and negative examples
+#       skos:prefLabel    the symbol; never a substitute for the sentence
+#
+#  WHAT TO TAKE AWAY
+#    - Genus and differentia: the nearest kind, then what distinguishes.
+#      One sentence.
+#    - A definition decides membership for someone who has never seen the
+#      data. If it cannot, it is a note.
+#    - Definition, scope note and example are three properties because
+#      they are three jobs.
+#
+#  CORNER    thought
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F04-definitions%2Fo21-a-definition-is-not-a-label.ttl
+#  SOURCES   OBO Foundry principle FP-006, textual definitions
+#            https://obofoundry.org/principles/fp-006-textual-definitions.html
+#            gist Style Guide: formatting conventions for annotations
+#            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#formatting-conventions-for-annotations
+#  MEASURED  parses, 30 triples; 3 classes, 1 object property; 0 circular definitions; OWL 2 DL in profile
+# ==========================================================================
+
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# Borrowed annotation properties, declared so the file is OWL 2 DL on its own.
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:hiddenLabel    a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:example        a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+skos:historyNote    a owl:AnnotationProperty .
+skos:changeNote     a owl:AnnotationProperty .
+skos:notation       a owl:AnnotationProperty .
+dct:source          a owl:AnnotationProperty .
+dct:isReplacedBy    a owl:AnnotationProperty .
+
+bs:Place
+    a                owl:Class ;
+    skos:prefLabel   "Place"@en ;
+    skos:definition  "A named area or point on the map, at any scale."@en ;
+    skos:scopeNote   "Covers settlements, council areas, regions and countries. A shop's premises are not a Place; the shop is located in one."@en ;
+    skos:example     "Wigtown; Dumfries and Galloway; Yorkshire; Wales."@en .
+
+bs:Settlement
+    a                owl:Class ;
+    rdfs:subClassOf  bs:Place ;
+    skos:prefLabel   "Settlement"@en ;
+    skos:definition  "A Place that is a town or city."@en ;
+    skos:scopeNote   "The only kind of Place a bookshop is located in."@en ;
+    skos:example     "Wigtown, Hay-on-Wye, Sedbergh; negative examples: Scotland, the Lake District."@en .
+
+bs:TrailSegment
+    a                owl:Class ;
+    skos:prefLabel   "Trail Segment"@en ;
+    skos:definition  "A walking route between two bookshops, with a length."@en ;
+    skos:scopeNote   "Asserted once per pair; walkable in either direction."@en .
+
+bs:locatedIn
+    a                owl:ObjectProperty ;
+    skos:prefLabel   "located in"@en ;
+    skos:definition  "Relates a shop or publisher to the settlement it trades in."@en .

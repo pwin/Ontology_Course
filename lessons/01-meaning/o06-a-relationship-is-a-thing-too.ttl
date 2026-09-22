@@ -1,0 +1,110 @@
+# ==========================================================================
+#  O06  A relationship is a thing too
+# ==========================================================================
+#
+#  DECIDES
+#    The brief's verbs become properties with IRIs of their own: locatedIn,
+#    wrote, stocks, heldAt; its measurements become datatype properties;
+#    and a property is defined like any other term.
+#
+#  WHY
+#    Nouns give kinds and particulars. The verbs and the 'has' phrases give
+#    relationships: a shop is in a town, an author wrote a work, a shop
+#    stocks a work, an event was held at a shop. Each of these is a
+#    referent in its own right, a kind of connection that can hold between
+#    many pairs, and it gets an IRI, a label and a definition on the same
+#    terms as a class. The triangle applies to it unchanged.
+#
+#    Some relationships end in a value rather than a thing: the year
+#    opened, the floor area, the number of staff, whether there is a cafe.
+#    These are datatype properties. The distinction matters later because
+#    OWL requires every property to be one or the other and not both, but
+#    it is worth making now for a simpler reason: a value has no identity
+#    of its own. 140 square metres is not a thing with an IRI; it is a
+#    measurement of one.
+#
+#    Two relationships from the brief are worth pausing on. 'Specialises
+#    in' points a shop at a genre, and 'in one or more genres' points a
+#    work at the same genres, which is the argument for genres being
+#    particulars (o05). And 'influenced by' runs author to author, at
+#    several removes, which the brief's question 7 wants followed; that is
+#    a property with a shape the reasoner will have views on in module 07.
+#
+#  DIAGRAM
+#       noun phrase in the brief          what it becomes
+#
+#       "a shop is in a town"             bs:locatedIn      object property   Bookshop -> Settlement
+#       "the author wrote it"             bs:wrote          object property   Person   -> Work
+#       "the shop stocks it"              bs:stocks         object property   Bookshop -> Work
+#       "held at the shop"                bs:heldAt         object property   Event    -> Bookshop
+#       "who influenced them"             bs:influencedBy   object property   Person   -> Person
+#
+#       "year opened"                     bs:founded        datatype property Bookshop -> a year
+#       "area (square metres)"            bs:floorArea      datatype property Bookshop -> a number
+#       "whether there is a cafe"         bs:hasCafe        datatype property Bookshop -> true/false
+#
+#       A property is a referent: it has an IRI, a label, a definition.
+#
+#  WHAT TO TAKE AWAY
+#    - Verbs become object properties, measurements become datatype
+#      properties, and both are terms with IRIs and definitions.
+#    - A value has no identity. That is the line between an object
+#      property and a datatype property, and OWL will hold you to it.
+#    - The brief's 'at several removes' is a property that will need
+#      transitivity, a path, or a rule. Notice it now; module 08 answers
+#      it three ways.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F01-meaning%2Fo06-a-relationship-is-a-thing-too.ttl
+#  SOURCES   RDF Schema 2.5 rdf:Property
+#            https://www.w3.org/TR/rdf12-schema/#ch_property
+#            RDF 1.2 Concepts 1.2 Resources and Statements
+#            https://www.w3.org/TR/rdf12-concepts/#resources-and-statements
+#  MEASURED  parses, 24 triples
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+bs:locatedIn
+    a             rdf:Property ;
+    rdfs:label    "located in"@en ;
+    rdfs:comment  "The settlement a shop or publisher trades in."@en .
+
+bs:wrote
+    a             rdf:Property ;
+    rdfs:label    "wrote"@en ;
+    rdfs:comment  "The person wrote the work. Translating is a different relationship."@en .
+
+bs:stocks
+    a             rdf:Property ;
+    rdfs:label    "stocks"@en ;
+    rdfs:comment  "The shop has copies of the work on its shelves."@en .
+
+bs:heldAt
+    a             rdf:Property ;
+    rdfs:label    "held at"@en ;
+    rdfs:comment  "The shop where an event took place."@en .
+
+bs:influencedBy
+    a             rdf:Property ;
+    rdfs:label    "influenced by"@en ;
+    rdfs:comment  "Whom this author read first. Direct influence only; several removes is a question for a path."@en .
+
+bs:founded
+    a             rdf:Property ;
+    rdfs:label    "founded"@en ;
+    rdfs:comment  "The year a shop or publisher began trading. A value, not a thing."@en .
+
+bs:floorArea
+    a             rdf:Property ;
+    rdfs:label    "floor area"@en ;
+    rdfs:comment  "Selling floor in square metres."@en .
+
+bt:shop-inkwell
+    bs:locatedIn  bt:place-wigtown ;
+    bs:founded    "1979" ;
+    bs:floorArea  "140.0" .

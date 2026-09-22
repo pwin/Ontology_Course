@@ -1,0 +1,104 @@
+# ==========================================================================
+#  O40  Climbing a rung: when a concept becomes a class
+# ==========================================================================
+#
+#  DECIDES
+#    Where an axiom about members is needed, the concept is punned into a
+#    class as well, with rdfs:subClassOf running beside skos:broader, and
+#    the reasoner then types works by their genre's ancestors.
+#
+#  WHY
+#    o24 gave the test: promote a concept to a class when the first axiom
+#    about its members is needed. Suppose the website must show every work
+#    of fiction on one page, and works are tagged with the leaf genre only.
+#    A path over the scheme answers it in SPARQL. But suppose a downstream
+#    consumer will only see the closure, or a shape must target 'every work
+#    of fiction'. Then the concept scheme is a rung too low, and the
+#    promotion is mechanical: the same IRI becomes an owl:Class as well as
+#    a skos:Concept, rdfs:subClassOf is written beside every skos:broader,
+#    and works are typed with the class. The reasoner does the rest. This
+#    lesson's file has three works typed with leaf genres, and the closure
+#    types each with every ancestor.
+#
+#    This is punning, and OWL 2 DL permits it: the class reading and the
+#    individual reading of bt:genre-crime-fiction are kept apart by the
+#    reasoner, so bs:specialises can still point at the individual while
+#    works are members of the class. The profile checker confirms the file
+#    is DL. The cost is that every genre now has two readings to maintain,
+#    and every change to the shelf plan is a change to a class hierarchy,
+#    with the retyping that implies. The price of the higher rung is that,
+#    and it is why the Trail does not pay it for genres.
+#
+#    The set reading makes the promotion exact. The concept was a
+#    particular; the class is the set of works in that genre; broader
+#    between particulars becomes subset between sets; and a work typed with
+#    the leaf is, by inheritance, in every set above it.
+#
+#  DIAGRAM
+#       before: a particular                        after: a particular and a set
+#
+#       bt:genre-cosy-crime a skos:Concept          bt:genre-cosy-crime a skos:Concept, owl:Class ;
+#         skos:broader bt:genre-crime-fiction           skos:broader     bt:genre-crime-fiction ;
+#                                                       rdfs:subClassOf  bt:genre-crime-fiction .
+#       bt:book-x bs:genre bt:genre-cosy-crime      bt:book-x a bt:genre-cosy-crime .
+#                                                     => bt:book-x a bt:genre-crime-fiction, bt:genre-fiction   (the reasoner)
+#
+#       one IRI, two readings, kept apart: punning. The shelf plan is now a class hierarchy.
+#
+#  WHAT TO TAKE AWAY
+#    - Promotion is mechanical: add owl:Class, mirror broader with
+#      subClassOf, type the members. The reasoner types them with every
+#      ancestor.
+#    - Punning lets the concept keep its uses while the class gains
+#      members. The profile checker confirms it is DL.
+#    - The cost is two readings per term and retyping on every
+#      rearrangement. Pay it only where an axiom about members is needed.
+#
+#  CORNER    referent
+#  RUNS IN   the browser
+#  LOAD IT   https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo40-climbing-a-rung-when-a-concept-becomes-a-class.ttl
+#  SOURCES   OWL 2 Structural Specification 5.9 Metamodeling
+#            https://www.w3.org/TR/owl2-syntax/#Metamodeling
+#            OWL 2 Primer 8.1 Punning
+#            https://www.w3.org/TR/owl2-primer/#a_Punning
+#  MEASURED  parses, 34 triples; 6 classes, 1 object property, 4 concepts, 3 individuals; OWL 2 DL in profile; HermiT: consistent, 7 inferred; RL closure +12; 'Every work of fiction, after' 3 rows
+# ==========================================================================
+
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:prefLabel      a owl:AnnotationProperty .
+skos:altLabel       a owl:AnnotationProperty .
+skos:definition     a owl:AnnotationProperty .
+skos:scopeNote      a owl:AnnotationProperty .
+skos:editorialNote  a owl:AnnotationProperty .
+
+skos:Concept  a owl:Class .
+skos:broader  a owl:ObjectProperty .
+bs:Work       a owl:Class ; skos:prefLabel "Work"@en .
+
+bt:genre-fiction        a skos:Concept, owl:Class ; skos:prefLabel "Fiction"@en ;
+    rdfs:subClassOf bs:Work .
+bt:genre-crime-fiction  a skos:Concept, owl:Class ; skos:prefLabel "Crime Fiction"@en ;
+    skos:broader bt:genre-fiction ;        rdfs:subClassOf bt:genre-fiction .
+bt:genre-cosy-crime     a skos:Concept, owl:Class ; skos:prefLabel "Cosy Crime"@en ;
+    skos:broader bt:genre-crime-fiction ;  rdfs:subClassOf bt:genre-crime-fiction .
+bt:genre-tartan-noir    a skos:Concept, owl:Class ; skos:prefLabel "Tartan Noir"@en ;
+    skos:broader bt:genre-crime-fiction ;  rdfs:subClassOf bt:genre-crime-fiction .
+
+bt:book-the-book-town   a bt:genre-cosy-crime ;  skos:prefLabel "The Book Town"@en .
+bt:book-the-clyde-tapes a bt:genre-tartan-noir ; skos:prefLabel "The Clyde Tapes"@en .
+bt:book-a-margin        a bt:genre-fiction ;     skos:prefLabel "A Margin of Error"@en .
+
+
+# ------------------------------------------------------------------------
+#  AFTERWARDS.  Queries to run in the SPARQL panel, on this file (press
+#  Add Prefixes first) or on the data file it names.
+# ------------------------------------------------------------------------
+#
+#  -- Every work of fiction, after the closure  (on the reasoned)
+#  PREFIX bt: <https://example.org/bookshop-trail/>
+#  SELECT ?work WHERE { ?work a bt:genre-fiction }
