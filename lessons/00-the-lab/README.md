@@ -12,6 +12,8 @@ Every lesson is one Turtle file. The header, in comments, carries the whole less
 2. Look at the graph pane. For a vocabulary the `rdf:type` edges are the point, so leave **Hide Types** off; **Hide Annotations** clears the labels and comments and leaves the structure.
 3. Press **Add Prefixes** in the SPARQL panel, paste a query from the end of the file, press **Execute**.
 
+The editor shows names rather than IRIs until you tell it otherwise. **Show labels**, beside the subject filter, and **Node Labels** and **Property Labels**, in the graph toolbar, are all ticked when the page opens, and each puts a term's `rdfs:label` or `skos:prefLabel` where its IRI would be: in the subject list, on the diagram's boxes and on its arrows. Untick all three to see the IRIs. Much of this course is about the difference between the two, and module 03 in particular cannot be followed with the labels on, since the IRI is what it is about.
+
 Edit anything and press **Get All** before you query again. The SPARQL panel runs against a store built when the file was parsed, and an edit without Get All gives you the old answer, which looks exactly like the query being wrong.
 
 ## Show Facts is a reasoner, of one kind

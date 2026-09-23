@@ -1,6 +1,6 @@
 # Module 03 · Naming
 
-This is the symbol corner. An IRI identifies, a label names, and a definition says what is meant, and keeping the three of them apart is what lets a shop be renamed without becoming a different shop, and lets two organisations use the same word for different things without colliding. The module sets out the conventions the Trail follows beside the ones gist follows, and audits the one against the other.
+This is the symbol corner. An IRI identifies, a label names, and a definition says what is meant, and keeping the three of them apart is what lets a shop be renamed without becoming a different shop, and lets two organisations use the same word for different things without colliding. The module sets out the conventions the Trail follows beside the ones gist follows, and audits the one against the other. The editor shows labels in place of IRIs by default, so untick Show labels, Node Labels and Property Labels before starting it.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

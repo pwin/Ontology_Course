@@ -66,9 +66,13 @@ o(
         "Opacity is a rule for machines, which should infer nothing from the spelling, and it is also advice for modellers, who should depend on nothing in it.",
         "Readable and opaque IRIs are both respectable; pick one convention, and never change an IRI once it is published.",
     ],
-    tryit="In the SPARQL panel, ask for every label of bt:shop-inkwell, then "
-          "change the prefLabel in the editor, press Get All and ask again: "
-          "the IRI in the answer has not moved.",
+    tryit="Untick Show labels beside the subject filter, and Node Labels and "
+          "Property Labels in the graph toolbar, all three of which are on "
+          "when the editor opens: the shop is bt:shop-inkwell again. Tick "
+          "Node Labels and change the prefLabel, press Get All, and the box "
+          "is renamed while the IRI stays put. Then in the SPARQL panel ask "
+          "for every label of bt:shop-inkwell, change the prefLabel again, "
+          "press Get All and ask again: the IRI in the answer has not moved.",
     body=DECL + """
 bt:shop-inkwell
     a               bs:Bookshop ;

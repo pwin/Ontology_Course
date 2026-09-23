@@ -298,7 +298,9 @@ def lab_html() -> str:
     <div class="panel"><h3>One file, one tab</h3>
       <p>Every lesson is a Turtle file with a header that carries the whole lesson. <b>Open in the editor</b> loads it; the
       graph view draws it; <b>Add Prefixes</b> then the SPARQL panel runs the queries at the end of the file.</p>
-      <p>Press <b>Get All</b> after any edit, or the SPARQL panel answers about the file as it was.</p></div>
+      <p>Press <b>Get All</b> after any edit, or the SPARQL panel answers about the file as it was.</p>
+      <p><b>Show labels</b>, <b>Node Labels</b> and <b>Property Labels</b> are ticked when the editor opens, and put
+      labels where the IRIs would be. Untick all three to see the IRIs; module 03 needs them.</p></div>
     <div class="panel"><h3>Show Facts</h3>
       <p>The editor's reasoner is an OWL 2 RL engine. It types individuals, closes transitive and symmetric properties, follows
       inverses and chains, merges under functional properties, and never reports a contradiction. The <b>Measured</b> block

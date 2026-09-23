@@ -301,7 +301,8 @@ MODULE_INFO = {
         "and lets two organisations use the same word for different things "
         "without colliding. The module sets out the conventions the Trail "
         "follows beside the ones gist follows, and audits the one against the "
-        "other.",
+        "other. The editor shows labels in place of IRIs by default, so untick "
+        "Show labels, Node Labels and Property Labels before starting it.",
     ),
     "04-definitions": (
         "Definitions and controlled vocabularies",
