@@ -7,26 +7,29 @@
 #    a thought, and the three are kept apart from the first line.
 #
 #  WHY
-#    Ogden and Richards drew it in 1923 and nobody has improved on it. At
-#    one corner is the symbol: the word 'Wigtown', the string in the
-#    spreadsheet. At another is the referent: the town itself, on the
-#    Solway coast, which does not care what it is called. At the third is
-#    the thought, the idea of the town in somebody's head, and it is the
-#    thought that connects the other two. The symbol does not refer to the
-#    town directly; it refers by way of someone's understanding of it,
-#    which is why the base of the triangle is drawn as a dotted line.
+#    Ogden and Richards drew it in 1923 and nobody has improved on it
+#    since. At one corner sits the symbol, which here is the word 'Wigtown'
+#    as it appears in the spreadsheet; at another sits the referent, the
+#    town itself on the Solway coast, which does not care in the least what
+#    it is called; and at the third sits the thought, the idea of the town
+#    in somebody's head, and it is the thought that connects the other two.
+#    The symbol does not refer to the town directly but by way of someone's
+#    understanding of it, which is why the base of the triangle is drawn as
+#    a dotted line.
 #
-#    That dotted line is where every data integration problem lives. Two
-#    people share the symbol 'area' and hold different thoughts under it,
-#    one of square metres and one of council boundaries, and nothing in the
-#    spreadsheet says which. An ontology is a way of fixing the thought
-#    corner in writing, so that a shared symbol carries a shared meaning.
+#    That dotted line is where every data integration problem I have met
+#    has lived. Two people share the symbol 'area' and hold quite different
+#    thoughts under it, one of square metres and the other of council
+#    boundaries, and nothing in the spreadsheet says which is meant. An
+#    ontology is a way of fixing the thought corner in writing, so that a
+#    shared symbol carries a shared meaning rather than a private one.
 #
 #    This file is the smallest possible start. Each candidate term from the
-#    brief becomes a node with a label (the symbol) and a comment (the
-#    thought, written down). The referent stays where it is; the node
-#    points at it. Nothing here is a class or a property yet. That comes
-#    later, and it comes more easily once the three corners are habit.
+#    brief becomes a node with a label, which is the symbol, and a comment,
+#    which is the thought written down; the referent stays where it is and
+#    the node points at it. Nothing here is a class or a property yet, and
+#    that comes later, and comes more easily, once the three corners have
+#    become a habit.
 #
 #  DIAGRAM
 #                          THOUGHT
@@ -43,19 +46,20 @@
 #       thought. Writing the thought down is what an ontology is for.
 #
 #  WHAT TO TAKE AWAY
-#    - Symbol, thought, referent. Keep the three apart and most
-#      confusions about naming, defining and identity become easy to
-#      state.
-#    - A label is a symbol for people. A definition is the thought
-#      written down. Neither is the thing.
-#    - The brief is a pile of symbols. The first job is to find out how
-#      many referents are behind them, and it is rarely one per word.
+#    - Symbol, thought and referent are three different things, and once
+#      you keep them apart most of the confusion around naming, defining
+#      and identity becomes easy to state, if not always easy to settle.
+#    - A label is a symbol for people and a definition is the thought
+#      written down, and neither of them is the thing itself.
+#    - The brief is a pile of symbols, so the first job is to find out
+#      how many referents stand behind them, and it is rarely one per
+#      word.
 #
 #  TRY IT
-#    Press Open in the editor. The graph view draws each candidate as a
-#    node with its label and comment. Pick 'Subjects' and choose one; then
+#    Press Open in the editor and the graph view draws each candidate as a
+#    node with its label and comment. Pick 'Subjects' and choose one, then
 #    ask yourself which corner of the triangle each of the three things on
-#    screen is: the IRI, the label, the comment.
+#    the screen belongs to: the IRI, the label and the comment.
 #
 #  CORNER    all three, introduced
 #  RUNS IN   the browser

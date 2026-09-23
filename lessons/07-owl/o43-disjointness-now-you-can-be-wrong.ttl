@@ -8,25 +8,27 @@
 #    query finds in the browser.
 #
 #  WHY
-#    Disjointness is the first OWL construct because it is the first that
-#    can be contradicted. Place and Bookshop disjoint says the two sets
-#    share no member. Type one thing with both and there is no
-#    interpretation in which the axioms hold: the ontology is inconsistent,
-#    and HermiT says so. This is the thing RDFS could not do in o41, and it
-#    is cheap: one owl:AllDisjointClasses over the backbone catches the
-#    commonest data-loading error there is, a row typed as the wrong kind.
+#    Disjointness comes first among the OWL constructs because it is the
+#    first thing that can be contradicted. Place and Bookshop declared
+#    disjoint says that the two sets share no member, so that if you type
+#    one thing with both there is no interpretation in which the axioms
+#    hold, the ontology is inconsistent, and HermiT says so. This is the
+#    thing RDFS could not do in o41, and it is cheap, since one
+#    owl:AllDisjointClasses over the backbone catches the commonest data-
+#    loading error there is, which is a row typed as the wrong kind.
 #
 #    The editor's reasoner is an OWL 2 RL engine and materialises rather
-#    than judges; it does not put up a sign saying inconsistent. The same
-#    contradiction is a query, though, and the query runs in the browser:
-#    find anything typed with two classes that are declared disjoint. That
-#    query is the SHACL course's s25, sh:not, from the other side, and it
-#    is the one to keep in the gate.
+#    than judges, so it will not put up a sign saying inconsistent. The
+#    same contradiction is a query, though, and the query runs perfectly
+#    well in the browser: find anything typed with two classes that are
+#    declared disjoint. That query is the SHACL course's s25, sh:not, seen
+#    from the other side, and it is the one to keep in the gate.
 #
-#    Below the backbone, disjointness gets harder to justify. Author and
-#    TrailMember are roles; a shop can be a member and a person can be an
-#    author and a translator. gist declares disjointness 'extensively at
-#    the highest level' and sparingly below, and that is the shape to copy.
+#    Below the backbone, disjointness gets harder to justify, because
+#    Author and TrailMember are roles and a shop can be a member as well as
+#    a shop, just as a person can be an author and a translator at once.
+#    gist declares disjointness extensively at the highest level and
+#    sparingly below it, and that is the shape to copy.
 #
 #  DIAGRAM
 #       bs:Place  owl:disjointWith  bs:Bookshop        the sets share no member
@@ -38,12 +40,12 @@
 #       SELECT ?x WHERE { ?a owl:disjointWith ?b . ?x a ?a, ?b }     -> bt:oddity
 #
 #  WHAT TO TAKE AWAY
-#    - Disjointness is the cheapest axiom and the first that can be
-#      contradicted. Declare it across the backbone.
-#    - A DL reasoner reports the contradiction; an RL reasoner
-#      materialises past it. Keep the query that finds it.
-#    - Disjointness below the backbone is where roles start to overlap.
-#      Declare it there only with a reason.
+#    - Disjointness is the cheapest axiom there is and the first that can
+#      be contradicted, so declare it across the backbone.
+#    - A DL reasoner reports the contradiction where an RL reasoner
+#      materialises straight past it, so keep the query that finds it.
+#    - Disjointness below the backbone is where the roles start to
+#      overlap, so declare it there only with a reason.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

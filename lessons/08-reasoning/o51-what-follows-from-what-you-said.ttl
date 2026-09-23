@@ -8,29 +8,31 @@
 #    removes one; and 'not said' is not 'false'.
 #
 #  WHY
-#    Every settlement is a place. Wigtown is a settlement. So Wigtown is a
-#    place. Nobody wrote the third sentence and it is true anyway, because
-#    there is no way for the first two to hold and the third to fail. That
-#    is entailment, and it is the whole of what a reasoner does: find the
-#    statements that hold in every interpretation the axioms allow. The set
-#    reading makes it plain. S is inside P; w is in S; so w is in P. There
-#    is nothing to decide.
+#    Every settlement is a place, and Wigtown is a settlement, so Wigtown
+#    is a place. Nobody wrote that third sentence and it is true anyway,
+#    because there is no way for the first two to hold while the third
+#    fails, and that is entailment, which is the whole of what a reasoner
+#    does: it finds the statements that hold in every interpretation the
+#    axioms allow. The set reading makes it plain enough, since S is inside
+#    P and w is in S, so w is in P, and there is nothing left to decide.
 #
-#    Three things can follow. A new triple, which a materialising reasoner
-#    writes into the graph, as the editor's Show Facts does. A
-#    classification, that one class is inside another though nobody said
-#    so. And a contradiction, that no interpretation exists at all. RDFS
-#    can give the first; OWL 2 gives all three.
+#    Three kinds of thing can follow. There is a new triple, which a
+#    materialising reasoner writes into the graph, as the editor's Show
+#    Facts does; there is a classification, that one class lies inside
+#    another though nobody said so; and there is a contradiction, that no
+#    interpretation exists at all. RDFS can give you the first of those,
+#    and OWL 2 gives all three.
 #
 #    Two properties of the logic decide how it feels to use. It is
-#    monotonic: adding an axiom can add conclusions and never remove one,
-#    so a conclusion drawn today stays drawn. Monotonicity is what makes
-#    materialisation safe, and it is why a SHACL rule with a negation in
-#    it, which the SHACL course's s52 shows going stale, is a different
-#    kind of thing. And it is open-world: a statement not in the graph is
-#    not false, it is unknown, so absence entails nothing. The reasoner
-#    will never tell you that a shop has no website. A query will, and the
-#    difference is the subject of the next lesson.
+#    monotonic, so that adding an axiom can add conclusions and can never
+#    take one away, and a conclusion drawn today stays drawn; monotonicity
+#    is what makes materialisation safe, and it is why a SHACL rule with a
+#    negation in it, which the SHACL course's s52 shows going stale, is a
+#    quite different kind of thing. And it is open-world, so that a
+#    statement not in the graph is not false but unknown, and absence
+#    entails nothing whatever. The reasoner will never tell you that a shop
+#    has no website; a query will, and that difference is the subject of
+#    the next lesson.
 #
 #  DIAGRAM
 #       axioms                                     what follows
@@ -43,13 +45,13 @@
 #       open world: not said is not false; absence entails nothing
 #
 #  WHAT TO TAKE AWAY
-#    - Entailment is what holds in every interpretation the axioms allow.
-#      A reasoner finds it; a query finds what is written.
-#    - Monotonic: nothing you add takes a conclusion away. That is why
-#      materialising is safe and why rules with negation are not the same
-#      thing.
-#    - Open world: the reasoner never concludes from absence. For 'has no
-#      website', ask a query.
+#    - Entailment is what holds in every interpretation the axioms allow,
+#      so a reasoner finds that while a query finds what is written.
+#    - The logic is monotonic, and nothing you add takes a conclusion
+#      away, which is why materialising is safe and why rules with
+#      negation in them are not the same kind of thing.
+#    - The world is open, so the reasoner never concludes anything from
+#      absence; for 'has no website', ask a query.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

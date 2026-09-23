@@ -10,35 +10,38 @@
 #
 #  WHY
 #    Alignment is placing each of your classes under the most specific
-#    class of the upper ontology that is true of every instance, and
-#    writing down the argument. gistBFO's README states the standard: a
-#    mapping that puts everything under the top class is not interesting,
-#    so aim low and be able to say why. The bridge for the Trail is seven
-#    subclass axioms, one typing, and two refusals.
+#    class of the upper ontology that is true of every instance, and then
+#    writing down the argument. gistBFO's README states the standard well:
+#    a mapping that puts everything under the top class is not an
+#    interesting mapping, so aim low and be able to say why. The bridge for
+#    the Trail comes to seven subclass axioms, one typing, and two
+#    refusals.
 #
-#    Most are easy. bs:Person under gist:Person, whose definition, a human
-#    being who was or is alive, is the Trail's. bs:Publisher and
-#    bs:Bookshop under gist:Organization, a structured entity formed to
-#    achieve goals. bs:Event under gist:Event. bs:Series under
-#    gist:OrderedCollection. The genres, as particulars, are gist:Category,
-#    which gist defines as a concept used to categorise without formal
-#    semantics, the same call o24 made. Some take an argument. bs:Bookshop
-#    is the business, not the premises, so it goes under Organization and
-#    not Building; the identity criterion from o10 decides it, and gist's
-#    disjointness would object if it went under both. bs:Work is a work and
-#    an edition, and gist's example for Content is Huckleberry Finn
-#    independent of any edition, so bs:Work goes under gist:Content with
-#    the compromise noted. Places go under gist:GovernedGeoRegion, since
-#    every one of them is governed by exactly the council or country it is
-#    within.
+#    Most of them are easy enough. bs:Person goes under gist:Person, whose
+#    definition, a human being who was or is alive, is the Trail's own;
+#    bs:Publisher and bs:Bookshop go under gist:Organization, a structured
+#    entity formed to achieve goals; bs:Event under gist:Event and
+#    bs:Series under gist:OrderedCollection; and the genres, being
+#    particulars, are gist:Category, which gist defines as a concept used
+#    to categorise without formal semantics, which is the very call o24
+#    made. Some of them take an argument, though. bs:Bookshop is the
+#    business rather than the premises, so it goes under Organization and
+#    not Building, the identity criterion from o10 deciding it, and gist's
+#    disjointness would object if it went under both; bs:Work is a work and
+#    an edition at once, and gist's own example for Content is Huckleberry
+#    Finn independent of any edition, so bs:Work goes under gist:Content
+#    with the compromise noted; and places go under gist:GovernedGeoRegion,
+#    since every one of them is governed by exactly the council or country
+#    it lies within.
 #
-#    Two are refused. bs:StockRecord, a count of copies at a price, is not
-#    a Magnitude, an Offer or a Collection in gist's sense, and a forced
-#    placement would be worse than none. bs:TrailSegment is close to
-#    gist:GeoRoute, but a route is an ordered set of points and a segment
-#    is a pair of shops with a length. Both are noted, as the SemOps ledger
-#    marks a gap grey rather than painting it green. HermiT, with gistCore
-#    imported, finds the bridge consistent.
+#    Two are refused outright. bs:StockRecord, being a count of copies at a
+#    price, is not a Magnitude, an Offer or a Collection in gist's sense,
+#    and a forced placement would be worse than none at all; and
+#    bs:TrailSegment comes close to gist:GeoRoute without quite fitting, a
+#    route being an ordered set of points where a segment is a pair of
+#    shops with a length. Both refusals are noted, in the way the SemOps
+#    ledger marks a gap grey rather than painting it green, and HermiT,
+#    with gistCore imported, finds the bridge consistent.
 #
 #  DIAGRAM
 #       Trail                    gist                          why
@@ -56,12 +59,13 @@
 #       measured: consistent, with gistCore imported
 #
 #  WHAT TO TAKE AWAY
-#    - Place each class under the most specific upper class true of every
-#      instance, and write the argument on the axiom.
-#    - Identity decides the hard ones. A bookshop is the business; the
-#      building is a different referent.
-#    - Refuse a placement rather than force one. A gap written down is a
-#      decision; a wrong placement is a contradiction waiting for data.
+#    - Place each class under the most specific upper class that is true
+#      of every instance, and write the argument on the axiom itself.
+#    - Identity decides the hard ones, since a bookshop is the business
+#      and the building is a different referent altogether.
+#    - Refuse a placement rather than force one, because a gap written
+#      down is a decision where a wrong placement is a contradiction
+#      waiting for data.
 #
 #  TRY IT
 #    Add 'bs:Bookshop rdfs:subClassOf gist:Building .' and run the checker:

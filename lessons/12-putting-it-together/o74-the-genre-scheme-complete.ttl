@@ -8,23 +8,24 @@
 #    queries, and is kept a concept scheme rather than promoted.
 #
 #  WHY
-#    data/02-genres.ttl is the shelf plan: one concept scheme, one top
-#    concept, thirty-one concepts, preferred labels in English with Welsh
-#    and Gaelic where they exist, alternative labels for the American
-#    spellings and the trade names, scope notes, and a tree that is two
-#    levels deep under Poetry and four under Science Fiction, because that
-#    is how the shops shelve them. o36 said why the depth is uneven and why
-#    that is right; o24 said why the genres are particulars; o39 gave the
-#    integrity conditions.
+#    data/02-genres.ttl is the shelf plan: one concept scheme with one top
+#    concept and thirty-one concepts, preferred labels in English with
+#    Welsh and Gaelic wherever those names exist, alternative labels for
+#    the American spellings and the trade names, scope notes throughout,
+#    and a tree that runs two levels deep under Poetry and four under
+#    Science Fiction, because that is how the shops shelve them. o36 said
+#    why the depth is uneven and why that is right, o24 said why the genres
+#    are particulars, and o39 gave the integrity conditions.
 #
-#    The measured line runs the o39 shapes on the whole scheme: one
-#    preferred label per language, every concept in the scheme, related
-#    disjoint from broader, no concept its own ancestor. It conforms. The
-#    queries count the concepts, find the deepest, and confirm that
-#    skos:broader+ from the top concept reaches all thirty. That last one
-#    is the test that matters for question 4 in the brief, which the SPARQL
-#    course's q33 answers with skos:broader+, and which a fixed chain of
-#    two hops gets wrong, as q28 shows on the place hierarchy.
+#    The measured line runs the o39 shapes over the whole scheme, checking
+#    one preferred label per language, every concept in the scheme, related
+#    disjoint from broader, and no concept its own ancestor, and it
+#    conforms. The queries count the concepts, find the deepest of them,
+#    and confirm that skos:broader+ from the top concept reaches all thirty
+#    of the rest; that last one is the test that matters for question 4 in
+#    the brief, which the SPARQL course's q33 answers with skos:broader+
+#    and which a fixed chain of two hops gets wrong, as q28 shows on the
+#    place hierarchy.
 #
 #    The scheme stays a scheme. No question in the brief needs an axiom
 #    about the members of a genre, so o40's promotion is not taken, and the
@@ -43,11 +44,12 @@
 #
 #  WHAT TO TAKE AWAY
 #    - A concept scheme is finished when its integrity conditions pass
-#      and its questions are answered by paths. Neither needs a reasoner.
-#    - Uneven depth is a fact about the domain. The queries that walk it
-#      must not assume otherwise.
-#    - Not promoting is a decision. Record it, and revisit it the day an
-#      axiom about members is needed.
+#      and its questions are answered by paths, neither of which needs a
+#      reasoner.
+#    - Uneven depth is a fact about the domain, and the queries that walk
+#      it must not assume otherwise.
+#    - Not promoting is itself a decision, so record it, and revisit it
+#      on the day an axiom about members is needed.
 #
 #  NOTE
 #    Open in the editor opens this lesson with the shapes; to validate the

@@ -8,30 +8,32 @@
 #    every borrowed term is declared.
 #
 #  WHY
-#    Reuse is a principle in every guide. OBO FP-007 requires existing
-#    relations to be reused rather than reinvented; gist exists so that
-#    'person', 'organisation' and 'agreement' need not be defined again.
-#    The reason is the triangle: two ontologies that share an IRI share a
-#    referent, and their data joins without a mapping. Two that each mint a
-#    Person need a mapping, and a mapping is a place for an argument.
+#    Reuse is a principle in every guide, since OBO FP-007 requires
+#    existing relations to be reused rather than reinvented and gist exists
+#    so that person, organisation and agreement need not be defined all
+#    over again. The reason goes back to the triangle: two ontologies that
+#    share an IRI share a referent, and their data joins without a mapping,
+#    whereas two that each mint a Person need a mapping, and a mapping is a
+#    place for an argument.
 #
-#    But reusing an IRI means reusing its definition and its semantics, all
-#    of them. dct:title is safe; it is an annotation and says nothing a
-#    reasoner acts on. schema:Book comes with a hierarchy under
-#    schema:CreativeWork and a loose contract about what a Book is.
-#    dct:isPartOf is defined in RDFS only, which is why the Trail declares
-#    it an annotation property to stay in OWL 2 DL. So the rule has three
-#    branches. Borrow the IRI when the published definition is the one you
-#    want, and declare it in your own file so the profile checker knows
-#    what it is. Borrow the definition, citing it with dct:source, when the
-#    words are right but the semantics are not. Mint your own when neither
-#    fits, and say what you looked at first.
+#    Reusing an IRI means reusing its definition and its semantics, though,
+#    all of them. dct:title is safe enough, being an annotation that says
+#    nothing a reasoner will act on; schema:Book arrives with a hierarchy
+#    under schema:CreativeWork and a loose contract about what a Book is;
+#    and dct:isPartOf is defined in RDFS only, which is why the Trail
+#    declares it an annotation property in order to stay inside OWL 2 DL.
+#    So the rule has three branches. Borrow the IRI when the published
+#    definition is the one you want, and declare it in your own file so
+#    that the profile checker knows what it is; borrow the definition,
+#    citing it with dct:source, when the words are right and the semantics
+#    are not; and mint your own when neither fits, saying what you looked
+#    at first.
 #
-#    The Trail borrows skos:, geo:, wgs84:, prov: and dct: terms by IRI,
-#    and declares every one, which is what lets a file of its own stand as
-#    OWL 2 DL without importing anything. It mints bs:Person rather than
-#    reuse gist:Person or foaf:Person, and module 09 shows the bridge that
-#    costs.
+#    The Trail borrows skos:, geo:, wgs84:, prov: and dct: terms by IRI and
+#    declares every one of them, which is what lets a file of its own stand
+#    as OWL 2 DL while importing nothing. It mints bs:Person rather than
+#    reusing gist:Person or foaf:Person, and module 09 shows what that
+#    costs in bridge axioms.
 #
 #  DIAGRAM
 #       want                                     do                              example
@@ -44,12 +46,12 @@
 #       a borrowed IRI brings its whole definition, and its hierarchy, and its profile
 #
 #  WHAT TO TAKE AWAY
-#    - Reuse an IRI when you mean exactly what its owner means. Then
-#      declare it in your file, so the checker knows its type.
-#    - Borrow a definition and cite it when the words fit and the
+#    - Reuse an IRI when you mean exactly what its owner means, and then
+#      declare it in your own file so that the checker knows its type.
+#    - Borrow a definition and cite it where the words fit and the
 #      semantics do not.
-#    - Mint your own when neither fits, and record what you considered.
-#      The note is cheaper than the second argument.
+#    - Mint your own when neither fits, and record what you considered,
+#      because the note is a good deal cheaper than the second argument.
 #
 #  CORNER    symbol and thought
 #  RUNS IN   the browser

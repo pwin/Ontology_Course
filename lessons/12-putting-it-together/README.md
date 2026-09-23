@@ -1,6 +1,6 @@
 # Module 12 · Putting it together
 
-The whole Trail vocabulary, rebuilt and compared with the shipped one decision by decision; the genre scheme with its integrity checked; the competency questions the SPARQL course answers and the constraints the SHACL course enforces, as the test suite this ontology exists to pass; and a challenge.
+The whole Trail vocabulary, rebuilt and compared with the shipped one decision by decision; the genre scheme with its integrity checked; the competency questions the SPARQL course answers and the constraints the SHACL course enforces, taken together as the test suite this ontology exists to pass; and then a challenge to finish with.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

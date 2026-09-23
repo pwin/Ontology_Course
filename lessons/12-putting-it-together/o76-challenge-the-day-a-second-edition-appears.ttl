@@ -9,31 +9,34 @@
 #    is beside the lesson, to be read after yours.
 #
 #  WHY
-#    The brief that arrives after the site launches: Bell Rock has issued a
-#    second edition of The Book Town, with a new ISBN and a different page
-#    count, and the committee wants both stocked and told apart. Under the
-#    shipped vocabulary a work has one ISBN, functionally, so there is no
-#    way to say it. o10 recorded the compromise and o27 said what the fix
-#    must respect: the meaning of bs:Work must not move under the data
-#    already written.
+#    Here is the brief that arrives after the site has launched: Bell Rock
+#    has issued a second edition of The Book Town, with a new ISBN and a
+#    different page count, and the committee wants both of them stocked and
+#    told apart. Under the shipped vocabulary a work has one ISBN,
+#    functionally, so there is no way to say it; o10 recorded the
+#    compromise and o27 said what the fix must respect, which is that the
+#    meaning of bs:Work must not move underneath the data already written.
 #
-#    The task, then. Introduce bs:Edition with an identity criterion of its
-#    own, the ISBN, as a key. Decide which of bs:Work's properties are the
-#    work's (author, title, genre, original language) and which are the
-#    edition's (publisher, ISBN, pages, price, publication year), and move
-#    only the second group, with a change note on each. Decide how existing
-#    bs:Work assertions carrying an ISBN are migrated: a first edition
-#    minted per work is one answer. Keep Work and Edition disjoint, since
-#    their criteria of identity differ. Decide the version number by the
-#    diff (o71). Then check: OWL 2 DL; consistent with the data; the stock
-#    records now point at editions, and question 10 in the brief still
-#    answers; and a query for 'the editions of The Book Town' returns two.
+#    The task, then, is this. Introduce bs:Edition with an identity
+#    criterion of its own, the ISBN, declared as a key. Decide which of
+#    bs:Work's properties belong to the work, which are author, title,
+#    genre and original language, and which belong to the edition, which
+#    are publisher, ISBN, pages, price and publication year, and move only
+#    the second group, with a change note on each. Decide how existing
+#    bs:Work assertions carrying an ISBN are to be migrated, where a first
+#    edition minted per work is one answer. Keep Work and Edition disjoint,
+#    their criteria of identity being different. Decide the version number
+#    by the diff, as o71 does. And then check the result: OWL 2 DL,
+#    consistent with the data, the stock records now pointing at editions
+#    with question 10 in the brief still answering, and a query for the
+#    editions of The Book Town returning two.
 #
-#    answer.ttl beside this lesson is one way to do it, measured: DL,
-#    consistent, with the migration of one work shown. It is not the only
-#    way. A version that keeps bs:Work for editions and mints a new
-#    bs:AbstractWork above it is defensible, and the argument about which
-#    is better is the argument this course was about.
+#    answer.ttl beside this lesson is one way of doing it, measured as DL
+#    and consistent, with the migration of one work shown. It is not the
+#    only way, since a version that keeps bs:Work for editions and mints a
+#    new bs:AbstractWork above it is perfectly defensible, and the argument
+#    about which of them is better is the argument this whole course has
+#    been about.
 #
 #  DIAGRAM
 #       before                                   after
@@ -48,12 +51,14 @@
 #       - version-diff says MAJOR, and the change notes say why
 #
 #  WHAT TO TAKE AWAY
-#    - The day the identity criterion changes is the day a class splits.
-#      The split is a new term, not a new meaning for the old one.
-#    - Sort the properties by which referent they belong to. The design
-#      work is that sorting; the axioms follow.
-#    - Acceptance is measured: profile, reasoner, competency questions,
-#      diff. Read the answer only after yours passes them.
+#    - The day the identity criterion changes is the day a class splits,
+#      and the split is a new term rather than a new meaning for the old
+#      one.
+#    - Sort the properties by which referent they belong to, since the
+#      design work is that sorting and the axioms follow from it.
+#    - Acceptance is measured, by profile and reasoner and competency
+#      questions and diff, so read the answer only once yours has passed
+#      them.
 #
 #  NOTE
 #    The checker measures answer.ttl as well: python

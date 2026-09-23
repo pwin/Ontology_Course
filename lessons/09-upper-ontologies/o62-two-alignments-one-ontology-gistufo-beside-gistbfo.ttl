@@ -9,32 +9,34 @@
 #    instruction.
 #
 #  WHY
-#    gistUFO is the second published alignment of gist, to gUFO, and it
-#    works differently from gistBFO. It does not put gist classes under
-#    gUFO classes so much as type them: gist:Person is a gufo:Kind,
-#    gist:Offer a gufo:Phase, gist:ContractTerm a gufo:Role, gist:Category
-#    a gufo:AbstractIndividualType. That is module 02's analysis, applied
-#    by other people to a real ontology and published, and o14 used it. A
-#    second file places gist classes under gUFO's individuals hierarchy:
-#    gist:Person under gufo:FunctionalComplex, gist:Agreement under
-#    gufo:Relator, gist:Event under gufo:Event.
+#    gistUFO is the second published alignment of gist, this time to gUFO,
+#    and it works rather differently from gistBFO, in that it does not put
+#    gist classes under gUFO classes so much as type them: gist:Person is a
+#    gufo:Kind, gist:Offer a gufo:Phase, gist:ContractTerm a gufo:Role, and
+#    gist:Category a gufo:AbstractIndividualType. That is module 02's
+#    analysis applied by other people to a real ontology and published for
+#    the rest of us, and o14 used it. A second file then places gist
+#    classes under gUFO's individuals hierarchy, with gist:Person under
+#    gufo:FunctionalComplex, gist:Agreement under gufo:Relator and
+#    gist:Event under gufo:Event.
 #
 #    Set the two alignments side by side and they agree on most things and
-#    disagree on one, instructively. gistBFO says a gist:Event is a
+#    disagree on one, instructively. gistBFO says that a gist:Event is a
 #    generically dependent continuant or a process, because a scheduled
-#    event is a plan. gistUFO says a gist:Event is a gufo:Event, a
+#    event is a plan; gistUFO says that a gist:Event is a gufo:Event, a
 #    perdurant, something that happens, and types gist:ScheduledEvent as an
-#    intrinsic mode of the thing that plans it. Neither is wrong; they draw
-#    the line between the plan and the happening in different places, and
-#    an ontology that imports both would have to choose. An alignment is
-#    that: a set of decisions, each with a note, and two sets of decisions
-#    by careful people will not always coincide.
+#    intrinsic mode of whatever is doing the planning. Neither of them is
+#    wrong, and they draw the line between the plan and the happening in
+#    different places, so that an ontology importing both would have to
+#    choose. An alignment is exactly that, a set of decisions each with a
+#    note attached, and two sets of decisions made by careful people will
+#    not always coincide.
 #
 #    The Trail types its classes the gUFO way here, with gUFO imported, and
-#    the profile checker and HermiT accept the punning. The query at the
-#    end lists every class with both its gUFO type and, through gist, its
-#    BFO superclass, which is as much foundational commitment as a bookshop
-#    trail could want.
+#    the profile checker and HermiT both accept the punning; the query at
+#    the end lists every class with its gUFO type and, through gist, its
+#    BFO superclass, which is about as much foundational commitment as a
+#    bookshop trail could want.
 #
 #  DIAGRAM
 #       class            gUFO (gistUFO)                     BFO (gistBFO)                          agree?
@@ -48,13 +50,14 @@
 #       an alignment is a set of decisions with notes; two careful sets will not always coincide
 #
 #  WHAT TO TAKE AWAY
-#    - gistUFO types classes by what kind of class they are; gistBFO
-#      places them under what kind of thing they are. Both are alignment.
-#    - Two published alignments of one ontology disagree about events.
-#      Keep the disagreement; it says where the line between plan and
-#      happening is drawn.
-#    - The Trail can carry both typings, and the checker accepts it.
-#      Whether to adopt either is a scope decision.
+#    - gistUFO types classes by what kind of class they are and gistBFO
+#      places them under what kind of thing they are, and both of those
+#      are alignment.
+#    - Two published alignments of one ontology disagree about events, so
+#      keep the disagreement, because it shows where the line between
+#      plan and happening has been drawn.
+#    - The Trail can carry both typings and the checker accepts it,
+#      though whether to adopt either is a scope decision.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; consistency with gUFO and gist imported is HermiT through ROBOT

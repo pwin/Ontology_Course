@@ -8,27 +8,28 @@
 #    and a property is defined like any other term.
 #
 #  WHY
-#    Nouns give kinds and particulars. The verbs and the 'has' phrases give
-#    relationships: a shop is in a town, an author wrote a work, a shop
-#    stocks a work, an event was held at a shop. Each of these is a
-#    referent in its own right, a kind of connection that can hold between
-#    many pairs, and it gets an IRI, a label and a definition on the same
-#    terms as a class. The triangle applies to it unchanged.
+#    The nouns give us kinds and particulars, and the verbs and the 'has'
+#    phrases give us relationships: a shop is in a town, an author wrote a
+#    work, a shop stocks a work, an event was held at a shop. Each of these
+#    is a referent in its own right, a kind of connection that can hold
+#    between many pairs, and it gets an IRI, a label and a definition on
+#    the same terms as a class, so the triangle applies to it unchanged.
 #
-#    Some relationships end in a value rather than a thing: the year
-#    opened, the floor area, the number of staff, whether there is a cafe.
-#    These are datatype properties. The distinction matters later because
-#    OWL requires every property to be one or the other and not both, but
-#    it is worth making now for a simpler reason: a value has no identity
-#    of its own. 140 square metres is not a thing with an IRI; it is a
-#    measurement of one.
+#    Some relationships end in a value rather than a thing, such as the
+#    year a shop opened, its floor area, the number of staff, or whether
+#    there is a cafe, and these are datatype properties. The distinction
+#    matters later because OWL requires every property to be one or the
+#    other and never both, but it is worth making now for a simpler reason,
+#    which is that a value has no identity of its own; 140 square metres is
+#    not a thing with an IRI but a measurement of one.
 #
 #    Two relationships from the brief are worth pausing on. 'Specialises
 #    in' points a shop at a genre, and 'in one or more genres' points a
-#    work at the same genres, which is the argument for genres being
-#    particulars (o05). And 'influenced by' runs author to author, at
-#    several removes, which the brief's question 7 wants followed; that is
-#    a property with a shape the reasoner will have views on in module 07.
+#    work at the very same genres, which is the argument for genres being
+#    particulars (o05). And 'influenced by' runs from author to author at
+#    several removes, which the brief's question 7 wants followed, and that
+#    is a property with a shape the reasoner will have views on in module
+#    07.
 #
 #  DIAGRAM
 #       noun phrase in the brief          what it becomes
@@ -46,13 +47,15 @@
 #       A property is a referent: it has an IRI, a label, a definition.
 #
 #  WHAT TO TAKE AWAY
-#    - Verbs become object properties, measurements become datatype
-#      properties, and both are terms with IRIs and definitions.
-#    - A value has no identity. That is the line between an object
-#      property and a datatype property, and OWL will hold you to it.
+#    - Verbs become object properties and measurements become datatype
+#      properties, and both are terms with IRIs and definitions like any
+#      other.
+#    - A value has no identity of its own, which is the line between an
+#      object property and a datatype property, and OWL will hold you to
+#      it.
 #    - The brief's 'at several removes' is a property that will need
-#      transitivity, a path, or a rule. Notice it now; module 08 answers
-#      it three ways.
+#      transitivity, a path or a rule, so it is worth noticing now;
+#      module 08 answers it three ways.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

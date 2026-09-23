@@ -8,30 +8,31 @@
 #    note and a maintainer.
 #
 #  WHY
-#    The Trail's events carry bs:eventKind as a string: 'Reading',
-#    'Signing', 'Launch', 'Workshop', 'Panel', 'Book Club', 'Lecture'. The
-#    vocabulary lists the seven in a comment, which is the only thing
-#    stopping an eighth spelt 'reading' from appearing. A string that
-#    should be a thing is the commonest smell in a dataset, and the cure is
-#    the oldest technique in information science: a controlled vocabulary.
-#    ANSI/NISO Z39.19 sets out what one is. Each concept has exactly one
-#    preferred term; every synonym is recorded and points at it; each term
-#    has a scope note saying what it does and does not cover; and somebody
-#    is named as responsible for the list.
+#    The Trail's events carry bs:eventKind as a string, with values of
+#    Reading, Signing, Launch, Workshop, Panel, Book Club and Lecture, and
+#    the vocabulary lists the seven of them in a comment, which is the only
+#    thing standing between us and an eighth spelt 'reading'. A string that
+#    ought to be a thing is the commonest smell in a dataset, and the cure
+#    is the oldest technique in information science, which is a controlled
+#    vocabulary. ANSI/NISO Z39.19 sets out what one is: each concept has
+#    exactly one preferred term, every synonym is recorded and points at
+#    it, each term has a scope note saying what it does and does not cover,
+#    and somebody is named as responsible for the list.
 #
 #    None of that needs a hierarchy. A controlled vocabulary is a flat list
 #    with discipline, and it is where most vocabularies should start and
-#    where many should stop. The hierarchy, when it is needed, is the next
-#    rung of the ladder, module 06. gist has the same shape in its own
-#    terms: a gist:ControlledVocabulary is a collection of gist:Category
-#    instances governed by an organisation or person.
+#    where a good many of them should stop; the hierarchy, when it is
+#    needed, is the next rung of the ladder in module 06. gist has the same
+#    shape in its own terms, where a gist:ControlledVocabulary is a
+#    collection of gist:Category instances governed by an organisation or a
+#    person.
 #
-#    The seven kinds become seven particulars in this file, each with a
-#    notation, a preferred label, its synonyms as alternative labels, and a
-#    scope note. 'Talk' and 'Author event' are recorded as synonyms of
-#    Lecture and Reading, because the spreadsheet had them. The query at
-#    the end counts events by kind after the migration, which is what the
-#    website will do and what the strings could not do reliably.
+#    So the seven kinds become seven particulars in this file, each with a
+#    notation, a preferred label, its synonyms as alternative labels and a
+#    scope note, and 'Talk' and 'Author event' are recorded as synonyms of
+#    Lecture and Reading because the spreadsheet had them. The query at the
+#    end counts events by kind after the migration, which is what the
+#    website will do and what the strings could never have done reliably.
 #
 #  DIAGRAM
 #       before                                    after
@@ -47,11 +48,12 @@
 #
 #  WHAT TO TAKE AWAY
 #    - A string that is one of a fixed set is a thing pretending to be a
-#      value. Give it an IRI.
+#      value, so give it an IRI.
 #    - A controlled vocabulary is a flat list with four disciplines: one
-#      preferred term, recorded synonyms, scope notes, a maintainer.
-#    - Start flat. Add the hierarchy when a question needs it, and not
-#      before.
+#      preferred term, recorded synonyms, scope notes, and a named
+#      maintainer.
+#    - Start flat, and add the hierarchy when a question needs it rather
+#      than before.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

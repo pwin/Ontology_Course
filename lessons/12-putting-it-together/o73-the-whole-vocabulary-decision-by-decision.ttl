@@ -9,32 +9,34 @@
 #
 #  WHY
 #    data/01-vocabulary.ttl is the Bookshop Trail's schema as the SPARQL
-#    and SHACL courses use it, and every choice in it has a lesson behind
-#    it now. Its classes are the backbone of o12 with one role hanging off
-#    it. Its properties are named as o18 said, with the four departures
-#    recorded. Its comments carry definitions in the form o21 asked for and
-#    usage notes beside them, in one property, which o23 called a
-#    compromise. bs:within is transitive and not functional, o48.
-#    bs:founded is not functional, o29. The domain of bs:locatedIn is a
-#    union, o38. The year properties have no range, o50. The genres are a
-#    concept scheme, o24 and o36. The borrowed terms are declared, o26 and
-#    o42. bs:disputes is an annotation property because it points at an RDF
-#    1.2 triple term, which is where OWL 2 stops.
+#    and SHACL courses use it, and every choice in it now has a lesson
+#    behind it. Its classes are the backbone of o12 with one role hanging
+#    off them; its properties are named as o18 said, with the four
+#    departures recorded; its comments carry definitions in the form o21
+#    asked for with usage notes beside them in the same property, which o23
+#    called a compromise. bs:within is transitive and not functional, from
+#    o48, and bs:founded is not functional, from o29; the domain of
+#    bs:locatedIn is a union, from o38, and the year properties have no
+#    range at all, from o50; the genres are a concept scheme, from o24 and
+#    o36, and the borrowed terms are all declared, from o26 and o42; and
+#    bs:disputes is an annotation property because it points at an RDF 1.2
+#    triple term, which is where OWL 2 stops.
 #
-#    The measured line puts it through everything at once: OWL 2 DL and not
-#    in EL, QL or RL, since EL and QL refuse a functional object property
-#    and RL the union domain of bs:locatedIn; consistent, with nothing
-#    unsatisfiable; seventeen classes of its own and twenty-five with the
-#    borrowed ones; every local name conforming; no circular definition;
-#    the OQuaRE scores of module 10; and the Quality Suite's findings
-#    scoped to bs:, which are the SKOS policy question and the open domains
-#    left open on purpose.
+#    The measured line puts the whole thing through every instrument at
+#    once: OWL 2 DL and in none of EL, QL or RL, since EL and QL refuse a
+#    functional object property and RL the union domain of bs:locatedIn;
+#    consistent, with nothing unsatisfiable; seventeen classes of its own
+#    and twenty-five counting the borrowed ones; every local name
+#    conforming; no circular definition; the OQuaRE scores from module 10;
+#    and the Quality Suite's findings scoped to bs:, which come down to the
+#    SKOS policy question and the domains left open on purpose.
 #
-#    What it does not have is the two things the course added and the
-#    shipped file did not adopt: OntoClean annotations on the classes, and
-#    SKOS annotations in place of rdfs:label and rdfs:comment. Both are one
-#    pass of work and both are recorded here as decisions to take, which is
-#    the right state for a vocabulary to be in between releases.
+#    What it does not yet have are the two things the course added and the
+#    shipped file has not adopted, which are OntoClean annotations on the
+#    classes and SKOS annotations in place of rdfs:label and rdfs:comment.
+#    Both are one pass of work, and both are recorded here as decisions
+#    still to take, which is the right state for a vocabulary to be in
+#    between releases.
 #
 #  DIAGRAM
 #       in the shipped file                          decided in
@@ -54,12 +56,12 @@
 #       measured: DL; not EL/QL/RL; consistent; 17 own classes; names clean; definitions clean
 #
 #  WHAT TO TAKE AWAY
-#    - A vocabulary is the sum of its decisions. Trace each to its
-#      reason, and the file becomes readable as an argument.
-#    - Put it through every instrument at once before a release. The
-#      measured line is what that looks like.
-#    - The decisions not yet taken are recorded too. That is the state a
-#      vocabulary should be in between releases.
+#    - A vocabulary is the sum of its decisions, so trace each of them to
+#      its reason and the file becomes readable as an argument.
+#    - Put it through every instrument at once before a release, which is
+#      what the measured line shows you.
+#    - The decisions not yet taken are recorded too, and that is the
+#      state a vocabulary should be in between releases.
 #
 #  CORNER    all three
 #  DATA      01-vocabulary.ttl

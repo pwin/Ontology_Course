@@ -9,26 +9,27 @@
 #    error.
 #
 #  WHY
-#    A restriction is a set defined by a condition: the things that have
-#    some bs:locatedIn value in bs:Settlement. Writing bs:Bookshop
-#    rdfs:subClassOf that set says every bookshop is such a thing. It is a
-#    necessary condition: to be a bookshop you must be located in a
-#    settlement. It is not sufficient, because other things are located in
-#    settlements too, and it is not a defined class; o46 is that.
+#    A restriction is a set defined by a condition, in this case the things
+#    that have some bs:locatedIn value in bs:Settlement, and writing
+#    bs:Bookshop rdfs:subClassOf that set says every bookshop is such a
+#    thing. It is a necessary condition, that to be a bookshop you must be
+#    located in a settlement, and it is not a sufficient one, since other
+#    things are located in settlements too; nor is it a defined class,
+#    which o46 is.
 #
-#    What does the reasoner do with it? Less than newcomers expect. Given a
-#    bookshop with no recorded town, it does not complain: the open world
-#    says the town exists and is not in the file. Given a bookshop located
-#    in something, it does not type the something as a Settlement, because
-#    the axiom says some value is a settlement, not every value. HermiT
-#    reports this file consistent and infers nothing visible, and that is
-#    correct. The axiom has narrowed the set of interpretations, which is
-#    what an axiom does, and nothing in the data happened to be decided by
-#    it.
+#    What does the reasoner do with it? Rather less than newcomers expect.
+#    Given a bookshop with no recorded town it does not complain, because
+#    the open world says the town exists and is simply not in the file;
+#    given a bookshop located in something it does not type that something
+#    as a Settlement, because the axiom says that some value is a
+#    settlement rather than that every value is. HermiT reports the file
+#    consistent and infers nothing visible, and that is correct: the axiom
+#    has narrowed the set of interpretations, which is what an axiom does,
+#    and nothing in the data happened to be decided by it.
 #
-#    That is why gist's rules say to use someValuesFrom in an equivalence
-#    when you want to infer into a class, and why the shape that says
-#    'every shop must have a town in this dataset' is SHACL, not this. The
+#    Which is why gist's rules say to use someValuesFrom in an equivalence
+#    when you want to infer into a class, and why the shape that says every
+#    shop must have a town in this dataset is SHACL rather than this. The
 #    SHACL course's s04 is that shape, and it reports the shop with no
 #    town; this axiom never will.
 #
@@ -44,13 +45,13 @@
 #       want to find shops with no town?     a shape: sh:path bs:locatedIn ; sh:minCount 1   (SHACL course s04)
 #
 #  WHAT TO TAKE AWAY
-#    - A subclass existential is a necessary condition on the set. It
-#      rejects nothing and types nothing; it narrows what the world could
-#      be.
-#    - Absence is not error. The open world says the missing value exists
-#      and is unrecorded.
-#    - To find the missing value, write a shape. To infer membership from
-#      a value, use an equivalence (o46).
+#    - A subclass existential is a necessary condition on the set, and it
+#      rejects nothing and types nothing, merely narrowing what the world
+#      could be.
+#    - Absence is not error, because the open world says the missing
+#      value exists and is unrecorded.
+#    - To find the missing value, write a shape; to infer membership from
+#      a value, use an equivalence, as o46 does.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

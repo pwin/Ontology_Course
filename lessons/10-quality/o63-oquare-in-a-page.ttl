@@ -10,29 +10,32 @@
 #
 #  WHY
 #    OQuaRE takes the software quality standard SQuaRE, ISO/IEC 25000, and
-#    adapts it to ontologies. The shape is three layers. Characteristics at
-#    the top: structural, functional adequacy, reliability, operability,
-#    maintainability, compatibility, transferability, quality in use. Sub-
-#    characteristics under each: cohesion, tangledness, redundancy and
-#    consistency under structural; modularity, reusability, analysability,
-#    changeability under maintainability; the intended uses of an ontology,
-#    from controlled vocabulary to inferencing, under functional adequacy.
-#    And metrics at the bottom, fourteen of them, most adapted from object-
-#    oriented software metrics: depth of inheritance, number of children,
-#    coupling, cohesion, richness of attributes, relations and annotations.
+#    adapts it to ontologies, in three layers. At the top are the
+#    characteristics, which are structural, functional adequacy,
+#    reliability, operability, maintainability, compatibility,
+#    transferability and quality in use. Under each of those come sub-
+#    characteristics, so that structural has cohesion, tangledness,
+#    redundancy and consistency, maintainability has modularity,
+#    reusability, analysability and changeability, and functional adequacy
+#    has the intended uses of an ontology, from controlled vocabulary
+#    through to inferencing. And at the bottom come the metrics, fourteen
+#    of them, most adapted from object-oriented software metrics: depth of
+#    inheritance, number of children, coupling, cohesion, and the richness
+#    of attributes, relations and annotations.
 #
-#    Each metric is scored one to five, where one is not acceptable, three
-#    minimally acceptable and five exceeds requirements, against thresholds
-#    the paper proposes. A sub-characteristic's score is the mean of its
-#    metrics; a characteristic's is the mean of its sub-characteristics.
-#    The authors are careful to say that the result is meant to show
-#    strengths and weaknesses, not to rank ontologies, and that the
-#    thresholds are proposals from software practice awaiting validation.
-#    Both cautions are worth keeping.
+#    Each metric is scored from one to five, where one is not acceptable,
+#    three is minimally acceptable and five exceeds requirements, against
+#    thresholds the paper proposes; a sub- characteristic's score is the
+#    mean of its metrics and a characteristic's is the mean of its sub-
+#    characteristics. The authors are careful to say that the result is
+#    meant to show strengths and weaknesses rather than to rank ontologies,
+#    and that the thresholds are proposals drawn from software practice and
+#    awaiting validation, and both of those cautions are worth keeping in
+#    mind.
 #
 #    The metrics are computed in this course by scripts/metrics.py, which
-#    follows the paper's formulas and states its own choices where the
-#    paper is silent. The measured line has the Trail's scores; o64 and o65
+#    follows the paper's formulas and states its own choices wherever the
+#    paper is silent. The measured line has the Trail's scores, o64 and o65
 #    read them, and o68 says what they miss.
 #
 #  DIAGRAM
@@ -47,13 +50,13 @@
 #       score 1..5 per metric, by threshold; means upward; strengths and weaknesses, not a rank
 #
 #  WHAT TO TAKE AWAY
-#    - A quality model is three layers: characteristics, sub-
-#      characteristics, metrics. The metrics are the only part a script
-#      computes.
-#    - Scores are one to five against proposed thresholds. Read them as a
-#      map, not a mark.
-#    - The authors' own caveat: the thresholds came from software
-#      practice and await validation. Keep it in mind.
+#    - A quality model comes in three layers, characteristics and sub-
+#      characteristics and metrics, and the metrics are the only part a
+#      script can compute.
+#    - Scores run from one to five against proposed thresholds, so read
+#      them as a map rather than as a mark.
+#    - The authors' own caveat is that the thresholds came from software
+#      practice and are awaiting validation, and it is worth keeping.
 #
 #  CORNER    thought
 #  DATA      01-vocabulary.ttl

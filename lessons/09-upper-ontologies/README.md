@@ -1,6 +1,6 @@
 # Module 09 · Standing on gist
 
-An upper ontology is a vocabulary in common. This module hooks the Trail's classes onto gist, decides which of gist's patterns to adopt, and reads two published alignments, gistBFO and gistUFO, as worked examples of how a class is placed under a foundational one and why. Two of the placements disagree with each other, instructively.
+An upper ontology is a vocabulary in common, so this module hooks the Trail's classes onto gist, decides which of gist's patterns are worth adopting, and reads two published alignments, gistBFO and gistUFO, as worked examples of how a class comes to be placed under a foundational one and why. Two of the placements disagree with one another, which is instructive in itself.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

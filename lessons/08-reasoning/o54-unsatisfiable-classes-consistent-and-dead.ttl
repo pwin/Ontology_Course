@@ -9,23 +9,31 @@
 #
 #  WHY
 #    An unsatisfiable class is one whose extension is empty in every
-#    interpretation: no possible thing could be a member. The ontology is
-#    consistent, since nothing has been asserted to be in the class, and
-#    that is what makes the fault a quiet one. It sits there until the
-#    first individual is typed with it, and then the whole graph is
-#    inconsistent and the cause is a class defined months ago.
+#    interpretation, so that no possible thing could be a member of it. The
+#    ontology remains consistent, since nothing has been asserted to be in
+#    the class, and that is exactly what makes the fault a quiet one: it
+#    sits there until the first individual is typed with it, and then the
+#    whole graph is inconsistent and the cause is a class somebody defined
+#    months ago.
 #
-#    The usual shapes: a class under two disjoint parents, like the
+#    The usual shapes are a class under two disjoint parents, like the
 #    Translation that o34 seeded disjoint from Work; a class whose
-#    restrictions contradict, located in some Settlement and located in
-#    only Publishers; a class defined as the intersection of two disjoint
-#    classes. All are found by classification with no data at all, and
-#    ROBOT's reason command lists them and refuses to write the reasoned
-#    file until they are fixed, which is the right default for a gate. The
-#    Quality Suite reports the same as REA-021, and LOG-001 catches the
-#    disjoint-parent case without a reasoner.
+#    restrictions contradict one another, located in some Settlement and
+#    located in only Publishers; and a class defined as the intersection of
+#    two disjoint classes. All of them are found by classification with no
+#    data at all, and ROBOT's reason command lists them and then refuses to
+#    write the reasoned file until they are fixed, which is the right
+#    default for a gate. The Quality Suite reports each of them as REA-021,
+#    and for this file it also reports REA-020, inconsistent, where ROBOT
+#    says consistent with two unsatisfiable classes: two tools and two
+#    verdicts on one file, and the difference is precisely this lesson,
+#    since unsatisfiable is about a class and inconsistent is about the
+#    whole graph, and a checker that folds the one into the other is not
+#    wrong so much as coarser. LOG-001, the suite's reasoner-free check, is
+#    narrower still, catching a class disjoint with its own ancestor, which
+#    neither of these is.
 #
-#    The set reading: an unsatisfiable class is a subset of the empty set.
+#    In set terms an unsatisfiable class is a subset of the empty set,
 #    owl:Nothing is the empty set's name, and 'equivalent to owl:Nothing'
 #    is what a reasoner says when it finds one.
 #
@@ -39,12 +47,13 @@
 #       the first bt:book-x a bs:Memoir makes the whole graph inconsistent
 #
 #  WHAT TO TAKE AWAY
-#    - An unsatisfiable class is a fault with no data in it yet. Classify
-#      before you load, and fix what the reasoner names.
-#    - The gate should refuse an ontology with one. ROBOT does by
-#      default; the Quality Suite reports REA-021.
-#    - Under two disjoint parents, or two restrictions that contradict:
-#      those are the shapes to look for when a class comes back empty.
+#    - An unsatisfiable class is a fault with no data in it yet, so
+#      classify before you load and fix whatever the reasoner names.
+#    - The gate should refuse an ontology that has one; ROBOT does so by
+#      default, and the Quality Suite reports REA-021.
+#    - Under two disjoint parents, or with two restrictions that
+#      contradict: those are the shapes to look for when a class comes
+#      back empty.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the unsatisfiable classes on the MEASURED line come from HermiT through ROBOT, and REA-021 from the Quality Suite

@@ -1,6 +1,6 @@
 # Module 08 · Reasoning
 
-What follows from what you said. Consistency, unsatisfiable classes, the inferred hierarchy, an explanation traced back to the axioms that caused it, and the difference between an OWL 2 RL closure like the editor's and a description-logic reasoner like HermiT. The module ends by reasoning over the whole Trail, and finds the reason one property was left non-functional.
+What follows from what you said, which covers consistency, unsatisfiable classes, the inferred hierarchy, an explanation traced back to the axioms that caused it, and the difference between an OWL 2 RL closure like the editor's and a description-logic reasoner like HermiT. The module ends by reasoning over the whole Trail, where it finds the reason one property was left non-functional.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

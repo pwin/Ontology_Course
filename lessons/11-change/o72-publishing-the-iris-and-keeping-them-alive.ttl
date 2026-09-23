@@ -9,31 +9,33 @@
 #    that, it says so.
 #
 #  WHY
-#    An IRI that resolves is the last leg of o04's promise: fetch it and
-#    get the definition. Cool URIs sets out how, with a hash namespace
-#    served as one document or a slash namespace served a resource at a
-#    time, and content negotiation returning Turtle to a program and HTML
-#    to a person. The Best Practice Recipes note gives the server
-#    configuration for each case. A persistent redirector, w3id.org for
-#    gist, sits in front so that the hosting can move and the IRIs need
-#    not.
+#    An IRI that resolves is the last leg of o04's promise, that you can
+#    fetch it and get the definition back. Cool URIs sets out how, with a
+#    hash namespace served as one document or a slash namespace served a
+#    resource at a time, and content negotiation returning Turtle to a
+#    program and HTML to a person, while the Best Practice Recipes note
+#    gives the server configuration for either case. A persistent
+#    redirector, w3id.org in gist's case, sits in front of the lot so that
+#    the hosting can move and the IRIs need not.
 #
-#    Documentation is generated, not written, so that it cannot drift: the
-#    Quality Suite's docgen produces a reference page from the file,
-#    classes, properties and diagrams, and the SemOps Manual's chapter 13
-#    makes it a build step. Then the OBO Foundry's social principles: a
-#    channel for community participation (FP-020), responsiveness to
-#    requests (FP-016), and notice of major changes to those who depend on
-#    the ontology (FP-013). None is technical and each is the reason an
-#    ontology is still used in five years.
+#    Documentation is generated rather than written, so that it cannot
+#    drift: the Quality Suite's docgen produces a reference page from the
+#    file, with its classes and properties and diagrams, and the SemOps
+#    Manual's chapter 13 makes that a build step. Then come the OBO
+#    Foundry's social principles, a channel for community participation in
+#    FP-020, responsiveness to requests in FP-016, and notice of major
+#    changes to those who depend on the ontology in FP-013; none of them is
+#    technical, and each of them is a reason an ontology is still being
+#    used in five years' time.
 #
 #    The Trail says which of these it does. Its namespace is example.org,
-#    reserved for documentation, so nothing resolves and nothing ever will;
-#    the point of the course is the thinking, not the hosting. Its
-#    documentation is generated; its channel is the repository's issue
-#    tracker; its notice of change is the commit log and this course
-#    document. That is stated on the header, which is the SemOps ledger
-#    again: say what you do not do, in the place someone will look.
+#    which is reserved for documentation, so nothing resolves and nothing
+#    ever will, the point of the course being the thinking rather than the
+#    hosting; its documentation is generated, its channel is the
+#    repository's issue tracker, and its notice of change is the commit log
+#    together with this course document. All of which is stated on the
+#    header, which is the SemOps ledger again: say what you do not do, in
+#    the place where somebody will look for it.
 #
 #  DIAGRAM
 #       a program asks for bs:Bookshop     Accept: text/turtle        ->  the schema document, Turtle
@@ -46,14 +48,14 @@
 #       the Trail: example.org, so nothing resolves; the header says so
 #
 #  WHAT TO TAKE AWAY
-#    - Resolving IRIs close the loop from symbol to definition. A
+#    - Resolving IRIs close the loop from symbol to definition, and a
 #      redirector in front is what keeps them resolving when the host
 #      changes.
-#    - Generate the documentation from the file. Written documentation
-#      drifts; generated documentation cannot.
-#    - The last three principles are social: a channel, responsiveness,
-#      notice of change. They decide whether the ontology is alive in
-#      five years.
+#    - Generate the documentation from the file, because written
+#      documentation drifts and generated documentation cannot.
+#    - The last three principles are social ones, a channel and
+#      responsiveness and notice of change, and they decide whether the
+#      ontology is still alive in five years.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser

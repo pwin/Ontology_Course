@@ -10,28 +10,34 @@
 #  WHY
 #    An ontology is an RDF graph, so a shape can target it. gist's
 #    repository has validation/shapes/ontologyShapes.ttl, run on every
-#    commit: a class shape that requires title-case preferred labels and a
-#    definition, a property shape that requires lower-case labels, and an
-#    instance shape that requires every rdf:type value to be a declared
-#    class. The targets are SPARQL-based, selecting terms in the gist
-#    namespace; the version here uses sh:targetClass owl:Class and
-#    sh:targetObjectsOf rdf:type so that it stays in SHACL Core and runs in
-#    the editor.
+#    commit, with a class shape requiring title-case preferred labels and a
+#    definition, a property shape requiring lower-case labels, and an
+#    instance shape requiring every rdf:type value to be a declared class.
+#    The targets there are SPARQL-based, selecting terms in the gist
+#    namespace, and the version here uses a SPARQL target scoped to the
+#    Trail's namespace in just the same way, which the editor's engine runs
+#    happily.
+#
+#    That scoping matters. The first draft of this lesson targeted every
+#    owl:Class and twelve violations came back, all of them borrowed
+#    classes such as geo:Geometry and prov:Entity, declared here so that
+#    the file is DL and documented upstream where they belong; findings
+#    about somebody else's terms are the SemOps Manual's chapter 9 in
+#    miniature.
 #
 #    On the shipped vocabulary the shapes report what o66's checks
 #    reported, in the vocabulary of the SHACL course: every class has a
 #    label and a comment, so the two Violation-level constraints pass; no
 #    class has a skos:definition, so the Warning fires seventeen times,
-#    once per Trail class; every type in the file is a declared class, so
-#    the instance shape is quiet. The report is the same fact as QUA-010
-#    from a different tool, and the SemOps Manual's advice is to write a
-#    check both ways, as a query and as a shape, so that two engines
-#    corroborate rather than agree by construction.
-#
-#    This is the SHACL course's whole method turned on the vocabulary: a
-#    shapes graph, a report, a severity chosen by whoever owns the policy.
-#    It runs on any vocabulary you are handed, which is how to form a first
-#    opinion of one.
+#    once per Trail class; and every type in the file is a declared class,
+#    so the instance shape stays quiet. The report is the same fact as
+#    QUA-010 arrived at by a different tool, and the SemOps Manual's advice
+#    is to write a check both ways, as a query and as a shape, so that two
+#    engines corroborate one another rather than agreeing by construction.
+#    This is the SHACL course's whole method turned on the vocabulary, a
+#    shapes graph and a report and a severity chosen by whoever owns the
+#    policy, and it will run against any vocabulary somebody hands you,
+#    which is how to form a first opinion of one.
 #
 #  DIAGRAM
 #       shape                  targets                   checks                          on the Trail
@@ -44,12 +50,12 @@
 #       the editor: vocabulary in one tab, shapes in another, Validate
 #
 #  WHAT TO TAKE AWAY
-#    - A vocabulary is a graph; shapes can target it. gist validates its
-#      own style that way on every commit.
-#    - Write a check as a shape and as a query. Two engines that
+#    - A vocabulary is a graph and shapes can target it, which is how
+#      gist validates its own style on every commit.
+#    - Write a check as a shape and as a query, because two engines that
 #      corroborate are worth more than one that agrees with itself.
-#    - Run style shapes on any vocabulary you are handed. It is the
-#      fastest first opinion there is.
+#    - Run style shapes over any vocabulary you are handed, since it is
+#      the fastest first opinion there is.
 #
 #  NOTE
 #    Open in the editor opens this lesson with the shapes in a second tab;

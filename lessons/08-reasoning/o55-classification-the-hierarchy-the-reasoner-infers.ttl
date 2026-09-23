@@ -9,26 +9,27 @@
 #
 #  WHY
 #    Classification is the reasoner working out the subclass relations
-#    between every pair of classes, asserted or not. Define Author as
-#    Person and wrote some Work, and Author is under Person without anyone
-#    writing rdfs:subClassOf. Define LocalPublisher as Publisher and
-#    locatedIn some Settlement, and PublisherInWigtown as Publisher and
-#    locatedIn value Wigtown, and the reasoner places the second under the
-#    first, because a value is a special case of some. Nobody said so. It
-#    follows.
+#    between every pair of classes, asserted or otherwise. Define Author as
+#    a Person who wrote some Work and Author is under Person without
+#    anybody having written rdfs:subClassOf; define LocalPublisher as a
+#    Publisher located in some Settlement, and PublisherInWigtown as a
+#    Publisher located in Wigtown, and the reasoner places the second under
+#    the first, because a value is a special case of some. Nobody said so,
+#    and it follows all the same.
 #
 #    That is the reason to define rather than declare wherever a definition
-#    is possible. An asserted hierarchy records what somebody believed; an
+#    is possible. An asserted hierarchy records what somebody believed, an
 #    inferred one records what the definitions entail, and the two can be
-#    compared. Where they differ, one of them is wrong, and it is usually
-#    the assertion. gist's habit of defining classes by equivalence to an
-#    intersection (o32) is this habit at scale.
+#    compared; where they differ one of them is wrong, and in my experience
+#    it is usually the assertion. gist's habit of defining classes by
+#    equivalence to an intersection, which o32 describes, is this same
+#    habit at scale.
 #
-#    ROBOT's reason command writes the inferred axioms into the ontology;
-#    the measured line counts them. The editor's RL closure does not
-#    classify, since deriving a subclass axiom from restrictions is outside
-#    RL; it types individuals, which is the other half of the same work,
-#    and o56 sets the two side by side.
+#    ROBOT's reason command writes the inferred axioms into the ontology
+#    and the measured line counts them. The editor's RL closure does not
+#    classify, since deriving a subclass axiom from restrictions lies
+#    outside RL; it types individuals instead, which is the other half of
+#    the same work, and o56 sets the two side by side.
 #
 #  DIAGRAM
 #       asserted                                              inferred (HermiT)
@@ -42,12 +43,12 @@
 #       define where you can; assert where you must; compare the two
 #
 #  WHAT TO TAKE AWAY
-#    - Classification infers the subclass relations the definitions
-#      entail. Define rather than assert, and let it.
-#    - Compare the inferred hierarchy with the asserted one. A difference
-#      means a belief and a definition disagree.
-#    - The RL closure types individuals; it does not classify classes.
-#      That is the line between the editor's reasoner and a DL one.
+#    - Classification infers the subclass relations that the definitions
+#      entail, so define rather than assert, and let it.
+#    - Compare the inferred hierarchy with the asserted one, because a
+#      difference means that a belief and a definition disagree.
+#    - The RL closure types individuals and does not classify classes,
+#      and that is the line between the editor's reasoner and a DL one.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the inferred hierarchy comes from HermiT through ROBOT; Show Facts will not derive it

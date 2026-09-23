@@ -9,25 +9,28 @@
 #
 #  WHY
 #    'A shop is in exactly one settlement.' Written as a cardinality
-#    restriction or a functional property, it means what it says, and what
-#    it says has a consequence nobody wants at first: a shop recorded in
-#    Wigtown and in Hay-on-Wye is no error. The reasoner reads it as
-#    evidence that Wigtown and Hay-on-Wye are one place. The RL closure of
-#    this file contains owl:sameAs between the two towns, and HermiT agrees
-#    the file is consistent. No unique name assumption is made in OWL; two
-#    IRIs may name one thing until something says otherwise. Add
-#    owl:differentFrom between the towns and the same file is inconsistent.
+#    restriction or as a functional property that means what it says, and
+#    what it says has a consequence nobody wants at first: a shop recorded
+#    in Wigtown and in Hay-on-Wye is no error at all, and the reasoner
+#    reads it as evidence that Wigtown and Hay-on-Wye are one place. The RL
+#    closure of this file contains owl:sameAs between the two towns and
+#    HermiT agrees that the file is consistent, because OWL makes no unique
+#    name assumption and two IRIs may name one thing until something says
+#    otherwise. Add owl:differentFrom between the towns and the very same
+#    file becomes inconsistent.
 #
-#    That is the whole argument for gist's rules seven to eleven and for
-#    o29. Use someValuesFrom rather than a minimum of one; use minimum
-#    cardinalities above one when you mean them; never a minimum of zero,
-#    which says nothing; and express data constraints with SHACL, where
-#    'more than one town' is a row in a report and the towns stay two.
+#    That is the whole argument behind gist's rules seven to eleven, and
+#    behind o29. Use someValuesFrom rather than a minimum of one; use
+#    minimum cardinalities above one where you mean them; never a minimum
+#    of zero, which says nothing at all; and express data constraints with
+#    SHACL, where more than one town is a row in a report and the two towns
+#    stay two.
 #
-#    Qualified cardinality is the useful cousin: a TrailSegment has exactly
-#    two bs:end values that are Bookshops. It carries meaning, a segment is
-#    a pair, and the reasoner uses it the same way: a third end merges with
-#    one of the other two.
+#    Qualified cardinality is the useful cousin of all this, since a
+#    TrailSegment has exactly two bs:end values that are Bookshops, which
+#    carries meaning, a segment being a pair; and the reasoner uses it in
+#    just the same way, so that a third end merges with one of the other
+#    two.
 #
 #  DIAGRAM
 #       bs:locatedIn a owl:FunctionalProperty          at most one value, in every interpretation
@@ -41,12 +44,13 @@
 #       the shape that was meant:  sh:path bs:locatedIn ; sh:maxCount 1   (SHACL course s04)
 #
 #  WHAT TO TAKE AWAY
-#    - No unique name assumption: two IRIs may be one thing. A maximum
-#      cardinality merges before it contradicts.
-#    - Cardinality is for meaning. 'A segment has two ends' is meaning;
-#      'a shop row has one town' is a shape.
+#    - There is no unique name assumption, so two IRIs may turn out to be
+#      one thing, and a maximum cardinality merges before ever it
+#      contradicts.
+#    - Cardinality is for meaning: that a segment has two ends is
+#      meaning, while a shop row having one town is a shape.
 #    - differentFrom, AllDifferent and inverse-functional keys are how
-#      you tell the reasoner two things are two.
+#      you tell the reasoner that two things really are two.
 #
 #  TRY IT
 #    Show Facts: the two towns are owl:sameAs. Add 'bt:place-wigtown

@@ -1,6 +1,6 @@
 # Module 02 · Systematics
 
-A taxonomy is a set of claims about what things are, and some of those claims are wrong in ways that do not show until the ontology is used. OntoClean gives four questions to ask of every class: could an instance stop being one, what makes two of them the same, is each one a whole, and does it exist only in relation to something else. The answers decide which subclass links will bear weight. The module ends with the checks written as queries, and with gist read through them.
+A taxonomy is a set of claims about what things are, and some of those claims are wrong in ways that do not show until the ontology is being used. OntoClean gives us four questions to ask of every class, which are whether an instance could stop being one, what makes two of them the same, whether each one is a whole, and whether it exists only in relation to something else; and the answers decide which subclass links will bear weight. The module ends with those checks written as queries, and with gist read through them.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

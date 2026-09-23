@@ -269,106 +269,119 @@ def o(**kwargs) -> Lesson:
 MODULE_INFO = {
     "01-meaning": (
         "Meaning",
-        "Before a class or a property, there is a word, the thing it stands for, "
-        "and the idea in between. The triangle of reference is the oldest "
-        "picture of that, and it is the picture this whole course is drawn on. "
-        "This module puts the Bookshop Trail's nouns on it, shows the two ways a "
-        "word fails, and introduces the one kind of symbol that is globally "
-        "unique and that a machine can compare: the IRI. Strings to things.",
+        "Before there is a class or a property there is a word, the thing it "
+        "stands for, and the idea in between. The triangle of reference is "
+        "the oldest picture of that, and it is the picture this whole course "
+        "is drawn on; so this module puts the Bookshop Trail's nouns onto it, "
+        "shows the two ways in which a word fails, and introduces the one "
+        "kind of symbol that is globally unique and that a machine can "
+        "compare, which is the IRI, and which is what takes us from strings "
+        "to things.",
     ),
     "02-systematics": (
         "Systematics",
-        "A taxonomy is a set of claims about what things are, and some of those "
-        "claims are wrong in ways that do not show until the ontology is used. "
-        "OntoClean gives four questions to ask of every class: could an "
-        "instance stop being one, what makes two of them the same, is each one a "
-        "whole, and does it exist only in relation to something else. The "
-        "answers decide which subclass links will bear weight. The module ends "
-        "with the checks written as queries, and with gist read through them.",
+        "A taxonomy is a set of claims about what things are, and some of "
+        "those claims are wrong in ways that do not show until the ontology "
+        "is being used. OntoClean gives us four questions to ask of every "
+        "class, which are whether an instance could stop being one, what "
+        "makes two of them the same, whether each one is a whole, and whether "
+        "it exists only in relation to something else; and the answers decide "
+        "which subclass links will bear weight. The module ends with those "
+        "checks written as queries, and with gist read through them.",
     ),
     "03-naming": (
         "Naming",
-        "The symbol corner. An IRI identifies; a label names; a definition "
-        "says what is meant. Keeping the three apart is what lets a shop be "
-        "renamed without becoming a different shop, and lets two organisations "
-        "use the same word for different things without colliding. The module "
-        "sets out the conventions the Trail follows and the ones gist follows, "
-        "and audits one against the other.",
+        "This is the symbol corner. An IRI identifies, a label names, and a "
+        "definition says what is meant, and keeping the three of them apart "
+        "is what lets a shop be renamed without becoming a different shop, "
+        "and lets two organisations use the same word for different things "
+        "without colliding. The module sets out the conventions the Trail "
+        "follows beside the ones gist follows, and audits the one against the "
+        "other.",
     ),
     "04-definitions": (
         "Definitions and controlled vocabularies",
-        "The thought corner, written down. A definition is the agreement that "
-        "makes a shared symbol carry a shared meaning, and a controlled "
-        "vocabulary is a list of terms whose definitions someone has agreed to "
-        "look after. This module covers the form of a good definition, the ways "
-        "one fails, the set of annotations that carry it, and the decision that "
-        "comes before any taxonomy: is this a class, or a category.",
+        "This is the thought corner, written down. A definition is the "
+        "agreement that makes a shared symbol carry a shared meaning, and a "
+        "controlled vocabulary is a list of terms whose definitions somebody "
+        "has agreed to look after; so the module covers the form of a good "
+        "definition, the ways in which one fails, the set of annotations that "
+        "carry it, and the decision that comes before any taxonomy at all, "
+        "which is whether this thing is a class or a category.",
     ),
     "05-principles": (
         "Design principles",
-        "What a well-made ontology has in common, drawn from three places that "
-        "agree more than they differ: the gist style guide, the OBO Foundry "
-        "principles, and the SemOps Manual. Minimal, reused before invented, "
-        "disjoint at the top, sparse in its domains and ranges, meaning rather "
-        "than integrity, and built with the people who will have to read it.",
+        "What well-made ontologies have in common, drawn from three places "
+        "that agree rather more than they differ: the gist style guide, the "
+        "OBO Foundry principles, and the SemOps Manual. Minimal, reused "
+        "before invented, disjoint at the top, sparse in its domains and "
+        "ranges, carrying meaning rather than integrity rules, and built "
+        "alongside the people who will have to read it.",
     ),
     "06-the-ladder": (
         "The ladder: RDFS and SKOS",
         "RDFS, SKOS and OWL 2 are one idea at rising degrees of commitment. A "
-        "list of labelled terms says almost nothing; a concept scheme says how "
-        "the terms relate without saying what they are; a class hierarchy says "
-        "that membership is inherited, and a reasoner starts to draw "
-        "conclusions. This module climbs the first rungs with the genre scheme "
-        "and the place hierarchy, and says at each rung what has been promised.",
+        "list of labelled terms says almost nothing; a concept scheme says "
+        "how the terms relate without saying what they are; and a class "
+        "hierarchy says that membership is inherited, at which point a "
+        "reasoner begins to draw conclusions. This module climbs the first of "
+        "those rungs with the genre scheme and the place hierarchy, saying at "
+        "each one what has just been promised.",
     ),
     "07-owl": (
         "The ladder: OWL 2",
-        "The top rungs. OWL 2 lets an ontology say enough that a reasoner can "
-        "contradict it, which is the first time the model can be wrong rather than incomplete. Each lesson takes one construct, states what "
-        "it commits you to, and shows what the reasoner does with it. The "
-        "surprises are the point: a maximum cardinality that merges two towns "
-        "instead of flagging an error, a universal restriction that infers "
-        "nothing, a transitive property that cannot also be functional.",
+        "The top rungs, where OWL 2 lets an ontology say enough that a "
+        "reasoner can contradict it, which is the first point at which the "
+        "model can be wrong rather than incomplete. Each lesson takes "
+        "one construct, states what it commits you to, and shows what the "
+        "reasoner then does with it; and the surprises are the point, whether "
+        "a maximum cardinality that merges two towns instead of flagging an "
+        "error, a universal restriction that infers nothing at all, or a "
+        "transitive property that cannot also be functional.",
     ),
     "08-reasoning": (
         "Reasoning",
-        "What follows from what you said. Consistency, unsatisfiable classes, "
-        "the inferred hierarchy, an explanation traced back to the axioms that "
-        "caused it, and the difference between an OWL 2 RL closure like the "
-        "editor's and a description-logic reasoner like HermiT. The module ends "
-        "by reasoning over the whole Trail, and finds the reason one property "
-        "was left non-functional.",
+        "What follows from what you said, which covers consistency, "
+        "unsatisfiable classes, the inferred hierarchy, an explanation traced "
+        "back to the axioms that caused it, and the difference between an OWL "
+        "2 RL closure like the editor's and a description-logic reasoner like "
+        "HermiT. The module ends by reasoning over the whole Trail, where it "
+        "finds the reason one property was left non-functional.",
     ),
     "09-upper-ontologies": (
         "Standing on gist",
-        "An upper ontology is a vocabulary in common. This module hooks the "
-        "Trail's classes onto gist, decides which of gist's patterns to adopt, "
-        "and reads two published alignments, gistBFO and gistUFO, as worked "
-        "examples of how a class is placed under a foundational one and why. "
-        "Two of the placements disagree with each other, instructively.",
+        "An upper ontology is a vocabulary in common, so this module hooks "
+        "the Trail's classes onto gist, decides which of gist's patterns are "
+        "worth adopting, and reads two published alignments, gistBFO and "
+        "gistUFO, as worked examples of how a class comes to be placed under "
+        "a foundational one and why. Two of the placements disagree with one "
+        "another, which is instructive in itself.",
     ),
     "10-quality": (
         "Quality",
-        "Measuring what was built, and knowing what the measurements cannot "
-        "see. OQuaRE's metrics scored on the Trail and on gist; the Ontology "
-        "Quality Suite's checks by identifier; style shapes like the ones gist "
-        "runs on itself; competency questions as tests. Then the limits: a "
-        "five-out-of-five ontology can still be wrong, and no metric sees "
+        "Measuring what has been built, and knowing what the measurements "
+        "cannot see: OQuaRE's metrics scored on the Trail and on gist, the "
+        "Ontology Quality Suite's checks read by identifier, style shapes "
+        "like the ones gist runs against itself, and competency questions "
+        "used as tests. Then the limits of all that, since an ontology can "
+        "score five out of five and still be wrong, and no metric sees "
         "rigidity.",
     ),
     "11-change": (
         "Release and change",
-        "An ontology is for life. The header that says what it is, the policy "
-        "that retires a term without deleting it, the version number decided by "
-        "evidence rather than opinion, and the one principle every source "
-        "agrees on: once published, a term must always mean the same thing.",
+        "An ontology is for life, so this module covers the header that says "
+        "what it is, the policy that retires a term without deleting it, the "
+        "version number decided by evidence rather than by opinion, and the "
+        "one principle that every source agrees on, which is that once "
+        "published a term must always mean the same thing.",
     ),
     "12-putting-it-together": (
         "Putting it together",
-        "The whole Trail vocabulary, rebuilt and compared with the shipped one "
-        "decision by decision; the genre scheme with its integrity checked; the "
-        "competency questions the SPARQL course answers and the constraints the "
-        "SHACL course enforces, as the test suite this ontology exists to pass; "
-        "and a challenge.",
+        "The whole Trail vocabulary, rebuilt and compared with the shipped "
+        "one decision by decision; the genre scheme with its integrity "
+        "checked; the competency questions the SPARQL course answers and the "
+        "constraints the SHACL course enforces, taken together as the test "
+        "suite this ontology exists to pass; and then a challenge to finish "
+        "with.",
     ),
 }

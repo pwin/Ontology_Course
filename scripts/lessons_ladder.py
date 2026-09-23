@@ -19,31 +19,33 @@ o(
     decides="Classes are read as sets and the vocabulary's structural words as set operations: rdf:type is membership, rdfs:subClassOf is subset, equivalence is equality, disjointness is an empty intersection.",
     corner="referent",
     why="OWL 2's Direct Semantics says what an interpretation is: a domain "
-        "of things, and for every class a subset of that domain, called its "
-        "extension. An individual is in the class if it is in the subset. "
-        "rdfs:subClassOf means the one subset is contained in the other. "
-        "owl:equivalentClass means they are the same subset. "
-        "owl:disjointWith means they share nothing. A restriction is a set "
-        "defined by a condition on its members: the things that have some "
-        "bs:locatedIn value in Settlement. Every construct from here to the "
-        "top of the ladder is a way of saying something about sets, and "
-        "reading them that way is what makes RDFS, SKOS and OWL one idea "
-        "rather than three.\n\n"
-        "Two cautions keep the picture straight. First, the open world: the "
-        "extension is not the thirty-three shops in the file. It is a set "
-        "the axioms constrain and the data samples, and a shop the file "
-        "does not mention is in it just the same. 'Every Bookshop is "
-        "located in some Settlement' is true of the set even where the "
-        "file records no town. Second, a class is not its extension. Two "
-        "classes that happen to have the same members in this data are "
-        "not the same class, because in another interpretation they need "
-        "not; and OWL 2's punning lets the same IRI be a class and an "
-        "individual, read separately, which is how o14 typed bs:Author as "
-        "a gufo:Role.\n\n"
-        "SKOS does not use sets. A skos:Concept is a particular, and "
+        "of things, and for every class a subset of that domain, which is "
+        "called its extension, with an individual in the class when it is "
+        "in the subset. rdfs:subClassOf then means that the one subset is "
+        "contained in the other, owl:equivalentClass that they are the same "
+        "subset, and owl:disjointWith that they share nothing at all; a "
+        "restriction is a set defined by a condition on its members, such "
+        "as the things that have some bs:locatedIn value in Settlement. "
+        "Every construct from here to the top of the ladder is a way of "
+        "saying something about sets, and reading them that way is what "
+        "makes RDFS, SKOS and OWL one idea rather than three.\n\n"
+        "Two cautions keep the picture straight. The first is the open "
+        "world, since the extension is not the thirty-three shops in the "
+        "file but a set that the axioms constrain and the data merely "
+        "samples, so that a shop the file never mentions is in it just the "
+        "same, and 'every Bookshop is located in some Settlement' is true "
+        "of the set even where the file records no town. The second is that "
+        "a class is not its extension: two classes that happen to have the "
+        "same members in this data are not thereby the same class, because "
+        "in another interpretation they need not be, and OWL 2's punning "
+        "lets the same IRI be a class and an individual, read separately, "
+        "which is how o14 typed bs:Author as a gufo:Role.\n\n"
+        "SKOS does not use sets at all. A skos:Concept is a particular and "
         "skos:broader is a relation between two particulars that promises "
-        "nothing about any members. That is no weakness, and it is the reason the concept scheme is the rung below the class hierarchy, "
-        "and why o40 has to do work to climb from one to the other.",
+        "nothing whatever about members, which is no weakness, and is the "
+        "reason the concept scheme sits on the rung below the class "
+        "hierarchy and why o40 has to do some work to climb from the one to "
+        "the other.",
     diagram="""
    in every interpretation                      set reading
 
@@ -60,9 +62,9 @@ o(
              a class is not its extension; two with the same members here may differ elsewhere
 """,
     learn=[
-        "Read every class as a set and every structural axiom as a set claim. It is the reading the specification gives, and it makes the ladder one ladder.",
-        "The open world: the set is constrained by the axioms and sampled by the data. Absence in the file is not absence from the set.",
-        "A concept is a particular and broader is a relation between particulars. No sets are involved, which is why it is a lower rung.",
+        "Read every class as a set and every structural axiom as a claim about sets, since that is the reading the specification gives and it is what makes the ladder one ladder.",
+        "Under the open world the set is constrained by the axioms and sampled by the data, so absence from the file is not absence from the set.",
+        "A concept is a particular and broader is a relation between particulars, with no sets involved anywhere, which is why it is a lower rung.",
     ],
     body=DECL + """
 # owl:Thing is the whole domain; every class is a subset of it, and saying
@@ -85,8 +87,10 @@ PREFIX bs: <https://example.org/bookshop-trail/schema#>
 SELECT ?place WHERE { ?place a bs:Place }""", on="reasoned", rows=1)],
     check=dict(profile=True, reason=True, rl=True),
     expect=dict(dl=True, consistent=True, rl_inferred=["bt:place-wigtown rdf:type bs:Place"]),
-    tryit="Press Show Facts. The implicit triples include bt:place-wigtown rdf:type bs:Place: the set reading, computed. Nothing is said "
-          "about the concepts, because broader promises nothing about members.",
+    tryit="Press Show Facts, and among the implicit triples you will find "
+          "bt:place-wigtown rdf:type bs:Place, which is the set reading "
+          "computed for you. Nothing is said about the concepts, because "
+          "broader promises nothing about members.",
 )
 specs.register("o35", "directSemantics", "primerOpenWorld")
 
@@ -96,26 +100,31 @@ o(
     decides="The genres are a SKOS concept scheme: particulars with labels, arranged by broader and narrower, promising nothing about the works in them; and the scheme's uneven depth is kept because it is true.",
     corner="symbol and thought",
     why="The lowest rung is a list of terms with IRIs and labels, which is "
-        "where module 01 started: it promises only that the terms exist "
-        "and are distinct. The next rung is a concept scheme. Each genre "
-        "is a skos:Concept in a skos:ConceptScheme; each has one preferred "
-        "label per language and any number of alternatives; broader and "
-        "narrower arrange them in a tree, or a lattice, since SKOS allows "
-        "a concept two broader ones. What has been promised is this: these "
-        "particulars are related in this way. Nothing has been said about "
-        "any work. A reasoner given the scheme will not conclude that a "
-        "cosy crime novel is a work of fiction, because the scheme has no "
-        "members to conclude it about.\n\n"
-        "This is why SKOS is the right rung for a shelf plan. Curators "
-        "move genres about; broader changes; no data needs retyping. The "
-        "Trail's scheme has thirty-one concepts, two to four levels deep, "
-        "and the depth is uneven because crime fiction has kinds that "
-        "poetry does not. A model that forced every branch to the same "
-        "depth would be tidier and false.\n\n"
-        "The unevenness carries the SPARQL course's best-known lesson, made on the place hierarchy in q28 and on this tree in q33: a fixed chain of two broader hops from Fiction finds some genres and silently misses the rest, while skos:broader+ finds them all. skos:broader is deliberately not transitive; "
-        "skos:broaderTransitive is, and a path operator computes it "
-        "without a reasoner. Module 08 comes back to that as the first of "
-        "three routes to the same inference.",
+        "where module 01 started, and it promises only that the terms exist "
+        "and are distinct from one another. The next rung up is a concept "
+        "scheme, where each genre is a skos:Concept in a "
+        "skos:ConceptScheme, each has one preferred label per language and "
+        "as many alternatives as you like, and broader and narrower arrange "
+        "them into a tree, or a lattice, since SKOS is content to let a "
+        "concept have two broader ones. What has been promised is that "
+        "these particulars are related in this way, and nothing has been "
+        "said about any work at all; a reasoner given the scheme will not "
+        "conclude that a cosy crime novel is a work of fiction, because the "
+        "scheme has no members to conclude it about.\n\n"
+        "This is why SKOS is the right rung for a shelf plan. Curators move "
+        "genres about and broader changes, and no data needs retyping on "
+        "that account. The Trail's scheme has thirty-one concepts, two to "
+        "four levels deep, and the depth is uneven because crime fiction "
+        "has kinds that poetry does not; a model that forced every branch "
+        "to the same depth would be tidier and false.\n\n"
+        "That unevenness carries the SPARQL course's best-known lesson, "
+        "made on the place hierarchy in q28 and on this tree in q33: a "
+        "fixed chain of two broader hops from Fiction finds some of the "
+        "genres and silently misses the rest, while skos:broader+ finds "
+        "them all. skos:broader is deliberately not transitive, "
+        "skos:broaderTransitive is, and a path operator computes the "
+        "closure without a reasoner anywhere in sight, which module 08 "
+        "comes back to as the first of three routes to the same inference.",
     diagram="""
    rung 1  a list         bt:genre-cosy-crime  skos:prefLabel "Cosy Crime"@en          exists, is distinct
    rung 2  a scheme       bt:genre-cosy-crime  skos:broader  bt:genre-crime-fiction   related, as particulars
@@ -128,9 +137,9 @@ o(
          skos:broader+              from Fiction   finds every descendant
 """,
     learn=[
-        "A concept scheme relates particulars. It promises nothing about members, which is why it can be rearranged without retyping data.",
-        "Keep a hierarchy as uneven as the world is. A fixed depth is a lie a query will trip on.",
-        "skos:broader is not transitive on purpose. A path operator, or broaderTransitive, gives the closure when a question needs it.",
+        "A concept scheme relates particulars and promises nothing about members, which is exactly why it can be rearranged without retyping any data.",
+        "Keep a hierarchy as uneven as the world is, because a fixed depth is a lie that some query will eventually trip over.",
+        "skos:broader is not transitive on purpose, and a path operator, or broaderTransitive, gives you the closure on the day a question needs it.",
     ],
     body=DECL + """
 skos:Concept        a owl:Class .
@@ -179,25 +188,27 @@ o(
     decides="Places are a class hierarchy, not a concept scheme, because a query about Places must find every Settlement without being told; rdfs:subClassOf commits to that and a reasoner delivers it.",
     corner="referent",
     why="rdfs:subClassOf is the first promise about members. Settlement "
-        "under Place means every settlement is a place, and a reasoner, "
-        "any reasoner, will type Wigtown as a Place without being told. "
-        "RDF Semantics writes the rule down: if x is in A and A is a "
-        "subclass of B, x is in B. The editor's Show Facts does it in the "
-        "browser; the OWL 2 RL closure this lesson was measured with does "
-        "the same on the place file and adds the typing for every "
-        "settlement, council area, region and country in it.\n\n"
+        "under Place means that every settlement is a place, and a "
+        "reasoner, any reasoner at all, will type Wigtown as a Place "
+        "without being told to; RDF Semantics writes the rule down, that if "
+        "x is in A and A is a subclass of B then x is in B. The editor's "
+        "Show Facts does it in the browser, and the OWL 2 RL closure this "
+        "lesson was measured with does the same over the place file, adding "
+        "the typing for every settlement, council area, region and country "
+        "in it.\n\n"
         "The Trail chose a class hierarchy for places and a concept scheme "
-        "for genres, and the reason is what each is asked. A question "
-        "about places, 'which shops are in Wales', needs every kind of "
-        "place to be a place and never needs to say which kind on the way "
-        "down. A question about genres, 'which shops specialise in crime "
-        "fiction including its kinds', needs to walk the tree explicitly, "
-        "and is answered by a path over particulars. Class hierarchy where "
-        "membership must be inherited; concept scheme where the tree must "
-        "be walked.\n\n"
-        "The subclass rule is also transitive: Settlement under Place "
-        "under Feature makes every town a feature. Depth is what makes deep hierarchies risky and shallow ones cheap, and it is why the "
-        "backbone from o12 is two levels deep.",
+        "for genres, and the reason lies in what each of them is asked. A "
+        "question about places, such as which shops are in Wales, needs "
+        "every kind of place to be a place and never needs to say which "
+        "kind on the way down; a question about genres, such as which shops "
+        "specialise in crime fiction including its kinds, needs the tree "
+        "walked explicitly and is answered by a path over particulars. So: "
+        "a class hierarchy where membership must be inherited, and a "
+        "concept scheme where the tree must be walked.\n\n"
+        "The subclass rule is transitive as well, so that Settlement under "
+        "Place under Feature makes every town a feature, and it is depth "
+        "that makes deep hierarchies risky and shallow ones cheap, which is "
+        "why the backbone from o12 is only two levels deep.",
     diagram="""
    rung 3  a class hierarchy
 
@@ -211,9 +222,9 @@ o(
    genres: a concept scheme, tree walked by a path, 'including its kinds' is explicit
 """,
     learn=[
-        "rdfs:subClassOf is the first promise about members, and the reasoner keeps it: every instance of the subclass is typed with the superclass.",
-        "Use a class hierarchy where membership must be inherited silently; a concept scheme where the tree must be walked explicitly.",
-        "Subclass is transitive. Depth multiplies inferences, which is a reason to keep the backbone shallow.",
+        "rdfs:subClassOf is the first promise about members, and the reasoner keeps it, typing every instance of the subclass with the superclass.",
+        "Use a class hierarchy where membership has to be inherited silently, and a concept scheme where the tree has to be walked explicitly.",
+        "Subclass is transitive, so depth multiplies inferences, which is a good reason to keep the backbone shallow.",
     ],
     body=DECL + """
 geo:Feature     a owl:Class ; skos:prefLabel "Feature"@en .
@@ -234,8 +245,10 @@ SELECT (COUNT(DISTINCT ?p) AS ?places) WHERE { ?p a bs:Place }""", on="reasoned"
     check=dict(profile=True, rl=True),
     expect=dict(dl=True, rl_inferred=["bt:place-wigtown rdf:type bs:Place", "bt:place-wigtown rdf:type geo:Feature",
                                        "bt:place-scotland rdf:type bs:Place"]),
-    tryit="Load data/03-places.ttl, hide types and annotations, choose the dot engine: the containment hierarchy. Then Show Facts, and count "
-          "how many things are now typed bs:Place that the file never said were.",
+    tryit="Load data/03-places.ttl, hide the types and annotations and choose "
+          "the dot engine, and you are looking at the containment hierarchy. "
+          "Then press Show Facts and count how many things are now typed "
+          "bs:Place that the file never said were.",
 )
 specs.register("o37", "rdfsSubClassOf", "rdfsRules")
 
@@ -244,27 +257,28 @@ o(
     title="Rung four, domain and range: inference rules, not constraints",
     decides="A domain is declared only when everything that will ever have the property is of that class, because the reasoner will type whatever has it; the Trail's bs:locatedIn gets a union domain for that reason.",
     corner="referent",
-    why="Every newcomer reads rdfs:domain as a constraint: 'only bookshops "
-        "may have a location'. RDF Semantics reads it as a rule: 'whatever "
-        "has a location is a bookshop'. The two agree on clean data and "
-        "part company on the first publisher with an address. Declare "
+    why="Every newcomer reads rdfs:domain as a constraint, as though it "
+        "said that only bookshops may have a location, whereas RDF "
+        "Semantics reads it as a rule, saying that whatever has a location "
+        "is a bookshop. The two readings agree on clean data and part "
+        "company at the first publisher with an address: declare "
         "bs:locatedIn's domain as bs:Bookshop, load the people file, and "
-        "the reasoner types Northwind Press as a bookshop, without error "
-        "or warning. This lesson's file does that, and the closure "
+        "the reasoner types Northwind Press as a bookshop without error or "
+        "warning. This lesson's file does exactly that, and the closure "
         "measured on it contains the triple.\n\n"
-        "Range is the same rule in the other direction: whatever is the "
-        "value of bs:locatedIn is a Settlement. That one is usually "
-        "wanted, and it still bites: a range of xsd:integer on a property "
-        "whose values are strings does not reject the strings, it "
-        "declares them integers.\n\n"
-        "The habit that follows is the one from o31. Declare a domain only "
-        "when every use will agree with it, and when two classes will "
+        "Range is the same rule running in the other direction, so that "
+        "whatever is the value of bs:locatedIn is a Settlement. That one is "
+        "usually what you wanted, and it still bites, because a range of "
+        "xsd:integer on a property whose values are strings does not reject "
+        "the strings but declares them to be integers.\n\n"
+        "The habit that follows is the one from o31: declare a domain only "
+        "where every use will agree with it, and where two classes will "
         "share a property, declare the union, which is the next rung's "
-        "vocabulary. Or declare nothing, as gist mostly does, and let the "
-        "shapes say what the data must look like. The retyping is not a "
-        "bug in RDFS. It is RDFS doing exactly what it says, and the "
-        "SHACL course's s59, the inference that hides an error, is the "
-        "same fact seen from the validator's side.",
+        "vocabulary; or declare nothing at all, as gist mostly does, and "
+        "let the shapes say what the data must look like. The retyping is "
+        "not a bug in RDFS but RDFS doing exactly what it says, and the "
+        "SHACL course's s59, the inference that hides an error, is the same "
+        "fact seen from the validator's side of the fence.",
     diagram="""
    rdfs:domain, read as a constraint (wrong)       rdfs:domain, read as a rule (right)
 
@@ -277,9 +291,9 @@ o(
    the fix: a union domain, or none, and a shape for the constraint
 """,
     learn=[
-        "rdfs:domain and rdfs:range add types. They never reject anything.",
-        "Declare a domain only when every use of the property will agree with it. Two classes sharing a property want a union or nothing.",
-        "The constraint you meant is a shape. The SHACL course's s59 shows the other half of this lesson.",
+        "rdfs:domain and rdfs:range add types, and they never reject anything at all.",
+        "Declare a domain only where every use of the property will agree with it, since two classes sharing a property want a union, or nothing.",
+        "The constraint you had in mind is a shape, and the SHACL course's s59 shows the other half of this lesson.",
     ],
     body=DECL + """
 bs:Bookshop    a owl:Class ; skos:prefLabel "Bookshop"@en .
@@ -303,8 +317,11 @@ PREFIX bs: <https://example.org/bookshop-trail/schema#>
 SELECT ?shop WHERE { ?shop a bs:Bookshop }""", on="reasoned", rows=2)],
     check=dict(profile=True, rl=True),
     expect=dict(dl=True, rl_inferred=["bt:pub-northwind rdf:type bs:Bookshop", "bt:place-edinburgh rdf:type bs:Settlement"]),
-    tryit="Show Facts. Northwind Press is now a bs:Bookshop. Change the domain to a union of Bookshop and Publisher, press Get All, Show Facts "
-          "again: the union is a class with no name, and Northwind is typed with that instead, which is true and useless. Remove the domain.",
+    tryit="Press Show Facts and Northwind Press is now a bs:Bookshop. Change "
+          "the domain to a union of Bookshop and Publisher, press Get All and "
+          "Show Facts again: the union is a class with no name, so Northwind "
+          "is typed with that instead, which is true and useless. Then remove "
+          "the domain altogether.",
 )
 specs.register("o38", "rdfsDomain", "rdfsRange")
 
@@ -339,32 +356,38 @@ o(
     title="SKOS in full: labels, notes, related, mapping, and the integrity conditions",
     decides="The genre scheme carries one preferred label per language, alternatives, scope notes, associative links kept apart from hierarchy, and mappings to outside schemes by match properties rather than owl:sameAs; and its integrity is checked by shapes.",
     corner="all three",
-    why="SKOS is small and complete. Labels: prefLabel, altLabel, "
-        "hiddenLabel for misspellings, with the condition S14 that a "
-        "concept has at most one preferred label per language. Notes: "
-        "definition, scopeNote, example, historyNote, changeNote, "
-        "editorialNote, the same set gist recommends for ontologies, which "
-        "is not a coincidence. Hierarchy: broader and narrower, and the "
-        "transitive versions for queries. Association: skos:related, for "
-        "Tartan Noir and Scottish Interest, which are neither above nor "
-        "below each other, with the condition S27 that a concept is not "
-        "both related and broader to another. Grouping: skos:Collection, "
-        "for 'the Welsh-language shelf', a set of concepts that is not "
-        "itself a concept. And mapping: exactMatch, closeMatch, broadMatch "
-        "to concepts in other schemes.\n\n"
-        "The mapping properties are the ones to get right. owl:sameAs says "
-        "two IRIs have one referent, and everything true of one becomes "
-        "true of the other, in both directions, forever. skos:exactMatch "
-        "says two concepts in two schemes can be used interchangeably for "
+    why="SKOS is small and complete, and it divides into six kinds of "
+        "statement. There are labels, prefLabel and altLabel and "
+        "hiddenLabel for the misspellings, with the condition S14 that a "
+        "concept has at most one preferred label per language. There are "
+        "notes, definition and scopeNote and example and historyNote and "
+        "changeNote and editorialNote, which is the same set gist "
+        "recommends for ontologies, and that is no coincidence. There is "
+        "hierarchy, broader and narrower, with transitive versions for "
+        "queries. There is association, skos:related, for Tartan Noir and "
+        "Scottish Interest, which are neither above nor below one another, "
+        "subject to the condition S27 that a concept is not both related "
+        "and broader to the same thing. There is grouping, skos:Collection, "
+        "for something like the Welsh-language shelf, a set of concepts "
+        "that is not itself a concept. And there is mapping, exactMatch and "
+        "closeMatch and broadMatch, to concepts in other schemes.\n\n"
+        "The mapping properties are the ones worth getting right. "
+        "owl:sameAs says that two IRIs have one referent, so that "
+        "everything true of the one becomes true of the other, in both "
+        "directions and for ever, whereas skos:exactMatch says only that "
+        "two concepts in two schemes can be used interchangeably for "
         "retrieval, which is a smaller and safer claim about two "
-        "particulars that remain two. The Trail's crime fiction is closeMatch to Wikidata's crime fiction, which covers film and theatre as well as books; the scopes overlap and differ, which is what closeMatch is for.\n\n"
+        "particulars that remain two. The Trail's crime fiction is a "
+        "closeMatch to Wikidata's crime fiction, which covers film and "
+        "theatre as well as books, so that the scopes overlap and differ, "
+        "which is what closeMatch is for.\n\n"
         "The integrity conditions are checkable, and this lesson's shapes "
         "check the ones that matter: one preferred label per language, "
         "every concept in a scheme, related disjoint from broader, and no "
-        "concept its own ancestor. Run on the shipped scheme they report "
-        "conformance; on this file, with a seeded cycle and a doubled "
-        "label, they report both. The SHACL course's s30 does the cycle "
-        "check in the same way.",
+        "concept its own ancestor. Run against the shipped scheme they "
+        "report conformance, and run against this file, with its seeded "
+        "cycle and doubled label, they report both; the SHACL course's s30 "
+        "does the cycle check in the very same way.",
     diagram="""
    labels     prefLabel (one per language, S14)   altLabel   hiddenLabel
    notes      definition  scopeNote  example  historyNote  changeNote  editorialNote
@@ -377,9 +400,9 @@ o(
    skos:closeMatch two concepts, interchangeable for retrieval, nothing else transfers
 """,
     learn=[
-        "SKOS has six kinds of statement and each has its property. Labels, notes, hierarchy, association, grouping, mapping.",
-        "Map between schemes with match properties. owl:sameAs merges referents; exactMatch leaves them two.",
-        "The integrity conditions are shapes. Run them in the editor before publishing a scheme, and keep a file that breaks them.",
+        "SKOS has six kinds of statement and a property for each: labels, notes, hierarchy, association, grouping and mapping.",
+        "Map between schemes with the match properties, since owl:sameAs merges the referents where exactMatch leaves them two.",
+        "The integrity conditions are shapes, so run them in the editor before publishing a scheme, and keep a file that breaks them.",
     ],
     body=DECL + """
 skos:Concept        a owl:Class .
@@ -429,30 +452,32 @@ o(
     title="Climbing a rung: when a concept becomes a class",
     decides="Where an axiom about members is needed, the concept is punned into a class as well, with rdfs:subClassOf running beside skos:broader, and the reasoner then types works by their genre's ancestors.",
     corner="referent",
-    why="o24 gave the test: promote a concept to a class when the first "
-        "axiom about its members is needed. Suppose the website must show "
-        "every work of fiction on one page, and works are tagged with the "
-        "leaf genre only. A path over the scheme answers it in SPARQL. But "
-        "suppose a downstream consumer will only see the closure, or a "
-        "shape must target 'every work of fiction'. Then the concept "
-        "scheme is a rung too low, and the promotion is mechanical: the "
-        "same IRI becomes an owl:Class as well as a skos:Concept, "
-        "rdfs:subClassOf is written beside every skos:broader, and works "
-        "are typed with the class. The reasoner does the rest. This "
-        "lesson's file has three works typed with genres, two of them leaves, and the closure types each with every ancestor.\n\n"
-        "This is punning, and OWL 2 DL permits it: the class reading and "
-        "the individual reading of bt:genre-crime-fiction are kept apart "
-        "by the reasoner, so bs:specialises can still point at the "
-        "individual while works are members of the class. The profile "
-        "checker confirms the file is DL. The cost is that every genre now "
-        "has two readings to maintain, and every change to the shelf plan "
-        "is a change to a class hierarchy, with the retyping that implies. "
-        "The price of the higher rung is that, and it is why the Trail "
-        "does not pay it for genres.\n\n"
-        "The set reading makes the promotion exact. The concept was a "
-        "particular; the class is the set of works in that genre; broader "
-        "between particulars becomes subset between sets; and a work "
-        "typed with the leaf is, by inheritance, in every set above it.",
+    why="o24 gave the test, which is to promote a concept to a class when "
+        "the first axiom about its members is needed. Suppose the website "
+        "must show every work of fiction on one page and the works are "
+        "tagged with the leaf genre only: a path over the scheme answers "
+        "that in SPARQL and nothing more is called for. But suppose instead "
+        "that a downstream consumer will only ever see the closure, or that "
+        "a shape must target every work of fiction; then the concept scheme "
+        "is a rung too low, and the promotion is mechanical. The same IRI "
+        "becomes an owl:Class as well as a skos:Concept, rdfs:subClassOf is "
+        "written beside every skos:broader, the works are typed with the "
+        "class, and the reasoner does the rest. This lesson's file has "
+        "three works typed with genres, two of them leaves, and the closure "
+        "types each of them with every ancestor.\n\n"
+        "This is punning, and OWL 2 DL permits it, since the class reading "
+        "and the individual reading of bt:genre-crime-fiction are kept "
+        "apart by the reasoner, so that bs:specialises can still point at "
+        "the individual while works are members of the class; the profile "
+        "checker confirms that the file is DL. What it costs is that every "
+        "genre now has two readings to maintain, and every change to the "
+        "shelf plan becomes a change to a class hierarchy, with all the "
+        "retyping that implies. That is the price of the higher rung, and "
+        "it is why the Trail does not pay it for genres.\n\n"
+        "The set reading makes the promotion exact: the concept was a "
+        "particular, the class is the set of works in that genre, broader "
+        "between particulars becomes subset between sets, and a work typed "
+        "with the leaf is, by inheritance, in every set above it.",
     diagram="""
    before: a particular                        after: a particular and a set
 
@@ -465,9 +490,9 @@ o(
    one IRI, two readings, kept apart: punning. The shelf plan is now a class hierarchy.
 """,
     learn=[
-        "Promotion is mechanical: add owl:Class, mirror broader with subClassOf, type the members. The reasoner types them with every ancestor.",
-        "Punning lets the concept keep its uses while the class gains members. The profile checker confirms it is DL.",
-        "The cost is two readings per term and retyping on every rearrangement. Pay it only where an axiom about members is needed.",
+        "Promotion is mechanical: add owl:Class, mirror broader with subClassOf, type the members, and the reasoner types them with every ancestor.",
+        "Punning lets the concept keep its uses while the class gains members, and the profile checker confirms that this stays inside DL.",
+        "The cost is two readings per term and retyping on every rearrangement, so pay it only where an axiom about members is needed.",
     ],
     body=DECL + """
 skos:Concept  a owl:Class .
@@ -503,30 +528,31 @@ o(
     title="What RDFS cannot say",
     decides="Disjointness, cardinality, inverses, defined classes and 'exactly one' are wanted and RDFS has none of them, so the list of what it cannot say becomes the agenda for the top of the ladder.",
     corner="referent",
-    why="RDFS has classes, subclasses, properties, subproperties, domains "
-        "and ranges, and labels. With those it can say that every "
-        "settlement is a place and that whatever is located somewhere is a "
-        "shop. It cannot say that nothing is both a place and a shop. It "
-        "cannot say that a shop is in one town, that a segment has two "
-        "ends, that wrote and author are the same relation in opposite "
-        "directions, or that an author is a person who wrote something. "
-        "Most of all it cannot be contradicted: assert that one thing is a "
-        "Place and a Bookshop, run the RDFS closure, and it types the "
-        "thing with both and their superclasses and reports nothing, "
-        "because in RDFS there is nothing to report.\n\n"
-        "That is not a flaw. A language in which you cannot be wrong is a "
-        "language in which data from anywhere merges without argument, "
-        "which is what RDFS was for. It means the cost of RDFS is that "
+    why="RDFS gives us classes and subclasses, properties and "
+        "subproperties, domains and ranges, and labels, and with those it "
+        "can say that every settlement is a place and that whatever is "
+        "located somewhere is a shop. It cannot say that nothing is both a "
+        "place and a shop; it cannot say that a shop is in one town, that a "
+        "segment has two ends, that wrote and author are the same relation "
+        "read in opposite directions, or that an author is a person who "
+        "wrote something. Most of all it cannot be contradicted: assert "
+        "that one thing is a Place and a Bookshop, run the RDFS closure, "
+        "and it will type the thing with both and with their superclasses "
+        "and report nothing at all, because in RDFS there is nothing to "
+        "report.\n\n"
+        "None of which is a flaw. A language in which you cannot be wrong "
+        "is a language in which data from anywhere merges without an "
+        "argument, and that is what RDFS was for; the cost is simply that "
         "the errors it cannot see stay in the data until a query finds "
         "them, and the SPARQL course's module 13 is the collection of "
         "queries that do.\n\n"
-        "The list of what was wanted and could not be said is the agenda "
-        "for module 07, in order: disjointness first, because it is the "
-        "cheapest and catches the most; then restrictions, which say what "
-        "a member must have; then defined classes, which let the reasoner "
-        "decide membership; then the property characteristics; and last "
-        "the datatypes and profiles, which are where the language draws "
-        "its own limits.",
+        "The list of what we wanted and could not say is the agenda for "
+        "module 07, in order: disjointness first, because it is the "
+        "cheapest and catches the most; then restrictions, which say what a "
+        "member must have; then defined classes, which let the reasoner "
+        "decide membership; then the property characteristics; and last the "
+        "datatypes and profiles, which are where the language draws its own "
+        "limits.",
     diagram="""
    wanted                                          RDFS       OWL 2 (module 07)
 
@@ -541,9 +567,9 @@ o(
    a language in which you cannot be wrong merges anything; the errors wait for a query
 """,
     learn=[
-        "RDFS cannot be contradicted. A thing typed as two disjoint kinds is typed with both, and nothing is reported.",
-        "That is the design: data from anywhere merges. The cost is that errors wait for a query.",
-        "The list of what RDFS cannot say is the order to learn OWL in. Disjointness first.",
+        "RDFS cannot be contradicted, so a thing typed as two disjoint kinds is typed with both and nothing is reported.",
+        "That is the design rather than an oversight, since data from anywhere merges; the cost is that the errors wait for a query to find them.",
+        "The list of what RDFS cannot say is the order to learn OWL in, and disjointness comes first.",
     ],
     body=DECL + """
 bs:Place       a rdfs:Class ; skos:prefLabel "Place"@en .

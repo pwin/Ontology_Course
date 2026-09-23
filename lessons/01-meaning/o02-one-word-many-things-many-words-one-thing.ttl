@@ -8,24 +8,26 @@
 #    not the word.
 #
 #  WHY
-#    A word fails in two directions. Homonymy is one symbol over several
-#    referents: 'book' in the brief means the title someone wrote, the
-#    edition with an ISBN, and the copy on the shelf at a price. Ask 'do
-#    you have the book?' and three different answers are correct. Synonymy
-#    is several symbols over one referent: shop, bookshop, store are one
-#    thing three ways, and a search that matches on the string will find a
-#    third of them.
+#    A word can fail in two directions. Homonymy is one symbol stretched
+#    over several referents, and 'book' in the brief is the example: it
+#    means the title someone wrote, the edition with an ISBN, and the copy
+#    on the shelf at a price, so that when a customer asks 'do you have the
+#    book?' three different answers are all correct. Synonymy is several
+#    symbols for one referent, and shop, bookshop and store are one thing
+#    three ways, which means a search that matches on the string will find
+#    a third of what it should.
 #
-#    Both failures have the same cure. Decide how many referents there are,
-#    give each its own identifier, and hang the words off the identifiers
-#    as labels. The identifier decides identity; the words are free to
-#    vary. Google called this 'things, not strings' in 2012 and the phrase
-#    has stuck because it is exactly right.
+#    Both failures have the same cure. Decide how many referents there
+#    really are, give each one its own identifier, and hang the words off
+#    the identifiers as labels, so that the identifier decides identity and
+#    the words are free to vary. Google called this 'things, not strings'
+#    in 2012, and the phrase has stuck because it is exactly right.
 #
 #    The Trail keeps 'book' as one class, bs:Work, and gives it an ISBN,
-#    which is honestly an edition's property. That is a recorded compromise
-#    (o10 comes back to it), and it is a better state than the brief's,
-#    where the compromise was invisible.
+#    which is really an edition's property rather than a work's. That is a
+#    recorded compromise, and o10 comes back to it, but it is already a
+#    better state than the brief's, where the compromise existed and nobody
+#    could see it.
 #
 #  DIAGRAM
 #       HOMONYMY: one symbol, three referents           SYNONYMY: three symbols, one referent
@@ -37,12 +39,14 @@
 #       cure: one identifier per referent               cure: one identifier, three labels
 #
 #  WHAT TO TAKE AWAY
-#    - Count referents, not words. A symbol with two referents needs two
-#      identifiers; two symbols with one referent need one.
-#    - Labels are cheap and plural. Identifiers are the thing that must
-#      be unique.
-#    - The Trail's bs:Work is a title and an edition in one class.
-#      Written down, that is a decision; unwritten, it is a trap.
+#    - Count referents rather than words: a symbol with two referents
+#      needs two identifiers, and two symbols with one referent need only
+#      one.
+#    - Labels are cheap and can be as plural as you like, whereas
+#      identifiers are the thing that has to be unique.
+#    - The Trail's bs:Work is a title and an edition in one class, and
+#      written down that is a decision, while left unwritten it would be
+#      a trap.
 #
 #  CORNER    symbol and referent
 #  RUNS IN   the browser

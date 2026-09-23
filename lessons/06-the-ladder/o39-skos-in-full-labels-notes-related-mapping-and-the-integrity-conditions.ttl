@@ -9,34 +9,39 @@
 #    than owl:sameAs; and its integrity is checked by shapes.
 #
 #  WHY
-#    SKOS is small and complete. Labels: prefLabel, altLabel, hiddenLabel
-#    for misspellings, with the condition S14 that a concept has at most
-#    one preferred label per language. Notes: definition, scopeNote,
-#    example, historyNote, changeNote, editorialNote, the same set gist
-#    recommends for ontologies, which is not a coincidence. Hierarchy:
-#    broader and narrower, and the transitive versions for queries.
-#    Association: skos:related, for Tartan Noir and Scottish Interest,
-#    which are neither above nor below each other, with the condition S27
-#    that a concept is not both related and broader to another. Grouping:
-#    skos:Collection, for 'the Welsh-language shelf', a set of concepts
-#    that is not itself a concept. And mapping: exactMatch, closeMatch,
-#    broadMatch to concepts in other schemes.
+#    SKOS is small and complete, and it divides into six kinds of
+#    statement. There are labels, prefLabel and altLabel and hiddenLabel
+#    for the misspellings, with the condition S14 that a concept has at
+#    most one preferred label per language. There are notes, definition and
+#    scopeNote and example and historyNote and changeNote and
+#    editorialNote, which is the same set gist recommends for ontologies,
+#    and that is no coincidence. There is hierarchy, broader and narrower,
+#    with transitive versions for queries. There is association,
+#    skos:related, for Tartan Noir and Scottish Interest, which are neither
+#    above nor below one another, subject to the condition S27 that a
+#    concept is not both related and broader to the same thing. There is
+#    grouping, skos:Collection, for something like the Welsh-language
+#    shelf, a set of concepts that is not itself a concept. And there is
+#    mapping, exactMatch and closeMatch and broadMatch, to concepts in
+#    other schemes.
 #
-#    The mapping properties are the ones to get right. owl:sameAs says two
-#    IRIs have one referent, and everything true of one becomes true of the
-#    other, in both directions, forever. skos:exactMatch says two concepts
-#    in two schemes can be used interchangeably for retrieval, which is a
-#    smaller and safer claim about two particulars that remain two. The
-#    Trail's crime fiction is closeMatch to Wikidata's crime fiction, which
-#    covers film and theatre as well as books; the scopes overlap and
-#    differ, which is what closeMatch is for.
+#    The mapping properties are the ones worth getting right. owl:sameAs
+#    says that two IRIs have one referent, so that everything true of the
+#    one becomes true of the other, in both directions and for ever,
+#    whereas skos:exactMatch says only that two concepts in two schemes can
+#    be used interchangeably for retrieval, which is a smaller and safer
+#    claim about two particulars that remain two. The Trail's crime fiction
+#    is a closeMatch to Wikidata's crime fiction, which covers film and
+#    theatre as well as books, so that the scopes overlap and differ, which
+#    is what closeMatch is for.
 #
 #    The integrity conditions are checkable, and this lesson's shapes check
 #    the ones that matter: one preferred label per language, every concept
 #    in a scheme, related disjoint from broader, and no concept its own
-#    ancestor. Run on the shipped scheme they report conformance; on this
-#    file, with a seeded cycle and a doubled label, they report both. The
-#    SHACL course's s30 does the cycle check in the same way.
+#    ancestor. Run against the shipped scheme they report conformance, and
+#    run against this file, with its seeded cycle and doubled label, they
+#    report both; the SHACL course's s30 does the cycle check in the very
+#    same way.
 #
 #  DIAGRAM
 #       labels     prefLabel (one per language, S14)   altLabel   hiddenLabel
@@ -50,12 +55,12 @@
 #       skos:closeMatch two concepts, interchangeable for retrieval, nothing else transfers
 #
 #  WHAT TO TAKE AWAY
-#    - SKOS has six kinds of statement and each has its property. Labels,
-#      notes, hierarchy, association, grouping, mapping.
-#    - Map between schemes with match properties. owl:sameAs merges
-#      referents; exactMatch leaves them two.
-#    - The integrity conditions are shapes. Run them in the editor before
-#      publishing a scheme, and keep a file that breaks them.
+#    - SKOS has six kinds of statement and a property for each: labels,
+#      notes, hierarchy, association, grouping and mapping.
+#    - Map between schemes with the match properties, since owl:sameAs
+#      merges the referents where exactMatch leaves them two.
+#    - The integrity conditions are shapes, so run them in the editor
+#      before publishing a scheme, and keep a file that breaks them.
 #
 #  CORNER    all three
 #  RUNS IN   the browser

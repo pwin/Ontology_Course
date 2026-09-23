@@ -8,25 +8,27 @@
 #    trivially satisfied by a shop that stocks nothing.
 #
 #  WHY
-#    The universal restriction is the set of things all of whose bs:stocks
-#    values are Works, including the things that have no values at all. Put
-#    bs:Bookshop under it and the reasoner types every stocked thing as a
-#    Work: this is a local range, and both HermiT and the RL closure
-#    produce the triple. A shop that stocks nothing satisfies it vacuously,
-#    which surprises people who read 'only' as 'at least one and only'.
+#    The universal restriction picks out the set of things all of whose
+#    bs:stocks values are Works, and that includes the things which have no
+#    values at all. Put bs:Bookshop under it and the reasoner types every
+#    stocked thing as a Work, which makes this a local range, and both
+#    HermiT and the RL closure produce the triple; a shop that stocks
+#    nothing satisfies it vacuously, which tends to surprise anyone who
+#    reads 'only' as 'at least one, and only'.
 #
-#    gist's fifth rule says what a subclass universal is good for: it adds
-#    information about the class without inferring anything into it. And
-#    rules one and two say what an equivalence to a universal is good for,
-#    which is inferring into the complement: since nothing can be shown to
-#    have only Work values under the open world, no individual is ever
-#    classified into the class, but one with a non-Work value can be
-#    classified out of it. That is a subtle tool and o47 uses its cousin.
+#    gist's fifth rule says what a subclass universal is good for, which is
+#    to add information about the class without inferring anything into it,
+#    and its first two rules say what an equivalence to a universal is good
+#    for, which is inferring into the complement: since nothing can be
+#    shown to have only Work values under the open world, no individual is
+#    ever classified into the class, while one with a non-Work value can be
+#    classified out of it. That is a subtle tool, and o47 uses its cousin.
 #
 #    The everyday use is the range you cannot declare globally. bs:stocks
-#    on a bookshop points at works; the same property on a library, if the
-#    vocabulary had one, might point at editions. A global rdfs:range would
-#    type both; the local universal types only the bookshop's values.
+#    on a bookshop points at works, while the same property on a library,
+#    if the vocabulary had one, might point at editions; a global
+#    rdfs:range would type both of them, where the local universal types
+#    only the bookshop's values.
 #
 #  DIAGRAM
 #       bs:Bookshop rdfs:subClassOf [ owl:onProperty bs:stocks ; owl:allValuesFrom bs:Work ]
@@ -39,12 +41,13 @@
 #       a local range: types the values of this property on this class only
 #
 #  WHAT TO TAKE AWAY
-#    - allValuesFrom types the values. It is a range scoped to one class.
-#    - 'Only' includes 'none'. A thing with no values satisfies every
-#      universal restriction.
+#    - allValuesFrom types the values, which makes it a range scoped to
+#      one class.
+#    - 'Only' includes 'none', since a thing with no values at all
+#      satisfies every universal restriction going.
 #    - Under the open world nothing can be proved to have only such
 #      values, so an equivalence to a universal never infers into the
-#      class. It can infer out of it.
+#      class, though it can infer out of it.
 #
 #  TRY IT
 #    Show Facts: bt:thing is a bs:Work. Add a second value that is declared

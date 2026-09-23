@@ -8,29 +8,30 @@
 #    name; the Trail keeps the simple form and records what it gives up.
 #
 #  WHY
-#    gist has a pattern for measured quantities, and it is worth
-#    understanding even where it is not adopted. A gist:Magnitude is a node
-#    with a numeric value, a gist:Aspect saying what was measured, area,
-#    and a gist:UnitOfMeasure saying in what, square metres. Every shop's
-#    floor area becomes four triples instead of one. In return the unit is
-#    data rather than a hint in a property name, a query can convert
-#    between units, and a floor area and a plot area are the same aspect on
-#    different things. gist uses the same pattern for money, durations and
-#    probabilities, and defines several classes by it: a GeoRegion is a
-#    location with a magnitude whose aspect is area.
+#    gist has a pattern for measured quantities that is worth understanding
+#    even where you do not adopt it. A gist:Magnitude is a node with a
+#    numeric value, a gist:Aspect saying what was measured, area in this
+#    case, and a gist:UnitOfMeasure saying in what, square metres, so that
+#    every shop's floor area becomes four triples where it was one. In
+#    return the unit is data rather than a hint buried in a property name,
+#    a query can convert between units, and a floor area and a plot area
+#    become the same aspect measured on different things; gist uses the
+#    same pattern for money, durations and probabilities, and defines
+#    several classes by it, since a GeoRegion is a location with a
+#    magnitude whose aspect is area.
 #
 #    The Trail says bs:floorArea 140.0 and puts 'square metres' in the
-#    definition. That is the pragmatic form: one triple, a column in the
-#    spreadsheet, a number a query can compare. It gives up the unit as
-#    data and the possibility of a second unit, and o30's rule applies: a
-#    departure that changes only convenience is allowed, and the note says
-#    what was traded. The day the website needs square feet, the note is
-#    the migration plan.
+#    definition, which is the pragmatic form: one triple, a column in the
+#    spreadsheet, and a number a query can compare. It gives up the unit as
+#    data and the possibility of a second unit, and o30's rule applies,
+#    that a departure changing only convenience is allowed so long as the
+#    note says what was traded away. On the day the website needs square
+#    feet, that note is the migration plan.
 #
-#    gist:isCategorizedBy is the other pattern the Trail could borrow: the
-#    event kinds of o25 are gist:Category instances, and an event
-#    isCategorizedBy one. That one costs nothing and gains a shared
-#    property, and the shipped vocabulary should probably adopt it.
+#    gist:isCategorizedBy is the other pattern the Trail could borrow,
+#    since the event kinds of o25 are gist:Category instances and an event
+#    isCategorizedBy one of them. That costs nothing at all and gains a
+#    shared property, and the shipped vocabulary should probably adopt it.
 #
 #  DIAGRAM
 #       the Trail's way                        gist's way
@@ -45,12 +46,13 @@
 #       the note records the trade
 #
 #  WHAT TO TAKE AWAY
-#    - gist's Magnitude pattern makes the unit data. It costs three
-#      triples a value and pays when units vary or values are shared.
+#    - gist's Magnitude pattern makes the unit into data, at a cost of
+#      three triples a value, and it pays whenever units vary or values
+#      are shared.
 #    - A datatype property with the unit in its definition is the
-#      pragmatic form. Record what it gives up.
-#    - Borrow the cheap patterns wholesale. gist:isCategorizedBy for a
-#      controlled list costs nothing.
+#      pragmatic form, so record what it gives up.
+#    - Borrow the cheap patterns wholesale, since gist:isCategorizedBy
+#      for a controlled list costs nothing.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

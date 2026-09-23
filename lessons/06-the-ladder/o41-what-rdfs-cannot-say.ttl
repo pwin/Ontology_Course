@@ -8,26 +8,27 @@
 #    say becomes the agenda for the top of the ladder.
 #
 #  WHY
-#    RDFS has classes, subclasses, properties, subproperties, domains and
-#    ranges, and labels. With those it can say that every settlement is a
-#    place and that whatever is located somewhere is a shop. It cannot say
-#    that nothing is both a place and a shop. It cannot say that a shop is
-#    in one town, that a segment has two ends, that wrote and author are
-#    the same relation in opposite directions, or that an author is a
-#    person who wrote something. Most of all it cannot be contradicted:
-#    assert that one thing is a Place and a Bookshop, run the RDFS closure,
-#    and it types the thing with both and their superclasses and reports
-#    nothing, because in RDFS there is nothing to report.
+#    RDFS gives us classes and subclasses, properties and subproperties,
+#    domains and ranges, and labels, and with those it can say that every
+#    settlement is a place and that whatever is located somewhere is a
+#    shop. It cannot say that nothing is both a place and a shop; it cannot
+#    say that a shop is in one town, that a segment has two ends, that
+#    wrote and author are the same relation read in opposite directions, or
+#    that an author is a person who wrote something. Most of all it cannot
+#    be contradicted: assert that one thing is a Place and a Bookshop, run
+#    the RDFS closure, and it will type the thing with both and with their
+#    superclasses and report nothing at all, because in RDFS there is
+#    nothing to report.
 #
-#    That is not a flaw. A language in which you cannot be wrong is a
-#    language in which data from anywhere merges without argument, which is
-#    what RDFS was for. It means the cost of RDFS is that the errors it
+#    None of which is a flaw. A language in which you cannot be wrong is a
+#    language in which data from anywhere merges without an argument, and
+#    that is what RDFS was for; the cost is simply that the errors it
 #    cannot see stay in the data until a query finds them, and the SPARQL
 #    course's module 13 is the collection of queries that do.
 #
-#    The list of what was wanted and could not be said is the agenda for
-#    module 07, in order: disjointness first, because it is the cheapest
-#    and catches the most; then restrictions, which say what a member must
+#    The list of what we wanted and could not say is the agenda for module
+#    07, in order: disjointness first, because it is the cheapest and
+#    catches the most; then restrictions, which say what a member must
 #    have; then defined classes, which let the reasoner decide membership;
 #    then the property characteristics; and last the datatypes and
 #    profiles, which are where the language draws its own limits.
@@ -46,12 +47,13 @@
 #       a language in which you cannot be wrong merges anything; the errors wait for a query
 #
 #  WHAT TO TAKE AWAY
-#    - RDFS cannot be contradicted. A thing typed as two disjoint kinds
-#      is typed with both, and nothing is reported.
-#    - That is the design: data from anywhere merges. The cost is that
-#      errors wait for a query.
-#    - The list of what RDFS cannot say is the order to learn OWL in.
-#      Disjointness first.
+#    - RDFS cannot be contradicted, so a thing typed as two disjoint
+#      kinds is typed with both and nothing is reported.
+#    - That is the design rather than an oversight, since data from
+#      anywhere merges; the cost is that the errors wait for a query to
+#      find them.
+#    - The list of what RDFS cannot say is the order to learn OWL in, and
+#      disjointness comes first.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

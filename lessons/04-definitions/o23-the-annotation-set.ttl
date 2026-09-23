@@ -9,28 +9,31 @@
 #
 #  WHY
 #    gist's guide sorts the annotations into required, recommended, use
-#    where relevant, use rarely, and do not use, and the sorting is more
-#    useful than any single rule. Required: skos:prefLabel and
-#    skos:definition, exactly one each. Recommended: skos:scopeNote and
-#    skos:example. Where relevant: skos:altLabel and skos:editorialNote,
-#    the last being for the maintainers rather than the users. Rarely:
-#    skos:changeNote and skos:historyNote, because the version control
-#    system usually has that. Do not use: rdfs:label and rdfs:comment,
-#    because SKOS gives a finer set and a comment becomes the place
-#    everything goes.
+#    where relevant, use rarely and do not use, and the sorting is more
+#    useful than any single rule in it. Required are skos:prefLabel and
+#    skos:definition, exactly one of each; recommended are skos:scopeNote
+#    and skos:example; where relevant come skos:altLabel and
+#    skos:editorialNote, the last of those being for the maintainers rather
+#    than the users; rarely, skos:changeNote and skos:historyNote, since
+#    the version control system usually holds that; and not at all,
+#    rdfs:label and rdfs:comment, because SKOS gives a finer set and a
+#    comment becomes the place where everything ends up.
 #
 #    The Trail's shipped vocabulary uses rdfs:label and rdfs:comment, and
-#    its comments carry definitions, usage notes and provenance in one
-#    string. That was a reasonable choice for a teaching dataset whose
-#    queries wanted one property to read, and it is exactly the case the
-#    guide warns about. This lesson shows bs:Bookshop with the full set,
-#    beside a term with the minimum missing, and the shapes find the gap.
-#    The Quality Suite's QUA-010 fires for the same reason.
+#    its comments carry definitions, usage notes and provenance together in
+#    one string. That was a reasonable choice for a teaching dataset whose
+#    queries wanted a single property to read, and it is also exactly the
+#    case the guide warns about. This lesson shows bs:Bookshop with the
+#    full set beside a term with the minimum missing, and the shapes find
+#    the gap, as does the Quality Suite's QUA-010; its STY-004 fires as
+#    well, on the Welsh label, because that check assumes a label matches
+#    the local name and has no notion of a second language, which is worth
+#    knowing before it goes anywhere near a gate.
 #
-#    Cardinality is the rule that pays. One label per language and one
-#    definition per term means a tool can pick the label and print the
-#    definition without deciding between candidates, and a reader never
-#    wonders which of two sentences is current.
+#    Cardinality is the rule that pays for itself. One label per language
+#    and one definition per term means a tool can pick the label and print
+#    the definition without having to choose between candidates, and a
+#    reader never has to wonder which of two sentences is the current one.
 #
 #  DIAGRAM
 #       required           skos:prefLabel     exactly one per language
@@ -43,12 +46,14 @@
 #       do not use         rdfs:label, rdfs:comment   (the Trail does; the note above says why)
 #
 #  WHAT TO TAKE AWAY
-#    - Two annotations are required and have a cardinality of one.
-#      Everything else is optional and plural.
-#    - An editorial note is for whoever maintains the term; a scope note
-#      is for whoever uses it. Different readers, different property.
-#    - rdfs:comment is where everything ends up if nothing else is
-#      provided. Provide something else.
+#    - Two annotations are required and both have a cardinality of one,
+#      while everything else is optional and may be as plural as you
+#      like.
+#    - An editorial note is for whoever maintains the term and a scope
+#      note is for whoever uses it, which is why they are different
+#      properties for different readers.
+#    - rdfs:comment is where everything ends up when nothing else is
+#      provided, so provide something else.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

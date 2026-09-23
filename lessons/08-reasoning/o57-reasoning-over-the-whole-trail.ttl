@@ -9,32 +9,33 @@
 #    new type, because the data types everything already.
 #
 #  WHY
-#    Everything in this module has been done on a few triples. The shipped
-#    vocabulary with the whole dataset is four thousand eight hundred, and
-#    HermiT classifies and realises it in about two seconds, which is the
-#    number to have in hand before anyone says a DL reasoner is too slow
-#    for real data. The OWL 2 DL copy of the dataset is used, so that the
-#    profile verdict and the reasoning are about one file; run on the copy
-#    with the xsd:gYear values, HermiT reports consistent as well, treating
-#    the unknown datatype as opaque.
+#    Everything in this module so far has been done on a few triples,
+#    whereas the shipped vocabulary with the whole dataset comes to four
+#    thousand eight hundred, and HermiT classifies and realises it in about
+#    two seconds, which is the number to have in hand before anybody tells
+#    you that a DL reasoner is too slow for real data. The OWL 2 DL copy of
+#    the dataset is the one used, so that the profile verdict and the
+#    reasoning are about a single file; run on the copy that keeps its
+#    xsd:gYear values, HermiT reports consistent as well, treating the
+#    unknown datatype as opaque.
 #
-#    What it adds is exactly what the axioms promise and nothing else.
+#    What it adds is exactly what the axioms promise and nothing besides.
 #    bs:within is transitive, so sixty-three pairs become a hundred and
-#    eighty-six. bs:connectsTo is symmetric, so thirty-three segments gain
-#    their reverse. bs:hasImprint is the inverse of bs:imprintOf and
-#    asserted nowhere, so nine appear. bs:wrote is the inverse of
+#    eighty-six; bs:connectsTo is symmetric, so thirty- three segments gain
+#    their reverse; bs:hasImprint is the inverse of bs:imprintOf and is
+#    asserted nowhere, so nine of them appear; bs:wrote is the inverse of
 #    bs:author, so six appear where the data used author. And not one new
 #    rdf:type on a Trail term, because the data types every individual
 #    already and the vocabulary defines no class by equivalence. The SPARQL
-#    course's module 18 measured the same and drew the same conclusion: the
-#    closure is real, and a property path gets most of it without a
-#    reasoner.
+#    course's module 18 measured the same thing and drew the same
+#    conclusion, that the closure is real and a property path gets most of
+#    it without a reasoner at all.
 #
 #    Consistent, too, which is the quiet confirmation that a vocabulary
 #    written with the habits of module 05, sparse domains, no functional
-#    property where sources disagree, disjointness only at the top, does
-#    not fight its own data. Change one of those habits, as o29 did, and
-#    the same run says inconsistent.
+#    property where the sources disagree, and disjointness only at the top,
+#    does not fight its own data. Change one of those habits, as o29 did,
+#    and the same run comes back inconsistent.
 #
 #  DIAGRAM
 #       data/bookshop-trail-owl-dl.ttl: 4,796 triples, through HermiT, about two seconds
@@ -49,12 +50,12 @@
 #       verdict: consistent
 #
 #  WHAT TO TAKE AWAY
-#    - A DL reasoner on a few thousand triples takes seconds. Measure
-#      before assuming it will not scale.
-#    - What it adds is what the axioms promise: closures and inverses.
-#      Where the data is already typed, no types.
-#    - Consistency on the whole dataset is the cheapest end-to-end test
-#      an ontology has. Run it in the gate.
+#    - A DL reasoner on a few thousand triples takes seconds, so measure
+#      it before assuming that it will not scale.
+#    - What it adds is what the axioms promise, which is closures and
+#      inverses; where the data is typed already, it adds no types.
+#    - Consistency over the whole dataset is the cheapest end-to-end test
+#      an ontology has, so run it in the gate.
 #
 #  CORNER    referent
 #  DATA      bookshop-trail-owl-dl.ttl

@@ -8,34 +8,33 @@
 #    join on and look up.
 #
 #  WHY
-#    A label is a symbol for people. 'Wigtown' works in a conversation and
-#    fails in a database, where the festival and the town both answer to it
-#    and no machine can tell them apart. A code works inside one system:
-#    EVT-001, row 14, the shop id. It fails the moment two systems meet,
-#    because both of them have an EVT-001.
+#    A label is a symbol for people. 'Wigtown' works perfectly well in
+#    conversation and fails in a database, where the festival and the town
+#    both answer to it and no machine can tell them apart. A code works
+#    inside one system, EVT-001 or row 14 or the shop id, and fails the
+#    moment two systems meet, because both of them have an EVT-001.
 #
 #    An IRI is a symbol built to survive that meeting. It is globally
-#    unique by construction: the http scheme delegates the right to mint
-#    names under a domain to whoever holds the domain, so
+#    unique by construction, because the http scheme delegates the right to
+#    mint names under a domain to whoever holds the domain, so that
 #    example.org/bookshop-trail/place-wigtown can only have been coined by
-#    one party, and nobody else's place-wigtown can be confused with it.
-#    The Web Architecture document calls this URI ownership.
-#
-#    It is machine-readable in a precise and modest sense. A machine cannot
+#    one party and nobody else's place-wigtown can be confused with it; the
+#    Web Architecture document calls this URI ownership. And it is machine-
+#    readable in a precise and rather modest sense: a machine cannot
 #    understand it, but it can test two of them for equality by comparing
-#    strings, join two graphs wherever the same IRI appears in both, and,
-#    because it is an http IRI, fetch it and get back the definition.
+#    the strings, join two graphs wherever the same IRI appears in both,
+#    and, because it is an http IRI, fetch it and get the definition back.
 #    Nothing more is claimed and nothing more is needed. The same document
-#    also asks for opacity: a machine should read nothing into the spelling
-#    of an IRI, which is why gist and BFO can both be right about naming,
-#    one readable and one numeric, as o15 discusses.
+#    also asks for opacity, meaning a machine should read nothing into the
+#    spelling of an IRI, and that is why gist and BFO can both be right
+#    about naming, one readable and one numeric, as o15 discusses.
 #
-#    The IRI is still not the referent. It is a third kind of symbol,
+#    The IRI is still not the referent. It is a third kind of symbol
 #    sitting on the symbol corner beside the label, and RDF Concepts
 #    section 1.3 says in as many words that what it refers to is fixed by
-#    convention and definition, not by the IRI itself. owl:sameAs is the
-#    statement that two IRIs share a referent; the Trail uses it to say
-#    that its Wigtown is DBpedia's.
+#    convention and definition rather than by the IRI itself. owl:sameAs is
+#    the statement that two IRIs share a referent, and the Trail uses it to
+#    say that its Wigtown is DBpedia's.
 #
 #  DIAGRAM
 #       symbols on the symbol corner            what a machine can do with each
@@ -51,19 +50,20 @@
 #       "these two symbols, minted by two owners, share one referent"
 #
 #  WHAT TO TAKE AWAY
-#    - Globally unique comes from ownership: only the holder of a domain
-#      can mint IRIs under it. That is the whole trick, and it is enough.
-#    - Machine-readable means comparable, joinable and fetchable. It does
-#      not mean understood.
-#    - An IRI is opaque to a machine. Its spelling is for people, and the
-#      definition it resolves to is what fixes the referent.
-#    - owl:sameAs joins two owners' symbols at the referent. Use it when
-#      you mean identity, not resemblance.
+#    - Global uniqueness comes from ownership, since only the holder of a
+#      domain can mint IRIs under it; that is the whole trick, and it
+#      turns out to be enough.
+#    - Machine-readable means comparable, joinable and fetchable, and it
+#      does not mean understood.
+#    - An IRI is opaque to a machine, so its spelling is for people and
+#      the definition it resolves to is what fixes the referent.
+#    - owl:sameAs joins two owners' symbols at the referent, and it is
+#      for identity rather than resemblance.
 #
 #  TRY IT
-#    In the SPARQL panel, count how many distinct subjects have the label
-#    'Wigtown'. Then count distinct IRIs. The first number is what a string
-#    search sees; the second is what a graph sees.
+#    In the SPARQL panel, count how many distinct subjects carry the label
+#    'Wigtown', and then count the distinct IRIs. The first number is what
+#    a string search sees, and the second is what a graph sees.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser

@@ -9,33 +9,34 @@
 #    and to explain.
 #
 #  WHY
-#    Two kinds of reasoner, and it pays to know which you are holding. An
-#    OWL 2 RL engine, the editor's HyLAR and the owlrl closure this course
-#    measures with, applies rules to triples until nothing new appears:
-#    subclass typing, domain and range, transitive and symmetric closure,
-#    inverses, chains, sameAs from functional properties, allValuesFrom
-#    typing, and membership of defined classes when the fillers are named.
-#    It is fast, it scales, it runs in a browser, and it never says no.
+#    There are two kinds of reasoner about, and it pays to know which one
+#    you are holding. An OWL 2 RL engine, which is what the editor's HyLAR
+#    and the owlrl closure this course measures with both are, applies
+#    rules to triples until nothing new appears: subclass typing, domain
+#    and range, transitive and symmetric closure, inverses, chains, sameAs
+#    from functional properties, allValuesFrom typing, and membership of
+#    defined classes wherever the fillers are named. It is fast, it scales,
+#    it runs in a browser, and it never says no.
 #
-#    A description-logic reasoner, HermiT here, decides entailment by
-#    searching for a model. It classifies classes, finds unsatisfiable
-#    ones, reports inconsistency, and explains: it can say which few axioms
-#    make an inference true. It handles existentials in superclass position
-#    and everything else DL allows. It is slower, it does not stream, and
-#    it needs the whole ontology in memory.
+#    A description-logic reasoner, HermiT in this course, decides
+#    entailment by searching for a model, and so it classifies classes,
+#    finds the unsatisfiable ones, reports inconsistency, and explains
+#    itself, which is to say it can tell you which few axioms make an
+#    inference true. It handles existentials in superclass position and
+#    everything else DL allows, and in return it is slower, it does not
+#    stream, and it wants the whole ontology in memory.
 #
 #    This file shows the line between them on two examples. Translation is
-#    a Work that is a translation of some Work; EnglishTranslation is a
+#    a Work that is a translation of some Work, EnglishTranslation is a
 #    Work that is a translation of some EnglishWork, and EnglishWork is a
-#    kind of Work. Both engines type bt:book-x as a Translation, since its
-#    fillers are named, and both derive that Translation is under Work,
+#    kind of Work. Both engines type bt:book-x as a Translation, its
+#    fillers being named, and both derive that Translation is under Work,
 #    since RL has a rule that an intersection lies inside each of its
-#    parts. Only HermiT derives that EnglishTranslation is under
-#    Translation, because that needs the two definitions compared as
-#    wholes, and RL has no rule for that. The measured line has both
-#    results. Use the RL engine for the data and the DL engine for the
-#    ontology, and run the DL engine in the gate, where somebody will read
-#    what it says.
+#    parts; only HermiT derives that EnglishTranslation is under
+#    Translation, because that needs the two definitions compared as wholes
+#    and RL has no rule for it. The measured line carries both results. Use
+#    the RL engine for the data and the DL engine for the ontology, and run
+#    the DL engine in the gate, where somebody will read what it says.
 #
 #  DIAGRAM
 #                                OWL 2 RL (editor, owlrl)      DL (HermiT)
@@ -54,14 +55,17 @@
 #                       bs:EnglishTranslation subClassOf bs:Translation   HermiT only
 #
 #  WHAT TO TAKE AWAY
-#    - RL: rules over triples; fast, browser-sized, never says no. DL:
-#      models; classifies, finds the dead classes, explains.
-#    - RL has schema rules too, and derives more of the hierarchy than
-#      people expect. What it cannot do is compare two definitions as
+#    - RL is rules over triples, fast and browser-sized and never saying
+#      no; DL is models, and it classifies, finds the dead classes and
+#      explains.
+#    - RL has schema rules too and derives more of the hierarchy than
+#      people expect; what it cannot do is compare two definitions as
 #      wholes.
-#    - Use RL for the data and DL for the ontology. Run DL in the gate.
-#    - When a book says 'the reasoner infers', ask which kind. The answer
-#      changes what you can rely on.
+#    - Use RL for the data and DL for the ontology, and run DL in the
+#      gate.
+#    - When a book tells you that the reasoner infers something, ask
+#      which kind of reasoner, because the answer changes what you can
+#      rely on.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

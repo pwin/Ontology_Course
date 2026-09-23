@@ -9,27 +9,29 @@
 #
 #  WHY
 #    gistUFO is a small published file that types every gist class with one
-#    of gUFO's kinds of class: gist:Person is a gufo:Kind, gist:Contract a
-#    gufo:SubKind, gist:ContractTerm a gufo:Role, gist:Offer a gufo:Phase,
-#    gist:Category a gufo:AbstractIndividualType. Those are OntoClean's
-#    distinctions with names: a Kind is rigid and supplies identity, a
-#    SubKind is rigid and inherits it, a Role is anti-rigid and relational,
-#    a Phase is anti-rigid and intrinsic. Reading the file is the fastest
-#    way to see the theory applied to a real ontology by people who had to
+#    of gUFO's kinds of class, so that gist:Person is a gufo:Kind,
+#    gist:Contract a gufo:SubKind, gist:ContractTerm a gufo:Role,
+#    gist:Offer a gufo:Phase and gist:Category a
+#    gufo:AbstractIndividualType. Those are OntoClean's distinctions under
+#    names: a Kind is rigid and supplies identity, a SubKind is rigid and
+#    inherits it, a Role is anti-rigid and relational, and a Phase is anti-
+#    rigid and intrinsic. Reading that file is the quickest way I know to
+#    see the theory applied to a real ontology by people who then had to
 #    live with the result.
 #
-#    The typing is done by punning: gist:Person is an owl:Class, and it is
-#    also an individual of the class gufo:Kind. OWL 2 DL allows one IRI to
-#    be both, and the reasoner keeps the two readings apart. Module 07 says
-#    more; here it is enough that the profile checker agrees.
+#    The typing is done by punning, since gist:Person is an owl:Class and
+#    is also an individual of the class gufo:Kind; OWL 2 DL allows one IRI
+#    to be both and the reasoner keeps the two readings apart, as module 07
+#    explains, and here it is enough that the profile checker agrees.
 #
-#    This file types the Trail's classes the same way and adds one query: a
-#    class typed gufo:Role must carry ~R and +D in the annotations, and a
-#    gufo:Kind must carry +R. If the two disagree, one of them is wrong,
-#    and the disagreement is worth more than either alone. gist's own
-#    naming rule for instances, 'the most specific rigid class', is the
-#    same theory used for a practical end: never name an instance after a
-#    role, because the role may end and the name should not.
+#    This file types the Trail's classes the same way and adds one query,
+#    which asks that a class typed gufo:Role carry ~R and +D in the
+#    annotations and that a gufo:Kind carry +R. Where the two disagree one
+#    of them is wrong, and the disagreement is worth more than either
+#    record on its own. gist's own rule for naming instances, that the
+#    infix is the most specific rigid class, is the same theory put to a
+#    practical end: never name an instance after a role, because the role
+#    may end and the name should not.
 #
 #  DIAGRAM
 #       gUFO type          OntoClean marks        gist example (from gistUFO)    Trail
@@ -44,13 +46,13 @@
 #
 #  WHAT TO TAKE AWAY
 #    - gUFO's Kind, SubKind, Role, Phase and Category are OntoClean's
-#      distinctions as a vocabulary you can assert. gistUFO applies them
-#      to all of gist.
-#    - Typing a class with a metaclass is punning, and it is OWL 2 DL.
-#      The profile checker confirms it.
+#      distinctions as a vocabulary you can assert, and gistUFO applies
+#      them across the whole of gist.
+#    - Typing a class with a metaclass is punning, and it stays within
+#      OWL 2 DL, as the profile checker confirms.
 #    - Two records of the same decision, checked against each other,
-#      catch more than either. Here the gUFO type and the OntoClean marks
-#      must agree.
+#      catch more than either alone, and here the gUFO type and the
+#      OntoClean marks have to agree.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

@@ -9,30 +9,33 @@
 #
 #  WHY
 #    A property name is read in the middle of a triple, so the test is
-#    whether the triple reads. 'The Inkwell isLocatedIn Wigtown' reads;
-#    'The Inkwell locatedIn Wigtown' nearly does; 'The Inkwell location
-#    Wigtown' does not. The gist guide's textual standards come down to
-#    that test plus a handful of tie-breakers: object properties verb-
-#    initial (isAbout, not about); the 'is' prefix on -ed forms
-#    (isGovernedBy); prefer an ordinary verb to hasX (precedes, not
-#    isFollowedBy); datatype properties as nouns (baseConversionFactor, not
-#    convertToBase); present tense; a final preposition where it helps
-#    (hasJurisdictionOver).
+#    simply whether the triple reads. 'The Inkwell isLocatedIn Wigtown'
+#    reads, 'The Inkwell locatedIn Wigtown' very nearly does, and 'The
+#    Inkwell location Wigtown' does not. The gist guide's textual standards
+#    come down to that test and a handful of tie-breakers: object
+#    properties verb-initial, so isAbout rather than about; the 'is' prefix
+#    on -ed forms, as in isGovernedBy; an ordinary verb in preference to
+#    hasX, so precedes rather than isFollowedBy; datatype properties as
+#    nouns, so baseConversionFactor rather than convertToBase; the present
+#    tense; and a final preposition where it helps, as in
+#    hasJurisdictionOver.
 #
-#    Two rules are about direction. Make it unambiguous: hasBroader, not
-#    broader, which SKOS itself gets wrong by this standard. And where
-#    there is a hierarchy, name the property going up it, child to parent,
-#    because that is the direction with fewer results: isPartOf rather than
-#    hasPart, hasSuperCategory rather than hasSubCategory. That rule is
-#    what lets gist do without inverses altogether, which o31 comes to.
+#    Two of the rules are about direction. Make it unambiguous, so
+#    hasBroader rather than broader, which SKOS itself gets wrong by this
+#    standard; and where there is a hierarchy, name the property going up
+#    it, from child to parent, because that is the direction with fewer
+#    results, which gives isPartOf rather than hasPart and hasSuperCategory
+#    rather than hasSubCategory. That last rule is what lets gist do
+#    without inverses altogether, as o31 comes to.
 #
 #    The Trail's vocabulary was written before these rules were adopted
-#    here, and it departs from them in four places: locatedIn, publishedBy,
-#    author and genre would be isLocatedIn, isPublishedBy, hasAuthor and
-#    hasGenre. The departures are recorded on each property as an editorial
-#    note. Renaming them would break 145 queries in the SPARQL course for a
-#    gain in consistency, and that trade is discussed under pragmatism in
-#    o30; the point here is that the departure is written down.
+#    here and departs from them in four places, since locatedIn,
+#    publishedBy, author and genre would be isLocatedIn, isPublishedBy,
+#    hasAuthor and hasGenre; the departures are recorded on each property
+#    as an editorial note. Renaming them would break 145 queries in the
+#    SPARQL course for a gain in consistency, and that trade is discussed
+#    under pragmatism in o30. The point here is that the departure is
+#    written down.
 #
 #  DIAGRAM
 #       test: does the triple read as a sentence?
@@ -46,12 +49,14 @@
 #       datatype properties are nouns:  bs:floorArea  bs:staffCount  bs:founded
 #
 #  WHAT TO TAKE AWAY
-#    - Read the triple aloud. If it is not a sentence, rename the
+#    - Read the triple aloud, and if it is not a sentence then rename the
 #      property.
-#    - Name a hierarchical property going up: isPartOf, isMemberOf,
-#      hasBroader. One direction, fewer results, no inverse needed.
-#    - Where an ontology departs from its own rules, say so on the term.
-#      A recorded departure is a decision; a silent one is drift.
+#    - Name a hierarchical property going up, as in isPartOf, isMemberOf
+#      and hasBroader: one direction, fewer results, and no inverse
+#      needed.
+#    - Where an ontology departs from its own rules, say so on the term,
+#      because a recorded departure is a decision and a silent one is
+#      drift.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser

@@ -9,35 +9,37 @@
 #    exactly that reason.
 #
 #  WHY
-#    An OWL axiom is a claim about the world. It holds for every dataset
-#    that uses the term, forever, and a reasoner will draw conclusions from
-#    it whether or not anyone wanted them. A SHACL shape is a rule about a
-#    dataset: this data, for this website, must look like this, and a
-#    validator will report where it does not. The two look alike on the
-#    page and behave nothing alike, and gist's tenth rule for restrictions
-#    is the test that tells them apart: if an instance of X did not conform
-#    to Y, would it still be an X? If yes, Y is a rule, not meaning, and it
-#    belongs in a shape.
+#    An OWL axiom is a claim about the world, holding for every dataset
+#    that uses the term, for ever, and a reasoner will draw conclusions
+#    from it whether or not anybody wanted them. A SHACL shape is a rule
+#    about a dataset, saying that this data, for this website, must look
+#    like this, and a validator will report wherever it does not. The two
+#    look much alike on the page and behave nothing alike, and gist's tenth
+#    rule for restrictions is the test that tells them apart: if an
+#    instance of X did not conform to Y, would it still be an X? If it
+#    would, then Y is a rule rather than meaning, and it belongs in a
+#    shape.
 #
-#    The Trail's bs:founded is the case. Every shop has one founding year;
-#    that is surely true. But four shops have two recorded, because the
-#    guidebooks disagree, and the brief asks for both to be kept. Declare
-#    the property functional and the reasoner does not flag a disagreement:
-#    it concludes that 1921 and 1923 are the same value, which for literals
-#    is a contradiction, and the whole dataset is inconsistent. This
-#    lesson's file does exactly that, and HermiT says so. The shipped
-#    vocabulary leaves bs:founded non-functional and says why in its
-#    comment; the SHACL course's s04 carries 'exactly one founding year' as
-#    a shape, where a second value is a finding to read rather than a
-#    contradiction to resolve.
+#    The Trail's bs:founded is exactly that case. Every shop has one
+#    founding year, which is surely true; but four shops have two of them
+#    recorded, because the guidebooks disagree, and the brief asks for both
+#    to be kept. Declare the property functional and the reasoner does not
+#    flag a disagreement at all: it concludes that 1921 and 1923 are the
+#    same value, which for literals is a contradiction, and so the whole
+#    dataset becomes inconsistent. This lesson's file does precisely that,
+#    and HermiT says so. The shipped vocabulary leaves bs:founded non-
+#    functional and says why in its comment, while the SHACL course's s04
+#    carries 'exactly one founding year' as a shape, where a second value
+#    is a finding to read rather than a contradiction to resolve.
 #
-#    The general habit is to constrain relationships less than feels
-#    natural. A domain that is too narrow retypes things (o38); a
-#    cardinality that is too tight merges or contradicts (o47); a property
-#    declared functional because 'it always is' becomes false the day a
-#    second source appears. gist keeps domains and ranges sparse for this
-#    reason, and puts data constraints in shapes. Meaning in the ontology,
-#    rules in the shapes, and when in doubt, a shape.
+#    The general habit worth acquiring is to constrain relationships rather
+#    less than feels natural. A domain that is too narrow retypes things,
+#    as o38 shows; a cardinality that is too tight merges things or
+#    contradicts them, as o47 shows; and a property declared functional
+#    because it always is becomes false on the day a second source appears.
+#    gist keeps its domains and ranges sparse for this reason and puts data
+#    constraints in shapes. Meaning in the ontology, rules in the shapes,
+#    and where you are in doubt, a shape.
 #
 #  DIAGRAM
 #       "every shop has exactly one founding year"
@@ -51,12 +53,13 @@
 #       if a shop had two founding years on record, would it still be a shop?  yes  => a shape
 #
 #  WHAT TO TAKE AWAY
-#    - An axiom holds for every dataset forever. A shape holds for this
-#      dataset for this purpose. Ask which you mean.
-#    - Would it still be an X? If yes, it is a rule about data, and it
-#      belongs in SHACL.
-#    - Constrain relationships less than feels natural. Every tight
-#      constraint is a future contradiction with a date on it.
+#    - An axiom holds for every dataset for ever, where a shape holds for
+#      this dataset for this purpose, so ask which of the two you
+#      actually mean.
+#    - Ask whether it would still be an X, and if it would then you have
+#      a rule about data, which belongs in SHACL.
+#    - Constrain relationships less than feels natural, because every
+#      tight constraint is a future contradiction with a date on it.
 #
 #  NOTE
 #    Open in the editor opens founded-shape.ttl in a second tab. Validate:

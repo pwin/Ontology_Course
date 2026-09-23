@@ -24,8 +24,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import catalogue  # noqa: E402,F401
 from ontocat import CATALOGUE, MODULE_INFO  # noqa: E402
 
+# "honest" and its derivations, and "vendored", are barred outright.
 WORDS = [
-    "honest", "genuinely", "plainly", "quietly", "crucially", "robust", "nuanced", "seamless", "seamlessly",
+    "honest", "honestly", "honesty", "vendored", "vendoring", "vendor", "genuinely", "plainly", "quietly", "crucially", "robust", "nuanced", "seamless", "seamlessly",
     "delve", "leverage", "elegant", "elegantly", "simply", "merely", "essentially", "arguably", "importantly",
     "interestingly", "notably", "of course", "needless to say", "it turns out", "the beauty of", "the point is",
     "not just", "not merely", "not only", "at its core", "in essence", "in other words", "in a nutshell",

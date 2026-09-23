@@ -8,32 +8,33 @@
 #    sparse on principle scores low on richness, and gist does.
 #
 #  WHY
-#    AROnto is attributes per class, INROnto relationships per class,
-#    RROnto the share of properties that are attributes, ANOnto annotations
-#    per class, CROnto individuals per class. The paper does not say how a
-#    property is assigned to a class, and the only workable reading is by
-#    rdfs:domain: a property belongs to the class it is declared on.
-#    scripts/metrics.py does that, and counts each member of a union
-#    domain.
+#    AROnto is attributes per class, INROnto is relationships per class,
+#    RROnto is the share of properties that are attributes, ANOnto is
+#    annotations per class, and CROnto is individuals per class. The paper
+#    does not say how a property is to be assigned to a class, and the only
+#    workable reading is by rdfs:domain, so that a property belongs to the
+#    class it is declared on; scripts/metrics.py does that, counting each
+#    member of a union domain.
 #
-#    The consequence is on the diagram. The Trail declares a domain on
-#    nearly every property, so it scores 5 on attribute and relationship
-#    richness. gist declares domains sparingly, as a matter of principle
-#    set out in its README and in o31, so it scores 1 and 2 on the same
-#    metrics with sixty-six object properties and fifty datatype properties
-#    in the file. Nothing is poorer about gist; a design choice the metric
-#    cannot see has been counted as an absence. That is the general lesson
-#    about richness metrics, and it applies to CROnto too, which scores
-#    every pure vocabulary 1 because a schema has no individuals.
+#    The consequence is laid out in the diagram. The Trail declares a
+#    domain on nearly every property and so scores 5 on attribute and
+#    relationship richness, while gist declares domains sparingly as a
+#    matter of principle, set out in its README and in o31, and so scores 1
+#    and 2 on the same metrics with sixty-six object properties and fifty
+#    datatype properties sitting in the file. Nothing about gist is the
+#    poorer for it; a design choice the metric cannot see has simply been
+#    counted as an absence. That is the general lesson about richness
+#    metrics, and it applies to CROnto as well, which scores every pure
+#    vocabulary 1 because a schema has no individuals in it.
 #
-#    ANOnto is the one to watch, because it measures the thing most
-#    ontologies neglect. The Trail has a label and a comment on every
-#    class, so it scores 5; gist has a preferred label, a definition, and
-#    often an example and a scope note, and scores higher still. The
-#    coupling metrics, CBOOnto, RFCOnto, WMCOnto and NOMOnto, are the
-#    software ones with the least ontological content: they add
-#    superclasses and properties per class, and for both ontologies come
-#    out low, which the thresholds read as good.
+#    ANOnto is the one to watch, since it measures the thing most
+#    ontologies neglect. The Trail has a label and a comment on every class
+#    and so scores 5, while gist has a preferred label, a definition and
+#    often an example and a scope note besides, and scores higher still.
+#    The coupling metrics, CBOOnto and RFCOnto and WMCOnto and NOMOnto, are
+#    the software ones with the least ontological content in them, adding
+#    up superclasses and properties per class, and for both ontologies they
+#    come out low, which the thresholds read as good.
 #
 #  DIAGRAM
 #       metric      what                                    Trail         gist         note
@@ -48,12 +49,13 @@
 #       a metric counts what it can see; a principle it cannot see is counted as an absence
 #
 #  WHAT TO TAKE AWAY
-#    - Richness metrics assign properties to classes by domain. Read
-#      their small print before reading their scores.
-#    - gist scores low on richness because it keeps domains sparse on
-#      principle. The metric measured the principle, not the quality.
-#    - ANOnto is the metric that tracks care. It is the one to put in a
-#      gate.
+#    - Richness metrics assign properties to classes by domain, so read
+#      their small print before you read their scores.
+#    - gist scores low on richness because it keeps its domains sparse on
+#      principle, which means the metric measured the principle rather
+#      than the quality.
+#    - ANOnto is the metric that tracks care, and it is the one to put in
+#      a gate.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the gist metrics on the MEASURED line come from scripts/metrics.py over gistCore.ttl

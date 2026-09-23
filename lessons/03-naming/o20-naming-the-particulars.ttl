@@ -8,28 +8,28 @@
 #    are the same rule in two spellings.
 #
 #  WHY
-#    The Trail names its particulars with a lower-case type and a slug:
-#    shop-inkwell, place-wigtown, author-rhona-blackwood, event-
-#    inkwell-2025-03-08. gist's convention is a leading underscore, the
-#    type, an underscore, and the name with its case kept:
-#    _Bookshop_The_Inkwell. The spelling differs; the rule is the same, and
-#    it is the rule from module 02. The infix is the most specific rigid
-#    class the instance belongs to. Never a role, because the role may end
-#    and the IRI may not.
+#    The Trail names its particulars with a lower-case type and a slug, as
+#    in shop-inkwell, place-wigtown, author-rhona-blackwood and event-
+#    inkwell-2025-03-08, while gist's convention is a leading underscore,
+#    the type, an underscore, and then the name with its case kept, giving
+#    _Bookshop_The_Inkwell. The spelling differs and the rule is the same,
+#    and it is the rule from module 02: the infix is the most specific
+#    rigid class the instance belongs to, and never a role, because the
+#    role may end and the IRI may not.
 #
-#    The Trail breaks its own rule once, and the break is worth looking at.
-#    Authors are named author-rhona-blackwood, and Author is a role. gist's
-#    guide would say _Person_Rhona_Blackwood. The Trail's defence is that
-#    its Person class exists only to have authors in it, so the role never
-#    ends within the dataset. That is a pragmatic argument, openly made,
-#    and the editorial note records it.
+#    The Trail breaks its own rule exactly once, and the break is worth
+#    looking at. Authors are named author-rhona-blackwood, and Author is a
+#    role; gist's guide would have _Person_Rhona_Blackwood. The Trail's
+#    defence is that its Person class exists only to have authors in it, so
+#    that the role never ends within the dataset, which is a pragmatic
+#    argument, openly made, and the editorial note records it.
 #
-#    gist's guide also allows a fallback: when the data being mapped does
-#    not say which specific kind a row is, use a higher class as the infix
-#    for the whole table, _Organization_ rather than guessing between
-#    corporations and charities. That is the same rule applied with
-#    humility, and it is better than an infix that is wrong for a third of
-#    the rows.
+#    gist's guide allows a fallback as well, which is that when the data
+#    being mapped does not say which specific kind a row is, you use a
+#    higher class as the infix for the whole table, _Organization_ rather
+#    than guessing between corporations and charities. That is the same
+#    rule applied with a little humility, and it is better than an infix
+#    that is wrong for a third of the rows.
 #
 #  DIAGRAM
 #       the Trail                        gist                              the rule
@@ -42,12 +42,12 @@
 #       fallback when the kind is not known from the data: the nearest rigid class
 #
 #  WHAT TO TAKE AWAY
-#    - Infix the most specific rigid class. It is the one thing about the
-#      instance that will not change.
-#    - Never name an instance after a role. The Trail does, for authors,
-#      and says why on the class.
+#    - Infix the most specific rigid class, since it is the one thing
+#      about the instance that will not change.
+#    - Never name an instance after a role; the Trail does exactly that
+#      for its authors, and says why on the class.
 #    - When the source data cannot tell you the kind, use a higher one
-#      for the whole table rather than guess.
+#      for the whole table rather than guess row by row.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser

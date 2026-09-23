@@ -8,31 +8,32 @@
 #    written on the term either way.
 #
 #  WHY
-#    Every ontology that is used has compromises in it, and the good ones
-#    have them written down. The Trail has five. bs:Work is a work and an
-#    edition. Four properties are named against the gist standard. Inverses
-#    are declared, which gist forbids, so that a reasoning lesson has
-#    something to infer. xsd:gYear is kept for years although it puts the
-#    data outside OWL 2 DL, because the portability trap it creates is one
-#    of the SPARQL course's best lessons. Authors are minted under a role
-#    name. Each is on the term as an editorial note, and this file collects
-#    them.
+#    Every ontology that is actually used has compromises in it, and the
+#    good ones have them written down. The Trail has five. bs:Work is a
+#    work and an edition together; four properties are named against the
+#    gist standard; inverses are declared, which gist forbids, so that a
+#    reasoning lesson has something to infer; xsd:gYear is kept for years
+#    even though it puts the data outside OWL 2 DL, because the portability
+#    trap it creates is one of the SPARQL course's best lessons; and
+#    authors are minted under a role name. Each of them sits on its term as
+#    an editorial note, and this file collects the five together.
 #
 #    The rule that decides is about consequences. A departure that changes
-#    only a name or a convenience is cheap: nothing a reasoner does depends
-#    on whether the property is called author or hasAuthor, and 145 queries
-#    depend on the first. A departure that changes an inference or a query
-#    result is not cheap, because it will be paid by someone who does not
-#    know it is there. Declaring inverses changes what a reasoner derives;
-#    the Trail does it on purpose and says so, and the note is what makes
-#    that a decision.
+#    only a name or a convenience is cheap, since nothing a reasoner does
+#    depends on whether the property is called author or hasAuthor, while
+#    145 queries depend on the first; a departure that changes an inference
+#    or a query result is not cheap at all, because it will be paid for by
+#    somebody who does not know it is there. Declaring inverses changes
+#    what a reasoner derives, and the Trail does it deliberately and says
+#    so, which is what makes it a decision rather than an accident.
 #
-#    Purity has its own costs. BFO is philosophically rigorous and its IRIs
-#    are numbers; gist chose everyday words and a hundred classes, and both
-#    are used by people who had to ship something. Chapter 14 of the SemOps
-#    Manual is a ledger of what a toolchain does not do, and that is the
-#    model: an ontology should carry its own ledger. The unrecorded
-#    compromise is the only kind that is a mistake.
+#    Purity has its own costs, of course. BFO is philosophically rigorous
+#    and its IRIs are numbers; gist chose everyday words and a hundred
+#    classes; and both are used by people who had to ship something.
+#    Chapter 14 of the SemOps Manual is a ledger of what its toolchain does
+#    not do, and that is the model to follow, because an ontology should
+#    carry its own ledger. The unrecorded compromise is the only kind that
+#    is a mistake.
 #
 #  DIAGRAM
 #       compromise                          changes           verdict          recorded on
@@ -46,12 +47,12 @@
 #       rule: cheap if it changes a name; dear if it changes an inference or a result; write it down either way
 #
 #  WHAT TO TAKE AWAY
-#    - The unrecorded compromise is the only kind that is a mistake.
-#      Write each one on the term it affects.
-#    - Weigh a departure by what it changes: a name is cheap, an
+#    - The unrecorded compromise is the only kind that is a mistake, so
+#      write each one on the term it affects.
+#    - Weigh a departure by what it changes, since a name is cheap and an
 #      inference or a query result is dear.
-#    - Rigour and usefulness are both virtues, and an ontology carries a
-#      ledger of where it traded one for the other.
+#    - Rigour and usefulness are both virtues, and an ontology should
+#      carry a ledger of where it traded the one for the other.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

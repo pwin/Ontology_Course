@@ -8,30 +8,30 @@
 #    tangledness is measured rather than assumed.
 #
 #  WHY
-#    Multiple inheritance is legal in OWL and usually a sign that two
+#    Multiple inheritance is legal in OWL and is usually a sign that two
 #    questions have been answered with one class. A class with two parents
 #    has two identity criteria to reconcile and two sets of inherited
-#    axioms to keep consistent, and a reader has to hold both in mind to
-#    know what it means. OQuaRE measures the habit as tangledness, TMOnto,
-#    the mean number of parents per class, and gives full marks only at two
-#    or fewer.
+#    axioms to keep consistent, and a reader has to hold both of them in
+#    mind to know what it means. OQuaRE measures the habit as tangledness,
+#    TMOnto, the mean number of parents per class, and gives full marks
+#    only at two or fewer.
 #
 #    The legitimate case is a rigid subkind that is both things in every
-#    circumstance. bs:Translation is a Work; it is not also something else.
-#    A hypothetical bs:PublisherBookshop, a shop that also publishes, would
-#    be tempting and wrong: it is a Bookshop that plays the publishing
-#    role, and the role goes on the instance, not into the class tree.
-#    OntoClean's rule from module 02 sorts these out before the tree is
-#    drawn.
+#    circumstance, and bs:Translation is one, being a Work and nothing else
+#    besides. A hypothetical bs:PublisherBookshop, a shop that also
+#    publishes, would be tempting and wrong, because it is a Bookshop that
+#    plays the publishing role, and the role goes on the instance rather
+#    than into the class tree; OntoClean's rule from module 02 sorts these
+#    out before the tree is ever drawn.
 #
-#    gist's answer is a different one. Its classes are mostly single-
+#    gist's answer is a different one again. Its classes are mostly single-
 #    parented, and where a class has several conditions it is defined by an
-#    owl:equivalentClass over an intersection, which the reasoner
+#    owl:equivalentClass over an intersection, which the reasoner then
 #    classifies rather than a human asserting a second parent. That is not
-#    tangledness; it is the reasoner doing the tangling and showing its
-#    work. The metric run on this lesson's file counts the one seeded
-#    second parent; run on gist it finds the classes whose asserted parents
-#    number more than one, and there are few.
+#    tangledness but the reasoner doing the tangling and showing its
+#    working. The metric run on this lesson's file counts the one seeded
+#    second parent, and run on gist it finds the classes whose asserted
+#    parents number more than one, of which there are very few.
 #
 #  DIAGRAM
 #       single inheritance            seeded second parent                   the alternative
@@ -45,12 +45,13 @@
 #       TMOnto: mean parents per class, over classes with a parent. Score 5 at 2 or below.
 #
 #  WHAT TO TAKE AWAY
-#    - One parent per backbone class. A second parent is usually a role
-#      that belongs on the instance.
-#    - Let the reasoner do the tangling: define a class by an
-#      intersection and classify, rather than assert two parents.
-#    - Measure tangledness rather than guess. TMOnto is one number and it
-#      is easy to read.
+#    - One parent per backbone class, and a second parent is usually a
+#      role that belongs on the instance instead.
+#    - Let the reasoner do the tangling by defining a class as an
+#      intersection and classifying, rather than asserting a second
+#      parent by hand.
+#    - Measure tangledness rather than guessing at it, since TMOnto is
+#      one number and an easy one to read.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

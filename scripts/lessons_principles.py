@@ -19,27 +19,28 @@ o(
     title="Minimal: as few terms as will answer the questions",
     decides="The Trail has twenty-five classes because ten questions need them; a class that no question needs is not added, and gist's ninety-six for a whole enterprise is the standard to be measured against.",
     corner="thought",
-    why="gist describes itself as 'the maximum coverage of typical business "
-        "ontology concepts with the fewest number of primitives and the "
-        "least amount of ambiguity', and it does it in about a hundred "
-        "classes, sixty-odd object properties and fifty datatype "
-        "properties. That is an enterprise. The Trail, with ten questions "
-        "to answer, has twenty-five classes and eighty-four properties, "
-        "and the properties are the number to watch: every one is a column "
-        "someone will have to fill.\n\n"
-        "Every term costs the same whether it is used or not: a label in "
-        "each language, a definition, a review, a place in the "
+    why="gist describes itself as offering the maximum coverage of typical "
+        "business ontology concepts with the fewest primitives and the "
+        "least ambiguity, and it manages that in about a hundred classes, "
+        "sixty-odd object properties and fifty datatype properties, which "
+        "is enough for an entire enterprise. The Trail, with ten questions "
+        "to answer, has twenty-five classes and eighty-four properties, and "
+        "it is the properties that are worth watching, because every one of "
+        "them is a column that somebody will have to fill.\n\n"
+        "A term costs the same whether it is used or not, since it needs a "
+        "label in each language, a definition, a review, a place in the "
         "documentation, a check in the gate, and a decision every time "
-        "someone wonders whether to use it or its neighbour. A term nobody "
-        "uses is defined badly, because nobody finds out. The discipline is "
-        "the one from o07: a term is admitted when a question needs it, and "
-        "the question is written down beside it.\n\n"
-        "The same discipline applies to axioms. gist keeps domains and "
-        "ranges sparse and declares no inverses, not from laziness but "
-        "because each one is a commitment that some future dataset will "
-        "break, and o31 takes those two up. Minimal is not small for its "
-        "own sake. It is the number of terms at which each one is still "
-        "looked after.",
+        "somebody wonders whether to use it or the one next to it. Worse, a "
+        "term nobody uses is a term defined badly, because nobody ever "
+        "finds out. The discipline is the one from o07, that a term is "
+        "admitted when a question needs it, with the question written down "
+        "beside it.\n\n"
+        "The same discipline applies to axioms. gist keeps its domains and "
+        "ranges sparse and declares no inverses at all, not out of laziness "
+        "but because each of those is a commitment that some future dataset "
+        "will break, and o31 takes the two of them up. Minimal does not "
+        "mean small for its own sake; it means the number of terms at which "
+        "every one of them is still being looked after.",
     diagram="""
                            classes   object props   datatype props   for
    gist 14                    ~96          ~66             ~50       an enterprise
@@ -50,9 +51,9 @@ o(
    time someone wonders whether to use it
 """,
     learn=[
-        "A term is admitted by a question, not by a noun in the brief. Keep the question beside the term.",
-        "Properties are the number to watch. Each is a column someone fills, and the Trail has nearly as many as gist has classes.",
-        "Minimal means every term is still looked after. That is the size to aim for.",
+        "A term is admitted by a question rather than by a noun in the brief, so keep the question beside the term.",
+        "Properties are the number to watch, since each one is a column somebody fills, and the Trail has nearly as many of them as gist has classes.",
+        "Minimal means that every term is still being looked after, and that is the size to aim for.",
     ],
     body=DECL + """
 <https://example.org/bookshop-trail/schema>
@@ -91,34 +92,37 @@ o(
     title="Meaning in the ontology, rules in the shapes",
     decides="An axiom is written only when it is true of every dataset the ontology could describe; anything that is a rule about this dataset, for this purpose, is a SHACL shape, and bs:founded stays non-functional for exactly that reason.",
     corner="referent",
-    why="An OWL axiom is a claim about the world. It holds for every "
-        "dataset that uses the term, forever, and a reasoner will draw "
-        "conclusions from it whether or not anyone wanted them. A SHACL "
-        "shape is a rule about a dataset: this data, for this website, "
-        "must look like this, and a validator will report where it does "
-        "not. The two look alike on the page and behave nothing alike, and "
-        "gist's tenth rule for restrictions is the test that tells them "
+    why="An OWL axiom is a claim about the world, holding for every dataset "
+        "that uses the term, for ever, and a reasoner will draw conclusions "
+        "from it whether or not anybody wanted them. A SHACL shape is a "
+        "rule about a dataset, saying that this data, for this website, "
+        "must look like this, and a validator will report wherever it does "
+        "not. The two look much alike on the page and behave nothing alike, "
+        "and gist's tenth rule for restrictions is the test that tells them "
         "apart: if an instance of X did not conform to Y, would it still be "
-        "an X? If yes, Y is a rule, not meaning, and it belongs in a shape.\n\n"
-        "The Trail's bs:founded is the case. Every shop has one founding "
-        "year; that is surely true. But four shops have two recorded, "
-        "because the guidebooks disagree, and the brief asks for both to "
-        "be kept. Declare the property functional and the reasoner does "
-        "not flag a disagreement: it concludes that 1921 and 1923 are the "
-        "same value, which for literals is a contradiction, and the whole "
-        "dataset is inconsistent. This lesson's file does exactly that, "
-        "and HermiT says so. The shipped vocabulary leaves bs:founded "
-        "non-functional and says why in its comment; the SHACL course's "
-        "s04 carries 'exactly one founding year' as a shape, where a second "
-        "value is a finding to read rather than a contradiction to "
-        "resolve.\n\n"
-        "The general habit is to constrain relationships less than feels "
-        "natural. A domain that is too narrow retypes things (o38); a cardinality that is too tight merges or contradicts (o47); a "
-        "property declared functional because 'it always is' becomes false "
-        "the day a second source appears. gist keeps domains and ranges "
-        "sparse for this reason, and puts data constraints in shapes. "
-        "Meaning in the ontology, rules in the shapes, and when in doubt, "
-        "a shape.",
+        "an X? If it would, then Y is a rule rather than meaning, and it "
+        "belongs in a shape.\n\n"
+        "The Trail's bs:founded is exactly that case. Every shop has one "
+        "founding year, which is surely true; but four shops have two of "
+        "them recorded, because the guidebooks disagree, and the brief asks "
+        "for both to be kept. Declare the property functional and the "
+        "reasoner does not flag a disagreement at all: it concludes that "
+        "1921 and 1923 are the same value, which for literals is a "
+        "contradiction, and so the whole dataset becomes inconsistent. This "
+        "lesson's file does precisely that, and HermiT says so. The shipped "
+        "vocabulary leaves bs:founded non-functional and says why in its "
+        "comment, while the SHACL course's s04 carries 'exactly one "
+        "founding year' as a shape, where a second value is a finding to "
+        "read rather than a contradiction to resolve.\n\n"
+        "The general habit worth acquiring is to constrain relationships "
+        "rather less than feels natural. A domain that is too narrow "
+        "retypes things, as o38 shows; a cardinality that is too tight "
+        "merges things or contradicts them, as o47 shows; and a property "
+        "declared functional because it always is becomes false on the day "
+        "a second source appears. gist keeps its domains and ranges sparse "
+        "for this reason and puts data constraints in shapes. Meaning in "
+        "the ontology, rules in the shapes, and where you are in doubt, a "
+        "shape.",
     diagram="""
    "every shop has exactly one founding year"
 
@@ -131,9 +135,9 @@ o(
    if a shop had two founding years on record, would it still be a shop?  yes  => a shape
 """,
     learn=[
-        "An axiom holds for every dataset forever. A shape holds for this dataset for this purpose. Ask which you mean.",
-        "Would it still be an X? If yes, it is a rule about data, and it belongs in SHACL.",
-        "Constrain relationships less than feels natural. Every tight constraint is a future contradiction with a date on it.",
+        "An axiom holds for every dataset for ever, where a shape holds for this dataset for this purpose, so ask which of the two you actually mean.",
+        "Ask whether it would still be an X, and if it would then you have a rule about data, which belongs in SHACL.",
+        "Constrain relationships less than feels natural, because every tight constraint is a future contradiction with a date on it.",
     ],
     body=DECL + """
 bs:Bookshop  a owl:Class ; skos:prefLabel "Bookshop"@en .
@@ -190,28 +194,32 @@ o(
     title="Pragmatism and purity",
     decides="A departure from a principle is allowed when it changes only a name or a convenience, refused when it changes an inference or a query, and written on the term either way.",
     corner="thought",
-    why="Every ontology that is used has compromises in it, and the good "
-        "ones have them written down. The Trail has five. bs:Work is a "
-        "work and an edition. Four properties are named against the gist "
-        "standard. Inverses are declared, which gist forbids, so that a "
-        "reasoning lesson has something to infer. xsd:gYear is kept for "
-        "years although it puts the data outside OWL 2 DL, because the "
-        "portability trap it creates is one of the SPARQL course's best "
-        "lessons. Authors are minted under a role name. Each is on the term "
-        "as an editorial note, and this file collects them.\n\n"
+    why="Every ontology that is actually used has compromises in it, and "
+        "the good ones have them written down. The Trail has five. bs:Work "
+        "is a work and an edition together; four properties are named "
+        "against the gist standard; inverses are declared, which gist "
+        "forbids, so that a reasoning lesson has something to infer; "
+        "xsd:gYear is kept for years even though it puts the data outside "
+        "OWL 2 DL, because the portability trap it creates is one of the "
+        "SPARQL course's best lessons; and authors are minted under a role "
+        "name. Each of them sits on its term as an editorial note, and this "
+        "file collects the five together.\n\n"
         "The rule that decides is about consequences. A departure that "
-        "changes only a name or a convenience is cheap: nothing a reasoner "
-        "does depends on whether the property is called author or "
-        "hasAuthor, and 145 queries depend on the first. A departure that "
-        "changes an inference or a query result is not cheap, because it "
-        "will be paid by someone who does not know it is there. Declaring "
-        "inverses changes what a reasoner derives; the Trail does it on "
-        "purpose and says so, and the note is what makes that a decision.\n\n"
-        "Purity has its own costs. BFO is philosophically rigorous and its "
-        "IRIs are numbers; gist chose everyday words and a hundred classes, "
-        "and both are used by people who had to ship something. Chapter 14 of the SemOps Manual is a ledger of what a toolchain does not do, and that is the model: an ontology should carry its own "
-        "ledger. The unrecorded compromise is the only kind that is a "
-        "mistake.",
+        "changes only a name or a convenience is cheap, since nothing a "
+        "reasoner does depends on whether the property is called author or "
+        "hasAuthor, while 145 queries depend on the first; a departure that "
+        "changes an inference or a query result is not cheap at all, "
+        "because it will be paid for by somebody who does not know it is "
+        "there. Declaring inverses changes what a reasoner derives, and the "
+        "Trail does it deliberately and says so, which is what makes it a "
+        "decision rather than an accident.\n\n"
+        "Purity has its own costs, of course. BFO is philosophically "
+        "rigorous and its IRIs are numbers; gist chose everyday words and a "
+        "hundred classes; and both are used by people who had to ship "
+        "something. Chapter 14 of the SemOps Manual is a ledger of what its "
+        "toolchain does not do, and that is the model to follow, because an "
+        "ontology should carry its own ledger. The unrecorded compromise is "
+        "the only kind that is a mistake.",
     diagram="""
    compromise                          changes           verdict          recorded on
 
@@ -224,9 +232,9 @@ o(
    rule: cheap if it changes a name; dear if it changes an inference or a result; write it down either way
 """,
     learn=[
-        "The unrecorded compromise is the only kind that is a mistake. Write each one on the term it affects.",
-        "Weigh a departure by what it changes: a name is cheap, an inference or a query result is dear.",
-        "Rigour and usefulness are both virtues, and an ontology carries a ledger of where it traded one for the other.",
+        "The unrecorded compromise is the only kind that is a mistake, so write each one on the term it affects.",
+        "Weigh a departure by what it changes, since a name is cheap and an inference or a query result is dear.",
+        "Rigour and usefulness are both virtues, and an ontology should carry a ledger of where it traded the one for the other.",
     ],
     body=DECL + """
 bs:Work       a owl:Class ;
@@ -253,33 +261,34 @@ o(
     title="Disjoint at the top, sparse in the middle, no inverses",
     decides="The top-level kinds are declared pairwise disjoint, domains and ranges are declared only where every use will agree, and inverses are not declared unless a lesson needs one.",
     corner="referent",
-    why="gist's README lists its structural habits in one breath: sparse "
-        "domain and range specifications for broader applicability, no "
-        "inverse properties, and extensive fine-grained disjointness at the "
-        "highest level. The three go together and each is a bet about the "
-        "future.\n\n"
+    why="gist's README lists its structural habits in a single breath: "
+        "sparse domain and range specifications for broader applicability, "
+        "no inverse properties at all, and extensive fine-grained "
+        "disjointness at the highest level. The three go together, and each "
+        "of them is a bet about the future.\n\n"
         "Disjointness at the top is the cheap axiom that catches the "
-        "expensive mistake. Nothing is both a place and a bookshop, and "
-        "saying so lets a reasoner notice when a data load types one thing "
-        "as both. The Trail declares its ten top-level kinds disjoint in one "
-        "owl:AllDisjointClasses, and four subkinds of Place disjoint in "
-        "another. Below that it stops: Author and TrailMember are roles and "
-        "a shop can be both a member and a shop, so disjointness lower down "
-        "is where the tenth rule from o29 starts to bite.\n\n"
+        "expensive mistake, since nothing is both a place and a bookshop, "
+        "and saying so lets a reasoner notice when a data load types one "
+        "thing as both. The Trail declares its ten top-level kinds disjoint "
+        "in one owl:AllDisjointClasses and the four subkinds of Place in "
+        "another, and then it stops, because Author and TrailMember are "
+        "roles and a shop can perfectly well be both a member and a shop; "
+        "disjointness lower down is where the tenth rule from o29 starts to "
+        "bite.\n\n"
         "Sparse domains and ranges are the opposite bet. A domain is an "
-        "inference rule: whatever has this property is of this class. State "
-        "bs:locatedIn's domain as Bookshop and every publisher with an "
-        "address becomes a bookshop; the Trail states a union instead, and "
-        "leaves bs:claimedBy with no domain at all because its subject is a "
-        "statement. gist goes further and leaves most domains open, on the "
-        "principle that a property is more reusable than any class it was "
-        "first used with.\n\n"
-        "No inverses is the bet that one direction is enough. Every "
-        "inverse doubles the query paths, the data, the shapes and the "
-        "reasoner's work, and buys nothing a SPARQL caret or a SHACL "
-        "inverse path does not. gist removed all of them in version 12 and "
-        "picks the direction with fewer results, child to parent. The "
-        "Trail keeps two on purpose (o30).",
+        "inference rule, saying that whatever has this property is of this "
+        "class, so that if you state bs:locatedIn's domain as Bookshop then "
+        "every publisher with an address becomes a bookshop; the Trail "
+        "states a union instead, and leaves bs:claimedBy with no domain "
+        "whatever, its subject being a statement. gist goes further still "
+        "and leaves most domains open, on the principle that a property is "
+        "more reusable than any class it happened to be used with first.\n\n"
+        "No inverses is the bet that one direction will do. Every inverse "
+        "doubles the query paths, the data, the shapes and the reasoner's "
+        "work, and buys nothing that a SPARQL caret or a SHACL inverse path "
+        "does not already give you; gist removed all of them in version 12 "
+        "and picks the direction with fewer results, from child to parent. "
+        "The Trail keeps two of them on purpose, as o30 explains.",
     diagram="""
    disjoint at the top      [] a owl:AllDisjointClasses ; owl:members ( Place Bookshop Person Publisher Work ... )
                             cheap; catches a thing typed as two kinds at once
@@ -292,9 +301,9 @@ o(
                             one direction, fewer results, half the paths
 """,
     learn=[
-        "Declare the top-level kinds disjoint. It is one axiom and it catches the worst data error there is.",
-        "A domain is an inference rule. Declare one only when every use of the property will agree with it, and use a union when two will not.",
-        "One direction per relationship. The query language and the shapes language both walk it backwards for free.",
+        "Declare the top-level kinds disjoint, since it is one axiom and it catches the worst data error there is.",
+        "A domain is an inference rule, so declare one only where every use of the property will agree with it, and reach for a union where two will not.",
+        "One direction per relationship, because the query language and the shapes language will both walk it backwards for nothing.",
     ],
     body=DECL + """
 bs:Place a owl:Class . bs:Bookshop a owl:Class . bs:Person a owl:Class .
@@ -332,26 +341,29 @@ o(
     title="One parent, mostly",
     decides="Every backbone class has one parent; a second parent is allowed only for a rigid subkind that is both things in every circumstance, and the tangledness is measured rather than assumed.",
     corner="referent",
-    why="Multiple inheritance is legal in OWL and usually a sign that two "
-        "questions have been answered with one class. A class with two "
+    why="Multiple inheritance is legal in OWL and is usually a sign that "
+        "two questions have been answered with one class. A class with two "
         "parents has two identity criteria to reconcile and two sets of "
         "inherited axioms to keep consistent, and a reader has to hold both "
-        "in mind to know what it means. OQuaRE measures the habit as tangledness, TMOnto, the mean number of parents per class, and gives full marks only at two or fewer.\n\n"
-        "The legitimate case is a rigid subkind that is both things in every circumstance. "
-        "bs:Translation is a Work; it is not also something else. A "
-        "hypothetical bs:PublisherBookshop, a shop that also publishes, "
-        "would be tempting and wrong: it is a Bookshop that plays the "
-        "publishing role, and the role goes on the instance, not into the "
-        "class tree. OntoClean's rule from module 02 sorts these out before "
-        "the tree is drawn.\n\n"
-        "gist's answer is a different one. Its classes are mostly single-"
-        "parented, and where a class has several conditions it is defined "
-        "by an owl:equivalentClass over an intersection, which the reasoner "
-        "classifies rather than a human asserting a second parent. That is "
-        "not tangledness; it is the reasoner doing the tangling and showing "
-        "its work. The metric run on this lesson's file counts the one "
-        "seeded second parent; run on gist it finds the classes whose "
-        "asserted parents number more than one, and there are few.",
+        "of them in mind to know what it means. OQuaRE measures the habit "
+        "as tangledness, TMOnto, the mean number of parents per class, and "
+        "gives full marks only at two or fewer.\n\n"
+        "The legitimate case is a rigid subkind that is both things in "
+        "every circumstance, and bs:Translation is one, being a Work and "
+        "nothing else besides. A hypothetical bs:PublisherBookshop, a shop "
+        "that also publishes, would be tempting and wrong, because it is a "
+        "Bookshop that plays the publishing role, and the role goes on the "
+        "instance rather than into the class tree; OntoClean's rule from "
+        "module 02 sorts these out before the tree is ever drawn.\n\n"
+        "gist's answer is a different one again. Its classes are mostly "
+        "single-parented, and where a class has several conditions it is "
+        "defined by an owl:equivalentClass over an intersection, which the "
+        "reasoner then classifies rather than a human asserting a second "
+        "parent. That is not tangledness but the reasoner doing the "
+        "tangling and showing its working. The metric run on this lesson's "
+        "file counts the one seeded second parent, and run on gist it finds "
+        "the classes whose asserted parents number more than one, of which "
+        "there are very few.",
     diagram="""
    single inheritance            seeded second parent                   the alternative
 
@@ -364,9 +376,9 @@ o(
    TMOnto: mean parents per class, over classes with a parent. Score 5 at 2 or below.
 """,
     learn=[
-        "One parent per backbone class. A second parent is usually a role that belongs on the instance.",
-        "Let the reasoner do the tangling: define a class by an intersection and classify, rather than assert two parents.",
-        "Measure tangledness rather than guess. TMOnto is one number and it is easy to read.",
+        "One parent per backbone class, and a second parent is usually a role that belongs on the instance instead.",
+        "Let the reasoner do the tangling by defining a class as an intersection and classifying, rather than asserting a second parent by hand.",
+        "Measure tangledness rather than guessing at it, since TMOnto is one number and an easy one to read.",
     ],
     body=DECL + """
 bs:Work         a owl:Class .
@@ -399,27 +411,30 @@ o(
     decides="Every definition records who agreed it and when, the domain experts review the model in a form they can read, and a disagreement about territory is modelled rather than adjudicated by the modeller.",
     corner="thought",
     why="The process of bringing an ontology into an organisation is a "
-        "social one. People have to get together and work out what kinds "
-        "of things they have, what words are used for them across the "
-        "business, and how each can be defined without going round in a "
-        "circle. That process builds a team, and sometimes it exposes a "
-        "fault line that was already there. The output is a vocabulary in "
-        "common; the process is at least half the value.\n\n"
-        "The SemOps Manual names the two ways it goes wrong. Definitions "
-        "are territory: when two departments disagree about a term, each "
-        "definition is load-bearing for someone, and a modeller who picks one without saying so has made a decision they had no authority to make. Model "
-        "the disagreement, get the adjudication from someone who can make "
-        "it stick, and record who decided. And the priesthood problem: "
-        "when only three people can read the model, the domain experts "
-        "stop correcting it, and the model records the modeller's "
-        "understanding rather than theirs. The remedy is not to teach "
-        "everyone OWL. It is to put the model in front of them in a form "
-        "they can check, which is what the editor's graph view is for, and "
-        "why every lesson in this course opens in it.\n\n"
-        "OBO Foundry principles FP-010 and FP-011 say the same from the "
-        "other side: development is collaborative, and a named person is "
-        "responsible for communication. This file puts both on the ontology "
-        "node, and puts the decision trail on the terms.",
+        "social one. People have to get together and work out what kinds of "
+        "things they have, what words get used for them across the "
+        "business, and how each one can be defined without going round in a "
+        "circle; and that process builds a team, though it sometimes "
+        "exposes a fault line that was there already. The output is a "
+        "vocabulary in common, and the process is at least half the value "
+        "of the whole undertaking.\n\n"
+        "The SemOps Manual names the two ways it goes wrong. The first is "
+        "that definitions are territory: when two departments disagree "
+        "about a term, each definition is load-bearing for somebody, and a "
+        "modeller who picks one without saying so has made a decision they "
+        "had no authority to make, so the thing to do is model the "
+        "disagreement, get the adjudication from somebody who can make it "
+        "stick, and record who decided. The second is the priesthood "
+        "problem, where only three people can read the model, the domain "
+        "experts stop correcting it, and what gets recorded is the "
+        "modeller's understanding rather than theirs. The remedy is not to "
+        "teach everybody OWL but to put the model in front of them in a "
+        "form they can check, which is what the editor's graph view is for "
+        "and why every lesson in this course opens in it.\n\n"
+        "OBO Foundry principles FP-010 and FP-011 say much the same from "
+        "the other side, that development is collaborative and that a named "
+        "person is responsible for communication, and this file puts both "
+        "of them on the ontology node and the decision trail on the terms.",
     diagram="""
    the workshop                                   the record
 
@@ -431,9 +446,9 @@ o(
    territory: model both meanings; someone with authority chooses; write down who
 """,
     learn=[
-        "Building the vocabulary is a social process, and the team it builds is part of the return.",
-        "Model a disagreement about territory; do not settle it. Get a decision from someone who can make it stick, and record who.",
-        "If the experts cannot read the model, they cannot correct it. Show them the graph, not the axioms.",
+        "Building the vocabulary is a social process, and the team it builds is part of the return on it.",
+        "Model a disagreement about territory rather than settling it, get a decision from somebody who can make it stick, and record who that was.",
+        "If the experts cannot read the model then they cannot correct it, so show them the graph rather than the axioms.",
     ],
     body=DECL + """
 dct:contributor  a owl:AnnotationProperty .
@@ -480,28 +495,30 @@ o(
     title="Ontologies like code: the loop and the gate",
     decides="The vocabulary lives in version control, is checked in the editor as it is written and at the gate before it merges, and the checks are asserted by identifier and scoped to the Trail's own namespace.",
     corner="thought",
-    why="The SemOps Manual's maturity model has five levels and says most "
-        "of the return is in the step from two to three: from 'we treat "
-        "ontologies like code' to 'the standards are enforced without "
-        "anyone remembering to enforce them'. Level two is a decision: put "
-        "the files in git, check them in the editor as you type, run the "
-        "checks locally. Level three is a gate: the same checks in CI, with "
-        "a non-zero exit code when something is wrong.\n\n"
-        "Two lessons from the manual's chapter 9 decide whether the gate "
-        "survives its first month. First, scope the findings to your own "
-        "namespace. The Trail borrows SKOS, GeoSPARQL and PROV terms; a "
-        "gate that reports the W3C's documentation habits alongside the "
-        "Trail's will be switched off by the second week. The Quality "
-        "Suite's --own-namespace flag keeps the imports resolved and "
-        "filters the report to the terms you control. Second, assert on "
-        "check identifiers, not counts: 'LOG-001 must fire on the fixture "
-        "with the seeded contradiction' survives a registry upgrade; "
-        "'expected 23 findings' does not.\n\n"
-        "This course is built that way. Every lesson is generated from a "
-        "catalogue, every measured line comes from a run, the checker "
-        "fails on any expectation that does not hold, and the seeded "
-        "faults exist so that the checks can be seen to fire. That is the "
-        "practice the manual describes, applied to a course about "
+    why="The SemOps Manual's maturity model has five levels and says that "
+        "most of the return lies in the step from two to three, which is "
+        "the step from treating ontologies like code to having the "
+        "standards enforced without anybody having to remember to enforce "
+        "them. Level two is really a decision: put the files in git, check "
+        "them in the editor as you type, and run the checks locally. Level "
+        "three is a gate, which is the same checks in CI with a non-zero "
+        "exit code when something is wrong.\n\n"
+        "Two lessons from the manual's chapter 9 decide whether that gate "
+        "survives its first month. The first is to scope the findings to "
+        "your own namespace, because the Trail borrows SKOS, GeoSPARQL and "
+        "PROV terms, and a gate that reports the W3C's documentation habits "
+        "alongside the Trail's will have been switched off by the second "
+        "week; the Quality Suite's --own-namespace flag keeps the imports "
+        "resolved while filtering the report down to the terms you control. "
+        "The second is to assert on check identifiers rather than counts, "
+        "since 'LOG-001 must fire on the fixture with the seeded "
+        "contradiction' survives a registry upgrade and 'expected 23 "
+        "findings' does not.\n\n"
+        "This course is built that way itself. Every lesson is generated "
+        "from a catalogue, every measured line comes from a run, the "
+        "checker fails on any expectation that does not hold, and the "
+        "seeded faults exist so that the checks can be seen to fire; which "
+        "is the practice the manual describes, applied to a course about "
         "ontologies rather than to an ontology.",
     diagram="""
    level 2: ontologies like code            level 3: the gate
@@ -514,9 +531,9 @@ o(
    this lesson's file, through the suite with --own-namespace: the ids below, and only those
 """,
     learn=[
-        "Put the vocabulary in version control and check it as you type. That is level two, and it is a decision, not a project.",
-        "The gate reports your namespace only, and tests assert check identifiers. Both are what keep a gate switched on.",
-        "A check that has never fired is indistinguishable from a clean model. Keep a fixture that makes each one fire.",
+        "Put the vocabulary in version control and check it as you type, which is level two, and which is a decision rather than a project.",
+        "The gate reports on your namespace only, and the tests assert check identifiers; both of those are what keep a gate switched on.",
+        "A check that has never fired is indistinguishable from a clean model, so keep a fixture that makes each one of them fire.",
     ],
     body=DECL + """
 <https://example.org/bookshop-trail/schema>

@@ -8,30 +8,33 @@
 #    rewritten.
 #
 #  WHY
-#    Circular: 'A publisher is an organisation that publishes.' The reader
-#    who did not know what publishing was is no further on. Too broad: 'An
-#    event is something that happens.' True of a sneeze. By example only:
-#    'Genre: crime, poetry, nature writing and so on.' The list is not the
-#    meaning, and 'and so on' is where the next disagreement lives.
-#    Negative: 'A bookshop is a business that is not a publisher.' Says
-#    what it is not, which leaves everything else. By IRI: 'The class
-#    bs:Bookshop.' A definition that could only be read by someone who
-#    already had the ontology open.
+#    There are five ways a definition goes wrong and the draft has one of
+#    each. The circular, 'a publisher is an organisation that publishes',
+#    leaves the reader who did not know what publishing was no further on.
+#    The too broad, 'an event is something that happens', is true of a
+#    sneeze. The by example only, 'genre: crime, poetry, nature writing and
+#    so on', offers a list that is not the meaning, and 'and so on' is
+#    exactly where the next disagreement will live. The negative, 'a
+#    bookshop is a business that is not a publisher', says what the thing
+#    is not and leaves everything else in. And the by IRI, 'the class
+#    bs:Bookshop', could only be read by somebody who already had the
+#    ontology open in front of them.
 #
-#    Each has a repair and it is the same repair: find the genus, find the
-#    differentia, write one sentence. 'A publisher is an organisation that
-#    issues works for sale under its own name.' 'An event is an occasion
-#    held at a bookshop on a given day, open to the public.' 'A genre is a
-#    category of works by their subject and manner, used to shelve books
-#    and to describe what a shop is known for.'
+#    Each has a repair and it is the same repair in every case: find the
+#    genus, find the differentia, write one sentence. A publisher is an
+#    organisation that issues works for sale under its own name; an event
+#    is an occasion held at a bookshop on a given day, open to the public;
+#    a genre is a category of works by their subject and manner, used to
+#    shelve books and to describe what a shop is known for.
 #
-#    The audit catches three by looking for the term's own stem in the
-#    first sentence: the two circular ones, and the one by IRI, which is
-#    circular in the plainest way, since it names the term. The other two
-#    need a reader, and the SemOps Manual's point about cognitive budget
-#    applies: a definition is read by many people once each, so a minute
-#    spent on it is repaid many times, and a definition that makes the
-#    reader do the work is a cost paid by everyone.
+#    The audit catches three of the five by looking for the term's own stem
+#    in the first sentence, those being the two circular ones and the one
+#    by IRI, which is circular in the plainest way since it simply names
+#    the term. The other two need a reader, and the SemOps Manual's point
+#    about cognitive budget applies here: a definition is read by many
+#    people once each, so a minute spent on it is repaid many times over,
+#    and a definition that makes the reader do the work is a cost that
+#    everybody pays.
 #
 #  DIAGRAM
 #       failure          draft                                           repair
@@ -45,12 +48,12 @@
 #       the audit finds three (circular twice, and by IRI); a reader finds the rest
 #
 #  WHAT TO TAKE AWAY
-#    - The reader who does not already know must be able to decide
-#      membership from the sentence. Every failure here breaks that.
-#    - Circularity is mechanical to find and common. Too broad and by
-#      example are commoner and need a reader.
-#    - A definition is read many times by many people. It is the cheapest
-#      place to spend a careful minute.
+#    - The reader who does not already know has to be able to decide
+#      membership from the sentence, and every failure here breaks that.
+#    - Circularity is mechanical to find and it is common; too broad and
+#      by example are commoner still, and they need a reader.
+#    - A definition is read many times by many people, which makes it the
+#      cheapest place in the whole vocabulary to spend a careful minute.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

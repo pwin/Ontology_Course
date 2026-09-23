@@ -9,29 +9,32 @@
 #    and the reasoner names the axioms responsible.
 #
 #  WHY
-#    An ontology is inconsistent when no interpretation satisfies it. It is
-#    one verdict for the whole graph, and the first thing to know is that
-#    it is rarely subtle. Almost every inconsistency in practice has one of
-#    three shapes. A thing typed with two classes declared disjoint,
-#    usually a data load with the wrong kind (o43). A functional property
-#    with two values that are declared, or can be proved, different: two
-#    towns for one shop with owl:differentFrom between them, or two
-#    integers, since literals are different when they differ (o47). Or a
-#    value a datatype cannot hold, 'four' as an xsd:integer, which the
-#    reasoner treats as no value at all and the axiom that requires one
-#    then fails.
+#    An ontology is inconsistent when no interpretation satisfies it, which
+#    is one verdict for the whole graph, and the first thing to know about
+#    it is that it is rarely subtle. Almost every inconsistency I have met
+#    in practice has one of three shapes: a thing typed with two classes
+#    declared disjoint, which is usually a data load with the wrong kind in
+#    it, as o43 describes; a functional property with two values that are
+#    declared different or can be proved so, whether two towns for one shop
+#    with owl:differentFrom between them or two integers, since literals
+#    differ when they differ, as o47 describes; or a value outside its
+#    datatype, such as a staff count of minus three where the range is an
+#    integer of at least zero. A value that is not even a well- formed
+#    literal, 'four' as an xsd:integer, never reaches the reasoner at all,
+#    since the OWL API refuses to load the file, which is a stricter kind
+#    of no.
 #
-#    This file seeds all three, so that HermiT's verdict is unmistakable,
-#    and the reasoner can be asked to explain. ROBOT's explain command in
-#    inconsistency mode returns the smallest sets of axioms that produce
-#    the contradiction, one per cause, and the measured line carries the
-#    first of them. That is the tool to reach for when a large ontology
-#    turns inconsistent after a change: not reading the ontology, but
-#    asking which few axioms are to blame.
+#    This file seeds all three so that HermiT's verdict is unmistakable and
+#    the reasoner can be asked to explain itself. ROBOT's explain command
+#    in inconsistency mode returns the smallest sets of axioms that produce
+#    the contradiction, one set per cause, and the measured line carries
+#    the first of them; that is the tool to reach for when a large ontology
+#    turns inconsistent after a change, since the question to ask is not
+#    what the ontology says but which few axioms are to blame.
 #
-#    The editor's RL closure will show the sameAs and the types and say
-#    nothing about a contradiction. For the browser, each cause is a query,
-#    and the three queries here find the three seeds.
+#    The editor's RL closure will show you the sameAs and the types and say
+#    nothing at all about a contradiction, so for the browser each cause
+#    becomes a query, and the three queries here find the three seeds.
 #
 #  DIAGRAM
 #       cause                                   seed                                               query
@@ -44,11 +47,12 @@
 #
 #  WHAT TO TAKE AWAY
 #    - Inconsistency is one verdict for the whole graph, and it almost
-#      always has one of three shapes.
-#    - Ask the reasoner to explain. The smallest set of axioms behind a
-#      contradiction is a few lines, however large the ontology.
+#      always turns out to have one of three shapes.
+#    - Ask the reasoner to explain itself, because the smallest set of
+#      axioms behind a contradiction is a few lines however large the
+#      ontology may be.
 #    - The browser cannot report a contradiction, but each cause is a
-#      query, and the queries belong in the gate.
+#      query, and those queries belong in the gate.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; HermiT's verdict and the explanation come from ROBOT
@@ -58,7 +62,7 @@
 #            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
 #            OWL 2 Primer 4.3 Class Disjointness
 #            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
-#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 2 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
+#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 3 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

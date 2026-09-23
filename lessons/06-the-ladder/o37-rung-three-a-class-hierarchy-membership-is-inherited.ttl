@@ -9,26 +9,28 @@
 #
 #  WHY
 #    rdfs:subClassOf is the first promise about members. Settlement under
-#    Place means every settlement is a place, and a reasoner, any reasoner,
-#    will type Wigtown as a Place without being told. RDF Semantics writes
-#    the rule down: if x is in A and A is a subclass of B, x is in B. The
-#    editor's Show Facts does it in the browser; the OWL 2 RL closure this
-#    lesson was measured with does the same on the place file and adds the
-#    typing for every settlement, council area, region and country in it.
+#    Place means that every settlement is a place, and a reasoner, any
+#    reasoner at all, will type Wigtown as a Place without being told to;
+#    RDF Semantics writes the rule down, that if x is in A and A is a
+#    subclass of B then x is in B. The editor's Show Facts does it in the
+#    browser, and the OWL 2 RL closure this lesson was measured with does
+#    the same over the place file, adding the typing for every settlement,
+#    council area, region and country in it.
 #
 #    The Trail chose a class hierarchy for places and a concept scheme for
-#    genres, and the reason is what each is asked. A question about places,
-#    'which shops are in Wales', needs every kind of place to be a place
-#    and never needs to say which kind on the way down. A question about
-#    genres, 'which shops specialise in crime fiction including its kinds',
-#    needs to walk the tree explicitly, and is answered by a path over
-#    particulars. Class hierarchy where membership must be inherited;
-#    concept scheme where the tree must be walked.
+#    genres, and the reason lies in what each of them is asked. A question
+#    about places, such as which shops are in Wales, needs every kind of
+#    place to be a place and never needs to say which kind on the way down;
+#    a question about genres, such as which shops specialise in crime
+#    fiction including its kinds, needs the tree walked explicitly and is
+#    answered by a path over particulars. So: a class hierarchy where
+#    membership must be inherited, and a concept scheme where the tree must
+#    be walked.
 #
-#    The subclass rule is also transitive: Settlement under Place under
-#    Feature makes every town a feature. Depth is what makes deep
-#    hierarchies risky and shallow ones cheap, and it is why the backbone
-#    from o12 is two levels deep.
+#    The subclass rule is transitive as well, so that Settlement under
+#    Place under Feature makes every town a feature, and it is depth that
+#    makes deep hierarchies risky and shallow ones cheap, which is why the
+#    backbone from o12 is only two levels deep.
 #
 #  DIAGRAM
 #       rung 3  a class hierarchy
@@ -44,17 +46,19 @@
 #
 #  WHAT TO TAKE AWAY
 #    - rdfs:subClassOf is the first promise about members, and the
-#      reasoner keeps it: every instance of the subclass is typed with
-#      the superclass.
-#    - Use a class hierarchy where membership must be inherited silently;
-#      a concept scheme where the tree must be walked explicitly.
-#    - Subclass is transitive. Depth multiplies inferences, which is a
-#      reason to keep the backbone shallow.
+#      reasoner keeps it, typing every instance of the subclass with the
+#      superclass.
+#    - Use a class hierarchy where membership has to be inherited
+#      silently, and a concept scheme where the tree has to be walked
+#      explicitly.
+#    - Subclass is transitive, so depth multiplies inferences, which is a
+#      good reason to keep the backbone shallow.
 #
 #  TRY IT
-#    Load data/03-places.ttl, hide types and annotations, choose the dot
-#    engine: the containment hierarchy. Then Show Facts, and count how many
-#    things are now typed bs:Place that the file never said were.
+#    Load data/03-places.ttl, hide the types and annotations and choose the
+#    dot engine, and you are looking at the containment hierarchy. Then
+#    press Show Facts and count how many things are now typed bs:Place that
+#    the file never said were.
 #
 #  CORNER    referent
 #  DATA      03-places.ttl

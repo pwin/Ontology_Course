@@ -8,31 +8,31 @@
 #    declared on the ontology node.
 #
 #  WHY
-#    A namespace is a prefix that an owner mints names under. The Trail has
-#    two: https://example.org/bookshop-trail/schema# for the classes and
-#    properties, and https://example.org/bookshop-trail/ for the
-#    particulars. gist has three, and its Namespace document explains why:
-#    ontology terms, taxonomy terms and instance data change at different
-#    rates and are governed by different people, and a namespace is the
-#    unit of governance.
+#    A namespace is a prefix that an owner mints names under, and the Trail
+#    has two of them: https://example.org/bookshop-trail/schema# for the
+#    classes and properties, and https://example.org/bookshop- trail/ for
+#    the particulars. gist has three, and its Namespace document explains
+#    why, which is that ontology terms, taxonomy terms and instance data
+#    change at different rates and are governed by different people, so
+#    that a namespace is really a unit of governance.
 #
-#    Hash or slash is the other choice. With a hash, everything after the #
-#    is a fragment, so a browser asking for bs:Bookshop fetches the whole
-#    schema document and finds the term inside it. That is right for a
-#    vocabulary of a few hundred terms that is read as a whole. With a
-#    slash, each IRI can be served on its own, which is right for thirty-
-#    three shops and will still be right for thirty thousand. Cool URIs for
-#    the Semantic Web sets the two out and, sensibly, declines to pick one
-#    for every case.
+#    Hash or slash is the other choice to make. With a hash, everything
+#    after the # is a fragment, so a browser asking for bs:Bookshop fetches
+#    the whole schema document and finds the term inside it, which suits a
+#    vocabulary of a few hundred terms that is read as a whole; with a
+#    slash, each IRI can be served on its own, which suits thirty-three
+#    shops and will still suit thirty thousand. Cool URIs for the Semantic
+#    Web sets the two out and, sensibly enough, declines to pick one for
+#    every case.
 #
 #    The ontology's own IRI, https://example.org/bookshop-trail/schema
-#    without the hash, names the document. It is not the same as the
-#    namespace, and the Ontology Quality Suite's check QUA-006 fires when
-#    the two are conflated, because a term whose IRI equals the ontology
-#    IRI plus nothing is a term that cannot be told from the ontology. The
-#    vann vocabulary gives a place to write the preferred prefix and
-#    namespace on the ontology node, so that tools and people agree on
-#    'bs:' without being told.
+#    without the hash, names the document rather than the namespace, and
+#    the Ontology Quality Suite's QUA-006 fires when the two are conflated,
+#    because a term whose IRI is the ontology IRI and nothing more cannot
+#    be told apart from the ontology. The vann vocabulary then gives us
+#    somewhere to write the preferred prefix and namespace on the ontology
+#    node, so that tools and people can agree on 'bs:' without having to be
+#    told.
 #
 #  DIAGRAM
 #       https://example.org/bookshop-trail/schema        the ontology IRI: the document
@@ -46,12 +46,13 @@
 #       a namespace is a unit of governance
 #
 #  WHAT TO TAKE AWAY
-#    - Vocabulary and data in different namespaces, because they are
-#      governed and versioned differently.
-#    - Hash for a vocabulary read as a document; slash for data served a
-#      resource at a time.
-#    - The ontology IRI names the document and is not the namespace.
-#      Declare the prefix and namespace on the ontology node with vann.
+#    - Keep vocabulary and data in different namespaces, because the two
+#      are governed and versioned differently.
+#    - Hash for a vocabulary that is read as a document, slash for data
+#      that is served a resource at a time.
+#    - The ontology IRI names the document and is not the namespace, so
+#      declare the prefix and the namespace on the ontology node with
+#      vann.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser

@@ -10,35 +10,37 @@
 #
 #  WHY
 #    gist's deprecation and deletion policy is short and worth copying
-#    whole. Deprecation is a minor change: a term that is to go is marked
-#    owl:deprecated true in the next minor release, with a note saying why
-#    and what to use instead, and stays available through the rest of that
-#    major version, so that nobody's data breaks between one release and
-#    the next. A major release contains no deprecations: every term
-#    deprecated during the previous major version is deleted in it, and the
-#    release notes say so. Renaming a term counts as a deletion plus an
-#    addition, and is therefore major. The Trail's bs:PublishedWork in o27
-#    followed the first half; this lesson adds the mechanics.
+#    whole. Deprecation is a minor change, so a term that is to go is
+#    marked owl:deprecated true in the next minor release, with a note
+#    saying why and what to use instead, and it stays available through the
+#    rest of that major version, so that nobody's data breaks between one
+#    release and the next. A major release then contains no deprecations at
+#    all, since every term deprecated during the previous major version is
+#    deleted in it and the release notes say so; and renaming a term counts
+#    as a deletion plus an addition, which makes it major too. The Trail's
+#    bs:PublishedWork in o27 followed the first half of that, and this
+#    lesson adds the mechanics.
 #
-#    The migration annotation is the part that tooling reads. The SemOps
+#    The migration annotation is the part the tooling reads. The SemOps
 #    Manual's chapter 12 found that the Quality Suite's rename detection
-#    recognises owl:equivalentClass from the old IRI to the new one and not
-#    the other way round, and that writing it backwards, which reads more
-#    naturally, silently drops a hundred-percent-confidence repair to a
-#    guess. owl:equivalentClass is symmetric to a reasoner and directional
-#    to a tool, and the rule is: assert it from the retiring IRI. gist adds
-#    gist:isSupersededBy for the same purpose, and dct:isReplacedBy says
-#    the same to a person.
+#    recognises owl:equivalentClass asserted from the old IRI to the new
+#    one and not the other way about, and that writing it backwards, which
+#    reads more naturally, silently drops a hundred- percent-confidence
+#    repair down to a guess. owl:equivalentClass is symmetric to a reasoner
+#    and directional to a tool, so the rule is to assert it from the
+#    retiring IRI; gist adds gist:isSupersededBy for the same purpose, and
+#    dct:isReplacedBy says the same thing to a person.
 #
 #    A deprecated term still in use is a finding, QUA-003, and the measured
-#    line has it: this file types a work with the deprecated class so the
-#    check can be seen to fire. It did not fire at first, and the reason is
-#    worth a sentence. The finding's focus node is the work, in the data
-#    namespace, and the gate was scoped to the schema namespace, so the
-#    finding was filtered out as somebody else's. Scope the gate to the
-#    whole Trail for this check, or it will never see a deprecated term in
-#    use, which is the check's whole purpose. That is the finding to watch
-#    for in the release before a deletion. If it fires, the deletion waits.
+#    line has it, since this file types a work with the deprecated class so
+#    that the check can be seen to fire. It did not fire at first, and the
+#    reason is worth a sentence: the finding's focus node is the work,
+#    which lives in the data namespace, while the gate was scoped to the
+#    schema namespace, so the finding was filtered out as somebody else's.
+#    Scope the gate to the whole Trail for this check, or it will never see
+#    a deprecated term in use, which is the check's whole purpose. That is
+#    the finding to watch for in the release before a deletion, and if it
+#    fires then the deletion waits.
 #
 #  DIAGRAM
 #       release N          bs:PublishedWork in use
@@ -52,20 +54,22 @@
 #       gist: deprecation is a minor change; a major release deletes every deprecated term and adds none
 #
 #  WHAT TO TAKE AWAY
-#    - Deprecate in a minor release, keep for the rest of the major
-#      version, delete at the next major one, and say so in the notes.
-#    - Assert the migration from the retiring IRI: old
-#      owl:equivalentClass new. To a reasoner it is symmetric; to the
-#      tooling it is not.
+#    - Deprecate in a minor release, keep the term for the rest of the
+#      major version, delete at the next major one, and say so in the
+#      notes.
+#    - Assert the migration from the retiring IRI, old
+#      owl:equivalentClass new, because to a reasoner it is symmetric and
+#      to the tooling it is not.
 #    - QUA-003, a deprecated term still in use, is the check that decides
 #      whether a deletion can go ahead.
 #
 #  NOTE
 #    Scoped to the whole Trail namespace, the suite also reports the
 #    undocumented individual and the references it cannot resolve in a file
-#    this small (QUA-004, STR-006, DAT-002). That is the price of the wider
-#    scope, and the reason to scope narrowly by default and widen for the
-#    checks that need it. QUA-003 is the one this lesson is about.
+#    this small (QUA-004, STR-006, DAT-002). The wider scope costs you
+#    those, which is the reason to scope narrowly by default and to widen
+#    only for the checks that need it. QUA-003 is the one this lesson is
+#    about.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser; QUA-003 on the MEASURED line comes from the Ontology Quality Suite, scoped to the whole Trail namespace

@@ -8,28 +8,30 @@
 #    referent with an IRI like any other.
 #
 #  WHY
-#    Some symbols in the brief pick out one thing: Wigtown, The Inkwell,
-#    Rhona Blackwood, the Lodestone Group. Others pick out a kind of thing:
-#    town, shop, author, publisher. The first are particulars, called
-#    individuals in OWL; the second are kinds, called classes. The relation
-#    between them is rdf:type, and it is the first relation worth writing
-#    down, because most of the brief's questions are questions about kinds:
-#    which shops, which towns, which events.
+#    Some symbols in the brief pick out one thing, such as Wigtown, The
+#    Inkwell, Rhona Blackwood or the Lodestone Group, while others pick out
+#    a kind of thing, such as town, shop, author or publisher. The first
+#    are particulars, which OWL calls individuals, and the second are
+#    kinds, which it calls classes; the relation between them is rdf:type,
+#    and it is the first relation worth writing down, because most of the
+#    brief's questions are questions about kinds, about which shops, which
+#    towns and which events.
 #
 #    A kind is a referent too. bs:Settlement refers to the kind, town, in
-#    the same way bt:place-wigtown refers to the town, and it gets an IRI
-#    on the same terms. The IRI is what lets you say things about the kind
-#    itself: what it is called in Welsh, what its definition is, which
-#    other kinds it falls under. The class hierarchy of module 02 is just
-#    statements about kinds.
+#    just the way that bt:place-wigtown refers to the town, and it gets an
+#    IRI on the same terms, which is what lets you say things about the
+#    kind itself: what it is called in Welsh, what its definition is, and
+#    which other kinds it falls under. The class hierarchy of module 02 is
+#    nothing more than a set of statements about kinds.
 #
 #    The line between particular and kind is not always where the brief
 #    puts it. 'Crime fiction' looks like a kind of book, and a class of
-#    works is one fair reading. It is also a thing a shop specialises in,
-#    and a shop is not a member of a class of books. The Trail treats
-#    genres as particulars, concepts in a scheme, so that both a work and a
-#    shop can point at the same one. o24 returns to that choice; it is the
-#    most consequential one in the course.
+#    works is one fair reading of it, but it is also a thing a shop
+#    specialises in, and a shop is not a member of a class of books. So the
+#    Trail treats genres as particulars, concepts in a scheme, in order
+#    that a work and a shop can both point at the same one. o24 returns to
+#    that choice, which I think is the most consequential one in the
+#    course.
 #
 #  DIAGRAM
 #       particulars (individuals)          rdf:type        kinds (classes)
@@ -43,13 +45,14 @@
 #       labelled, defined and arranged under each other, like anything else.
 #
 #  WHAT TO TAKE AWAY
-#    - rdf:type says which kind a particular belongs to. It is the first
-#      structural statement, and the one every question about 'which
+#    - rdf:type says which kind a particular belongs to, and it is the
+#      first structural statement, the one every question about 'which
 #      shops' depends on.
-#    - A class is a referent, with an IRI, a label and a definition.
-#      Saying things about kinds is what a taxonomy is.
-#    - Whether something is a particular or a kind is a decision, and
-#      genre is the case where the obvious answer is not the best one.
+#    - A class is a referent with an IRI, a label and a definition of its
+#      own, and saying things about kinds is what a taxonomy is.
+#    - Whether something is a particular or a kind is a decision rather
+#      than a fact, and genre is the case where the obvious answer is not
+#      the best one.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

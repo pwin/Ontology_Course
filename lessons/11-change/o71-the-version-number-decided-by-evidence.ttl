@@ -11,27 +11,28 @@
 #  WHY
 #    Semantic versioning for an ontology follows the software rule with the
 #    terms translated: a change that can break a consumer is major, an
-#    addition is minor, a wording change is a patch. The hard part is
-#    knowing which a given release is, and the SemOps Manual's answer is
-#    not to ask the author. The Quality Suite's version-diff compares two
-#    files axiom by axiom and reports what was removed, what was added, and
-#    the bump that follows: one removed class makes it MAJOR regardless of
-#    the seven additive changes around it, and regardless of anyone's view
-#    that nobody was using it.
+#    addition is minor, and a wording change is a patch. The hard part is
+#    knowing which of the three a given release is, and the SemOps Manual's
+#    answer is not to ask the author. The Quality Suite's version-diff
+#    compares two files axiom by axiom and reports what was removed, what
+#    was added, and the bump that follows, so that one removed class makes
+#    the release MAJOR regardless of the seven additive changes around it,
+#    and regardless of anybody's view that nobody was using it.
 #
 #    This lesson's two companion files are version 1.1.0 and 2.0.0 of a
-#    small vocabulary. Between them bs:PublishedWork is gone, bs:Edition
-#    and bs:website have arrived, and bs:isbn's domain has moved. The diff
+#    small vocabulary. Between them bs:PublishedWork has gone, bs:Edition
+#    and bs:website have arrived, and bs:isbn's domain has moved; the diff
 #    on the measured line says MAJOR, and the lines it prints are the
-#    evidence a steward signs off on. --fail-on major makes it a gate: a
-#    pull request that removes a class cannot merge without a named
-#    reviewer, and the argument in the meeting becomes 'the diff says
-#    major; who signs off', which is a better argument than 'do you think
-#    this is breaking'.
+#    evidence a steward signs off on. --fail-on major turns that into a
+#    gate, so that a pull request removing a class cannot merge without a
+#    named reviewer, and the argument in the meeting becomes 'the diff says
+#    major, so who signs off', which is a better argument than 'do you
+#    think this is breaking'.
 #
-#    OBO Foundry FP-004 asks for documented versioning procedures; gist has
-#    release notes per version and a major-version migration guide. The
-#    procedure that costs least is the one where the number is computed.
+#    OBO Foundry FP-004 asks for documented versioning procedures, and gist
+#    has release notes for every version and a migration guide for the
+#    major ones. The procedure that costs least, though, is the one where
+#    the number is computed rather than argued over.
 #
 #  DIAGRAM
 #       1.1.0                                   2.0.0                              version-diff
@@ -44,12 +45,13 @@
 #       --fail-on major: the gate; a named reviewer signs off
 #
 #  WHAT TO TAKE AWAY
-#    - Major if a consumer can break, minor if only additions, patch if
-#      only wording. Derive it from the diff, not the author.
-#    - One removal makes a release major whatever else it contains. That
-#      is the property that makes the number trustworthy.
-#    - Make it a gate with --fail-on major. The decision stays human; the
-#      basis stops being who argued hardest.
+#    - Major if a consumer can break, minor if there are only additions,
+#      patch if only the wording moved, and derive it from the diff
+#      rather than from the author.
+#    - One removal makes a release major whatever else it contains, and
+#      that is the property which makes the number trustworthy.
+#    - Make it a gate with --fail-on major, so that the decision stays
+#      human while the basis for it stops being who argued hardest.
 #
 #  NOTE
 #    The two versions are schema-1.1.0.ttl and schema-2.0.0.ttl beside this

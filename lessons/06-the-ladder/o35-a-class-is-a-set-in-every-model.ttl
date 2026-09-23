@@ -9,32 +9,34 @@
 #
 #  WHY
 #    OWL 2's Direct Semantics says what an interpretation is: a domain of
-#    things, and for every class a subset of that domain, called its
-#    extension. An individual is in the class if it is in the subset.
-#    rdfs:subClassOf means the one subset is contained in the other.
-#    owl:equivalentClass means they are the same subset. owl:disjointWith
-#    means they share nothing. A restriction is a set defined by a
-#    condition on its members: the things that have some bs:locatedIn value
-#    in Settlement. Every construct from here to the top of the ladder is a
-#    way of saying something about sets, and reading them that way is what
-#    makes RDFS, SKOS and OWL one idea rather than three.
+#    things, and for every class a subset of that domain, which is called
+#    its extension, with an individual in the class when it is in the
+#    subset. rdfs:subClassOf then means that the one subset is contained in
+#    the other, owl:equivalentClass that they are the same subset, and
+#    owl:disjointWith that they share nothing at all; a restriction is a
+#    set defined by a condition on its members, such as the things that
+#    have some bs:locatedIn value in Settlement. Every construct from here
+#    to the top of the ladder is a way of saying something about sets, and
+#    reading them that way is what makes RDFS, SKOS and OWL one idea rather
+#    than three.
 #
-#    Two cautions keep the picture straight. First, the open world: the
-#    extension is not the thirty-three shops in the file. It is a set the
-#    axioms constrain and the data samples, and a shop the file does not
-#    mention is in it just the same. 'Every Bookshop is located in some
-#    Settlement' is true of the set even where the file records no town.
-#    Second, a class is not its extension. Two classes that happen to have
-#    the same members in this data are not the same class, because in
-#    another interpretation they need not; and OWL 2's punning lets the
-#    same IRI be a class and an individual, read separately, which is how
-#    o14 typed bs:Author as a gufo:Role.
+#    Two cautions keep the picture straight. The first is the open world,
+#    since the extension is not the thirty-three shops in the file but a
+#    set that the axioms constrain and the data merely samples, so that a
+#    shop the file never mentions is in it just the same, and 'every
+#    Bookshop is located in some Settlement' is true of the set even where
+#    the file records no town. The second is that a class is not its
+#    extension: two classes that happen to have the same members in this
+#    data are not thereby the same class, because in another interpretation
+#    they need not be, and OWL 2's punning lets the same IRI be a class and
+#    an individual, read separately, which is how o14 typed bs:Author as a
+#    gufo:Role.
 #
-#    SKOS does not use sets. A skos:Concept is a particular, and
+#    SKOS does not use sets at all. A skos:Concept is a particular and
 #    skos:broader is a relation between two particulars that promises
-#    nothing about any members. That is no weakness, and it is the reason
-#    the concept scheme is the rung below the class hierarchy, and why o40
-#    has to do work to climb from one to the other.
+#    nothing whatever about members, which is no weakness, and is the
+#    reason the concept scheme sits on the rung below the class hierarchy
+#    and why o40 has to do some work to climb from the one to the other.
 #
 #  DIAGRAM
 #       in every interpretation                      set reading
@@ -52,19 +54,21 @@
 #                 a class is not its extension; two with the same members here may differ elsewhere
 #
 #  WHAT TO TAKE AWAY
-#    - Read every class as a set and every structural axiom as a set
-#      claim. It is the reading the specification gives, and it makes the
-#      ladder one ladder.
-#    - The open world: the set is constrained by the axioms and sampled
-#      by the data. Absence in the file is not absence from the set.
+#    - Read every class as a set and every structural axiom as a claim
+#      about sets, since that is the reading the specification gives and
+#      it is what makes the ladder one ladder.
+#    - Under the open world the set is constrained by the axioms and
+#      sampled by the data, so absence from the file is not absence from
+#      the set.
 #    - A concept is a particular and broader is a relation between
-#      particulars. No sets are involved, which is why it is a lower
-#      rung.
+#      particulars, with no sets involved anywhere, which is why it is a
+#      lower rung.
 #
 #  TRY IT
-#    Press Show Facts. The implicit triples include bt:place-wigtown
-#    rdf:type bs:Place: the set reading, computed. Nothing is said about
-#    the concepts, because broader promises nothing about members.
+#    Press Show Facts, and among the implicit triples you will find
+#    bt:place-wigtown rdf:type bs:Place, which is the set reading computed
+#    for you. Nothing is said about the concepts, because broader promises
+#    nothing about members.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

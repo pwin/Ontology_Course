@@ -8,26 +8,29 @@
 #    it; the Trail's bs:locatedIn gets a union domain for that reason.
 #
 #  WHY
-#    Every newcomer reads rdfs:domain as a constraint: 'only bookshops may
-#    have a location'. RDF Semantics reads it as a rule: 'whatever has a
-#    location is a bookshop'. The two agree on clean data and part company
-#    on the first publisher with an address. Declare bs:locatedIn's domain
-#    as bs:Bookshop, load the people file, and the reasoner types Northwind
-#    Press as a bookshop, without error or warning. This lesson's file does
-#    that, and the closure measured on it contains the triple.
+#    Every newcomer reads rdfs:domain as a constraint, as though it said
+#    that only bookshops may have a location, whereas RDF Semantics reads
+#    it as a rule, saying that whatever has a location is a bookshop. The
+#    two readings agree on clean data and part company at the first
+#    publisher with an address: declare bs:locatedIn's domain as
+#    bs:Bookshop, load the people file, and the reasoner types Northwind
+#    Press as a bookshop without error or warning. This lesson's file does
+#    exactly that, and the closure measured on it contains the triple.
 #
-#    Range is the same rule in the other direction: whatever is the value
-#    of bs:locatedIn is a Settlement. That one is usually wanted, and it
-#    still bites: a range of xsd:integer on a property whose values are
-#    strings does not reject the strings, it declares them integers.
+#    Range is the same rule running in the other direction, so that
+#    whatever is the value of bs:locatedIn is a Settlement. That one is
+#    usually what you wanted, and it still bites, because a range of
+#    xsd:integer on a property whose values are strings does not reject the
+#    strings but declares them to be integers.
 #
-#    The habit that follows is the one from o31. Declare a domain only when
-#    every use will agree with it, and when two classes will share a
-#    property, declare the union, which is the next rung's vocabulary. Or
-#    declare nothing, as gist mostly does, and let the shapes say what the
-#    data must look like. The retyping is not a bug in RDFS. It is RDFS
-#    doing exactly what it says, and the SHACL course's s59, the inference
-#    that hides an error, is the same fact seen from the validator's side.
+#    The habit that follows is the one from o31: declare a domain only
+#    where every use will agree with it, and where two classes will share a
+#    property, declare the union, which is the next rung's vocabulary; or
+#    declare nothing at all, as gist mostly does, and let the shapes say
+#    what the data must look like. The retyping is not a bug in RDFS but
+#    RDFS doing exactly what it says, and the SHACL course's s59, the
+#    inference that hides an error, is the same fact seen from the
+#    validator's side of the fence.
 #
 #  DIAGRAM
 #       rdfs:domain, read as a constraint (wrong)       rdfs:domain, read as a rule (right)
@@ -41,17 +44,20 @@
 #       the fix: a union domain, or none, and a shape for the constraint
 #
 #  WHAT TO TAKE AWAY
-#    - rdfs:domain and rdfs:range add types. They never reject anything.
-#    - Declare a domain only when every use of the property will agree
-#      with it. Two classes sharing a property want a union or nothing.
-#    - The constraint you meant is a shape. The SHACL course's s59 shows
-#      the other half of this lesson.
+#    - rdfs:domain and rdfs:range add types, and they never reject
+#      anything at all.
+#    - Declare a domain only where every use of the property will agree
+#      with it, since two classes sharing a property want a union, or
+#      nothing.
+#    - The constraint you had in mind is a shape, and the SHACL course's
+#      s59 shows the other half of this lesson.
 #
 #  TRY IT
-#    Show Facts. Northwind Press is now a bs:Bookshop. Change the domain to
-#    a union of Bookshop and Publisher, press Get All, Show Facts again:
-#    the union is a class with no name, and Northwind is typed with that
-#    instead, which is true and useless. Remove the domain.
+#    Press Show Facts and Northwind Press is now a bs:Bookshop. Change the
+#    domain to a union of Bookshop and Publisher, press Get All and Show
+#    Facts again: the union is a class with no name, so Northwind is typed
+#    with that instead, which is true and useless. Then remove the domain
+#    altogether.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

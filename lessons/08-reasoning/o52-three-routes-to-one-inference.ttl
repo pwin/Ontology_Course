@@ -11,38 +11,41 @@
 #
 #  WHY
 #    Wigtown is within Dumfries and Galloway, which is within Scotland,
-#    which is within Great Britain. The data says the first three links;
-#    question 1 in the brief wants the fourth. There are three ways to get
-#    it, and they give the same answer.
+#    which is within Great Britain; the data gives us the first three links
+#    and question 1 in the brief wants the fourth. There are three ways to
+#    get it, and all three give the same answer.
 #
 #    An OWL reasoner, given bs:within a owl:TransitiveProperty, writes the
-#    missing pairs into the graph. The editor's Show Facts does it in the
-#    browser; the RL closure this lesson was measured with adds the 123
-#    missing pairs among the Trail's own places, and HermiT agrees. Both
-#    add more than that, because the place file links each town to its
-#    DBpedia page with owl:sameAs and a reasoner copies every pair onto the
-#    alias; the queries count the Trail's own IRIs, and o04 said why sameAs
-#    does this. The work is done once, up front, and the result is stored;
-#    it goes stale when a place moves, and a reasoner has to run again.
+#    missing pairs into the graph. The editor's Show Facts does this in the
+#    browser, and the RL closure that this lesson was measured with adds
+#    the 123 missing pairs among the Trail's own places, with HermiT
+#    agreeing. Both of them add rather more than that, because the place
+#    file links each town to its DBpedia page with owl:sameAs and a
+#    reasoner copies every pair onto the alias, so the queries count the
+#    Trail's own IRIs, and o04 said why sameAs behaves like that. The work
+#    is done once, up front, and the result is stored, which means it goes
+#    stale the day a place moves and a reasoner has to run again.
 #
-#    A SPARQL property path, bs:within+, computes the closure at query
-#    time. Nothing is stored, nothing goes stale, and it runs on any SPARQL
-#    1.1 engine with no reasoner at all. The SPARQL course's module 05 is
-#    built on it. The cost is paid on every query, which for a few hundred
-#    places is nothing and for a few million is a design decision.
+#    A SPARQL property path, bs:within+, computes the same closure at query
+#    time instead. Nothing is stored and nothing goes stale, and it runs on
+#    any SPARQL 1.1 engine with no reasoner at all, which is what the
+#    SPARQL course's module 05 is built on; the cost is paid on every
+#    query, and for a few hundred places that is nothing, while for a few
+#    million it becomes a design decision.
 #
-#    A SHACL rule, a CONSTRUCT that adds one hop, iterated until nothing
-#    new appears, materialises the same closure, and the editor's Inference
-#    dropdown runs it. The SHACL course's s51 is that rule; the SemOps
-#    Manual's chapter 11 calls this the third way to derive a triple and
-#    says when it is the right one: when the rule is a governed artefact
-#    that someone owns, and when the closure must be visible to a validator
-#    that has no reasoner. This lesson's companion file is the rule, and
-#    pySHACL iterating it adds exactly the 123 triples the reasoner did.
+#    A SHACL rule, which is a CONSTRUCT that adds one hop, iterated until
+#    nothing new appears, materialises that same closure, and the editor's
+#    Inference dropdown will run it. The SHACL course's s51 is that rule,
+#    and the SemOps Manual's chapter 11 calls this the third way to derive
+#    a triple and says when it is the right one: when the rule is a
+#    governed artefact that somebody owns, and when the closure has to be
+#    visible to a validator that has no reasoner of its own. This lesson's
+#    companion file is the rule, and pySHACL iterating it adds exactly the
+#    123 triples the reasoner did.
 #
-#    Same 186 pairs, three engines, three times to pay. The SPARQL course's
-#    lab set the reasoner and the path side by side; the table in the
-#    diagram adds the rule.
+#    So: the same 186 pairs, three engines, and three different moments at
+#    which to pay for them. The SPARQL course's lab set the reasoner and
+#    the path side by side, and the table in the diagram adds the rule.
 #
 #  DIAGRAM
 #                         OWL reasoner              SPARQL path             SHACL rule (iterated)
@@ -56,14 +59,14 @@
 #       measured on data/03-places.ttl:  63 asserted  ->  186  by all three routes
 #
 #  WHAT TO TAKE AWAY
-#    - Materialise (reasoner or rule) when many queries will read the
-#      closure and the data is slow to change. Query (a path) when it is
-#      not.
-#    - A path needs no reasoner and never goes stale. It is the portable
-#      route and the one to reach for first.
-#    - A rule is a governed artefact: someone owns it, a validator can
-#      see its output, and it is the route when the consumer has no
-#      reasoner.
+#    - Materialise, by reasoner or by rule, when many queries will read
+#      the closure and the data changes slowly; query with a path when
+#      they will not.
+#    - A path needs no reasoner and never goes stale, which makes it the
+#      portable route and the first one to reach for.
+#    - A rule is a governed artefact, with somebody owning it and a
+#      validator able to see its output, and it is the route to take when
+#      the consumer has no reasoner.
 #
 #  NOTE
 #    Open in the editor opens this file with the rule in a second tab; to

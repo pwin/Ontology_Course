@@ -9,33 +9,33 @@
 #    mistakes.
 #
 #  WHY
-#    The Ontology Quality Suite runs sixty-one checks in ten categories,
-#    each with an identifier, a severity, a message and a remediation: STR
-#    for structure, LOG for logic, QUA for documentation and metadata, STY
-#    for naming style, REA for what a reasoner finds, and so on. The SemOps
-#    Manual's chapter 9 is about running it as a gate, and its two rules
-#    are the ones o34 gave: scope to your own namespace, and assert on
-#    identifiers.
+#    The Ontology Quality Suite runs sixty-one checks across ten
+#    categories, each with an identifier, a severity, a message and a
+#    remediation: STR for structure, LOG for logic, QUA for documentation
+#    and metadata, STY for naming style, REA for whatever a reasoner finds,
+#    and so on. The SemOps Manual's chapter 9 is about running it as a
+#    gate, and its two rules are the ones o34 gave, which are to scope the
+#    findings to your own namespace and to assert on identifiers.
 #
-#    Run on the shipped vocabulary with --own-namespace set to bs:, it
-#    reports a small set of identifiers, on the measured line. Two of them
-#    fire on nearly every term: QUA-009, no skos:prefLabel per language,
-#    and QUA-010, no skos:definition. The Trail uses rdfs:label and
-#    rdfs:comment, the pair gist's guide says not to use, so from the
-#    registry's point of view it has no labels or definitions at all. That
-#    is the manual's point exactly: a check that fires on every term is
-#    telling you about a policy you have not adopted. Adopt SKOS
-#    annotations, one pass of work, or drop the two checks from the
-#    registry with a note saying why. Either is a decision; leaving a
-#    hundred warnings in the report is not.
+#    Run over the shipped vocabulary with --own-namespace set to bs:, it
+#    reports the small set of identifiers on the measured line, of which
+#    two fire on nearly every term: QUA-009, no skos:prefLabel per
+#    language, and QUA-010, no skos:definition. The Trail uses rdfs:label
+#    and rdfs:comment, the very pair gist's guide says not to use, so from
+#    the registry's point of view it has no labels and no definitions at
+#    all. That is the manual's point exactly, that a check which fires on
+#    every term is telling you about a policy you have not adopted: either
+#    adopt SKOS annotations, which is one pass of work, or drop the two
+#    checks from the registry with a note saying why. Either of those is a
+#    decision, whereas leaving a hundred warnings in the report is not.
 #
 #    The other findings are worth reading one at a time, with their
-#    remediation text, which is where the suite's knowledge lives. STR-003,
-#    a property with neither domain nor range, fires on bs:statedOn, whose
-#    subject is a reifier and whose value is a date the datatype map cannot
-#    hold, so o31 and o50 left both open on purpose; the right response is
-#    an editorial note the check can be pointed at, not a domain. A gate
-#    reports; a person decides.
+#    remediation text, which is where the suite's knowledge actually lives.
+#    STR-003, a property with neither domain nor range, fires on
+#    bs:statedOn, whose subject is a reifier and whose value is a date the
+#    datatype map cannot hold, so that o31 and o50 left both of them open
+#    deliberately; the right response is an editorial note the check can be
+#    pointed at rather than a domain. A gate reports, and a person decides.
 #
 #  DIAGRAM
 #       python -m ontology_suite checks --ontology data/01-vocabulary.ttl --own-namespace https://example.org/bookshop-trail/schema# --engine sparql
@@ -49,12 +49,14 @@
 #       assert on identifiers, never counts; scope to your namespace; read the remediation
 #
 #  WHAT TO TAKE AWAY
-#    - Read a report by identifier. Each has a remediation, and the
-#      remediation is the knowledge.
-#    - A check that fires on every term is a policy question. Adopt the
-#      policy or drop the check, and write down which.
-#    - Some findings are correct and wanted. STR-003 on a property left
-#      open on purpose is one; the answer is a note, not a change.
+#    - Read a report by identifier, since each of them has a remediation
+#      and the remediation is where the knowledge is.
+#    - A check that fires on every term is a policy question, so adopt
+#      the policy or drop the check, and write down which of the two you
+#      did.
+#    - Some findings are correct and wanted, as STR-003 is on a property
+#      left open on purpose, and the answer there is a note rather than a
+#      change.
 #
 #  CORNER    thought
 #  DATA      01-vocabulary.ttl

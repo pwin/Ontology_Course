@@ -9,28 +9,31 @@
 #
 #  WHY
 #    Two people looking at the same referent hold two thoughts, and the
-#    triangle has no mechanism for making them one. What makes a meaning
-#    shared is an agreement: this symbol, from now on, means this, and here
-#    is the sentence we all signed up to. The sentence is the definition.
-#    It is a social artefact before it is a technical one, and the process
-#    of arriving at it is where a team finds out what it actually thinks.
+#    triangle has no mechanism of its own for making them one. What makes a
+#    meaning shared is an agreement, that this symbol from now on means
+#    this, and here is the sentence we all signed up to. That sentence is
+#    the definition, and it is a social artefact before it is a technical
+#    one; the process of arriving at it is where a team finds out what it
+#    actually thinks, and in my experience that is at least half the value
+#    of the exercise.
 #
-#    Some disagreements are not misunderstandings. The SemOps Manual's
-#    example is 'active customer', where finance and product each need a
-#    different definition for reasons that are load-bearing for them. The
-#    right move is to model both, well labelled, and let someone with the
-#    authority decide which goes in the board pack; the modeller's job is
-#    to make the difference visible, not to adjudicate it. The wrong move
-#    is the one that happens by default: the modeller picks one, ships it,
-#    and half the business ignores the model from then on.
+#    Some disagreements, though, are not misunderstandings waiting to be
+#    cleared up. The SemOps Manual's example is 'active customer', where
+#    finance and product each need a different definition for reasons that
+#    are load-bearing for them, and the right move is to model both, well
+#    labelled, and let someone with the authority decide which goes in the
+#    board pack. The modeller's job is to make the difference visible, not
+#    to adjudicate it, and the wrong move is the one that happens by
+#    default, where the modeller picks one, ships it, and half the business
+#    ignores the model from then on.
 #
-#    The Trail has a small version. 'Founded' and 'opened' are agreed to
-#    mean the same; the committee said so. The founding year of Ex Libris
-#    is not agreed, and the brief asks for both claims to be kept with
-#    their source. That is a disagreement about a fact, not about a
-#    meaning, and the RDF 1.2 layer of the data records it as such. What
-#    this lesson adds is the record of the agreement itself: who decided
-#    that founded means opened, and when.
+#    The Trail has a small version of this. 'Founded' and 'opened' are
+#    agreed to mean the same thing because the committee said so, but the
+#    founding year of Ex Libris is not agreed, and the brief asks for both
+#    claims to be kept with their source. That is a disagreement about a
+#    fact rather than about a meaning, and the RDF 1.2 layer of the data
+#    records it as such; what this lesson adds is the record of the
+#    agreement itself, who decided that founded means opened, and when.
 #
 #  DIAGRAM
 #       your thought          my thought
@@ -47,16 +50,17 @@
 #       each defined, and the choice between them is somebody's decision.
 #
 #  WHAT TO TAKE AWAY
-#    - A definition is an agreement in writing. It is the thing that
-#      makes a shared symbol carry a shared thought.
-#    - Record who agreed it and when. Definitions get argued over again,
-#      and the trail of the decision is what stops the argument
-#      repeating.
-#    - Do not resolve a disagreement that is really about territory.
-#      Model both meanings with clear labels and hand the choice to
-#      someone with the authority to make it.
+#    - A definition is an agreement in writing, and it is the thing that
+#      lets a shared symbol carry a shared thought.
+#    - Record who agreed it and when, because definitions get argued over
+#      again and the trail of the decision is what stops the same
+#      argument coming round each year.
+#    - Do not resolve a disagreement that is really about territory;
+#      model both meanings with clear labels and hand the choice to
+#      someone with the authority to make it stick.
 #    - Building the vocabulary is a social process, and often the most
-#      useful part of it. People find out what they mean.
+#      useful part of the whole undertaking, because people find out what
+#      they mean.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

@@ -8,32 +8,33 @@
 #    a key on ISBN says what identifies a work, without leaving OWL 2 DL.
 #
 #  WHY
-#    owl:inverseOf says two properties are one relation read in opposite
-#    directions: every bs:author triple yields a bs:wrote triple and the
-#    reverse. The reasoner materialises the half that was not asserted,
-#    which is what the SPARQL course's q44 constructs by hand and what gist
-#    declines to do at all, on the grounds that a caret in a query costs
-#    nothing (o31). The Trail declares two inverses on purpose so that this
-#    and module 08 have something to show.
+#    owl:inverseOf says that two properties are one relation read in
+#    opposite directions, so that every bs:author triple yields a bs:wrote
+#    triple and the other way about, and the reasoner materialises
+#    whichever half was not asserted. That is what the SPARQL course's q44
+#    constructs by hand, and what gist declines to do at all on the grounds
+#    that a caret in a query costs nothing, as o31 explains; the Trail
+#    declares two inverses deliberately so that this lesson and module 08
+#    have something to show.
 #
-#    A property chain is an inverse's bigger sibling: bs:heldAt followed by
-#    bs:locatedIn implies bs:eventTown, so an event held at a shop in
-#    Wigtown is an event in Wigtown, and the reasoner adds the triple. The
-#    RL closure supports chains, and so does the editor. The global
-#    restriction from o48 applies here too: a property defined by a chain
-#    is non-simple. And rdfs:subPropertyOf is the property hierarchy's own
-#    inheritance: bs:author and bs:translatedBy are both under
-#    bs:hasContributor, so a query for everyone who contributed to a work
-#    in any capacity is one pattern after the closure.
+#    A property chain is an inverse's larger sibling, since bs:heldAt
+#    followed by bs:locatedIn implies bs:eventTown, so that an event held
+#    at a shop in Wigtown is an event in Wigtown and the reasoner adds the
+#    triple; the RL closure supports chains and so does the editor, and the
+#    global restriction from o48 applies here too, a property defined by a
+#    chain being non-simple. rdfs:subPropertyOf is the property hierarchy's
+#    own inheritance, and since bs:author and bs:translatedBy both sit
+#    under bs:hasContributor, a query for everyone who contributed to a
+#    work in any capacity is a single pattern once the closure has run.
 #
-#    A key is the DL-safe way to say that a value identifies a thing. An
-#    inverse-functional datatype property, 'no two works share an ISBN',
-#    would say it too, and is outside OWL 2 DL for datatype properties.
-#    owl:hasKey says it inside DL: two Works with the same bs:isbn are one
-#    Work, with the merging behaviour of o47. That is meaning, since an
-#    ISBN really does identify an edition; the shape that says 'no two rows
-#    share an ISBN' is the SHACL course's s39, which also checks the check
-#    digit.
+#    A key is the DL-safe way of saying that a value identifies a thing. An
+#    inverse-functional datatype property would say it too, that no two
+#    works share an ISBN, and it falls outside OWL 2 DL for datatype
+#    properties; owl:hasKey says it from inside DL, so that two Works with
+#    the same bs:isbn are one Work, with the merging behaviour of o47. That
+#    is meaning, an ISBN really does identify an edition, and the shape
+#    that says no two rows share an ISBN is the SHACL course's s39, which
+#    checks the check digit into the bargain.
 #
 #  DIAGRAM
 #       inverse     bs:wrote owl:inverseOf bs:author
@@ -48,13 +49,13 @@
 #                   bs:isbn a owl:InverseFunctionalProperty           outside OWL 2 DL for a datatype property
 #
 #  WHAT TO TAKE AWAY
-#    - An inverse is one relation both ways. Declare it when a reasoner
-#      will be there to use it; otherwise the query language walks it
-#      backwards for free.
-#    - A property chain derives a relation from a path. The RL closure
-#      and the editor both compute it.
-#    - owl:hasKey is the way to say a value identifies a thing while
-#      staying in DL. It merges, like every identity axiom.
+#    - An inverse is one relation read both ways, so declare it where a
+#      reasoner will be there to use it, and otherwise let the query
+#      language walk it backwards for nothing.
+#    - A property chain derives a relation from a path, and the RL
+#      closure and the editor both compute it.
+#    - owl:hasKey is how you say that a value identifies a thing while
+#      staying inside DL, and like every identity axiom it merges.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

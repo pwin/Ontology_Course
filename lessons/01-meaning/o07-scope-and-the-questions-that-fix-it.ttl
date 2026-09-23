@@ -9,24 +9,26 @@
 #
 #  WHY
 #    The brief mentions a bay, a festival, a council ward, the weather that
-#    cancels a reading, the till. None of them is in scope, and the way to
-#    know is the list of questions at the end of it. An ontology exists to
-#    answer questions; a term that no question needs is a term that will be
-#    defined badly, because nobody will use it enough to notice.
+#    cancels a reading, and the till, and none of them is in scope. The way
+#    to know is the list of questions at the end of it, because an ontology
+#    exists to answer questions, and a term that no question needs is a
+#    term that will be defined badly, since nobody will use it often enough
+#    to notice.
 #
 #    Competency questions are the oldest tool in ontology engineering and
-#    still the best test of scope. Written as prose they are a requirement.
-#    Written as SPARQL they are a test, and the SemOps Manual makes the
+#    still the best test of scope. Written as prose they are a requirement,
+#    and written as SPARQL they are a test, and the SemOps Manual makes the
 #    point that a question captured once and run forever is the cheapest
-#    way to survive maintenance. The Bookshop Trail already has its
-#    questions written as SPARQL: the SPARQL course is 145 of them, and
-#    module 12 runs a selection against the ontology this course builds.
+#    way there is to survive maintenance. The Bookshop Trail already has
+#    its questions written as SPARQL, since the SPARQL course is 145 of
+#    them, and module 12 runs a selection against the ontology this course
+#    builds.
 #
-#    The OBO Foundry lists scope as a founding principle, FP-005: the
-#    ontology must have a clearly specified scope and content. The Trail
-#    states its scope in two sentences on the ontology node, and lists the
-#    ten questions beside it. That is enough. It is also more than most
-#    ontologies carry.
+#    The OBO Foundry lists scope as a founding principle, FP-005, which
+#    asks that an ontology have a clearly specified scope and content. The
+#    Trail states its scope in two sentences on the ontology node and lists
+#    the ten questions beside it, which is enough, and which is also more
+#    than most ontologies carry.
 #
 #  DIAGRAM
 #       in the brief                 in scope?     why
@@ -41,12 +43,12 @@
 #       A term nobody asks about is a term nobody will keep right.
 #
 #  WHAT TO TAKE AWAY
-#    - Scope is fixed by the questions. Write them down, keep them with
-#      the ontology, and refuse terms no question needs.
-#    - A competency question in SPARQL is a test. The SPARQL course is
-#      this ontology's test suite, and module 12 uses it that way.
-#    - State the scope on the ontology itself, in two sentences. OBO
-#      FP-005 asks for exactly this and few ontologies do it.
+#    - Scope is fixed by the questions, so write them down, keep them
+#      with the ontology, and refuse any term that no question needs.
+#    - A competency question in SPARQL is a test, which makes the SPARQL
+#      course this ontology's test suite, and module 12 uses it that way.
+#    - State the scope on the ontology itself, in a couple of sentences;
+#      OBO FP-005 asks for exactly this, and few ontologies do it.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

@@ -9,26 +9,28 @@
 #
 #  WHY
 #    Each meta-property inherits downward in one direction, and each
-#    constraint is the same sentence with a different letter: a class
-#    marked one way may not subsume a class marked the other. Anti-rigid
-#    may not subsume rigid. A class with a criterion of identity may not
-#    subsume one without. Unity may not subsume non-unity, and anti-unity
-#    may not subsume unity. Dependent may not subsume independent. And two
-#    classes with incompatible criteria of identity must be disjoint.
+#    constraint is then the same sentence with a different letter in it,
+#    that a class marked one way may not subsume a class marked the other.
+#    Anti-rigid may not subsume rigid; a class with a criterion of identity
+#    may not subsume one without; unity may not subsume non-unity, and
+#    anti-unity may not subsume unity; dependent may not subsume
+#    independent; and two classes with incompatible criteria of identity
+#    must be disjoint.
 #
 #    Because the marks are annotations in the graph, each constraint is a
 #    SPARQL query, and a taxonomy can be checked in the editor's SPARQL
-#    panel with nothing installed. This file seeds two violations, the
-#    TrailMember draft from o09 and a dependent class over an independent
-#    one, and the queries find both. A clean run is an empty result, which
-#    is the same thing the SHACL course warns about: an empty result also
-#    means the query matched nothing, so keep the seeded file to prove the
-#    queries fire.
+#    panel with nothing installed at all. This file seeds two violations,
+#    the TrailMember draft from o09 and a dependent class over an
+#    independent one, and each of them breaks two constraints at once, so
+#    two of the queries come back with two rows. A clean run is an empty
+#    result, which is the very thing the SHACL course warns about, since an
+#    empty result also means the query matched nothing; keep the seeded
+#    file, then, to prove that the queries fire.
 #
-#    The Ontology Quality Suite has no OntoClean check and OQuaRE has no
-#    OntoClean metric. That is not an oversight in either; rigidity is not
-#    in the graph unless someone writes it there. This is the cheapest way
-#    to write it there.
+#    Neither the Ontology Quality Suite nor OQuaRE has anything to say
+#    about OntoClean, and that is no oversight in either of them, because
+#    rigidity is not in the graph unless somebody writes it there. This is
+#    the cheapest way I know of writing it there.
 #
 #  DIAGRAM
 #       inherits downward     so the constraint is            query
@@ -45,12 +47,12 @@
 #       each link breaks the rigidity rule and the dependence rule at once
 #
 #  WHAT TO TAKE AWAY
-#    - Every OntoClean constraint has the form 'X may not subsume Y'.
-#      Written as a query over the annotations, each is a one-line check.
-#    - Keep a file with the violations in it. A check that has never
-#      fired is indistinguishable from a check that cannot.
-#    - No metric suite sees rigidity. It has to be recorded, and once
-#      recorded it can be checked like anything else.
+#    - Every OntoClean constraint has the form 'X may not subsume Y', and
+#      written as a query over the annotations each one is a single line.
+#    - Keep a file with the violations in it, because a check that has
+#      never fired is indistinguishable from a check that cannot.
+#    - No metric suite sees rigidity, so it has to be recorded, and once
+#      it is recorded it can be checked like anything else in the graph.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

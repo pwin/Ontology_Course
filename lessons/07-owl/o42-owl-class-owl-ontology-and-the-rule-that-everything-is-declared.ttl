@@ -9,29 +9,32 @@
 #    checker as referee.
 #
 #  WHY
-#    The step from RDFS to OWL 2 DL is mostly declarations. rdfs:Class
-#    becomes owl:Class. rdf:Property becomes one of owl:ObjectProperty,
-#    owl:DatatypeProperty or owl:AnnotationProperty, and exactly one,
-#    because a DL reasoner needs to know whether a property's values are
-#    things, values or commentary before it can reason at all. Every term
-#    the file mentions is declared, including the borrowed ones, because
-#    the profile is checked over the imports closure and the Trail imports
-#    nothing. And an owl:Ontology node says what the document is.
+#    The step from RDFS to OWL 2 DL is mostly a matter of declarations.
+#    rdfs:Class becomes owl:Class, and rdf:Property becomes one of
+#    owl:ObjectProperty, owl:DatatypeProperty or owl:AnnotationProperty,
+#    and exactly one of them, because a DL reasoner needs to know whether a
+#    property's values are things, values or commentary before it can
+#    reason at all. Every term the file mentions is declared, including the
+#    borrowed ones, since the profile is checked over the imports closure
+#    and the Trail imports nothing; and an owl:Ontology node says what the
+#    document is.
 #
-#    The reward for the discipline is that a checker can now say whether
-#    the file is OWL 2 DL, and this lesson's file is. The SPARQL course's
+#    The reward for that discipline is that a checker can now tell you
+#    whether the file is OWL 2 DL, and this one is. The SPARQL course's
 #    README records what it took to get the shipped vocabulary there, and
-#    the rules that bit were the ones RDFS never mentions: everything
-#    declared; a property is one kind only; a transitive property is non-
-#    simple and may not be functional; and an RDF 1.2 triple term has no
-#    OWL type, so the property that points at one is an annotation
-#    property. Each is a lesson in this module.
+#    the rules that bit were all of them rules RDFS never mentions:
+#    everything must be declared; a property is of one kind only; a
+#    transitive property is non-simple and may not be functional; and an
+#    RDF 1.2 triple term has no OWL type at all, so the property that
+#    points at one has to be an annotation property. Each of those is a
+#    lesson in this module.
 #
-#    The set reading from o35 now has teeth: an owl:Class is a set the
-#    reasoner will draw conclusions about, and a class that was rdfs:Class
-#    in module 06 was a set nobody could contradict. The profiles table in
-#    the measured line shows where this small file sits: in DL, and in EL,
-#    QL and RL too, because it says so little.
+#    The set reading from o35 now has teeth, since an owl:Class is a set
+#    the reasoner will draw conclusions about, where a class that was
+#    rdfs:Class in module 06 was a set nobody could contradict. The
+#    profiles table in the measured line shows where this small file sits,
+#    which is in DL, and in EL, QL and RL besides, because it says so
+#    little.
 #
 #  DIAGRAM
 #       RDFS                                OWL 2 DL
@@ -45,12 +48,13 @@
 #       the referee:  robot validate-profile --profile DL      in profile / NOT in profile, with the reason
 #
 #  WHAT TO TAKE AWAY
-#    - OWL 2 DL is RDFS plus declarations, and the declarations are what
-#      let a reasoner and a checker work.
-#    - A property is object, datatype or annotation. One. Decide by
-#      asking whether its values are things, values or commentary.
-#    - Declare what you borrow. The profile is checked over what is
-#      imported, and nothing is.
+#    - OWL 2 DL is RDFS plus declarations, and it is the declarations
+#      that let a reasoner and a checker do their work.
+#    - A property is object, datatype or annotation, and only one of
+#      them; decide by asking whether its values are things, values or
+#      commentary.
+#    - Declare whatever you borrow, since the profile is checked over
+#      what is imported and here nothing is.
 #
 #  TRY IT
 #    Delete the line declaring bs:locatedIn and run python

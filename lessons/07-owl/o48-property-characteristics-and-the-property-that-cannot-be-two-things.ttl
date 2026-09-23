@@ -10,31 +10,40 @@
 #
 #  WHY
 #    A property characteristic is an axiom about the relation as a whole.
-#    Transitive: if Wigtown is within Dumfries and Galloway and that is
-#    within Scotland, Wigtown is within Scotland, and the reasoner writes
-#    the triple. Symmetric: a segment from A to B is a segment from B to A,
-#    so bs:connectsTo asserted once holds both ways. Asymmetric and
-#    irreflexive: nothing is an imprint of itself, or of its own imprint,
-#    and asserting either is a contradiction. Functional and inverse-
-#    functional: at most one value, or at most one subject, with the
-#    merging behaviour of o47. Reflexive is rare and the Trail has none.
+#    Transitive says that if Wigtown is within Dumfries and Galloway and
+#    that is within Scotland then Wigtown is within Scotland, and the
+#    reasoner writes the triple; symmetric says that a segment from A to B
+#    is a segment from B to A, so that bs:connectsTo asserted once holds
+#    both ways; asymmetric and irreflexive say that nothing is an imprint
+#    of itself or of its own imprint, and asserting either is a
+#    contradiction; functional and inverse-functional say at most one
+#    value, or at most one subject, with the merging behaviour of o47.
+#    Reflexive is rare, and the Trail has none.
 #
 #    OWL 2 DL has a rule about combining them, and it is the rule that bit
-#    the Trail's vocabulary first: a transitive property is non-simple, and
-#    a non-simple property may not be functional, inverse-functional,
+#    the Trail's vocabulary first: a transitive property is non- simple,
+#    and a non-simple property may not be functional, inverse- functional,
 #    irreflexive, asymmetric, disjoint with another, or used in a
-#    cardinality restriction. The reason is decidability; the practical
+#    cardinality restriction. The reason is decidability, and the practical
 #    effect is that bs:within, being transitive, cannot also be declared
-#    functional, however natural 'directly within one place' sounds. This
-#    lesson's file declares both, and the profile checker refuses it,
-#    naming the property. The measured line records the refusal; the fix is
-#    to drop the functional declaration, or to have a separate non-
-#    transitive 'directlyWithin' that is functional and a transitive
-#    'within' above it.
+#    functional, however natural 'directly within one place' may sound.
+#    This lesson's file declares both and the profile checker refuses it,
+#    naming the property; the fix is either to drop the functional
+#    declaration or to keep a separate non-transitive 'directlyWithin' that
+#    is functional beneath a transitive 'within' above it.
+#
+#    An RL engine does not enforce the global restriction, and this file
+#    shows why the restriction exists. The closure takes transitivity
+#    first, so that Wigtown is within Scotland, and then functionality, so
+#    that Wigtown's two within values must be one place, and it concludes
+#    that Dumfries and Galloway is Scotland, owl:sameAs, and that Scotland
+#    is within itself. The measured line has those triples, and nothing was
+#    wrong with the data.
 #
 #    The SPARQL course's module 18 measures what a reasoner does with
-#    bs:within on the whole Trail: sixty-three asserted pairs become a
-#    hundred and eighty-six. Module 08 reaches the same number three ways.
+#    bs:within across the whole Trail, where sixty-three asserted pairs
+#    become a hundred and eighty-six, and module 08 reaches that same
+#    number three different ways.
 #
 #  DIAGRAM
 #       characteristic        axiom                                   consequence
@@ -51,13 +60,14 @@
 #       bt:place-dumfries-galloway owl:sameAs bt:place-scotland
 #
 #  WHAT TO TAKE AWAY
-#    - A characteristic is an axiom about the whole relation, and each
-#      has a consequence the reasoner acts on.
+#    - A characteristic is an axiom about the whole relation, and each of
+#      them has a consequence the reasoner will act on.
 #    - Transitive makes a property non-simple, and non-simple properties
-#      cannot be functional or counted. The checker enforces it; an RL
-#      engine does not, and merges a council area with a country instead.
-#    - When you want both, split the property: a functional direct
-#      relation and a transitive closure above it.
+#      cannot be functional or counted; the checker enforces that, while
+#      an RL engine does not and merges a council area with a country
+#      instead.
+#    - When you want both, split the property into a functional direct
+#      relation with a transitive closure above it.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the profile refusal on the MEASURED line comes from ROBOT

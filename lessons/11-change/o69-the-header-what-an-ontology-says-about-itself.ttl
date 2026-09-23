@@ -11,29 +11,30 @@
 #  WHY
 #    An ontology's header is the part read by the most tools and written
 #    with the least care. owl:versionIRI names this release, and OWL 2 says
-#    how it relates to the ontology IRI: the ontology IRI is the thing, the
-#    version IRI is one edition of it, and an importer may ask for either.
-#    owl:versionInfo carries the number for people; owl:priorVersion the
-#    one before. The Dublin Core terms say what it is, who made it, when,
-#    and under what licence, which is OBO principle FP-001: openly
-#    available, and stated so. vann gives the preferred prefix, so that
-#    nobody guesses. And a point of contact, FP-011, because an ontology
-#    with nobody to ask is an ontology with a clock running.
+#    how it relates to the ontology IRI, the ontology IRI being the thing
+#    and the version IRI one edition of it, with an importer free to ask
+#    for either; owl:versionInfo carries the number for people to read and
+#    owl:priorVersion the one before it. The Dublin Core terms say what it
+#    is, who made it, when, and under what licence, which is OBO principle
+#    FP-001, openly available and stated so; vann gives the preferred
+#    prefix so that nobody has to guess; and a point of contact answers
+#    FP-011, because an ontology with nobody to ask is an ontology with a
+#    clock running on it.
 #
-#    gist's header is the model: a version IRI with the number in it, a
-#    definition, a history note listing every release with its date, and a
-#    licence IRI. Nothing in it is decorative; each line answers a question
-#    someone will ask. The Quality Suite has five checks for the header
-#    alone, QUA-002 and QUA-005 to QUA-008: no versioning metadata, no
-#    identifying IRI, an ontology IRI reused as a namespace, no version
-#    IRI, a non-https IRI. Run on this file, none fires, and that is the
-#    measured line.
+#    gist's header is the model to copy, with a version IRI that has the
+#    number in it, a definition, a history note listing every release and
+#    its date, and a licence IRI. Nothing in it is decorative, and each
+#    line answers a question that somebody will ask. The Quality Suite has
+#    five checks for the header alone, QUA-002 and QUA-005 through QUA-008,
+#    covering no versioning metadata, no identifying IRI, an ontology IRI
+#    reused as a namespace, no version IRI and a non-https IRI; run over
+#    this file not one of them fires, which is the measured line.
 #
-#    The version IRI pattern matters more than it looks. gist uses
-#    gistCore14.1.0 as the version IRI and gist/ as the term namespace; the
-#    Trail uses schema/2.0.0 and schema#. Both keep the term IRIs stable
-#    across versions, which is what lets data written against 1.1.0 remain
-#    true under 2.0.0, and is the principle o27 gave.
+#    The version IRI pattern matters rather more than it looks. gist uses
+#    gistCore14.1.0 as its version IRI with gist/ as the term namespace,
+#    and the Trail uses schema/2.0.0 with schema#, and both of them keep
+#    the term IRIs stable across versions, which is what lets data written
+#    against 1.1.0 stay true under 2.0.0, and is the principle o27 gave.
 #
 #  DIAGRAM
 #       <.../schema>  a owl:Ontology ;                   the ontology: the thing
@@ -49,12 +50,13 @@
 #       QUA-002, QUA-005, QUA-006, QUA-007, QUA-008: the checks; none fires here
 #
 #  WHAT TO TAKE AWAY
-#    - The ontology IRI is the thing; the version IRI is an edition of
-#      it. Term IRIs stay the same across editions.
-#    - Title, description, creator, dates, licence, prefix, contact. Each
-#      line answers a question someone will ask.
-#    - Five checks cover the header. Run them; a header is the easiest
-#      thing to get right and the commonest to leave out.
+#    - The ontology IRI is the thing and the version IRI is an edition of
+#      it, while the term IRIs stay the same across editions.
+#    - Title, description, creator, dates, licence, prefix and contact:
+#      each of those lines answers a question somebody will ask.
+#    - Five checks cover the header, so run them, since a header is the
+#      easiest thing in an ontology to get right and the commonest to
+#      leave out.
 #
 #  CORNER    symbol and thought
 #  RUNS IN   the browser

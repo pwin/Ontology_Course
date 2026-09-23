@@ -8,33 +8,36 @@
 #    declared unless a lesson needs one.
 #
 #  WHY
-#    gist's README lists its structural habits in one breath: sparse domain
-#    and range specifications for broader applicability, no inverse
-#    properties, and extensive fine-grained disjointness at the highest
-#    level. The three go together and each is a bet about the future.
+#    gist's README lists its structural habits in a single breath: sparse
+#    domain and range specifications for broader applicability, no inverse
+#    properties at all, and extensive fine-grained disjointness at the
+#    highest level. The three go together, and each of them is a bet about
+#    the future.
 #
 #    Disjointness at the top is the cheap axiom that catches the expensive
-#    mistake. Nothing is both a place and a bookshop, and saying so lets a
-#    reasoner notice when a data load types one thing as both. The Trail
-#    declares its ten top-level kinds disjoint in one
-#    owl:AllDisjointClasses, and four subkinds of Place disjoint in
-#    another. Below that it stops: Author and TrailMember are roles and a
-#    shop can be both a member and a shop, so disjointness lower down is
+#    mistake, since nothing is both a place and a bookshop, and saying so
+#    lets a reasoner notice when a data load types one thing as both. The
+#    Trail declares its ten top-level kinds disjoint in one
+#    owl:AllDisjointClasses and the four subkinds of Place in another, and
+#    then it stops, because Author and TrailMember are roles and a shop can
+#    perfectly well be both a member and a shop; disjointness lower down is
 #    where the tenth rule from o29 starts to bite.
 #
 #    Sparse domains and ranges are the opposite bet. A domain is an
-#    inference rule: whatever has this property is of this class. State
-#    bs:locatedIn's domain as Bookshop and every publisher with an address
-#    becomes a bookshop; the Trail states a union instead, and leaves
-#    bs:claimedBy with no domain at all because its subject is a statement.
-#    gist goes further and leaves most domains open, on the principle that
-#    a property is more reusable than any class it was first used with.
+#    inference rule, saying that whatever has this property is of this
+#    class, so that if you state bs:locatedIn's domain as Bookshop then
+#    every publisher with an address becomes a bookshop; the Trail states a
+#    union instead, and leaves bs:claimedBy with no domain whatever, its
+#    subject being a statement. gist goes further still and leaves most
+#    domains open, on the principle that a property is more reusable than
+#    any class it happened to be used with first.
 #
-#    No inverses is the bet that one direction is enough. Every inverse
+#    No inverses is the bet that one direction will do. Every inverse
 #    doubles the query paths, the data, the shapes and the reasoner's work,
-#    and buys nothing a SPARQL caret or a SHACL inverse path does not. gist
-#    removed all of them in version 12 and picks the direction with fewer
-#    results, child to parent. The Trail keeps two on purpose (o30).
+#    and buys nothing that a SPARQL caret or a SHACL inverse path does not
+#    already give you; gist removed all of them in version 12 and picks the
+#    direction with fewer results, from child to parent. The Trail keeps
+#    two of them on purpose, as o30 explains.
 #
 #  DIAGRAM
 #       disjoint at the top      [] a owl:AllDisjointClasses ; owl:members ( Place Bookshop Person Publisher Work ... )
@@ -48,13 +51,13 @@
 #                                one direction, fewer results, half the paths
 #
 #  WHAT TO TAKE AWAY
-#    - Declare the top-level kinds disjoint. It is one axiom and it
+#    - Declare the top-level kinds disjoint, since it is one axiom and it
 #      catches the worst data error there is.
-#    - A domain is an inference rule. Declare one only when every use of
-#      the property will agree with it, and use a union when two will
-#      not.
-#    - One direction per relationship. The query language and the shapes
-#      language both walk it backwards for free.
+#    - A domain is an inference rule, so declare one only where every use
+#      of the property will agree with it, and reach for a union where
+#      two will not.
+#    - One direction per relationship, because the query language and the
+#      shapes language will both walk it backwards for nothing.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

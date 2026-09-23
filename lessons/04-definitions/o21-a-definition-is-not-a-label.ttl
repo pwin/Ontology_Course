@@ -8,29 +8,31 @@
 #    moves to a scope note.
 #
 #  WHY
-#    A label is a symbol. A definition is the thought written down, and it
-#    has a shape that has served since Aristotle: name the nearest kind the
-#    thing belongs to, then say what distinguishes it from the other things
-#    of that kind. 'A Settlement is a Place that is a town or city.' Genus,
-#    Place; differentia, town or city. Someone who has never seen the data
-#    can now decide whether a given thing is one, which is the whole test
-#    of a definition. OBO Foundry principle FP-006 asks for exactly this
-#    form, and for a definition on most classes as a condition of
-#    membership; gist's guide asks for exactly one, as a full sentence
-#    ending in a period, subject optional.
+#    A label is a symbol, whereas a definition is the thought written down,
+#    and it has a shape that has served since Aristotle: name the nearest
+#    kind the thing belongs to, and then say what distinguishes it from the
+#    other things of that kind. 'A Settlement is a Place that is a town or
+#    city' gives Place as the genus and town or city as the differentia,
+#    and somebody who has never seen the data can now decide whether a
+#    given thing is one, which is the whole test of a definition. OBO
+#    Foundry principle FP-006 asks for exactly this form, and for a
+#    definition on most classes as a condition of membership, while gist's
+#    guide asks for exactly one, written as a full sentence ending in a
+#    period, with the subject optional.
 #
-#    The Trail's shipped comments are a mixture. 'A town or city' is a
-#    definition. 'The only kind of Place a bookshop sits in' is true and
-#    useful and is not one; it is a note about how the term is used. SKOS
-#    gives the two their own properties, skos:definition and
-#    skos:scopeNote, and keeping them apart is what stops a definition
-#    growing into a paragraph nobody reads. Examples go in skos:example,
-#    including negative ones: gist's LivingThing gives 'unicorns or Mickey
-#    Mouse' as what it is not.
+#    The Trail's shipped comments are a mixture of the two things. 'A town
+#    or city' is a definition, whereas 'the only kind of Place a bookshop
+#    sits in' is true and useful and is not one, being a note about how the
+#    term is used. SKOS gives the two their own properties, skos:definition
+#    and skos:scopeNote, and keeping them apart is what stops a definition
+#    growing into a paragraph that nobody reads; examples go in
+#    skos:example, including the negative ones, as gist's LivingThing does
+#    when it offers unicorns and Mickey Mouse as what it is not.
 #
-#    The audit in this lesson is rough and deliberate. It flags a
-#    definition whose first sentence contains the term's own name, which
-#    catches circularity (o22) and nothing subtler. It finds none here.
+#    The audit in this lesson is rough, and deliberately so, since it flags
+#    a definition whose first sentence contains the term's own name, which
+#    catches circularity, as o22 shows, and nothing subtler than that. It
+#    finds nothing to complain about here.
 #
 #  DIAGRAM
 #       "A Settlement is a Place that is a town or city."
@@ -43,12 +45,13 @@
 #       skos:prefLabel    the symbol; never a substitute for the sentence
 #
 #  WHAT TO TAKE AWAY
-#    - Genus and differentia: the nearest kind, then what distinguishes.
-#      One sentence.
-#    - A definition decides membership for someone who has never seen the
-#      data. If it cannot, it is a note.
+#    - Genus and differentia, which is to say the nearest kind and then
+#      what distinguishes it, in one sentence.
+#    - A definition has to decide membership for somebody who has never
+#      seen the data, and if it cannot do that then it is a note rather
+#      than a definition.
 #    - Definition, scope note and example are three properties because
-#      they are three jobs.
+#      they are three different jobs.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

@@ -8,30 +8,30 @@
 #    declined to express are found in the SHACL course, where they belong.
 #
 #  WHY
-#    An ontology exists to answer questions, o07 said, and the SPARQL
-#    course is the Trail's questions written down: 145 of them, run on
+#    An ontology exists to answer questions, as o07 said, and the SPARQL
+#    course is the Trail's questions written down, 145 of them, run on
 #    three engines and compared value by value. This lesson runs the
-#    brief's ten as the acceptance test, on the shipped vocabulary and
-#    data, in the editor's SPARQL panel or in the checker. Each is a row
-#    count on the measured line: four towns with no bookshop, four shops in
-#    Wales, the shops reachable on foot from The Inkwell, the imprints that
-#    belong ultimately to the Lodestone Group, the works with no ISBN, the
-#    two founding claims for Ex Libris. Where the SPARQL course has the
-#    question, its number is given.
+#    brief's ten as the acceptance test, against the shipped vocabulary and
+#    data, in the editor's SPARQL panel or in the checker, and each of them
+#    is a row count on the measured line: four towns with no bookshop, four
+#    shops in Wales, the shops you can reach on foot from The Inkwell, the
+#    imprints that belong in the end to the Lodestone Group, the works with
+#    no ISBN, and the two founding claims for Ex Libris. Where the SPARQL
+#    course has the question already, its number is given.
 #
-#    The other half of the package is the SHACL course, and it holds the
-#    rules this course refused to put in the ontology. Exactly one town per
-#    shop is s04; one founding year is s04 as well, as a finding rather
-#    than a contradiction, o29; a valid ISBN check digit is s39; a
-#    segment's ends are two different shops, s36; nothing is within itself,
-#    s30. Each is a rule about the dataset, with a severity somebody chose,
-#    and each is exactly the kind of thing gist's tenth rule sends to
-#    SHACL.
+#    The other half of the package is the SHACL course, which holds the
+#    rules this course refused to put into the ontology. Exactly one town
+#    per shop is s04; one founding year is s04 as well, as a finding rather
+#    than a contradiction, which is o29's argument; a valid ISBN check
+#    digit is s39; a segment's ends being two different shops is s36; and
+#    nothing being within itself is s30. Each of those is a rule about the
+#    dataset, with a severity somebody chose, and each is exactly the kind
+#    of thing gist's tenth rule sends off to SHACL.
 #
-#    Three courses, one data set, one vocabulary. The ontology says what
-#    the terms mean; the queries ask; the shapes check. A question that
-#    cannot be asked, or a rule that cannot be checked, is a gap in the
-#    vocabulary, and this is how it would be found.
+#    Three courses, then, over one dataset and one vocabulary: the ontology
+#    says what the terms mean, the queries ask, and the shapes check. A
+#    question that cannot be asked, or a rule that cannot be checked, is a
+#    gap in the vocabulary, and this is how you would find it.
 #
 #  DIAGRAM
 #       question (the brief)                                 answered by          SPARQL course   rule kept in SHACL course
@@ -47,12 +47,12 @@
 #       10 who stocks a book, cheapest                       StockRecord          q21             s47
 #
 #  WHAT TO TAKE AWAY
-#    - The competency questions are the acceptance test. Run them on the
-#      whole dataset before every release.
-#    - The rules the ontology refused are not lost. They are shapes, in
-#      the SHACL course, with severities somebody chose.
-#    - Three courses, one package: meaning, questions, checks. A gap in
-#      one shows up in another.
+#    - The competency questions are the acceptance test, so run them over
+#      the whole dataset before every release.
+#    - The rules the ontology refused are not lost but sitting in the
+#      SHACL course as shapes, each with a severity somebody chose.
+#    - Three courses make one package, meaning and questions and checks,
+#      and a gap in any one of them shows up in another.
 #
 #  CORNER    all three
 #  DATA      bookshop-trail-1.1.ttl

@@ -8,29 +8,30 @@
 #    HistoricalEvent are the published example.
 #
 #  WHY
-#    A role is anti-rigid because of a relation to something else: an
-#    author because of a work, a member because of a trail. A phase is
-#    anti-rigid because of a condition inside the thing itself: a living
-#    person, a scheduled event, a child. The instance passes through it.
-#    Both are ~R; a phase is -D, a role is +D, and that is the whole
-#    difference. Guizzardi's UFO keeps the two apart as Phase and Role, and
-#    gUFO carries them as gufo:Phase and gufo:Role.
+#    A role is anti-rigid because of a relation to something else, an
+#    author because of a work and a member because of a trail, whereas a
+#    phase is anti-rigid because of a condition inside the thing itself, as
+#    with a living person, a scheduled event or a child, and the instance
+#    simply passes through it. Both are ~R, a phase is -D and a role is +D,
+#    and that is the whole of the difference. Guizzardi's UFO keeps the two
+#    apart as Phase and Role, and gUFO carries them as gufo:Phase and
+#    gufo:Role.
 #
-#    gist has two phases in plain sight. gist:ContemporaryEvent is an event
-#    that has started and not ended; gist:HistoricalEvent is one that has
-#    ended. The scope note on the first says it exactly: 'when the event
-#    actually ends, it will cease being contemporary'. The same event
-#    passes from one to the other, and it stays a gist:Event throughout.
-#    gistUFO types gist:Offer and gist:ContingentObligation as phases of a
-#    commitment for the same reason.
+#    gist has two phases in plain sight, since gist:ContemporaryEvent is an
+#    event that has started and not ended while gist:HistoricalEvent is one
+#    that has ended, and the scope note on the first says it exactly: when
+#    the event actually ends, it will cease being contemporary. The same
+#    event passes from the one to the other and stays a gist:Event
+#    throughout, and gistUFO types gist:Offer and gist:ContingentObligation
+#    as phases of a commitment for the same reason.
 #
-#    The Trail records death as the absence of bs:died, and an event's
-#    pastness by its date. Neither is a class. That is the usual and right
-#    choice: a phase is often better carried by a property than by a
-#    subclass, because the property changes and a class assertion should
-#    not have to. Model a phase as a class when you need to say things
-#    about the members of the phase as a set; leave it as a property when
-#    you only need to ask.
+#    The Trail records death as the absence of bs:died and an event's
+#    pastness by its date, so neither is a class, and that is the usual and
+#    I think the right choice, because a phase is often better carried by a
+#    property than by a subclass: the property changes, and a class
+#    assertion should not have to. Model a phase as a class when you need
+#    to say things about the members of the phase as a set, and leave it as
+#    a property when all you will do is ask.
 #
 #  DIAGRAM
 #       anti-rigid, two ways
@@ -46,14 +47,14 @@
 #       ask 'FILTER NOT EXISTS { ?p bs:died ?y }' rather than type a class.
 #
 #  WHAT TO TAKE AWAY
-#    - A phase is anti-rigid from the inside; a role is anti-rigid from a
-#      relation. Both go under the kind, never above it.
+#    - A phase is anti-rigid from the inside and a role is anti-rigid
+#      from a relation, and both go under the kind rather than above it.
 #    - gist models the two phases of an event as classes because it wants
-#      to say things about all current events. The Trail does not, so it
-#      uses a property.
-#    - A class is for saying something about a set of members. If all you
-#      will do is ask, a property and a query are cheaper and change more
-#      gracefully.
+#      to say things about all current events; the Trail does not, so it
+#      uses a property instead.
+#    - A class is for saying something about a set of members, so if all
+#      you will do is ask, a property and a query are cheaper and change
+#      more gracefully.
 #
 #  NOTE
 #    The Trail's data types event dates as xsd:date, which is not in the

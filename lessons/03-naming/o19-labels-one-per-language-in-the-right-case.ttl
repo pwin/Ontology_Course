@@ -9,27 +9,29 @@
 #
 #  WHY
 #    A preferred label is the one name a term shows in a list, and a list
-#    with two names for one thing is a list with a bug in it. SKOS makes
-#    this an integrity condition, S14: at most one preferred label per
-#    language tag. gist adds exactly one, and cases: title case for classes
-#    (Physical Identifiable Item), lower case for properties (has unit of
-#    measure), acronyms in capitals in both. Alternative labels are free-
-#    form and plural; that is what they are for.
+#    with two names for one thing is a list with a bug in it, which is why
+#    SKOS makes it an integrity condition, S14: at most one preferred label
+#    per language tag. gist asks for exactly one, and adds cases, with
+#    title case for classes, as in Physical Identifiable Item, lower case
+#    for properties, as in has unit of measure, and acronyms in capitals in
+#    either. Alternative labels are free-form and as plural as you please,
+#    which is what they are for.
 #
-#    gist enforces its label rules with SHACL shapes, run on every commit,
-#    and the escape hatch for a label that is right and non-conforming, a
-#    proper noun say, is an annotation gist:nonConformingLabel true that
-#    the shape reads. The same shapes, simplified, are in this lesson's
-#    check and in the editor: open them in a second tab, pick them in the
-#    Shapes dropdown, press Validate. Two of the labels here are wrong on
-#    purpose, and the report names them. This is the SHACL course's whole
+#    gist enforces its label rules with SHACL shapes run on every commit,
+#    and the escape hatch for a label that is right and non- conforming, a
+#    proper noun say, is an annotation, gist:nonConformingLabel true, that
+#    the shape reads and respects. The same shapes, simplified, are in this
+#    lesson and in the editor: open them in a second tab, pick them in the
+#    Shapes dropdown and press Validate. Two of the labels here are wrong
+#    on purpose and the report names them. This is the SHACL course's whole
 #    method applied to a vocabulary instead of to data, and the file is one
-#    you could run on any ontology you are handed.
+#    you could run against any ontology somebody hands you.
 #
-#    Language tags are the other half. The Trail labels places in Welsh and
-#    Gaelic where those names exist, and a query for @cy labels is what the
-#    Welsh page of the website will run. A label without a tag is a label
-#    in no language, and STY-003 in the Quality Suite says so as an Info.
+#    Language tags are the other half of it. The Trail labels places in
+#    Welsh and Gaelic where those names exist, and a query for @cy labels
+#    is what the Welsh page of the website will run; a label with no tag at
+#    all is a label in no language, and STY-003 in the Quality Suite says
+#    so, as an Info.
 #
 #  DIAGRAM
 #       term             prefLabel                          rule
@@ -44,11 +46,13 @@
 #                bs:Region     "Region"@en  "Rhanbarth"@cy  fine
 #
 #  WHAT TO TAKE AWAY
-#    - One preferred label per language, and altLabels for everything
-#      else. SKOS S14 makes the first a hard rule.
+#    - One preferred label per language, with altLabels for everything
+#      else, and SKOS S14 makes the first of those a hard rule.
 #    - Title case for classes, lower case for properties, acronyms in
-#      capitals. gist's shapes check it; the editor runs them.
-#    - A label with no language tag is in no language. Tag every one.
+#      capitals, and gist's shapes check it, which the editor will run
+#      for you.
+#    - A label with no language tag is a label in no language, so tag
+#      every one of them.
 #
 #  NOTE
 #    The shapes are in label-shapes.ttl beside this lesson, and Open in the

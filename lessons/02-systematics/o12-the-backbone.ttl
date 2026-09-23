@@ -8,27 +8,27 @@
 #
 #  WHY
 #    Strip a taxonomy down to its rigid classes and what is left is the
-#    backbone: the kinds every instance necessarily belongs to, arranged by
+#    backbone, the kinds every instance necessarily belongs to, arranged by
 #    subsumption. Guarino and Welty give the backbone its name and its
-#    test: every instance in the domain falls under some backbone class,
-#    and stays under it, because the backbone is made only of classes
-#    nothing can leave. The roles and phases are then attached beneath the
-#    backbone class that plays them. A taxonomy built this way can be
-#    extended without collapsing, because the part that carries identity
-#    never depends on the part that changes.
+#    test, which is that every instance in the domain falls under some
+#    backbone class and stays under it, the backbone being made only of
+#    classes that nothing can leave; the roles and phases are then attached
+#    beneath whichever backbone class plays them. A taxonomy built this way
+#    can be extended without collapsing, because the part that carries
+#    identity never depends on the part that changes.
 #
-#    The Trail's backbone has ten kinds at the top: Place, Bookshop,
-#    Person, Publisher, Work, Series, Event, TrailSegment, StockRecord and
-#    Source. Place has four subkinds, Work has one. Author is the one role
-#    in the shipped vocabulary; Translation is not a role, because a
-#    translation is a translation in every circumstance, so it is a
-#    subkind. Publisher is a fair argument: the Trail makes it a kind, and
-#    gist would call it a role of an organisation. That argument is
-#    recorded here rather than settled, and o14 gives the vocabulary to
-#    record it in.
+#    The Trail's backbone has ten kinds at the top, which are Place,
+#    Bookshop, Person, Publisher, Work, Series, Event, TrailSegment,
+#    StockRecord and Source, with four subkinds under Place and one under
+#    Work. Author is the one role in the shipped vocabulary, and
+#    Translation is not a role, because a translation is a translation in
+#    every circumstance and is therefore a subkind. Publisher is a fair
+#    argument either way: the Trail makes it a kind, gist would call it a
+#    role of an organisation, and the argument is recorded here rather than
+#    settled, with o14 giving the vocabulary to record it in.
 #
-#    The set picture: the backbone is the family of sets that nothing
-#    leaves, and the roles are subsets of them that things enter and leave.
+#    In set terms the backbone is the family of sets that nothing leaves,
+#    and the roles are subsets of them that things enter and leave.
 #
 #  DIAGRAM
 #       the backbone (all +R)                          hanging off it (~R)
@@ -45,13 +45,13 @@
 #       every particular falls under a backbone class, and stays there
 #
 #  WHAT TO TAKE AWAY
-#    - The backbone is the rigid part of the taxonomy. Build it first,
+#    - The backbone is the rigid part of the taxonomy, so build it first
 #      and let the roles hang off it.
-#    - A subkind is rigid and inherits its identity criterion:
-#      Translation under Work, Settlement under Place. A role is not a
-#      subkind.
-#    - Where a class could be either, say which you chose and why.
-#      Publisher is the Trail's example.
+#    - A subkind is rigid and inherits its identity criterion, as
+#      Translation does from Work and Settlement from Place, whereas a
+#      role is not a subkind at all.
+#    - Where a class could be either, say which you chose and why;
+#      Publisher is the Trail's example of that.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

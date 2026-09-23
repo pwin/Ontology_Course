@@ -113,7 +113,7 @@ Each lesson is a `.ttl` file whose header carries the whole lesson: what it
 decides, why, a diagram of the idea, what to take away, sometimes something to
 try, which corner of the triangle it works on, where it runs, a link that loads
 it, the two sources it leans on most, and what the tools measured. Read the
-file; do not just load it.
+file rather than only loading it.
 
 | Module | | |
 |---|---|---|
@@ -271,7 +271,7 @@ The instruments:
 
 ### Things the checking found
 
-Worth knowing before you write a vocabulary of your own. Each is now a
+These are the ones to have in mind before you write a vocabulary of your own. Each is now a
 sentence in the lesson it belongs to:
 
 | | |

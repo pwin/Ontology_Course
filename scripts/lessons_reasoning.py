@@ -16,28 +16,30 @@ o(
     title="What follows from what you said",
     decides="An inference is a statement true in every interpretation that satisfies the ontology; a reasoner finds them; adding axioms never removes one; and 'not said' is not 'false'.",
     corner="referent",
-    why="Every settlement is a place. Wigtown is a settlement. So Wigtown "
-        "is a place. Nobody wrote the third sentence and it is true anyway, "
-        "because there is no way for the first two to hold and the third "
-        "to fail. That is entailment, and it is the whole of what a "
-        "reasoner does: find the statements that hold in every "
-        "interpretation the axioms allow. The set reading makes it plain. "
-        "S is inside P; w is in S; so w is in P. There is nothing to "
-        "decide.\n\n"
-        "Three things can follow. A new triple, which a materialising "
-        "reasoner writes into the graph, as the editor's Show Facts does. "
-        "A classification, that one class is inside another though nobody "
-        "said so. And a contradiction, that no interpretation exists at "
-        "all. RDFS can give the first; OWL 2 gives all three.\n\n"
+    why="Every settlement is a place, and Wigtown is a settlement, so "
+        "Wigtown is a place. Nobody wrote that third sentence and it is "
+        "true anyway, because there is no way for the first two to hold "
+        "while the third fails, and that is entailment, which is the whole "
+        "of what a reasoner does: it finds the statements that hold in "
+        "every interpretation the axioms allow. The set reading makes it "
+        "plain enough, since S is inside P and w is in S, so w is in P, and "
+        "there is nothing left to decide.\n\n"
+        "Three kinds of thing can follow. There is a new triple, which a "
+        "materialising reasoner writes into the graph, as the editor's Show "
+        "Facts does; there is a classification, that one class lies inside "
+        "another though nobody said so; and there is a contradiction, that "
+        "no interpretation exists at all. RDFS can give you the first of "
+        "those, and OWL 2 gives all three.\n\n"
         "Two properties of the logic decide how it feels to use. It is "
-        "monotonic: adding an axiom can add conclusions and never remove "
-        "one, so a conclusion drawn today stays drawn. Monotonicity is what makes materialisation safe, and it is why a SHACL rule with a negation "
-        "in it, which the SHACL course's s52 shows going stale, is a "
-        "different kind of thing. And it is open-world: a statement not "
-        "in the graph is not false, it is unknown, so absence entails "
-        "nothing. The reasoner will never tell you that a shop has no "
-        "website. A query will, and the difference is the subject of the "
-        "next lesson.",
+        "monotonic, so that adding an axiom can add conclusions and can "
+        "never take one away, and a conclusion drawn today stays drawn; "
+        "monotonicity is what makes materialisation safe, and it is why a "
+        "SHACL rule with a negation in it, which the SHACL course's s52 "
+        "shows going stale, is a quite different kind of thing. And it is "
+        "open-world, so that a statement not in the graph is not false but "
+        "unknown, and absence entails nothing whatever. The reasoner will "
+        "never tell you that a shop has no website; a query will, and that "
+        "difference is the subject of the next lesson.",
     diagram="""
    axioms                                     what follows
 
@@ -49,9 +51,9 @@ o(
    open world: not said is not false; absence entails nothing
 """,
     learn=[
-        "Entailment is what holds in every interpretation the axioms allow. A reasoner finds it; a query finds what is written.",
-        "Monotonic: nothing you add takes a conclusion away. That is why materialising is safe and why rules with negation are not the same thing.",
-        "Open world: the reasoner never concludes from absence. For 'has no website', ask a query.",
+        "Entailment is what holds in every interpretation the axioms allow, so a reasoner finds that while a query finds what is written.",
+        "The logic is monotonic, and nothing you add takes a conclusion away, which is why materialising is safe and why rules with negation in them are not the same kind of thing.",
+        "The world is open, so the reasoner never concludes anything from absence; for 'has no website', ask a query.",
     ],
     body=DECL + """
 bs:Place       a owl:Class ; skos:prefLabel "Place"@en .
@@ -101,31 +103,40 @@ o(
     title="Three routes to one inference",
     decides="The transitive closure of bs:within, sixty-three pairs becoming a hundred and eighty-six, is reached by an OWL reasoner, by a SPARQL property path, and by a SHACL rule iterated to a fixpoint; each is measured, and the choice between them is a matter of when and where the work is done.",
     corner="referent",
-    why="Wigtown is within Dumfries and Galloway, which is within "
-        "Scotland, which is within Great Britain. The data says the first "
-        "three links; question 1 in the brief wants the fourth. There are "
-        "three ways to get it, and they give the same answer.\n\n"
-        "An OWL reasoner, given bs:within a owl:TransitiveProperty, writes the missing pairs into the graph. The editor's Show Facts does it in the browser; the RL closure this lesson was measured with adds the 123 missing pairs among the Trail's own places, and HermiT agrees. Both add more than that, because the place file links each town to its DBpedia page with owl:sameAs and a reasoner copies every pair onto the alias; the queries count the Trail's own IRIs, and o04 said why sameAs does this. The "
-        "work is done once, up front, and the result is stored; it goes "
-        "stale when a place moves, and a reasoner has to run again.\n\n"
-        "A SPARQL property path, bs:within+, computes the closure at query "
-        "time. Nothing is stored, nothing goes stale, and it runs on any "
-        "SPARQL 1.1 engine with no reasoner at all. The SPARQL course's "
-        "module 05 is built on it. The cost is paid on every query, which "
-        "for a few hundred places is nothing and for a few million is a "
-        "design decision.\n\n"
-        "A SHACL rule, a CONSTRUCT that adds one hop, iterated until "
-        "nothing new appears, materialises the same closure, and the "
-        "editor's Inference dropdown runs it. The SHACL course's s51 is "
-        "that rule; the SemOps Manual's chapter 11 calls this the third "
-        "way to derive a triple and says when it is the right one: when "
-        "the rule is a governed artefact that someone owns, and when the "
-        "closure must be visible to a validator that has no reasoner. This "
-        "lesson's companion file is the rule, and pySHACL iterating it "
-        "adds exactly the 123 triples the reasoner did.\n\n"
-        "Same 186 pairs, three engines, three times to pay. The SPARQL "
-        "course's lab set the reasoner and the path side by side; the "
-        "table in the diagram adds the rule.",
+    why="Wigtown is within Dumfries and Galloway, which is within Scotland, "
+        "which is within Great Britain; the data gives us the first three "
+        "links and question 1 in the brief wants the fourth. There are "
+        "three ways to get it, and all three give the same answer.\n\n"
+        "An OWL reasoner, given bs:within a owl:TransitiveProperty, writes "
+        "the missing pairs into the graph. The editor's Show Facts does "
+        "this in the browser, and the RL closure that this lesson was "
+        "measured with adds the 123 missing pairs among the Trail's own "
+        "places, with HermiT agreeing. Both of them add rather more than "
+        "that, because the place file links each town to its DBpedia page "
+        "with owl:sameAs and a reasoner copies every pair onto the alias, "
+        "so the queries count the Trail's own IRIs, and o04 said why sameAs "
+        "behaves like that. The work is done once, up front, and the result "
+        "is stored, which means it goes stale the day a place moves and a "
+        "reasoner has to run again.\n\n"
+        "A SPARQL property path, bs:within+, computes the same closure at "
+        "query time instead. Nothing is stored and nothing goes stale, and "
+        "it runs on any SPARQL 1.1 engine with no reasoner at all, which is "
+        "what the SPARQL course's module 05 is built on; the cost is paid "
+        "on every query, and for a few hundred places that is nothing, "
+        "while for a few million it becomes a design decision.\n\n"
+        "A SHACL rule, which is a CONSTRUCT that adds one hop, iterated "
+        "until nothing new appears, materialises that same closure, and the "
+        "editor's Inference dropdown will run it. The SHACL course's s51 is "
+        "that rule, and the SemOps Manual's chapter 11 calls this the third "
+        "way to derive a triple and says when it is the right one: when the "
+        "rule is a governed artefact that somebody owns, and when the "
+        "closure has to be visible to a validator that has no reasoner of "
+        "its own. This lesson's companion file is the rule, and pySHACL "
+        "iterating it adds exactly the 123 triples the reasoner did.\n\n"
+        "So: the same 186 pairs, three engines, and three different moments "
+        "at which to pay for them. The SPARQL course's lab set the reasoner "
+        "and the path side by side, and the table in the diagram adds the "
+        "rule.",
     diagram="""
                      OWL reasoner              SPARQL path             SHACL rule (iterated)
    what you write    owl:TransitiveProperty    bs:within+              CONSTRUCT one hop; iterate
@@ -138,9 +149,9 @@ o(
    measured on data/03-places.ttl:  63 asserted  ->  186  by all three routes
 """,
     learn=[
-        "Materialise (reasoner or rule) when many queries will read the closure and the data is slow to change. Query (a path) when it is not.",
-        "A path needs no reasoner and never goes stale. It is the portable route and the one to reach for first.",
-        "A rule is a governed artefact: someone owns it, a validator can see its output, and it is the route when the consumer has no reasoner.",
+        "Materialise, by reasoner or by rule, when many queries will read the closure and the data changes slowly; query with a path when they will not.",
+        "A path needs no reasoner and never goes stale, which makes it the portable route and the first one to reach for.",
+        "A rule is a governed artefact, with somebody owning it and a validator able to see its output, and it is the route to take when the consumer has no reasoner.",
     ],
     body=DECL + """
 bs:Place   a owl:Class ; skos:prefLabel "Place"@en .
@@ -178,28 +189,33 @@ o(
     title="Inconsistency: the three usual causes",
     decides="A contradiction is traced to one of three habits: a thing typed with two disjoint kinds, a functional property with two values declared different, or a value that its datatype cannot hold; each is seeded, and the reasoner names the axioms responsible.",
     corner="referent",
-    why="An ontology is inconsistent when no interpretation satisfies it. "
-        "It is one verdict for the whole graph, and the first thing to "
-        "know is that it is rarely subtle. Almost every inconsistency in "
-        "practice has one of three shapes. A thing typed with two classes "
-        "declared disjoint, usually a data load with the wrong kind (o43). "
-        "A functional property with two values that are declared, or can "
-        "be proved, different: two towns for one shop with "
-        "owl:differentFrom between them, or two integers, since literals "
-        "are different when they differ (o47). Or a value a datatype "
-        "cannot hold, 'four' as an xsd:integer, which the reasoner treats "
-        "as no value at all and the axiom that requires one then fails.\n\n"
-        "This file seeds all three, so that HermiT's verdict is "
-        "unmistakable, and the reasoner can be asked to explain. ROBOT's "
-        "explain command in inconsistency mode returns the smallest sets "
-        "of axioms that produce the contradiction, one per cause, and the "
-        "measured line carries the first of them. That is the tool to "
-        "reach for when a large ontology turns inconsistent after a "
-        "change: not reading the ontology, but asking which few axioms are "
-        "to blame.\n\n"
-        "The editor's RL closure will show the sameAs and the types and "
-        "say nothing about a contradiction. For the browser, each cause "
-        "is a query, and the three queries here find the three seeds.",
+    why="An ontology is inconsistent when no interpretation satisfies it, "
+        "which is one verdict for the whole graph, and the first thing to "
+        "know about it is that it is rarely subtle. Almost every "
+        "inconsistency I have met in practice has one of three shapes: a "
+        "thing typed with two classes declared disjoint, which is usually a "
+        "data load with the wrong kind in it, as o43 describes; a "
+        "functional property with two values that are declared different or "
+        "can be proved so, whether two towns for one shop with "
+        "owl:differentFrom between them or two integers, since literals "
+        "differ when they differ, as o47 describes; or a value outside its "
+        "datatype, such as a staff count of minus three where the range is "
+        "an integer of at least zero. A value that is not even a well- "
+        "formed literal, 'four' as an xsd:integer, never reaches the "
+        "reasoner at all, since the OWL API refuses to load the file, which "
+        "is a stricter kind of no.\n\n"
+        "This file seeds all three so that HermiT's verdict is unmistakable "
+        "and the reasoner can be asked to explain itself. ROBOT's explain "
+        "command in inconsistency mode returns the smallest sets of axioms "
+        "that produce the contradiction, one set per cause, and the "
+        "measured line carries the first of them; that is the tool to reach "
+        "for when a large ontology turns inconsistent after a change, since "
+        "the question to ask is not what the ontology says but which few "
+        "axioms are to blame.\n\n"
+        "The editor's RL closure will show you the sameAs and the types and "
+        "say nothing at all about a contradiction, so for the browser each "
+        "cause becomes a query, and the three queries here find the three "
+        "seeds.",
     diagram="""
    cause                                   seed                                               query
    two disjoint kinds                      bt:oddity a bs:Place, bs:Bookshop                  ?x a ?a, ?b . ?a owl:disjointWith ?b
@@ -210,9 +226,9 @@ o(
    HermiT: inconsistent.  robot explain --mode inconsistency: the axioms responsible, one set per cause
 """,
     learn=[
-        "Inconsistency is one verdict for the whole graph, and it almost always has one of three shapes.",
-        "Ask the reasoner to explain. The smallest set of axioms behind a contradiction is a few lines, however large the ontology.",
-        "The browser cannot report a contradiction, but each cause is a query, and the queries belong in the gate.",
+        "Inconsistency is one verdict for the whole graph, and it almost always turns out to have one of three shapes.",
+        "Ask the reasoner to explain itself, because the smallest set of axioms behind a contradiction is a few lines however large the ontology may be.",
+        "The browser cannot report a contradiction, but each cause is a query, and those queries belong in the gate.",
     ],
     body=DECL + """
 bs:Place a owl:Class . bs:Bookshop a owl:Class . bs:Settlement a owl:Class .
@@ -258,24 +274,31 @@ o(
     decides="A class that can have no instances is found by the reasoner before any data arrives; the ontology stays consistent, and the class is fixed rather than shipped.",
     corner="referent",
     why="An unsatisfiable class is one whose extension is empty in every "
-        "interpretation: no possible thing could be a member. The ontology "
-        "is consistent, since nothing has been asserted to be in the "
-        "class, and that is what makes the fault a quiet one. It sits there "
-        "until the first individual is typed with it, and then the whole "
-        "graph is inconsistent and the cause is a class defined months "
-        "ago.\n\n"
-        "The usual shapes: a class under two disjoint parents, like the "
+        "interpretation, so that no possible thing could be a member of it. "
+        "The ontology remains consistent, since nothing has been asserted "
+        "to be in the class, and that is exactly what makes the fault a "
+        "quiet one: it sits there until the first individual is typed with "
+        "it, and then the whole graph is inconsistent and the cause is a "
+        "class somebody defined months ago.\n\n"
+        "The usual shapes are a class under two disjoint parents, like the "
         "Translation that o34 seeded disjoint from Work; a class whose "
-        "restrictions contradict, located in some Settlement and located "
-        "in only Publishers; a class defined as the intersection of two "
-        "disjoint classes. All are found by classification with no data "
-        "at all, and ROBOT's reason command lists them and refuses to "
-        "write the reasoned file until they are fixed, which is the right "
-        "default for a gate. The Quality Suite reports the same as "
-        "REA-021, and LOG-001 catches the disjoint-parent case without a "
-        "reasoner.\n\n"
-        "The set reading: an unsatisfiable class is a subset of the empty "
-        "set. owl:Nothing is the empty set's name, and 'equivalent to "
+        "restrictions contradict one another, located in some Settlement "
+        "and located in only Publishers; and a class defined as the "
+        "intersection of two disjoint classes. All of them are found by "
+        "classification with no data at all, and ROBOT's reason command "
+        "lists them and then refuses to write the reasoned file until they "
+        "are fixed, which is the right default for a gate. The Quality "
+        "Suite reports each of them as REA-021, and for this file it also "
+        "reports REA-020, inconsistent, where ROBOT says consistent with "
+        "two unsatisfiable classes: two tools and two verdicts on one file, "
+        "and the difference is precisely this lesson, since unsatisfiable "
+        "is about a class and inconsistent is about the whole graph, and a "
+        "checker that folds the one into the other is not wrong so much as "
+        "coarser. LOG-001, the suite's reasoner-free check, is narrower "
+        "still, catching a class disjoint with its own ancestor, which "
+        "neither of these is.\n\n"
+        "In set terms an unsatisfiable class is a subset of the empty set, "
+        "owl:Nothing is the empty set's name, and 'equivalent to "
         "owl:Nothing' is what a reasoner says when it finds one.",
     diagram="""
    bs:Work owl:disjointWith bs:Person
@@ -287,9 +310,9 @@ o(
    the first bt:book-x a bs:Memoir makes the whole graph inconsistent
 """,
     learn=[
-        "An unsatisfiable class is a fault with no data in it yet. Classify before you load, and fix what the reasoner names.",
-        "The gate should refuse an ontology with one. ROBOT does by default; the Quality Suite reports REA-021.",
-        "Under two disjoint parents, or two restrictions that contradict: those are the shapes to look for when a class comes back empty.",
+        "An unsatisfiable class is a fault with no data in it yet, so classify before you load and fix whatever the reasoner names.",
+        "The gate should refuse an ontology that has one; ROBOT does so by default, and the Quality Suite reports REA-021.",
+        "Under two disjoint parents, or with two restrictions that contradict: those are the shapes to look for when a class comes back empty.",
     ],
     body=DECL + """
 bs:Work a owl:Class . bs:Person a owl:Class . bs:Settlement a owl:Class . bs:Publisher a owl:Class .
@@ -320,26 +343,27 @@ o(
     title="Classification: the hierarchy the reasoner infers",
     decides="Subclass relations that follow from definitions are left for the reasoner to infer rather than asserted, and the inferred hierarchy is compared with the asserted one as a check on both.",
     corner="referent",
-    why="Classification is the reasoner working out the subclass "
-        "relations between every pair of classes, asserted or not. Define "
-        "Author as Person and wrote some Work, and Author is under Person "
-        "without anyone writing rdfs:subClassOf. Define LocalPublisher as "
-        "Publisher and locatedIn some Settlement, and PublisherInWigtown as "
-        "Publisher and locatedIn value Wigtown, and the reasoner places "
-        "the second under the first, because a value is a special case of "
-        "some. Nobody said so. It follows.\n\n"
+    why="Classification is the reasoner working out the subclass relations "
+        "between every pair of classes, asserted or otherwise. Define "
+        "Author as a Person who wrote some Work and Author is under Person "
+        "without anybody having written rdfs:subClassOf; define "
+        "LocalPublisher as a Publisher located in some Settlement, and "
+        "PublisherInWigtown as a Publisher located in Wigtown, and the "
+        "reasoner places the second under the first, because a value is a "
+        "special case of some. Nobody said so, and it follows all the same.\n\n"
         "That is the reason to define rather than declare wherever a "
         "definition is possible. An asserted hierarchy records what "
-        "somebody believed; an inferred one records what the definitions "
-        "entail, and the two can be compared. Where they differ, one of "
-        "them is wrong, and it is usually the assertion. gist's habit of "
-        "defining classes by equivalence to an intersection (o32) is this "
-        "habit at scale.\n\n"
+        "somebody believed, an inferred one records what the definitions "
+        "entail, and the two can be compared; where they differ one of them "
+        "is wrong, and in my experience it is usually the assertion. gist's "
+        "habit of defining classes by equivalence to an intersection, which "
+        "o32 describes, is this same habit at scale.\n\n"
         "ROBOT's reason command writes the inferred axioms into the "
-        "ontology; the measured line counts them. The editor's RL closure "
-        "does not classify, since deriving a subclass axiom from "
-        "restrictions is outside RL; it types individuals, which is the "
-        "other half of the same work, and o56 sets the two side by side.",
+        "ontology and the measured line counts them. The editor's RL "
+        "closure does not classify, since deriving a subclass axiom from "
+        "restrictions lies outside RL; it types individuals instead, which "
+        "is the other half of the same work, and o56 sets the two side by "
+        "side.",
     diagram="""
    asserted                                              inferred (HermiT)
 
@@ -352,9 +376,9 @@ o(
    define where you can; assert where you must; compare the two
 """,
     learn=[
-        "Classification infers the subclass relations the definitions entail. Define rather than assert, and let it.",
-        "Compare the inferred hierarchy with the asserted one. A difference means a belief and a definition disagree.",
-        "The RL closure types individuals; it does not classify classes. That is the line between the editor's reasoner and a DL one.",
+        "Classification infers the subclass relations that the definitions entail, so define rather than assert, and let it.",
+        "Compare the inferred hierarchy with the asserted one, because a difference means that a belief and a definition disagree.",
+        "The RL closure types individuals and does not classify classes, and that is the line between the editor's reasoner and a DL one.",
     ],
     body=DECL + """
 bs:Person a owl:Class . bs:Work a owl:Class . bs:Publisher a owl:Class . bs:Settlement a owl:Class .
@@ -385,32 +409,34 @@ o(
     title="Two reasoners: the rule engine and the description logic",
     decides="The editor's OWL 2 RL closure is used for what it does well, typing individuals and closing properties, and a description-logic reasoner for what only it does, which is to classify, to find the dead classes, and to explain.",
     corner="referent",
-    why="Two kinds of reasoner, and it pays to know which you are "
-        "holding. An OWL 2 RL engine, the editor's HyLAR and the owlrl "
-        "closure this course measures with, applies rules to triples until "
-        "nothing new appears: subclass typing, domain and range, "
-        "transitive and symmetric closure, inverses, chains, sameAs from "
-        "functional properties, allValuesFrom typing, and membership of "
-        "defined classes when the fillers are named. It is fast, it "
-        "scales, it runs in a browser, and it never says no.\n\n"
-        "A description-logic reasoner, HermiT here, decides entailment by "
-        "searching for a model. It classifies classes, finds unsatisfiable "
-        "ones, reports inconsistency, and explains: it can say which few "
-        "axioms make an inference true. It handles existentials in "
-        "superclass position and everything else DL allows. It is slower, "
-        "it does not stream, and it needs the whole ontology in memory.\n\n"
-        "This file shows the line between them on two examples. "
-        "Translation is a Work that is a translation of some Work; "
-        "EnglishTranslation is a Work that is a translation of some "
-        "EnglishWork, and EnglishWork is a kind of Work. Both engines type "
-        "bt:book-x as a Translation, since its fillers are named, and both "
-        "derive that Translation is under Work, since RL has a rule that an "
-        "intersection lies inside each of its parts. Only HermiT derives "
+    why="There are two kinds of reasoner about, and it pays to know which "
+        "one you are holding. An OWL 2 RL engine, which is what the "
+        "editor's HyLAR and the owlrl closure this course measures with "
+        "both are, applies rules to triples until nothing new appears: "
+        "subclass typing, domain and range, transitive and symmetric "
+        "closure, inverses, chains, sameAs from functional properties, "
+        "allValuesFrom typing, and membership of defined classes wherever "
+        "the fillers are named. It is fast, it scales, it runs in a "
+        "browser, and it never says no.\n\n"
+        "A description-logic reasoner, HermiT in this course, decides "
+        "entailment by searching for a model, and so it classifies classes, "
+        "finds the unsatisfiable ones, reports inconsistency, and explains "
+        "itself, which is to say it can tell you which few axioms make an "
+        "inference true. It handles existentials in superclass position and "
+        "everything else DL allows, and in return it is slower, it does not "
+        "stream, and it wants the whole ontology in memory.\n\n"
+        "This file shows the line between them on two examples. Translation "
+        "is a Work that is a translation of some Work, EnglishTranslation "
+        "is a Work that is a translation of some EnglishWork, and "
+        "EnglishWork is a kind of Work. Both engines type bt:book-x as a "
+        "Translation, its fillers being named, and both derive that "
+        "Translation is under Work, since RL has a rule that an "
+        "intersection lies inside each of its parts; only HermiT derives "
         "that EnglishTranslation is under Translation, because that needs "
-        "the two definitions compared as wholes, and RL has no rule for "
-        "that. The measured line has both results. Use the RL engine for "
-        "the data and the DL engine for the ontology, and run the DL "
-        "engine in the gate, where somebody will read what it says.",
+        "the two definitions compared as wholes and RL has no rule for it. "
+        "The measured line carries both results. Use the RL engine for the "
+        "data and the DL engine for the ontology, and run the DL engine in "
+        "the gate, where somebody will read what it says.",
     diagram="""
                             OWL 2 RL (editor, owlrl)      DL (HermiT)
    types individuals        yes                            yes
@@ -428,10 +454,10 @@ o(
                    bs:EnglishTranslation subClassOf bs:Translation   HermiT only
 """,
     learn=[
-        "RL: rules over triples; fast, browser-sized, never says no. DL: models; classifies, finds the dead classes, explains.",
-        "RL has schema rules too, and derives more of the hierarchy than people expect. What it cannot do is compare two definitions as wholes.",
-        "Use RL for the data and DL for the ontology. Run DL in the gate.",
-        "When a book says 'the reasoner infers', ask which kind. The answer changes what you can rely on.",
+        "RL is rules over triples, fast and browser-sized and never saying no; DL is models, and it classifies, finds the dead classes and explains.",
+        "RL has schema rules too and derives more of the hierarchy than people expect; what it cannot do is compare two definitions as wholes.",
+        "Use RL for the data and DL for the ontology, and run DL in the gate.",
+        "When a book tells you that the reasoner infers something, ask which kind of reasoner, because the answer changes what you can rely on.",
     ],
     body=DECL + """
 bs:Work  a owl:Class .
@@ -461,27 +487,31 @@ o(
     title="Reasoning over the whole Trail",
     decides="The shipped vocabulary and the whole dataset go through a description-logic reasoner together: consistent, one hundred and eighty-six within pairs, the reversed segments and inverses materialised, and not one new type, because the data types everything already.",
     corner="referent",
-    why="Everything in this module has been done on a few triples. The "
-        "shipped vocabulary with the whole dataset is four thousand eight "
-        "hundred, and HermiT classifies and realises it in about two "
-        "seconds, which is the number to have in hand before anyone says a DL reasoner is too slow for real data. The OWL 2 DL copy of the dataset is used, so that the profile verdict and the reasoning are about one file; run on the copy with the xsd:gYear values, HermiT reports consistent as well, treating the unknown datatype as opaque.\n\n"
+    why="Everything in this module so far has been done on a few triples, "
+        "whereas the shipped vocabulary with the whole dataset comes to "
+        "four thousand eight hundred, and HermiT classifies and realises it "
+        "in about two seconds, which is the number to have in hand before "
+        "anybody tells you that a DL reasoner is too slow for real data. "
+        "The OWL 2 DL copy of the dataset is the one used, so that the "
+        "profile verdict and the reasoning are about a single file; run on "
+        "the copy that keeps its xsd:gYear values, HermiT reports "
+        "consistent as well, treating the unknown datatype as opaque.\n\n"
         "What it adds is exactly what the axioms promise and nothing "
-        "else. bs:within is transitive, so sixty-three pairs become a "
-        "hundred and eighty-six. bs:connectsTo is symmetric, so "
-        "thirty-three segments gain their reverse. bs:hasImprint is the "
-        "inverse of bs:imprintOf and asserted nowhere, so nine appear. "
-        "bs:wrote is the inverse of bs:author, so six appear where the "
-        "data used author. And not one new rdf:type on a Trail term, "
-        "because the data types every individual already and the "
-        "vocabulary defines no class by equivalence. The SPARQL course's "
-        "module 18 measured the same and drew the same conclusion: the "
-        "closure is real, and a property path gets most of it without a "
-        "reasoner.\n\n"
-        "Consistent, too, which is the quiet confirmation that a "
-        "vocabulary written with the habits of module 05, sparse domains, "
-        "no functional property where sources disagree, disjointness only "
-        "at the top, does not fight its own data. Change one of those "
-        "habits, as o29 did, and the same run says inconsistent.",
+        "besides. bs:within is transitive, so sixty-three pairs become a "
+        "hundred and eighty-six; bs:connectsTo is symmetric, so thirty- "
+        "three segments gain their reverse; bs:hasImprint is the inverse of "
+        "bs:imprintOf and is asserted nowhere, so nine of them appear; "
+        "bs:wrote is the inverse of bs:author, so six appear where the data "
+        "used author. And not one new rdf:type on a Trail term, because the "
+        "data types every individual already and the vocabulary defines no "
+        "class by equivalence. The SPARQL course's module 18 measured the "
+        "same thing and drew the same conclusion, that the closure is real "
+        "and a property path gets most of it without a reasoner at all.\n\n"
+        "Consistent, too, which is the quiet confirmation that a vocabulary "
+        "written with the habits of module 05, sparse domains, no "
+        "functional property where the sources disagree, and disjointness "
+        "only at the top, does not fight its own data. Change one of those "
+        "habits, as o29 did, and the same run comes back inconsistent.",
     diagram="""
    data/bookshop-trail-owl-dl.ttl: 4,796 triples, through HermiT, about two seconds
 
@@ -495,9 +525,9 @@ o(
    verdict: consistent
 """,
     learn=[
-        "A DL reasoner on a few thousand triples takes seconds. Measure before assuming it will not scale.",
-        "What it adds is what the axioms promise: closures and inverses. Where the data is already typed, no types.",
-        "Consistency on the whole dataset is the cheapest end-to-end test an ontology has. Run it in the gate.",
+        "A DL reasoner on a few thousand triples takes seconds, so measure it before assuming that it will not scale.",
+        "What it adds is what the axioms promise, which is closures and inverses; where the data is typed already, it adds no types.",
+        "Consistency over the whole dataset is the cheapest end-to-end test an ontology has, so run it in the gate.",
     ],
     body=DECL + """
 # This lesson's own model is the ontology header; the checker merges the

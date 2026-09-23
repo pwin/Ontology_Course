@@ -9,57 +9,61 @@
 #
 #  WHY
 #    An upper ontology is a set of classes general enough that every domain
-#    ontology needs them and few define them well: person, organisation,
-#    event, place, agreement, content, a quantity with a unit. Its value is
-#    the one o26 gave for reuse, at the level where reuse pays most. Two
-#    ontologies that both put their people under gist:Person can be joined
-#    without a mapping, and two teams that both learned gist's hundred
-#    classes have a vocabulary in common before they meet. An upper
-#    ontology is for that, and the paper this lesson cites, Is an upper
-#    ontology useful?, gives the list: a starter palette of classes and
-#    properties, commonality between domain ontologies, logical consistency
-#    done once at the top, a common vocabulary, a tool for thought,
-#    integrated data, and partitioned data. Its answer to its own title is
-#    yes, and its point about a common vocabulary is the one this course
-#    keeps returning to: the ontology is part of the vocabulary of the
-#    organisation, so choose one whose class names can enter everyday
-#    speech. Continuant fiat boundary, it observes, might not be for
+#    ontology needs them and few define them well, among them person,
+#    organisation, event, place, agreement, content, and a quantity with a
+#    unit. Its value is the one o26 gave for reuse, at the level where
+#    reuse pays best: two ontologies that both put their people under
+#    gist:Person can be joined without a mapping, and two teams that have
+#    both learned gist's hundred classes share a vocabulary before they
+#    ever meet.
+#
+#    An upper ontology is for that, and the paper this lesson cites, Is an
+#    upper ontology useful?, sets out the whole list: a starter palette of
+#    classes and properties, commonality between domain ontologies, logical
+#    consistency done once at the top, a common vocabulary, a tool for
+#    thought, integrated data, and data that can be partitioned again
+#    afterwards. Its answer to its own title is yes, and the point about a
+#    common vocabulary is the one this course keeps coming back to, that
+#    the ontology is part of the vocabulary of the organisation, so you
+#    should choose one whose class names can enter everyday speech;
+#    continuant fiat boundary, as the paper observes, might not be for
 #    everyone.
 #
 #    gist is built to be that vocabulary for enterprises, and its design
 #    choices are all in the service of being learnable: about a hundred
 #    classes, everyday names, sparse domains and ranges, no inverses,
-#    disjointness at the top, everything defined in SKOS annotations, CC-BY
-#    licensed, and released with a version number and a migration guide.
+#    disjointness at the top, everything defined in SKOS annotations, a CC-
+#    BY licence, and a release with a version number and a migration guide.
 #    The paper puts the Goldilocks level of abstraction at a human scale,
-#    about as many classes as a year at school; the measured line has
-#    version 14's counts, from the file itself. BFO, at the other end, has
-#    thirty-six classes and a philosophy; module 09 reads both.
+#    about as many classes as there were people in your year at school, and
+#    the measured line has version 14's counts, taken from the file itself;
+#    BFO, at the other end of the spectrum, has thirty-six classes and a
+#    philosophy, and this module reads both.
 #
-#    The cost of standing on an upper ontology is that its commitments come
-#    too. Put bs:Bookshop under gist:Organization and gist's disjointness
-#    axioms now apply to bookshops: a bookshop cannot also be a
-#    gist:Building, however much it is a shop with a door. That is the
-#    right consequence, and o59 finds it.
+#    What standing on an upper ontology costs is that its commitments come
+#    along too. Put bs:Bookshop under gist:Organization and gist's
+#    disjointness axioms now apply to bookshops, so that a bookshop cannot
+#    also be a gist:Building, however much it may be a shop with a door;
+#    which is the right consequence, and o59 finds it.
 #
 #  DIAGRAM
 #       domain ontologies                        the upper ontology
 #
 #       the Trail       bs:Person   bs:Bookshop  \
-#       a supplier      sup:Staff   sup:Vendor    +---->  gist:Person   gist:Organization   gist:Event ...
+#       a supplier      sup:Staff   sup:Supplier   +---->  gist:Person   gist:Organization   gist:Event ...
 #       a library       lib:Reader  lib:Branch   /        one vocabulary in common; joins with no mapping
 #
 #       gist 14, measured from the file:  about a hundred classes, sixty-odd object properties,
 #       fifty datatype properties, everyday names, no inverses, CC-BY
 #
 #  WHAT TO TAKE AWAY
-#    - An upper ontology is a vocabulary in common. Its value is that two
-#      teams, or two datasets, meet already agreeing on what a person, an
-#      organisation or an event is.
-#    - gist is built to be learned: a hundred classes with ordinary
+#    - An upper ontology is a vocabulary in common, and its value is that
+#      two teams, or two datasets, meet already agreed on what a person,
+#      an organisation or an event is.
+#    - gist is built to be learned, with a hundred classes under ordinary
 #      names, and every design choice in module 05 comes from it.
-#    - Standing on an upper ontology imports its commitments. That is the
-#      point, and it is also the cost.
+#    - Standing on an upper ontology imports its commitments, which is
+#      the point of it and also the cost.
 #
 #  CORNER    thought
 #  RUNS IN   the browser; the counts on the MEASURED line are computed from gistCore.ttl, fetched by scripts/setup-tools.ps1

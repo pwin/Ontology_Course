@@ -1,6 +1,6 @@
 # Module 01 · Meaning
 
-Before a class or a property, there is a word, the thing it stands for, and the idea in between. The triangle of reference is the oldest picture of that, and it is the picture this whole course is drawn on. This module puts the Bookshop Trail's nouns on it, shows the two ways a word fails, and introduces the one kind of symbol that is globally unique and that a machine can compare: the IRI. Strings to things.
+Before there is a class or a property there is a word, the thing it stands for, and the idea in between. The triangle of reference is the oldest picture of that, and it is the picture this whole course is drawn on; so this module puts the Bookshop Trail's nouns onto it, shows the two ways in which a word fails, and introduces the one kind of symbol that is globally unique and that a machine can compare, which is the IRI, and which is what takes us from strings to things.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

@@ -1,6 +1,6 @@
 # Module 05 · Design principles
 
-What a well-made ontology has in common, drawn from three places that agree more than they differ: the gist style guide, the OBO Foundry principles, and the SemOps Manual. Minimal, reused before invented, disjoint at the top, sparse in its domains and ranges, meaning rather than integrity, and built with the people who will have to read it.
+What well-made ontologies have in common, drawn from three places that agree rather more than they differ: the gist style guide, the OBO Foundry principles, and the SemOps Manual. Minimal, reused before invented, disjoint at the top, sparse in its domains and ranges, carrying meaning rather than integrity rules, and built alongside the people who will have to read it.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

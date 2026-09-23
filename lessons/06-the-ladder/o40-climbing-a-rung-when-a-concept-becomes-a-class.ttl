@@ -8,30 +8,33 @@
 #    the reasoner then types works by their genre's ancestors.
 #
 #  WHY
-#    o24 gave the test: promote a concept to a class when the first axiom
-#    about its members is needed. Suppose the website must show every work
-#    of fiction on one page, and works are tagged with the leaf genre only.
-#    A path over the scheme answers it in SPARQL. But suppose a downstream
-#    consumer will only see the closure, or a shape must target 'every work
-#    of fiction'. Then the concept scheme is a rung too low, and the
-#    promotion is mechanical: the same IRI becomes an owl:Class as well as
-#    a skos:Concept, rdfs:subClassOf is written beside every skos:broader,
-#    and works are typed with the class. The reasoner does the rest. This
-#    lesson's file has three works typed with genres, two of them leaves,
-#    and the closure types each with every ancestor.
+#    o24 gave the test, which is to promote a concept to a class when the
+#    first axiom about its members is needed. Suppose the website must show
+#    every work of fiction on one page and the works are tagged with the
+#    leaf genre only: a path over the scheme answers that in SPARQL and
+#    nothing more is called for. But suppose instead that a downstream
+#    consumer will only ever see the closure, or that a shape must target
+#    every work of fiction; then the concept scheme is a rung too low, and
+#    the promotion is mechanical. The same IRI becomes an owl:Class as well
+#    as a skos:Concept, rdfs:subClassOf is written beside every
+#    skos:broader, the works are typed with the class, and the reasoner
+#    does the rest. This lesson's file has three works typed with genres,
+#    two of them leaves, and the closure types each of them with every
+#    ancestor.
 #
-#    This is punning, and OWL 2 DL permits it: the class reading and the
-#    individual reading of bt:genre-crime-fiction are kept apart by the
-#    reasoner, so bs:specialises can still point at the individual while
-#    works are members of the class. The profile checker confirms the file
-#    is DL. The cost is that every genre now has two readings to maintain,
-#    and every change to the shelf plan is a change to a class hierarchy,
-#    with the retyping that implies. The price of the higher rung is that,
-#    and it is why the Trail does not pay it for genres.
+#    This is punning, and OWL 2 DL permits it, since the class reading and
+#    the individual reading of bt:genre-crime-fiction are kept apart by the
+#    reasoner, so that bs:specialises can still point at the individual
+#    while works are members of the class; the profile checker confirms
+#    that the file is DL. What it costs is that every genre now has two
+#    readings to maintain, and every change to the shelf plan becomes a
+#    change to a class hierarchy, with all the retyping that implies. That
+#    is the price of the higher rung, and it is why the Trail does not pay
+#    it for genres.
 #
-#    The set reading makes the promotion exact. The concept was a
-#    particular; the class is the set of works in that genre; broader
-#    between particulars becomes subset between sets; and a work typed with
+#    The set reading makes the promotion exact: the concept was a
+#    particular, the class is the set of works in that genre, broader
+#    between particulars becomes subset between sets, and a work typed with
 #    the leaf is, by inheritance, in every set above it.
 #
 #  DIAGRAM
@@ -47,12 +50,14 @@
 #
 #  WHAT TO TAKE AWAY
 #    - Promotion is mechanical: add owl:Class, mirror broader with
-#      subClassOf, type the members. The reasoner types them with every
-#      ancestor.
+#      subClassOf, type the members, and the reasoner types them with
+#      every ancestor.
 #    - Punning lets the concept keep its uses while the class gains
-#      members. The profile checker confirms it is DL.
+#      members, and the profile checker confirms that this stays inside
+#      DL.
 #    - The cost is two readings per term and retyping on every
-#      rearrangement. Pay it only where an axiom about members is needed.
+#      rearrangement, so pay it only where an axiom about members is
+#      needed.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

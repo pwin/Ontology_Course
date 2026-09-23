@@ -9,27 +9,29 @@
 #
 #  WHY
 #    The gist style guide's orthographic rules fit on a card. Classes start
-#    with a capital and properties with a lower-case letter, both camel-
-#    cased. Only letters and digits: Isbn10, not ISBN-10, because a hyphen
-#    ends a prefixed name in Turtle and an underscore is a word boundary
-#    nobody agreed on. Acronyms are camel-cased too, so that word
-#    boundaries stay unambiguous: UriScheme, not URIScheme. ID is the one
-#    exception, because the dictionary spells it that way. And no
-#    abbreviations of your own: hasUnitOfMeasure, not hasUoM, because the
-#    person reading the query in five years was not in the room.
+#    with a capital and properties with a lower-case letter, both of them
+#    camel-cased; only letters and digits are allowed, so Isbn10 rather
+#    than ISBN-10, because a hyphen ends a prefixed name in Turtle and an
+#    underscore is a word boundary nobody ever agreed on; acronyms are
+#    camel-cased too, so that word boundaries stay unambiguous, giving
+#    UriScheme rather than URIScheme, with ID as the one exception because
+#    the dictionary spells it that way; and there are to be no
+#    abbreviations of your own devising, so hasUnitOfMeasure rather than
+#    hasUoM, since the person reading the query in five years was not in
+#    the room when you invented it.
 #
-#    The rules are not arbitrary and they are not about taste. A convention
-#    followed by every term is a convention a tool can check, and a tool
-#    that checks it stops the one hyphenated name from being found in
-#    production. The Ontology Quality Suite's STY-001 and STY-002 check
-#    exactly these two rules, and this file makes them fire.
+#    None of this is arbitrary, and none of it is about taste. A convention
+#    that every term follows is a convention a tool can check, and a tool
+#    that checks it is what stops the one hyphenated name from turning up
+#    in production. The Ontology Quality Suite's STY-001 and STY-002 check
+#    exactly these two rules, and this file is written to make them fire.
 #
-#    This file holds the committee's draft, with four names that break a
-#    rule each, beside the corrected forms. The audit counts three:
-#    noOfStaff is perfectly good lowerCamelCase, and no pattern can tell an
-#    abbreviation from a word. That one is caught by a reader, or by a list
-#    of forbidden abbreviations, which is how gist handles it. The
-#    corrected names are the Trail's real ones.
+#    What the file holds is the committee's draft, with four names that
+#    break a rule each, set beside the corrected forms. The audit counts
+#    three of them, because noOfStaff is perfectly good lowerCamelCase and
+#    no pattern can tell an abbreviation from a word; that one is caught by
+#    a reader, or by a list of forbidden abbreviations, which is how gist
+#    handles it. The corrected names are the Trail's real ones.
 #
 #  DIAGRAM
 #       rule                                    draft             corrected
@@ -43,12 +45,14 @@
 #       a convention every term follows is a convention a tool can check
 #
 #  WHAT TO TAKE AWAY
-#    - UpperCamelCase classes, lowerCamelCase properties, letters and
-#      digits only. Four rules, no exceptions worth having.
-#    - Camel-case acronyms so that word boundaries are unambiguous.
-#      Isbn13, UriScheme; ID is the one dictionary exception.
-#    - Never abbreviate on your own account. The reader in five years was
-#      not in the room, and no regular expression will catch it for you.
+#    - UpperCamelCase for classes, lowerCamelCase for properties, letters
+#      and digits only: four rules, with no exceptions worth having.
+#    - Camel-case the acronyms too, so that word boundaries stay
+#      unambiguous, as in Isbn13 and UriScheme; ID is the one exception
+#      the dictionary allows.
+#    - Never abbreviate on your own account, because the reader in five
+#      years was not in the room and no regular expression will catch it
+#      for you.
 #
 #  CORNER    symbol
 #  RUNS IN   the browser

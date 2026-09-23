@@ -8,30 +8,31 @@
 #    compromise written on it.
 #
 #  WHY
-#    A class carries a criterion of identity if there is a way to tell
+#    A class carries a criterion of identity when there is a way to tell
 #    whether two of its instances are one thing or two. Two works are the
 #    same if they have the same author and the same text, whatever printing
-#    you hold. Two editions are the same if they have the same ISBN,
-#    whatever copy you hold. Two copies are the same only if they are the
-#    same object, on the same shelf. Same word, three tests, and a thing
-#    that passes one can fail another: two copies of one edition are the
-#    same edition and different copies.
+#    you happen to hold; two editions are the same if they share an ISBN,
+#    whatever copy you hold; and two copies are the same only if they are
+#    the same object on the same shelf. That is one word, three tests, and
+#    a thing that passes one can fail another, since two copies of one
+#    edition are the same edition and different copies.
 #
-#    OntoClean's rule follows: classes with incompatible criteria of
-#    identity are disjoint, and a class that carries a criterion (+I) may
-#    not sit above one that carries none (-I), because the criterion is
-#    inherited downward. The practical use is in the other direction. When
-#    a draft has one class doing two jobs, the criterion of identity is how
-#    you notice, and it is how you decide how many classes there really
-#    are.
+#    OntoClean's rule follows from that. Classes with incompatible criteria
+#    of identity are disjoint, and a class that carries a criterion, +I,
+#    may not sit above one that carries none, -I, because the criterion is
+#    inherited downward. The practical use runs in the other direction,
+#    though: when a draft has one class doing two jobs, the criterion of
+#    identity is how you notice, and it is how you decide how many classes
+#    there really ought to be.
 #
-#    The Trail's bs:Work is a work and an edition in one class: it has an
-#    author and a text, and it also has an ISBN, pages and a price. That is
-#    a compromise, made because the dataset never needs to say that two
-#    editions are one work. It is written on the class as an editorial
-#    note, which is the difference between a compromise and a mistake. The
-#    set picture makes it plain: a set needs a rule for when two members
-#    are one member, and 'same ISBN' and 'same text' are different rules.
+#    The Trail's bs:Work is a work and an edition in one class, since it
+#    has an author and a text and it also has an ISBN, pages and a price.
+#    That is a compromise, made because the dataset never needs to say that
+#    two editions are one work, and it is written on the class as an
+#    editorial note, which is all the difference between a compromise and a
+#    mistake. The set picture makes it plain enough: a set needs a rule for
+#    when two members are one member, and 'same ISBN' and 'same text' are
+#    not the same rule.
 #
 #  DIAGRAM
 #       class            two of them are the same if       identity   unity
@@ -45,12 +46,13 @@
 #       bs:Work in the Trail = Work + Edition, by a recorded decision
 #
 #  WHAT TO TAKE AWAY
-#    - A criterion of identity is the test for 'one or two'. A class that
-#      has one is a sortal; different tests mean different classes.
-#    - Book is three sortals: work, edition, copy. Deciding how many you
-#      need is a scope decision, and it should be written on the class.
-#    - Unity asks whether each instance is a whole. A stock line is a
-#      count of copies; a work is one thing. Mereological sums are ~U.
+#    - A criterion of identity is the test for one or two, a class that
+#      has one is a sortal, and different tests mean different classes.
+#    - Book is three sortals, work and edition and copy, and deciding how
+#      many of them you need is a scope decision that belongs on the
+#      class in writing.
+#    - Unity asks whether each instance is a whole, so that a stock line,
+#      being a count of copies, is ~U where a work is +U.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

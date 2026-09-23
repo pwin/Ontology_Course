@@ -8,35 +8,38 @@
 #    must be said about its members as a set.
 #
 #  WHY
-#    Every ontology has things that could be a class or an individual, and
-#    the choice is the most consequential one it makes. Crime fiction is
-#    the Trail's case. As a class, bs:CrimeFiction is a set of works: every
-#    crime novel is a member, and anything true of the set, that its
-#    members have a detective say, can be written as an axiom and
-#    inherited. As a particular, bt:genre-crime-fiction is a thing in its
-#    own right, with a Welsh label, a broader concept, a scope note, and,
-#    decisively, the property of being what The Inkwell specialises in. A
-#    shop cannot specialise in a set of works by being a member of it.
+#    Every ontology has things that could be either a class or an
+#    individual, and I think this is the most consequential choice it
+#    makes. Crime fiction is the Trail's case. As a class, bs:CrimeFiction
+#    is a set of works, so that every crime novel is a member and anything
+#    true of the set, that its members have a detective in them, say, can
+#    be written as an axiom and inherited. As a particular, bt:genre-crime-
+#    fiction is a thing in its own right, with a Welsh label, a broader
+#    concept, a scope note and, decisively, the property of being what The
+#    Inkwell specialises in; and a shop cannot specialise in a set of works
+#    by being a member of it.
 #
-#    The test is set-theoretic. Do you need to say things about the
-#    members, as a set, that a reasoner should apply to each? Then it is a
-#    class, and rdfs:subClassOf is subset. Do you need to say things about
-#    the category itself, point other kinds of thing at it, arrange it in a
-#    hierarchy that curators will rearrange, or carry a few thousand of
-#    them? Then it is a concept or a category, and skos:broader is a
-#    relation between two particulars that promises nothing about members.
-#    gist says it outright in the scope note on gist:Category: use a
-#    category 'if you don't care much about the formal structure of the
-#    different types, or if there is a whole hierarchy of them'.
+#    The test is a set-theoretic one. If you need to say things about the
+#    members, as a set, that a reasoner should then apply to each of them,
+#    it is a class, and rdfs:subClassOf is subset; if instead you need to
+#    say things about the category itself, to point other kinds of thing at
+#    it, to arrange it in a hierarchy that curators will rearrange, or to
+#    carry a few thousand of them, then it is a concept or a category, and
+#    skos:broader is a relation between two particulars that promises
+#    nothing whatever about members. gist says it outright in the scope
+#    note on gist:Category, which recommends a category if you do not much
+#    care about the formal structure of the different types, or if there is
+#    a whole hierarchy of them.
 #
-#    The promotion happens when the first axiom about members is needed.
-#    OWL 2 allows both at once by punning: one IRI that is an owl:Class and
-#    a skos:Concept, with rdfs:subClassOf and skos:broader running in
-#    parallel. It costs a second reading of every term and it is the right
-#    answer for a vocabulary that is both a shelf plan and a reasoning
-#    target. The Trail needs only the shelf plan, so it stops at the
-#    concept, and the query at the end shows the cost of the other choice:
-#    as a class, the shop's specialism has nowhere to point.
+#    The promotion happens when the first axiom about members is needed,
+#    and OWL 2 allows both readings at once by punning, with one IRI that
+#    is an owl:Class and a skos:Concept and rdfs:subClassOf running in
+#    parallel with skos:broader. It costs a second reading of every term,
+#    and it is the right answer for a vocabulary that is both a shelf plan
+#    and a reasoning target. The Trail needs only the shelf plan, so it
+#    stops at the concept, and the query at the end shows what the other
+#    choice would cost: as a class, the shop's specialism has nowhere to
+#    point.
 #
 #  DIAGRAM
 #       as a concept (a particular)                 as a class (a set)
@@ -52,14 +55,14 @@
 #       both at once: punning, subClassOf and broader in parallel
 #
 #  WHAT TO TAKE AWAY
-#    - A class is a set you need to say things about. A concept is a
-#      thing you need to point at. Ask which you need before you type
-#      owl:Class.
-#    - Promotion is triggered by the first axiom about members. Until
-#      then, a concept scheme is cheaper, more flexible, and truer to
-#      what is known.
-#    - Punning lets one IRI be both. Pay for it only when the vocabulary
-#      is both a shelf plan and a reasoning target.
+#    - A class is a set you need to say things about and a concept is a
+#      thing you need to point at, so ask which of the two you need
+#      before you type owl:Class.
+#    - Promotion is triggered by the first axiom about members, and until
+#      then a concept scheme is cheaper, more flexible and truer to what
+#      is actually known.
+#    - Punning lets one IRI be both, and it is worth paying for only when
+#      the vocabulary is a shelf plan and a reasoning target at once.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

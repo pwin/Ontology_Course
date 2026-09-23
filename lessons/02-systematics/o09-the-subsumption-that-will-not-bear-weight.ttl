@@ -7,28 +7,29 @@
 #    and the draft that put Bookshop under TrailMember is reversed.
 #
 #  WHY
-#    The committee's first draft said 'a bookshop is a trail member', and
-#    someone wrote it down as Bookshop rdfs:subClassOf TrailMember. It
-#    reads naturally. It is wrong, and OntoClean says why in one line: an
-#    anti-rigid class cannot subsume a rigid one. Being on the trail is
-#    something a shop is for now; the brief says shops have left and one
-#    has joined twice. TrailMember is ~R. Bookshop is +R, because a shop
-#    that leaves the trail is still a bookshop. Put the rigid class under
-#    the anti-rigid one and every bookshop is a member by necessity, which
-#    is precisely what the brief denies.
+#    The committee's first draft said that a bookshop is a trail member,
+#    and somebody wrote it down as Bookshop rdfs:subClassOf TrailMember,
+#    which reads naturally enough and is nonetheless wrong. OntoClean says
+#    why in a single line: an anti-rigid class cannot subsume a rigid one.
+#    Being on the trail is something a shop is for now, since the brief
+#    tells us that shops have left and one has joined twice, so TrailMember
+#    is ~R, while Bookshop is +R, because a shop that leaves the trail is
+#    still perfectly well a bookshop. Put the rigid class under the anti-
+#    rigid one and every bookshop becomes a member by necessity, which is
+#    precisely what the brief denies.
 #
-#    The right way round is TrailMember under Bookshop: a member is a
-#    bookshop, for a while, in a relation to the trail. Then a shop can
-#    leave, and the model has no opinion about whether it stops being a
+#    The right way round is TrailMember under Bookshop, so that a member is
+#    a bookshop, for a while, in a relation to the trail; then a shop can
+#    leave and the model has no opinion about whether it stops being a
 #    shop.
 #
-#    The English 'is a' is the trap. 'A bookshop is a trail member' and 'a
-#    translation is a work' use the same two words for different claims:
-#    the first is about a role every current member happens to play, the
-#    second is about what a translation is in every circumstance. Rigidity
-#    is how you tell them apart when the grammar will not. This file keeps
-#    the wrong draft in place so the query at the end can find it; o12
-#    shows the corrected version.
+#    The English 'is a' is the trap here, because 'a bookshop is a trail
+#    member' and 'a translation is a work' use the same two words for quite
+#    different claims, the first about a role that every current member
+#    happens to play and the second about what a translation is in every
+#    circumstance. Rigidity is how you tell them apart when the grammar
+#    will not. This file keeps the wrong draft in place so that the query
+#    at the end has something to find, and o12 shows the corrected version.
 #
 #  DIAGRAM
 #       the draft                                the rule
@@ -44,12 +45,13 @@
 #       a member is a bookshop, in a relation to the trail, for a while.
 #
 #  WHAT TO TAKE AWAY
-#    - 'Is a' in English covers both essence and role. Rigidity tells
-#      them apart.
-#    - ~R over +R is forbidden. It is the commonest error in a first
-#      draft, and a query over the annotations finds it.
-#    - Membership of a trail, a scheme, a club is a role. Model it under
-#      the kind that plays it, or as a relation.
+#    - 'Is a' in English covers both essence and role, and rigidity is
+#      what tells the two apart.
+#    - An anti-rigid class over a rigid one is forbidden, it is the
+#      commonest error in a first draft, and a query over the annotations
+#      will find it.
+#    - Membership of a trail, a scheme or a club is a role, so model it
+#      under the kind that plays it, or as a relation.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

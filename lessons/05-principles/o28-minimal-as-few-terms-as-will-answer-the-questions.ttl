@@ -8,27 +8,29 @@
 #    whole enterprise is the standard to be measured against.
 #
 #  WHY
-#    gist describes itself as 'the maximum coverage of typical business
-#    ontology concepts with the fewest number of primitives and the least
-#    amount of ambiguity', and it does it in about a hundred classes,
-#    sixty-odd object properties and fifty datatype properties. That is an
-#    enterprise. The Trail, with ten questions to answer, has twenty-five
-#    classes and eighty-four properties, and the properties are the number
-#    to watch: every one is a column someone will have to fill.
+#    gist describes itself as offering the maximum coverage of typical
+#    business ontology concepts with the fewest primitives and the least
+#    ambiguity, and it manages that in about a hundred classes, sixty-odd
+#    object properties and fifty datatype properties, which is enough for
+#    an entire enterprise. The Trail, with ten questions to answer, has
+#    twenty-five classes and eighty-four properties, and it is the
+#    properties that are worth watching, because every one of them is a
+#    column that somebody will have to fill.
 #
-#    Every term costs the same whether it is used or not: a label in each
-#    language, a definition, a review, a place in the documentation, a
-#    check in the gate, and a decision every time someone wonders whether
-#    to use it or its neighbour. A term nobody uses is defined badly,
-#    because nobody finds out. The discipline is the one from o07: a term
-#    is admitted when a question needs it, and the question is written down
-#    beside it.
+#    A term costs the same whether it is used or not, since it needs a
+#    label in each language, a definition, a review, a place in the
+#    documentation, a check in the gate, and a decision every time somebody
+#    wonders whether to use it or the one next to it. Worse, a term nobody
+#    uses is a term defined badly, because nobody ever finds out. The
+#    discipline is the one from o07, that a term is admitted when a
+#    question needs it, with the question written down beside it.
 #
-#    The same discipline applies to axioms. gist keeps domains and ranges
-#    sparse and declares no inverses, not from laziness but because each
-#    one is a commitment that some future dataset will break, and o31 takes
-#    those two up. Minimal is not small for its own sake. It is the number
-#    of terms at which each one is still looked after.
+#    The same discipline applies to axioms. gist keeps its domains and
+#    ranges sparse and declares no inverses at all, not out of laziness but
+#    because each of those is a commitment that some future dataset will
+#    break, and o31 takes the two of them up. Minimal does not mean small
+#    for its own sake; it means the number of terms at which every one of
+#    them is still being looked after.
 #
 #  DIAGRAM
 #                               classes   object props   datatype props   for
@@ -40,12 +42,13 @@
 #       time someone wonders whether to use it
 #
 #  WHAT TO TAKE AWAY
-#    - A term is admitted by a question, not by a noun in the brief. Keep
-#      the question beside the term.
-#    - Properties are the number to watch. Each is a column someone
-#      fills, and the Trail has nearly as many as gist has classes.
-#    - Minimal means every term is still looked after. That is the size
-#      to aim for.
+#    - A term is admitted by a question rather than by a noun in the
+#      brief, so keep the question beside the term.
+#    - Properties are the number to watch, since each one is a column
+#      somebody fills, and the Trail has nearly as many of them as gist
+#      has classes.
+#    - Minimal means that every term is still being looked after, and
+#      that is the size to aim for.
 #
 #  CORNER    thought
 #  DATA      01-vocabulary.ttl

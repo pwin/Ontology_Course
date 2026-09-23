@@ -1,6 +1,6 @@
 # Module 04 · Definitions and controlled vocabularies
 
-The thought corner, written down. A definition is the agreement that makes a shared symbol carry a shared meaning, and a controlled vocabulary is a list of terms whose definitions someone has agreed to look after. This module covers the form of a good definition, the ways one fails, the set of annotations that carry it, and the decision that comes before any taxonomy: is this a class, or a category.
+This is the thought corner, written down. A definition is the agreement that makes a shared symbol carry a shared meaning, and a controlled vocabulary is a list of terms whose definitions somebody has agreed to look after; so the module covers the form of a good definition, the ways in which one fails, the set of annotations that carry it, and the decision that comes before any taxonomy at all, which is whether this thing is a class or a category.
 
 Each `.ttl` file carries its own explanation: what it decides, why, a diagram of the idea, and what to take away. Read the header, then follow the Open in the editor link at its foot, which puts the file in the editor; the graph view draws it and the SPARQL panel can query it. Where a lesson has been reasoned over or measured, the MEASURED line says what the tools found.
 

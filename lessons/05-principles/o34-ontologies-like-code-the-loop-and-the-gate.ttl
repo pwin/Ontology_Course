@@ -8,29 +8,30 @@
 #    asserted by identifier and scoped to the Trail's own namespace.
 #
 #  WHY
-#    The SemOps Manual's maturity model has five levels and says most of
-#    the return is in the step from two to three: from 'we treat ontologies
-#    like code' to 'the standards are enforced without anyone remembering
-#    to enforce them'. Level two is a decision: put the files in git, check
-#    them in the editor as you type, run the checks locally. Level three is
-#    a gate: the same checks in CI, with a non-zero exit code when
-#    something is wrong.
+#    The SemOps Manual's maturity model has five levels and says that most
+#    of the return lies in the step from two to three, which is the step
+#    from treating ontologies like code to having the standards enforced
+#    without anybody having to remember to enforce them. Level two is
+#    really a decision: put the files in git, check them in the editor as
+#    you type, and run the checks locally. Level three is a gate, which is
+#    the same checks in CI with a non-zero exit code when something is
+#    wrong.
 #
-#    Two lessons from the manual's chapter 9 decide whether the gate
-#    survives its first month. First, scope the findings to your own
-#    namespace. The Trail borrows SKOS, GeoSPARQL and PROV terms; a gate
-#    that reports the W3C's documentation habits alongside the Trail's will
-#    be switched off by the second week. The Quality Suite's --own-
-#    namespace flag keeps the imports resolved and filters the report to
-#    the terms you control. Second, assert on check identifiers, not
-#    counts: 'LOG-001 must fire on the fixture with the seeded
-#    contradiction' survives a registry upgrade; 'expected 23 findings'
-#    does not.
+#    Two lessons from the manual's chapter 9 decide whether that gate
+#    survives its first month. The first is to scope the findings to your
+#    own namespace, because the Trail borrows SKOS, GeoSPARQL and PROV
+#    terms, and a gate that reports the W3C's documentation habits
+#    alongside the Trail's will have been switched off by the second week;
+#    the Quality Suite's --own-namespace flag keeps the imports resolved
+#    while filtering the report down to the terms you control. The second
+#    is to assert on check identifiers rather than counts, since 'LOG-001
+#    must fire on the fixture with the seeded contradiction' survives a
+#    registry upgrade and 'expected 23 findings' does not.
 #
-#    This course is built that way. Every lesson is generated from a
+#    This course is built that way itself. Every lesson is generated from a
 #    catalogue, every measured line comes from a run, the checker fails on
 #    any expectation that does not hold, and the seeded faults exist so
-#    that the checks can be seen to fire. That is the practice the manual
+#    that the checks can be seen to fire; which is the practice the manual
 #    describes, applied to a course about ontologies rather than to an
 #    ontology.
 #
@@ -45,12 +46,12 @@
 #       this lesson's file, through the suite with --own-namespace: the ids below, and only those
 #
 #  WHAT TO TAKE AWAY
-#    - Put the vocabulary in version control and check it as you type.
-#      That is level two, and it is a decision, not a project.
-#    - The gate reports your namespace only, and tests assert check
-#      identifiers. Both are what keep a gate switched on.
+#    - Put the vocabulary in version control and check it as you type,
+#      which is level two, and which is a decision rather than a project.
+#    - The gate reports on your namespace only, and the tests assert
+#      check identifiers; both of those are what keep a gate switched on.
 #    - A check that has never fired is indistinguishable from a clean
-#      model. Keep a fixture that makes each one fire.
+#      model, so keep a fixture that makes each one of them fire.
 #
 #  CORNER    thought
 #  RUNS IN   the browser; the gate itself is the Ontology Quality Suite from the command line: pip install ontology-quality-suite

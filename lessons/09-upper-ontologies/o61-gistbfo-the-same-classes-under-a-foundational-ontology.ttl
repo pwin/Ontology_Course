@@ -8,36 +8,39 @@
 #    over the three ontologies together.
 #
 #  WHY
-#    BFO is a foundational ontology of a different temperament. Thirty-six
-#    classes, every IRI a number, and a philosophy: everything is a
-#    continuant, which persists through time, or an occurrent, which
-#    unfolds in it; a continuant is independent, a material object say, or
-#    dependent on one, a quality or a piece of information. The OBO Foundry
-#    builds its biomedical ontologies on it, and a great deal of careful
-#    thought is in it. gist chose everyday names and no philosophy, and
-#    gistBFO is the published bridge between them: about forty subclass
+#    BFO is a foundational ontology of quite a different temperament:
+#    thirty-six classes, every IRI a number, and a philosophy, in which
+#    everything is either a continuant, which persists through time, or an
+#    occurrent, which unfolds in it, and a continuant is either
+#    independent, a material object say, or dependent on one, being a
+#    quality or a piece of information. The OBO Foundry builds its
+#    biomedical ontologies on it and a great deal of careful thought has
+#    gone into it. gist chose everyday names and no philosophy at all, and
+#    gistBFO is the published bridge between the two, about forty subclass
 #    axioms from gist classes into their most specific BFO superclass, each
 #    with a note saying why.
 #
-#    The notes are the useful part, because they show the reasoning an
+#    The notes are the useful part, because they show the reasoning that an
 #    alignment needs. gist:Organization goes under object aggregate, partly
-#    to agree with the Common Core Ontologies. gist:Content under
-#    generically dependent continuant: a work is information that can be
-#    carried by any copy. gist:Category under the same, with a note
-#    explaining why not a quality: a category is a bucket things fall into,
-#    not a redness a car has. And gist:Event, which BFO splits: a scheduled
-#    event is a plan, a generically dependent continuant, while one that
-#    has happened is a process, so gist:Event goes under the union of the
-#    two, which is a mapping that admits it is two things.
+#    in order to agree with the Common Core Ontologies; gist:Content goes
+#    under generically dependent continuant, since a work is information
+#    that any copy can carry; gist:Category goes under the same, with a
+#    note explaining why not a quality, a category being a bucket that
+#    things fall into rather than a redness that a car has. And then there
+#    is gist:Event, which BFO splits, since a scheduled event is a plan, a
+#    generically dependent continuant, while one that has happened is a
+#    process, so gist:Event goes under the union of the two, which is a
+#    mapping that admits to being two things.
 #
-#    The Trail inherits the bridge. bs:Bookshop under gist:Organization is
-#    under object aggregate; bs:Work under gist:Content is a generically
-#    dependent continuant; bs:Event is whatever gist:Event is. HermiT,
-#    given the Trail's bridge, gistCore, gistBFO and BFO 2020 core
-#    together, reports the four consistent in a few seconds, which is the
-#    measured line. Whether the Trail wants BFO's commitments is a separate
-#    question, and the plain answer is that a bookshop website does not;
-#    the value here is in seeing an alignment done well.
+#    The Trail inherits the whole bridge, so that bs:Bookshop under
+#    gist:Organization is under object aggregate, bs:Work under
+#    gist:Content is a generically dependent continuant, and bs:Event is
+#    whatever gist:Event is. HermiT, given the Trail's bridge with
+#    gistCore, gistBFO and BFO 2020 core together, reports the four of them
+#    consistent in a few seconds, which is the measured line. Whether the
+#    Trail wants BFO's commitments is a separate question, and the plain
+#    answer is that a bookshop website does not; the value here lies in
+#    seeing an alignment done well.
 #
 #  DIAGRAM
 #       Trail             gist                  BFO (gistBFO)                                   note
@@ -50,12 +53,12 @@
 #       measured: the Trail + gistCore + gistBFO + BFO 2020 core, consistent under HermiT
 #
 #  WHAT TO TAKE AWAY
-#    - A foundational ontology brings a philosophy. Read the bridge's
-#      notes to see what each placement commits you to.
-#    - The hard mappings are the candid ones: gist:Event under a union,
-#      because it is two kinds of thing in BFO's terms.
-#    - Inheriting a bridge is cheap and reasoning over it is quick.
-#      Deciding whether you want its commitments is the real work.
+#    - A foundational ontology brings a philosophy with it, so read the
+#      bridge's notes to see what each placement commits you to.
+#    - The hard mappings are the candid ones, like gist:Event under a
+#      union, because in BFO's terms it really is two kinds of thing.
+#    - Inheriting a bridge is cheap and reasoning over it is quick, and
+#      deciding whether you want its commitments is the real work.
 #
 #  CORNER    referent
 #  RUNS IN   the browser; the four-ontology consistency check is HermiT through ROBOT; gistBFO and BFO are fetched by scripts/setup-tools.ps1

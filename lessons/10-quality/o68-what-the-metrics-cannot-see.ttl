@@ -10,32 +10,34 @@
 #
 #  WHY
 #    OQuaRE scores the Trail 5 on almost everything, and the Quality
-#    Suite's violations come out at zero once the policy questions are
-#    decided. Neither knows whether Author is a role, whether Work is one
-#    class or two, whether the definitions are circular, whether bs:founded
-#    should be functional, or whether the ontology can answer question 7 in
-#    the brief. Metrics count what is written; checks pattern-match it.
-#    Meaning is not in the graph unless someone put it there, and the parts
-#    of this course that put it there, modules 02 and 04, are the parts no
-#    metric reads.
+#    Suite's violations come out at zero once the policy questions have
+#    been decided. Neither of them knows whether Author is a role, whether
+#    Work is one class or two, whether the definitions are circular,
+#    whether bs:founded ought to be functional, or whether the ontology can
+#    answer question 7 in the brief. Metrics count what is written and
+#    checks pattern-match it, while meaning is not in the graph at all
+#    unless somebody has put it there, and the parts of this course that
+#    put it there, modules 02 and 04, are precisely the parts no metric
+#    reads.
 #
-#    So a gate has more than one instrument. The reasoner: consistent, no
-#    unsatisfiable classes, with the whole dataset loaded (o57). The
-#    OntoClean queries over the rigidity annotations (o13). The definition
-#    audit (o22). The style shapes (o67) and the checks by identifier
-#    (o66). And the competency questions, run as queries against the data,
-#    which are the only instrument that tests whether the ontology does its
-#    job. The SemOps Manual calls them the closest thing ontology work has
-#    to a requirement, and makes them executable as .cq.rq tests; this
+#    So a gate wants more than one instrument. There is the reasoner,
+#    asking whether the thing is consistent and free of unsatisfiable
+#    classes with the whole dataset loaded, as o57 does; the OntoClean
+#    queries over the rigidity annotations from o13; the definition audit
+#    from o22; the style shapes of o67 and the checks by identifier of o66;
+#    and the competency questions, run as queries against the data, which
+#    are the only instrument that tests whether the ontology does its job
+#    at all. The SemOps Manual calls those the closest thing ontology work
+#    has to a requirement and makes them executable as .cq.rq tests; this
 #    lesson runs three of the brief's questions against the Trail's data as
-#    its measured line, and module 12 runs more.
+#    its measured line, and module 12 runs more of them.
 #
-#    The critical literature on OQuaRE says the same from the other side:
-#    the thresholds were proposed rather than validated, the metrics
-#    overlap, and several measure a style choice as if it were a defect,
-#    which o65 showed on gist. None of that makes the metrics useless. It
-#    makes them one instrument among six, and the one to trust least on its
-#    own.
+#    The critical literature on OQuaRE says much the same from the other
+#    side, that the thresholds were proposed rather than validated, that
+#    the metrics overlap, and that several of them measure a style choice
+#    as though it were a defect, which o65 showed happening to gist. None
+#    of that makes the metrics useless; it makes them one instrument among
+#    six, and the one to trust least on its own.
 #
 #  DIAGRAM
 #       instrument                    sees                                  blind to
@@ -49,11 +51,13 @@
 #       a gate is all six; the last is the one that tests the job
 #
 #  WHAT TO TAKE AWAY
-#    - A five-out-of-five ontology can be wrong. Metrics count; they do
-#      not read.
-#    - Six instruments in the gate, and the competency questions are the
-#      one that tests whether the ontology does its job.
-#    - Trust the metrics least on their own. Their authors said so first.
+#    - An ontology that scores five out of five can still be wrong,
+#      because metrics count and do not read.
+#    - There are six instruments in the gate, and the competency
+#      questions are the one that tests whether the ontology does its
+#      job.
+#    - Trust the metrics least of all on their own, which is what their
+#      authors said first.
 #
 #  CORNER    thought
 #  DATA      bookshop-trail-1.1.ttl

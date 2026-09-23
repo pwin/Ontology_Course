@@ -10,28 +10,29 @@
 #  WHY
 #    The process of bringing an ontology into an organisation is a social
 #    one. People have to get together and work out what kinds of things
-#    they have, what words are used for them across the business, and how
-#    each can be defined without going round in a circle. That process
-#    builds a team, and sometimes it exposes a fault line that was already
-#    there. The output is a vocabulary in common; the process is at least
-#    half the value.
+#    they have, what words get used for them across the business, and how
+#    each one can be defined without going round in a circle; and that
+#    process builds a team, though it sometimes exposes a fault line that
+#    was there already. The output is a vocabulary in common, and the
+#    process is at least half the value of the whole undertaking.
 #
-#    The SemOps Manual names the two ways it goes wrong. Definitions are
-#    territory: when two departments disagree about a term, each definition
-#    is load-bearing for someone, and a modeller who picks one without
-#    saying so has made a decision they had no authority to make. Model the
-#    disagreement, get the adjudication from someone who can make it stick,
-#    and record who decided. And the priesthood problem: when only three
-#    people can read the model, the domain experts stop correcting it, and
-#    the model records the modeller's understanding rather than theirs. The
-#    remedy is not to teach everyone OWL. It is to put the model in front
-#    of them in a form they can check, which is what the editor's graph
-#    view is for, and why every lesson in this course opens in it.
+#    The SemOps Manual names the two ways it goes wrong. The first is that
+#    definitions are territory: when two departments disagree about a term,
+#    each definition is load-bearing for somebody, and a modeller who picks
+#    one without saying so has made a decision they had no authority to
+#    make, so the thing to do is model the disagreement, get the
+#    adjudication from somebody who can make it stick, and record who
+#    decided. The second is the priesthood problem, where only three people
+#    can read the model, the domain experts stop correcting it, and what
+#    gets recorded is the modeller's understanding rather than theirs. The
+#    remedy is not to teach everybody OWL but to put the model in front of
+#    them in a form they can check, which is what the editor's graph view
+#    is for and why every lesson in this course opens in it.
 #
-#    OBO Foundry principles FP-010 and FP-011 say the same from the other
-#    side: development is collaborative, and a named person is responsible
-#    for communication. This file puts both on the ontology node, and puts
-#    the decision trail on the terms.
+#    OBO Foundry principles FP-010 and FP-011 say much the same from the
+#    other side, that development is collaborative and that a named person
+#    is responsible for communication, and this file puts both of them on
+#    the ontology node and the decision trail on the terms.
 #
 #  DIAGRAM
 #       the workshop                                   the record
@@ -45,11 +46,12 @@
 #
 #  WHAT TO TAKE AWAY
 #    - Building the vocabulary is a social process, and the team it
-#      builds is part of the return.
-#    - Model a disagreement about territory; do not settle it. Get a
-#      decision from someone who can make it stick, and record who.
-#    - If the experts cannot read the model, they cannot correct it. Show
-#      them the graph, not the axioms.
+#      builds is part of the return on it.
+#    - Model a disagreement about territory rather than settling it, get
+#      a decision from somebody who can make it stick, and record who
+#      that was.
+#    - If the experts cannot read the model then they cannot correct it,
+#      so show them the graph rather than the axioms.
 #
 #  CORNER    thought
 #  RUNS IN   the browser

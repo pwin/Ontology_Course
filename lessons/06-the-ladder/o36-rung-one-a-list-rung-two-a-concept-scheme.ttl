@@ -9,30 +9,32 @@
 #
 #  WHY
 #    The lowest rung is a list of terms with IRIs and labels, which is
-#    where module 01 started: it promises only that the terms exist and are
-#    distinct. The next rung is a concept scheme. Each genre is a
-#    skos:Concept in a skos:ConceptScheme; each has one preferred label per
-#    language and any number of alternatives; broader and narrower arrange
-#    them in a tree, or a lattice, since SKOS allows a concept two broader
-#    ones. What has been promised is this: these particulars are related in
-#    this way. Nothing has been said about any work. A reasoner given the
+#    where module 01 started, and it promises only that the terms exist and
+#    are distinct from one another. The next rung up is a concept scheme,
+#    where each genre is a skos:Concept in a skos:ConceptScheme, each has
+#    one preferred label per language and as many alternatives as you like,
+#    and broader and narrower arrange them into a tree, or a lattice, since
+#    SKOS is content to let a concept have two broader ones. What has been
+#    promised is that these particulars are related in this way, and
+#    nothing has been said about any work at all; a reasoner given the
 #    scheme will not conclude that a cosy crime novel is a work of fiction,
 #    because the scheme has no members to conclude it about.
 #
 #    This is why SKOS is the right rung for a shelf plan. Curators move
-#    genres about; broader changes; no data needs retyping. The Trail's
-#    scheme has thirty-one concepts, two to four levels deep, and the depth
-#    is uneven because crime fiction has kinds that poetry does not. A
-#    model that forced every branch to the same depth would be tidier and
-#    false.
+#    genres about and broader changes, and no data needs retyping on that
+#    account. The Trail's scheme has thirty-one concepts, two to four
+#    levels deep, and the depth is uneven because crime fiction has kinds
+#    that poetry does not; a model that forced every branch to the same
+#    depth would be tidier and false.
 #
-#    The unevenness carries the SPARQL course's best-known lesson, made on
+#    That unevenness carries the SPARQL course's best-known lesson, made on
 #    the place hierarchy in q28 and on this tree in q33: a fixed chain of
-#    two broader hops from Fiction finds some genres and silently misses
-#    the rest, while skos:broader+ finds them all. skos:broader is
-#    deliberately not transitive; skos:broaderTransitive is, and a path
-#    operator computes it without a reasoner. Module 08 comes back to that
-#    as the first of three routes to the same inference.
+#    two broader hops from Fiction finds some of the genres and silently
+#    misses the rest, while skos:broader+ finds them all. skos:broader is
+#    deliberately not transitive, skos:broaderTransitive is, and a path
+#    operator computes the closure without a reasoner anywhere in sight,
+#    which module 08 comes back to as the first of three routes to the same
+#    inference.
 #
 #  DIAGRAM
 #       rung 1  a list         bt:genre-cosy-crime  skos:prefLabel "Cosy Crime"@en          exists, is distinct
@@ -46,12 +48,14 @@
 #             skos:broader+              from Fiction   finds every descendant
 #
 #  WHAT TO TAKE AWAY
-#    - A concept scheme relates particulars. It promises nothing about
-#      members, which is why it can be rearranged without retyping data.
-#    - Keep a hierarchy as uneven as the world is. A fixed depth is a lie
-#      a query will trip on.
-#    - skos:broader is not transitive on purpose. A path operator, or
-#      broaderTransitive, gives the closure when a question needs it.
+#    - A concept scheme relates particulars and promises nothing about
+#      members, which is exactly why it can be rearranged without
+#      retyping any data.
+#    - Keep a hierarchy as uneven as the world is, because a fixed depth
+#      is a lie that some query will eventually trip over.
+#    - skos:broader is not transitive on purpose, and a path operator, or
+#      broaderTransitive, gives you the closure on the day a question
+#      needs it.
 #
 #  NOTE
 #    The counts in the AFTERWARDS queries are for the full scheme,

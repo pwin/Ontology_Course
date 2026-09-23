@@ -7,32 +7,34 @@
 #    is placed under Person and never the other way round.
 #
 #  WHY
-#    Ask of a class: could one of its instances stop being one and still
-#    exist? Rhona Blackwood cannot stop being a person; if she is not a
-#    person she is not anything. Person is rigid, written +R. She could
-#    have stopped being an author, by never writing the second book, or
-#    never the first; she would still be Rhona Blackwood. Author is anti-
-#    rigid, written ~R: every instance of it could, in principle, fail to
-#    be one. Guarino and Welty call the first kind of class a type and the
-#    second a role, and the distinction is the most useful single thing
-#    OntoClean offers.
+#    Ask of any class whether one of its instances could stop being one and
+#    still exist. Rhona Blackwood cannot stop being a person, because if
+#    she is not a person she is not anything, and so Person is rigid, which
+#    OntoClean writes +R. She could easily have stopped being an author, by
+#    never writing the second book or never the first, and she would still
+#    have been Rhona Blackwood, so Author is anti-rigid, written ~R,
+#    meaning that every instance of it could in principle fail to be one.
+#    Guarino and Welty call the first kind of class a type and the second a
+#    role, and of everything OntoClean offers this distinction is the one I
+#    find myself using most.
 #
-#    A role has two more marks. It is anti-rigid, and it is dependent,
-#    written +D: nobody is an author except by way of a work. Author exists
-#    only in relation to Work, in the way that Customer exists only in
-#    relation to a sale and Employee only in relation to an employer. The
-#    Trail's own definition says so: 'someone who wrote at least one work
-#    in this dataset'.
+#    A role carries two marks rather than one, since as well as being anti-
+#    rigid it is dependent, written +D: nobody is an author except by way
+#    of a work, so Author exists only in relation to Work, in the way that
+#    Customer exists only in relation to a sale and Employee only in
+#    relation to an employer. The Trail's own definition says as much,
+#    calling an author someone who wrote at least one work in this dataset.
 #
-#    The consequence for the hierarchy is a rule, not a preference. An
-#    anti-rigid class may sit under a rigid one, because a role is played
-#    by things of some kind: Author under Person is fine. A rigid class may
-#    never sit under an anti-rigid one, because every person would then be
-#    an author by necessity, which contradicts the role being optional. o09
-#    shows what that looks like when it goes wrong. The set picture is the
-#    same: the set of authors is a subset of the set of persons, and which
-#    subset it is changes as books are written; the set of persons does not
-#    change because of it.
+#    What follows for the hierarchy is a rule rather than a preference. An
+#    anti-rigid class may sit under a rigid one, because a role is always
+#    played by things of some kind, and Author under Person is therefore
+#    unobjectionable; but a rigid class may never sit under an anti-rigid
+#    one, because every person would then be an author by necessity, which
+#    is exactly what makes a role a role. o09 shows what that looks like
+#    when it goes wrong. The set picture says the same thing: the set of
+#    authors is a subset of the set of persons, and which subset it is
+#    changes as books get written, while the set of persons does not change
+#    at all on that account.
 #
 #  DIAGRAM
 #                         bs:Person   +R   rigid: an instance cannot stop being one
@@ -47,13 +49,14 @@
 #       of persons does not depend on the books.
 #
 #  WHAT TO TAKE AWAY
-#    - Rigidity is the first question to ask of a class: could an
-#      instance stop being one and still exist? +R if never, ~R if always
-#      possible.
-#    - A role is anti-rigid and dependent. Author, Customer, Employee,
-#      Patient, Member: things of some kind, in a relation, for a while.
-#    - A role goes under the kind that plays it. Never put a kind under a
-#      role.
+#    - Rigidity is the first question to ask of a class, and it is simply
+#      whether an instance could stop being one and still exist: +R if
+#      never, ~R if always possible.
+#    - A role is both anti-rigid and dependent, and Author, Customer,
+#      Employee, Patient and Member are all of them things of some kind,
+#      in a relation, for a while.
+#    - A role goes under the kind that plays it, and a kind never goes
+#      under a role.
 #
 #  CORNER    referent
 #  RUNS IN   the browser

@@ -29,30 +29,33 @@ o(
     title="A concrete kind and a role: Person and Author",
     decides="Person is a rigid kind and Author is a role a person plays, so Author is placed under Person and never the other way round.",
     corner="referent",
-    why="Ask of a class: could one of its instances stop being one and still "
-        "exist? Rhona Blackwood cannot stop being a person; if she is not a "
-        "person she is not anything. Person is rigid, written +R. She could "
-        "have stopped being an author, by never writing the second book, or "
-        "never the first; she would still be Rhona Blackwood. Author is "
-        "anti-rigid, written ~R: every instance of it could, in principle, "
-        "fail to be one. Guarino and Welty call the first kind of class a "
-        "type and the second a role, and the distinction is the most useful "
-        "single thing OntoClean offers.\n\n"
-        "A role has two more marks. It is anti-rigid, and it is dependent, "
-        "written +D: nobody is an author except by way of a work. Author "
-        "exists only in relation to Work, in the way that Customer exists "
-        "only in relation to a sale and Employee only in relation to an "
-        "employer. The Trail's own definition says so: 'someone who wrote at "
-        "least one work in this dataset'.\n\n"
-        "The consequence for the hierarchy is a rule, not a preference. An "
-        "anti-rigid class may sit under a rigid one, because a role is "
-        "played by things of some kind: Author under Person is fine. A rigid "
-        "class may never sit under an anti-rigid one, because every person "
-        "would then be an author by necessity, which contradicts the role "
-        "being optional. o09 shows what that looks like when it goes wrong. "
-        "The set picture is the same: the set of authors is a subset of the "
-        "set of persons, and which subset it is changes as books are "
-        "written; the set of persons does not change because of it.",
+    why="Ask of any class whether one of its instances could stop being one "
+        "and still exist. Rhona Blackwood cannot stop being a person, "
+        "because if she is not a person she is not anything, and so Person "
+        "is rigid, which OntoClean writes +R. She could easily have stopped "
+        "being an author, by never writing the second book or never the "
+        "first, and she would still have been Rhona Blackwood, so Author is "
+        "anti-rigid, written ~R, meaning that every instance of it could in "
+        "principle fail to be one. Guarino and Welty call the first kind of "
+        "class a type and the second a role, and of everything OntoClean "
+        "offers this distinction is the one I find myself using most.\n\n"
+        "A role carries two marks rather than one, since as well as being "
+        "anti-rigid it is dependent, written +D: nobody is an author except "
+        "by way of a work, so Author exists only in relation to Work, in "
+        "the way that Customer exists only in relation to a sale and "
+        "Employee only in relation to an employer. The Trail's own "
+        "definition says as much, calling an author someone who wrote at "
+        "least one work in this dataset.\n\n"
+        "What follows for the hierarchy is a rule rather than a preference. "
+        "An anti-rigid class may sit under a rigid one, because a role is "
+        "always played by things of some kind, and Author under Person is "
+        "therefore unobjectionable; but a rigid class may never sit under "
+        "an anti-rigid one, because every person would then be an author by "
+        "necessity, which is exactly what makes a role a role. o09 shows "
+        "what that looks like when it goes wrong. The set picture says the "
+        "same thing: the set of authors is a subset of the set of persons, "
+        "and which subset it is changes as books get written, while the set "
+        "of persons does not change at all on that account.",
     diagram="""
                      bs:Person   +R   rigid: an instance cannot stop being one
                         |             (Rhona is a person in every circumstance)
@@ -66,9 +69,9 @@ o(
    of persons does not depend on the books.
 """,
     learn=[
-        "Rigidity is the first question to ask of a class: could an instance stop being one and still exist? +R if never, ~R if always possible.",
-        "A role is anti-rigid and dependent. Author, Customer, Employee, Patient, Member: things of some kind, in a relation, for a while.",
-        "A role goes under the kind that plays it. Never put a kind under a role.",
+        "Rigidity is the first question to ask of a class, and it is simply whether an instance could stop being one and still exist: +R if never, ~R if always possible.",
+        "A role is both anti-rigid and dependent, and Author, Customer, Employee, Patient and Member are all of them things of some kind, in a relation, for a while.",
+        "A role goes under the kind that plays it, and a kind never goes under a role.",
     ],
     body=OC + """
 bs:Person
@@ -115,26 +118,29 @@ o(
     title="The subsumption that will not bear weight",
     decides="'Every bookshop is a trail member' is read as a role, not a subclass, and the draft that put Bookshop under TrailMember is reversed.",
     corner="referent",
-    why="The committee's first draft said 'a bookshop is a trail member', "
-        "and someone wrote it down as Bookshop rdfs:subClassOf TrailMember. "
-        "It reads naturally. It is wrong, and OntoClean says why in one "
-        "line: an anti-rigid class cannot subsume a rigid one. Being on the "
-        "trail is something a shop is for now; the brief says shops have "
-        "left and one has joined twice. TrailMember is ~R. Bookshop is +R, "
-        "because a shop that leaves the trail is still a bookshop. Put the "
-        "rigid class under the anti-rigid one and every bookshop is a member "
-        "by necessity, which is precisely what the brief denies.\n\n"
-        "The right way round is TrailMember under Bookshop: a member is a "
-        "bookshop, for a while, in a relation to the trail. Then a shop can "
-        "leave, and the model has no opinion about whether it stops being a "
-        "shop.\n\n"
-        "The English 'is a' is the trap. 'A bookshop is a trail member' and "
-        "'a translation is a work' use the same two words for different "
-        "claims: the first is about a role every current member happens to "
-        "play, the second is about what a translation is in every circumstance. "
-        "Rigidity is how you tell them apart when the grammar will not. This "
-        "file keeps the wrong draft in place so the query at the end can "
-        "find it; o12 shows the corrected version.",
+    why="The committee's first draft said that a bookshop is a trail "
+        "member, and somebody wrote it down as Bookshop rdfs:subClassOf "
+        "TrailMember, which reads naturally enough and is nonetheless "
+        "wrong. OntoClean says why in a single line: an anti-rigid class "
+        "cannot subsume a rigid one. Being on the trail is something a shop "
+        "is for now, since the brief tells us that shops have left and one "
+        "has joined twice, so TrailMember is ~R, while Bookshop is +R, "
+        "because a shop that leaves the trail is still perfectly well a "
+        "bookshop. Put the rigid class under the anti-rigid one and every "
+        "bookshop becomes a member by necessity, which is precisely what "
+        "the brief denies.\n\n"
+        "The right way round is TrailMember under Bookshop, so that a "
+        "member is a bookshop, for a while, in a relation to the trail; "
+        "then a shop can leave and the model has no opinion about whether "
+        "it stops being a shop.\n\n"
+        "The English 'is a' is the trap here, because 'a bookshop is a "
+        "trail member' and 'a translation is a work' use the same two words "
+        "for quite different claims, the first about a role that every "
+        "current member happens to play and the second about what a "
+        "translation is in every circumstance. Rigidity is how you tell "
+        "them apart when the grammar will not. This file keeps the wrong "
+        "draft in place so that the query at the end has something to find, "
+        "and o12 shows the corrected version.",
     diagram="""
    the draft                                the rule
 
@@ -149,9 +155,9 @@ o(
    a member is a bookshop, in a relation to the trail, for a while.
 """,
     learn=[
-        "'Is a' in English covers both essence and role. Rigidity tells them apart.",
-        "~R over +R is forbidden. It is the commonest error in a first draft, and a query over the annotations finds it.",
-        "Membership of a trail, a scheme, a club is a role. Model it under the kind that plays it, or as a relation.",
+        "'Is a' in English covers both essence and role, and rigidity is what tells the two apart.",
+        "An anti-rigid class over a rigid one is forbidden, it is the commonest error in a first draft, and a query over the annotations will find it.",
+        "Membership of a trail, a scheme or a club is a role, so model it under the kind that plays it, or as a relation.",
     ],
     body=OC + """
 bs:Bookshop
@@ -191,29 +197,30 @@ o(
     title="Identity: what makes two of them the same",
     decides="Work, Edition and Copy carry different criteria of identity, so they are three classes and disjoint; Work is what the Trail keeps, with the compromise written on it.",
     corner="referent",
-    why="A class carries a criterion of identity if there is a way to tell "
-        "whether two of its instances are one thing or two. Two works are the "
-        "same if they have the same author and the same text, whatever "
-        "printing you hold. Two editions are the same if they have the same "
-        "ISBN, whatever copy you hold. Two copies are the same only if they "
-        "are the same object, on the same shelf. Same word, three tests, and "
-        "a thing that passes one can fail another: two copies of one "
-        "edition are the same edition and different copies.\n\n"
-        "OntoClean's rule follows: classes with incompatible criteria of "
-        "identity are disjoint, and a class that carries a criterion (+I) "
-        "may not sit above one that carries none (-I), because the criterion "
-        "is inherited downward. The practical use is in the other direction. "
-        "When a draft has one class doing two jobs, the criterion of identity "
-        "is how you notice, and it is how you decide how many classes there "
-        "really are.\n\n"
-        "The Trail's bs:Work is a work and an edition in one class: it has an "
-        "author and a text, and it also has an ISBN, pages and a price. That "
-        "is a compromise, made because the dataset never needs to say that "
-        "two editions are one work. It is written on the class as an "
-        "editorial note, which is the difference between a compromise and a "
-        "mistake. The set picture makes it plain: a set needs a rule for "
-        "when two members are one member, and 'same ISBN' and 'same text' "
-        "are different rules.",
+    why="A class carries a criterion of identity when there is a way to "
+        "tell whether two of its instances are one thing or two. Two works "
+        "are the same if they have the same author and the same text, "
+        "whatever printing you happen to hold; two editions are the same if "
+        "they share an ISBN, whatever copy you hold; and two copies are the "
+        "same only if they are the same object on the same shelf. That is "
+        "one word, three tests, and a thing that passes one can fail "
+        "another, since two copies of one edition are the same edition and "
+        "different copies.\n\n"
+        "OntoClean's rule follows from that. Classes with incompatible "
+        "criteria of identity are disjoint, and a class that carries a "
+        "criterion, +I, may not sit above one that carries none, -I, "
+        "because the criterion is inherited downward. The practical use "
+        "runs in the other direction, though: when a draft has one class "
+        "doing two jobs, the criterion of identity is how you notice, and "
+        "it is how you decide how many classes there really ought to be.\n\n"
+        "The Trail's bs:Work is a work and an edition in one class, since "
+        "it has an author and a text and it also has an ISBN, pages and a "
+        "price. That is a compromise, made because the dataset never needs "
+        "to say that two editions are one work, and it is written on the "
+        "class as an editorial note, which is all the difference between a "
+        "compromise and a mistake. The set picture makes it plain enough: a "
+        "set needs a rule for when two members are one member, and 'same "
+        "ISBN' and 'same text' are not the same rule.",
     diagram="""
    class            two of them are the same if       identity   unity
 
@@ -226,9 +233,9 @@ o(
    bs:Work in the Trail = Work + Edition, by a recorded decision
 """,
     learn=[
-        "A criterion of identity is the test for 'one or two'. A class that has one is a sortal; different tests mean different classes.",
-        "Book is three sortals: work, edition, copy. Deciding how many you need is a scope decision, and it should be written on the class.",
-        "Unity asks whether each instance is a whole. A stock line is a count of copies; a work is one thing. Mereological sums are ~U.",
+        "A criterion of identity is the test for one or two, a class that has one is a sortal, and different tests mean different classes.",
+        "Book is three sortals, work and edition and copy, and deciding how many of them you need is a scope decision that belongs on the class in writing.",
+        "Unity asks whether each instance is a whole, so that a stock line, being a count of copies, is ~U where a work is +U.",
     ],
     body=OC + """
 bs:Work
@@ -269,27 +276,29 @@ o(
     title="Phases: the same thing, for a while",
     decides="Living and dead authors, and past and scheduled events, are phases of one kind, not kinds of their own; gist's ContemporaryEvent and HistoricalEvent are the published example.",
     corner="referent",
-    why="A role is anti-rigid because of a relation to something else: an "
-        "author because of a work, a member because of a trail. A phase is "
-        "anti-rigid because of a condition inside the thing itself: a living "
-        "person, a scheduled event, a child. The instance passes through it. "
-        "Both are ~R; a phase is -D, a role is +D, and that is the whole "
-        "difference. Guizzardi's UFO keeps the two apart as Phase and Role, "
-        "and gUFO carries them as gufo:Phase and gufo:Role.\n\n"
-        "gist has two phases in plain sight. gist:ContemporaryEvent is an "
-        "event that has started and not ended; gist:HistoricalEvent is one "
-        "that has ended. The scope note on the first says it exactly: 'when "
-        "the event actually ends, it will cease being contemporary'. The "
-        "same event passes from one to the other, and it stays a gist:Event "
-        "throughout. gistUFO types gist:Offer and gist:ContingentObligation "
-        "as phases of a commitment for the same reason.\n\n"
-        "The Trail records death as the absence of bs:died, and an event's "
-        "pastness by its date. Neither is a class. That is the usual and "
-        "right choice: a phase is often better carried by a property than by "
-        "a subclass, because the property changes and a class assertion "
-        "should not have to. Model a phase as a class when you need to say "
-        "things about the members of the phase as a set; leave it as a "
-        "property when you only need to ask.",
+    why="A role is anti-rigid because of a relation to something else, an "
+        "author because of a work and a member because of a trail, whereas "
+        "a phase is anti-rigid because of a condition inside the thing "
+        "itself, as with a living person, a scheduled event or a child, and "
+        "the instance simply passes through it. Both are ~R, a phase is -D "
+        "and a role is +D, and that is the whole of the difference. "
+        "Guizzardi's UFO keeps the two apart as Phase and Role, and gUFO "
+        "carries them as gufo:Phase and gufo:Role.\n\n"
+        "gist has two phases in plain sight, since gist:ContemporaryEvent "
+        "is an event that has started and not ended while "
+        "gist:HistoricalEvent is one that has ended, and the scope note on "
+        "the first says it exactly: when the event actually ends, it will "
+        "cease being contemporary. The same event passes from the one to "
+        "the other and stays a gist:Event throughout, and gistUFO types "
+        "gist:Offer and gist:ContingentObligation as phases of a commitment "
+        "for the same reason.\n\n"
+        "The Trail records death as the absence of bs:died and an event's "
+        "pastness by its date, so neither is a class, and that is the usual "
+        "and I think the right choice, because a phase is often better "
+        "carried by a property than by a subclass: the property changes, "
+        "and a class assertion should not have to. Model a phase as a class "
+        "when you need to say things about the members of the phase as a "
+        "set, and leave it as a property when all you will do is ask.",
     diagram="""
    anti-rigid, two ways
 
@@ -304,9 +313,9 @@ o(
    ask 'FILTER NOT EXISTS { ?p bs:died ?y }' rather than type a class.
 """,
     learn=[
-        "A phase is anti-rigid from the inside; a role is anti-rigid from a relation. Both go under the kind, never above it.",
-        "gist models the two phases of an event as classes because it wants to say things about all current events. The Trail does not, so it uses a property.",
-        "A class is for saying something about a set of members. If all you will do is ask, a property and a query are cheaper and change more gracefully.",
+        "A phase is anti-rigid from the inside and a role is anti-rigid from a relation, and both go under the kind rather than above it.",
+        "gist models the two phases of an event as classes because it wants to say things about all current events; the Trail does not, so it uses a property instead.",
+        "A class is for saying something about a set of members, so if all you will do is ask, a property and a query are cheaper and change more gracefully.",
     ],
     body=OC + """
 bs:Event
@@ -360,20 +369,28 @@ o(
     decides="The rigid classes of the Trail form its backbone taxonomy; roles and phases hang off it and never form part of it.",
     corner="referent",
     why="Strip a taxonomy down to its rigid classes and what is left is the "
-        "backbone: the kinds every instance necessarily belongs to, arranged "
-        "by subsumption. Guarino and Welty give the backbone its name and its test: every instance in the domain falls under some backbone class, and stays under it, because the backbone is made only of classes nothing can leave. The roles and phases are "
-        "then attached beneath the backbone class that plays them. A "
-        "taxonomy built this way can be extended without collapsing, because "
-        "the part that carries identity never depends on the part that "
-        "changes.\n\n"
-        "The Trail's backbone has ten kinds at the top: Place, Bookshop, "
-        "Person, Publisher, Work, Series, Event, TrailSegment, StockRecord "
-        "and Source. Place has four subkinds, Work has one. Author is the one "
-        "role in the shipped vocabulary; Translation is not a role, because a translation is a translation in every circumstance, so it is a subkind. "
-        "Publisher is a fair argument: the Trail makes it a kind, and gist "
-        "would call it a role of an organisation. That argument is recorded "
-        "here rather than settled, and o14 gives the vocabulary to record it in.\n\n"
-        "The set picture: the backbone is the family of sets that nothing leaves, and the roles are subsets of them that things enter and leave.",
+        "backbone, the kinds every instance necessarily belongs to, "
+        "arranged by subsumption. Guarino and Welty give the backbone its "
+        "name and its test, which is that every instance in the domain "
+        "falls under some backbone class and stays under it, the backbone "
+        "being made only of classes that nothing can leave; the roles and "
+        "phases are then attached beneath whichever backbone class plays "
+        "them. A taxonomy built this way can be extended without "
+        "collapsing, because the part that carries identity never depends "
+        "on the part that changes.\n\n"
+        "The Trail's backbone has ten kinds at the top, which are Place, "
+        "Bookshop, Person, Publisher, Work, Series, Event, TrailSegment, "
+        "StockRecord and Source, with four subkinds under Place and one "
+        "under Work. Author is the one role in the shipped vocabulary, and "
+        "Translation is not a role, because a translation is a translation "
+        "in every circumstance and is therefore a subkind. Publisher is a "
+        "fair argument either way: the Trail makes it a kind, gist would "
+        "call it a role of an organisation, and the argument is recorded "
+        "here rather than settled, with o14 giving the vocabulary to record "
+        "it in.\n\n"
+        "In set terms the backbone is the family of sets that nothing "
+        "leaves, and the roles are subsets of them that things enter and "
+        "leave.",
     diagram="""
    the backbone (all +R)                          hanging off it (~R)
 
@@ -389,9 +406,9 @@ o(
    every particular falls under a backbone class, and stays there
 """,
     learn=[
-        "The backbone is the rigid part of the taxonomy. Build it first, and let the roles hang off it.",
-        "A subkind is rigid and inherits its identity criterion: Translation under Work, Settlement under Place. A role is not a subkind.",
-        "Where a class could be either, say which you chose and why. Publisher is the Trail's example.",
+        "The backbone is the rigid part of the taxonomy, so build it first and let the roles hang off it.",
+        "A subkind is rigid and inherits its identity criterion, as Translation does from Work and Settlement from Place, whereas a role is not a subkind at all.",
+        "Where a class could be either, say which you chose and why; Publisher is the Trail's example of that.",
     ],
     body=OC + """
 bs:Place        a owl:Class ; rdfs:label "Place"@en ;       oc:rigidity "+R" ; oc:identity "+O" .
@@ -439,25 +456,27 @@ o(
     decides="OntoClean's constraints are written as SPARQL queries over the annotations, so that a taxonomy can be checked in the editor before a reasoner ever sees it.",
     corner="referent",
     why="Each meta-property inherits downward in one direction, and each "
-        "constraint is the same sentence with a different letter: a class "
-        "marked one way may not subsume a class marked the other. Anti-rigid "
-        "may not subsume rigid. A class with a criterion of identity may not "
-        "subsume one without. Unity may not subsume non-unity, and anti-unity "
-        "may not subsume unity. Dependent may not subsume independent. And "
-        "two classes with incompatible criteria of identity must be "
-        "disjoint.\n\n"
+        "constraint is then the same sentence with a different letter in "
+        "it, that a class marked one way may not subsume a class marked the "
+        "other. Anti-rigid may not subsume rigid; a class with a criterion "
+        "of identity may not subsume one without; unity may not subsume "
+        "non-unity, and anti-unity may not subsume unity; dependent may not "
+        "subsume independent; and two classes with incompatible criteria of "
+        "identity must be disjoint.\n\n"
         "Because the marks are annotations in the graph, each constraint is "
         "a SPARQL query, and a taxonomy can be checked in the editor's "
-        "SPARQL panel with nothing installed. This file seeds two "
+        "SPARQL panel with nothing installed at all. This file seeds two "
         "violations, the TrailMember draft from o09 and a dependent class "
-        "over an independent one, and the queries find both. A clean run is "
-        "an empty result, which is the same thing the SHACL course warns "
-        "about: an empty result also means the query matched nothing, so "
-        "keep the seeded file to prove the queries fire.\n\n"
-        "The Ontology Quality Suite has no OntoClean check and OQuaRE has no "
-        "OntoClean metric. That is not an oversight in either; rigidity is "
-        "not in the graph unless someone writes it there. This is the "
-        "cheapest way to write it there.",
+        "over an independent one, and each of them breaks two constraints "
+        "at once, so two of the queries come back with two rows. A clean "
+        "run is an empty result, which is the very thing the SHACL course "
+        "warns about, since an empty result also means the query matched "
+        "nothing; keep the seeded file, then, to prove that the queries "
+        "fire.\n\n"
+        "Neither the Ontology Quality Suite nor OQuaRE has anything to say "
+        "about OntoClean, and that is no oversight in either of them, "
+        "because rigidity is not in the graph unless somebody writes it "
+        "there. This is the cheapest way I know of writing it there.",
     diagram="""
    inherits downward     so the constraint is            query
 
@@ -473,9 +492,9 @@ o(
    each link breaks the rigidity rule and the dependence rule at once
 """,
     learn=[
-        "Every OntoClean constraint has the form 'X may not subsume Y'. Written as a query over the annotations, each is a one-line check.",
-        "Keep a file with the violations in it. A check that has never fired is indistinguishable from a check that cannot.",
-        "No metric suite sees rigidity. It has to be recorded, and once recorded it can be checked like anything else.",
+        "Every OntoClean constraint has the form 'X may not subsume Y', and written as a query over the annotations each one is a single line.",
+        "Keep a file with the violations in it, because a check that has never fired is indistinguishable from a check that cannot.",
+        "No metric suite sees rigidity, so it has to be recorded, and once it is recorded it can be checked like anything else in the graph.",
     ],
     body=OC + """
 bs:Bookshop     a owl:Class ; oc:rigidity "+R" ; oc:identity "+O" ; oc:unity "+U" ; oc:dependence "-D" .
@@ -522,27 +541,28 @@ o(
     decides="The Trail's classes are typed with gUFO's Kind, SubKind, Role and Phase, the way gistUFO types gist's, and the typing is checked to agree with the annotations.",
     corner="referent",
     why="gistUFO is a small published file that types every gist class with "
-        "one of gUFO's kinds of class: gist:Person is a gufo:Kind, "
+        "one of gUFO's kinds of class, so that gist:Person is a gufo:Kind, "
         "gist:Contract a gufo:SubKind, gist:ContractTerm a gufo:Role, "
-        "gist:Offer a gufo:Phase, gist:Category a gufo:AbstractIndividualType. "
-        "Those are OntoClean's distinctions with names: a Kind is rigid and "
-        "supplies identity, a SubKind is rigid and inherits it, a Role is "
-        "anti-rigid and relational, a Phase is anti-rigid and intrinsic. "
-        "Reading the file is the fastest way to see the theory applied to a "
-        "real ontology by people who had to live with the result.\n\n"
-        "The typing is done by punning: gist:Person is an owl:Class, and it "
-        "is also an individual of the class gufo:Kind. OWL 2 DL allows one "
-        "IRI to be both, and the reasoner keeps the two readings apart. "
-        "Module 07 says more; here it is enough that the profile checker "
-        "agrees.\n\n"
+        "gist:Offer a gufo:Phase and gist:Category a "
+        "gufo:AbstractIndividualType. Those are OntoClean's distinctions "
+        "under names: a Kind is rigid and supplies identity, a SubKind is "
+        "rigid and inherits it, a Role is anti-rigid and relational, and a "
+        "Phase is anti-rigid and intrinsic. Reading that file is the "
+        "quickest way I know to see the theory applied to a real ontology "
+        "by people who then had to live with the result.\n\n"
+        "The typing is done by punning, since gist:Person is an owl:Class "
+        "and is also an individual of the class gufo:Kind; OWL 2 DL allows "
+        "one IRI to be both and the reasoner keeps the two readings apart, "
+        "as module 07 explains, and here it is enough that the profile "
+        "checker agrees.\n\n"
         "This file types the Trail's classes the same way and adds one "
-        "query: a class typed gufo:Role must carry ~R and +D in the "
-        "annotations, and a gufo:Kind must carry +R. If the two disagree, "
-        "one of them is wrong, and the disagreement is worth more than "
-        "either alone. gist's own naming rule for instances, 'the most "
-        "specific rigid class', is the same theory used for a practical end: "
-        "never name an instance after a role, because the role may end and "
-        "the name should not.",
+        "query, which asks that a class typed gufo:Role carry ~R and +D in "
+        "the annotations and that a gufo:Kind carry +R. Where the two "
+        "disagree one of them is wrong, and the disagreement is worth more "
+        "than either record on its own. gist's own rule for naming "
+        "instances, that the infix is the most specific rigid class, is the "
+        "same theory put to a practical end: never name an instance after a "
+        "role, because the role may end and the name should not.",
     diagram="""
    gUFO type          OntoClean marks        gist example (from gistUFO)    Trail
 
@@ -555,9 +575,9 @@ o(
    one IRI, two readings:  bs:Author a owl:Class .   bs:Author a gufo:Role .
 """,
     learn=[
-        "gUFO's Kind, SubKind, Role, Phase and Category are OntoClean's distinctions as a vocabulary you can assert. gistUFO applies them to all of gist.",
-        "Typing a class with a metaclass is punning, and it is OWL 2 DL. The profile checker confirms it.",
-        "Two records of the same decision, checked against each other, catch more than either. Here the gUFO type and the OntoClean marks must agree.",
+        "gUFO's Kind, SubKind, Role, Phase and Category are OntoClean's distinctions as a vocabulary you can assert, and gistUFO applies them across the whole of gist.",
+        "Typing a class with a metaclass is punning, and it stays within OWL 2 DL, as the profile checker confirms.",
+        "Two records of the same decision, checked against each other, catch more than either alone, and here the gUFO type and the OntoClean marks have to agree.",
     ],
     body=OC + """
 # gUFO's types, declared so this file stands on its own in OWL 2 DL.

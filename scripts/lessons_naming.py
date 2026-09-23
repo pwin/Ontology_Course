@@ -19,33 +19,35 @@ o(
     title="An IRI is not a name",
     decides="The IRI identifies and the label names; a shop can be renamed without becoming a different shop, and an IRI may be readable or opaque as long as nothing depends on reading it.",
     corner="symbol",
-    why="The Inkwell might change its name to The Wigtown Inkwell next year. "
-        "If the IRI were the name, every link to the shop would break, and "
-        "every dataset that mentioned it would need editing. Because the IRI "
-        "is bt:shop-inkwell and the name is a label, the label changes and "
-        "nothing else does. The old name stays as an altLabel, so a search "
-        "still finds it. This is the practical content of the Web "
-        "Architecture's URI opacity: agents should not infer anything from "
-        "the spelling of an IRI, and so nothing should depend on the "
-        "spelling staying true.\n\n"
-        "That said, people read IRIs, and the two big upper ontologies took "
-        "opposite views. gist writes gist:Content and gist:Organization, "
-        "readable at a glance. BFO writes obo:BFO_0000031 for 'generically "
-        "dependent continuant', a number that will never go stale because it "
-        "never said anything. gistBFO, the file that maps one to the other, "
-        "has both styles on every line. Neither is wrong. A readable IRI is "
-        "kinder to the person writing a query and a small liability the day "
-        "the meaning drifts from the word; an opaque one puts all the "
-        "meaning in the label and definition, where it can be edited. The "
-        "OBO Foundry requires the opaque form for its members and gist "
-        "requires the readable one; both forbid changing an IRI once "
-        "published.\n\n"
-        "The Trail's IRIs are readable and lower-case, with a type prefix: "
-        "shop-inkwell, place-wigtown, author-rhona-blackwood. o20 compares "
-        "that with gist's convention. What matters here is only that the "
-        "reader knows which of the three things on screen is which: the IRI "
-        "is the identifier, the label is the name, the comment is the "
-        "meaning.",
+    why="The Inkwell might well change its name to The Wigtown Inkwell next "
+        "year, and if the IRI were the name then every link to the shop "
+        "would break and every dataset that mentioned it would need "
+        "editing. Because the IRI is bt:shop-inkwell and the name is a "
+        "label, the label changes and nothing else does, while the old name "
+        "stays on as an altLabel so that a search still finds it. This is "
+        "the practical content of the Web Architecture's URI opacity, which "
+        "asks that agents infer nothing from the spelling of an IRI, and "
+        "from which it follows that nothing should depend on the spelling "
+        "staying true.\n\n"
+        "People do read IRIs, though, and the two big upper ontologies took "
+        "opposite views about that. gist writes gist:Content and "
+        "gist:Organization, readable at a glance, while BFO writes "
+        "obo:BFO_0000031 for 'generically dependent continuant', a number "
+        "that will never go stale because it never said anything in the "
+        "first place; gistBFO, the file that maps the one to the other, has "
+        "both styles on every line. Neither is wrong. A readable IRI is "
+        "kinder to whoever is writing the query and a small liability on "
+        "the day the meaning drifts away from the word, whereas an opaque "
+        "one puts all the meaning in the label and the definition, where it "
+        "can be edited. The OBO Foundry requires the opaque form of its "
+        "members and gist requires the readable one, and both of them "
+        "forbid changing an IRI once it has been published.\n\n"
+        "The Trail's IRIs are readable and lower-case with a type prefix, "
+        "as in shop-inkwell, place-wigtown and author-rhona-blackwood, and "
+        "o20 compares that with gist's convention. What matters here is "
+        "only that the reader can tell which of the three things on the "
+        "screen is which: the IRI identifies, the label names, and the "
+        "comment carries the meaning.",
     diagram="""
    the shop is renamed                     the IRI                  the label
 
@@ -60,12 +62,13 @@ o(
    label; drift is a small liability       and definition only; drift is free
 """,
     learn=[
-        "The IRI identifies; the label names. Rename by changing the label and keeping the old one as an alternative.",
-        "Opacity is a rule for machines: infer nothing from the spelling. It is also advice for modellers: depend on nothing in it.",
-        "Readable and opaque IRIs are both respectable. Pick one convention and never change a published IRI.",
+        "The IRI identifies and the label names, so a rename is a change of label, with the old one kept as an alternative.",
+        "Opacity is a rule for machines, which should infer nothing from the spelling, and it is also advice for modellers, who should depend on nothing in it.",
+        "Readable and opaque IRIs are both respectable; pick one convention, and never change an IRI once it is published.",
     ],
-    tryit="In the SPARQL panel, ask for every label of bt:shop-inkwell. Then change the prefLabel in the editor, press Get All, and ask again: the "
-          "IRI in the answer has not moved.",
+    tryit="In the SPARQL panel, ask for every label of bt:shop-inkwell, then "
+          "change the prefLabel in the editor, press Get All and ask again: "
+          "the IRI in the answer has not moved.",
     body=DECL + """
 bt:shop-inkwell
     a               bs:Bookshop ;
@@ -100,29 +103,30 @@ o(
     title="Namespaces: one for the vocabulary, one for the data",
     decides="The schema lives in a hash namespace and the data in a slash namespace, the ontology IRI is not the namespace IRI, and both are declared on the ontology node.",
     corner="symbol",
-    why="A namespace is a prefix that an owner mints names under. The Trail "
-        "has two: https://example.org/bookshop-trail/schema# for the classes "
-        "and properties, and https://example.org/bookshop-trail/ for the "
-        "particulars. gist has three, and its Namespace document explains "
-        "why: ontology terms, taxonomy terms and instance data change at "
-        "different rates and are governed by different people, and a "
-        "namespace is the unit of governance.\n\n"
-        "Hash or slash is the other choice. With a hash, everything after the "
-        "# is a fragment, so a browser asking for bs:Bookshop fetches the "
-        "whole schema document and finds the term inside it. That is right "
-        "for a vocabulary of a few hundred terms that is read as a whole. "
-        "With a slash, each IRI can be served on its own, which is right for "
-        "thirty-three shops and will still be right for thirty thousand. "
-        "Cool URIs for the Semantic Web sets the two out and, sensibly, "
+    why="A namespace is a prefix that an owner mints names under, and the "
+        "Trail has two of them: https://example.org/bookshop-trail/schema# "
+        "for the classes and properties, and https://example.org/bookshop- "
+        "trail/ for the particulars. gist has three, and its Namespace "
+        "document explains why, which is that ontology terms, taxonomy "
+        "terms and instance data change at different rates and are governed "
+        "by different people, so that a namespace is really a unit of "
+        "governance.\n\n"
+        "Hash or slash is the other choice to make. With a hash, everything "
+        "after the # is a fragment, so a browser asking for bs:Bookshop "
+        "fetches the whole schema document and finds the term inside it, "
+        "which suits a vocabulary of a few hundred terms that is read as a "
+        "whole; with a slash, each IRI can be served on its own, which "
+        "suits thirty-three shops and will still suit thirty thousand. Cool "
+        "URIs for the Semantic Web sets the two out and, sensibly enough, "
         "declines to pick one for every case.\n\n"
         "The ontology's own IRI, https://example.org/bookshop-trail/schema "
-        "without the hash, names the document. It is not the same as the "
-        "namespace, and the Ontology Quality Suite's check QUA-006 fires "
-        "when the two are conflated, because a term whose IRI equals the "
-        "ontology IRI plus nothing is a term that cannot be told from the "
-        "ontology. The vann vocabulary gives a place to write the preferred "
-        "prefix and namespace on the ontology node, so that tools and people "
-        "agree on 'bs:' without being told.",
+        "without the hash, names the document rather than the namespace, "
+        "and the Ontology Quality Suite's QUA-006 fires when the two are "
+        "conflated, because a term whose IRI is the ontology IRI and "
+        "nothing more cannot be told apart from the ontology. The vann "
+        "vocabulary then gives us somewhere to write the preferred prefix "
+        "and namespace on the ontology node, so that tools and people can "
+        "agree on 'bs:' without having to be told.",
     diagram="""
    https://example.org/bookshop-trail/schema        the ontology IRI: the document
    https://example.org/bookshop-trail/schema#       the schema namespace   (hash)   bs:
@@ -135,9 +139,9 @@ o(
    a namespace is a unit of governance
 """,
     learn=[
-        "Vocabulary and data in different namespaces, because they are governed and versioned differently.",
-        "Hash for a vocabulary read as a document; slash for data served a resource at a time.",
-        "The ontology IRI names the document and is not the namespace. Declare the prefix and namespace on the ontology node with vann.",
+        "Keep vocabulary and data in different namespaces, because the two are governed and versioned differently.",
+        "Hash for a vocabulary that is read as a document, slash for data that is served a resource at a time.",
+        "The ontology IRI names the document and is not the namespace, so declare the prefix and the namespace on the ontology node with vann.",
     ],
     body=DECL + """
 vann:preferredNamespacePrefix  a owl:AnnotationProperty .
@@ -171,25 +175,28 @@ o(
     corner="symbol",
     why="The gist style guide's orthographic rules fit on a card. Classes "
         "start with a capital and properties with a lower-case letter, both "
-        "camel-cased. Only letters and digits: Isbn10, not ISBN-10, because a "
-        "hyphen ends a prefixed name in Turtle and an underscore is a word "
-        "boundary nobody agreed on. Acronyms are camel-cased too, so that "
-        "word boundaries stay unambiguous: UriScheme, not URIScheme. ID is "
-        "the one exception, because the dictionary spells it that way. And "
-        "no abbreviations of your own: hasUnitOfMeasure, not hasUoM, because "
-        "the person reading the query in five years was not in the room.\n\n"
-        "The rules are not arbitrary and they are not about taste. A "
-        "convention followed by every term is a convention a tool can check, "
-        "and a tool that checks it stops the one hyphenated name from being "
-        "found in production. The Ontology Quality Suite's STY-001 and "
-        "STY-002 check exactly these two rules, and this file makes them "
-        "fire.\n\n"
-        "This file holds the committee's draft, with four names that break a "
-        "rule each, beside the corrected forms. The audit counts three: "
-        "noOfStaff is perfectly good lowerCamelCase, and no pattern can tell "
-        "an abbreviation from a word. That one is caught by a reader, or by "
-        "a list of forbidden abbreviations, which is how gist handles it. The "
-        "corrected names are the Trail's real ones.",
+        "of them camel-cased; only letters and digits are allowed, so "
+        "Isbn10 rather than ISBN-10, because a hyphen ends a prefixed name "
+        "in Turtle and an underscore is a word boundary nobody ever agreed "
+        "on; acronyms are camel-cased too, so that word boundaries stay "
+        "unambiguous, giving UriScheme rather than URIScheme, with ID as "
+        "the one exception because the dictionary spells it that way; and "
+        "there are to be no abbreviations of your own devising, so "
+        "hasUnitOfMeasure rather than hasUoM, since the person reading the "
+        "query in five years was not in the room when you invented it.\n\n"
+        "None of this is arbitrary, and none of it is about taste. A "
+        "convention that every term follows is a convention a tool can "
+        "check, and a tool that checks it is what stops the one hyphenated "
+        "name from turning up in production. The Ontology Quality Suite's "
+        "STY-001 and STY-002 check exactly these two rules, and this file "
+        "is written to make them fire.\n\n"
+        "What the file holds is the committee's draft, with four names that "
+        "break a rule each, set beside the corrected forms. The audit "
+        "counts three of them, because noOfStaff is perfectly good "
+        "lowerCamelCase and no pattern can tell an abbreviation from a "
+        "word; that one is caught by a reader, or by a list of forbidden "
+        "abbreviations, which is how gist handles it. The corrected names "
+        "are the Trail's real ones.",
     diagram="""
    rule                                    draft             corrected
 
@@ -202,9 +209,9 @@ o(
    a convention every term follows is a convention a tool can check
 """,
     learn=[
-        "UpperCamelCase classes, lowerCamelCase properties, letters and digits only. Four rules, no exceptions worth having.",
-        "Camel-case acronyms so that word boundaries are unambiguous. Isbn13, UriScheme; ID is the one dictionary exception.",
-        "Never abbreviate on your own account. The reader in five years was not in the room, and no regular expression will catch it for you.",
+        "UpperCamelCase for classes, lowerCamelCase for properties, letters and digits only: four rules, with no exceptions worth having.",
+        "Camel-case the acronyms too, so that word boundaries stay unambiguous, as in Isbn13 and UriScheme; ID is the one exception the dictionary allows.",
+        "Never abbreviate on your own account, because the reader in five years was not in the room and no regular expression will catch it for you.",
     ],
     body=DECL + """
 # The draft, kept so the audit can count it.
@@ -230,28 +237,30 @@ o(
     decides="Object properties are verb-initial and read as a sentence, datatype properties are nouns, direction is unambiguous and runs up the tree; the Trail's departures from that are listed rather than hidden.",
     corner="symbol",
     why="A property name is read in the middle of a triple, so the test is "
-        "whether the triple reads. 'The Inkwell isLocatedIn Wigtown' reads; "
-        "'The Inkwell locatedIn Wigtown' nearly does; 'The Inkwell location "
-        "Wigtown' does not. The gist guide's textual standards come down to "
-        "that test plus a handful of tie-breakers: object properties "
-        "verb-initial (isAbout, not about); the 'is' prefix on -ed forms "
-        "(isGovernedBy); prefer an ordinary verb to hasX (precedes, not "
-        "isFollowedBy); datatype properties as nouns (baseConversionFactor, "
-        "not convertToBase); present tense; a final preposition where it "
-        "helps (hasJurisdictionOver).\n\n"
-        "Two rules are about direction. Make it unambiguous: hasBroader, not "
-        "broader, which SKOS itself gets wrong by this standard. And where "
-        "there is a hierarchy, name the property going up it, child to "
-        "parent, because that is the direction with fewer results: isPartOf "
-        "rather than hasPart, hasSuperCategory rather than hasSubCategory. "
-        "That rule is what lets gist do without inverses altogether, which o31 comes to.\n\n"
+        "simply whether the triple reads. 'The Inkwell isLocatedIn Wigtown' "
+        "reads, 'The Inkwell locatedIn Wigtown' very nearly does, and 'The "
+        "Inkwell location Wigtown' does not. The gist guide's textual "
+        "standards come down to that test and a handful of tie-breakers: "
+        "object properties verb-initial, so isAbout rather than about; the "
+        "'is' prefix on -ed forms, as in isGovernedBy; an ordinary verb in "
+        "preference to hasX, so precedes rather than isFollowedBy; datatype "
+        "properties as nouns, so baseConversionFactor rather than "
+        "convertToBase; the present tense; and a final preposition where it "
+        "helps, as in hasJurisdictionOver.\n\n"
+        "Two of the rules are about direction. Make it unambiguous, so "
+        "hasBroader rather than broader, which SKOS itself gets wrong by "
+        "this standard; and where there is a hierarchy, name the property "
+        "going up it, from child to parent, because that is the direction "
+        "with fewer results, which gives isPartOf rather than hasPart and "
+        "hasSuperCategory rather than hasSubCategory. That last rule is "
+        "what lets gist do without inverses altogether, as o31 comes to.\n\n"
         "The Trail's vocabulary was written before these rules were adopted "
-        "here, and it departs from them in four places: locatedIn, "
+        "here and departs from them in four places, since locatedIn, "
         "publishedBy, author and genre would be isLocatedIn, isPublishedBy, "
-        "hasAuthor and hasGenre. The departures are recorded on each "
+        "hasAuthor and hasGenre; the departures are recorded on each "
         "property as an editorial note. Renaming them would break 145 "
         "queries in the SPARQL course for a gain in consistency, and that "
-        "trade is discussed under pragmatism in o30; the point here is that "
+        "trade is discussed under pragmatism in o30. The point here is that "
         "the departure is written down.",
     diagram="""
    test: does the triple read as a sentence?
@@ -265,9 +274,9 @@ o(
    datatype properties are nouns:  bs:floorArea  bs:staffCount  bs:founded
 """,
     learn=[
-        "Read the triple aloud. If it is not a sentence, rename the property.",
-        "Name a hierarchical property going up: isPartOf, isMemberOf, hasBroader. One direction, fewer results, no inverse needed.",
-        "Where an ontology departs from its own rules, say so on the term. A recorded departure is a decision; a silent one is drift.",
+        "Read the triple aloud, and if it is not a sentence then rename the property.",
+        "Name a hierarchical property going up, as in isPartOf, isMemberOf and hasBroader: one direction, fewer results, and no inverse needed.",
+        "Where an ontology departs from its own rules, say so on the term, because a recorded departure is a decision and a silent one is drift.",
     ],
     body=DECL + """
 bs:locatedIn    a owl:ObjectProperty ; skos:prefLabel "located in"@en ;
@@ -330,27 +339,29 @@ o(
     decides="Every term has exactly one skos:prefLabel per language, classes in title case and properties in lower case, alternatives in skos:altLabel; the rules are shapes, and they run in the editor.",
     corner="symbol",
     why="A preferred label is the one name a term shows in a list, and a "
-        "list with two names for one thing is a list with a bug in it. SKOS "
-        "makes this an integrity condition, S14: at most one preferred label "
-        "per language tag. gist adds exactly one, and cases: title case for "
-        "classes (Physical Identifiable Item), lower case for properties "
-        "(has unit of measure), acronyms in capitals in both. Alternative "
-        "labels are free-form and plural; that is what they are for.\n\n"
-        "gist enforces its label rules with SHACL shapes, run on every "
-        "commit, and the escape hatch for a label that is right and "
-        "non-conforming, a proper noun say, is an annotation "
-        "gist:nonConformingLabel true that the shape reads. The same shapes, "
-        "simplified, are in this lesson's check and in the editor: open them "
-        "in a second tab, pick them in the Shapes dropdown, press Validate. "
-        "Two of the labels here are wrong on purpose, and the report names "
-        "them. This is the SHACL course's whole method applied to a "
-        "vocabulary instead of to data, and the file is one you could run on "
-        "any ontology you are handed.\n\n"
-        "Language tags are the other half. The Trail labels places in Welsh "
-        "and Gaelic where those names exist, and a query for @cy labels is "
-        "what the Welsh page of the website will run. A label without a tag "
-        "is a label in no language, and STY-003 in the Quality Suite says so "
-        "as an Info.",
+        "list with two names for one thing is a list with a bug in it, "
+        "which is why SKOS makes it an integrity condition, S14: at most "
+        "one preferred label per language tag. gist asks for exactly one, "
+        "and adds cases, with title case for classes, as in Physical "
+        "Identifiable Item, lower case for properties, as in has unit of "
+        "measure, and acronyms in capitals in either. Alternative labels "
+        "are free-form and as plural as you please, which is what they are "
+        "for.\n\n"
+        "gist enforces its label rules with SHACL shapes run on every "
+        "commit, and the escape hatch for a label that is right and non- "
+        "conforming, a proper noun say, is an annotation, "
+        "gist:nonConformingLabel true, that the shape reads and respects. "
+        "The same shapes, simplified, are in this lesson and in the editor: "
+        "open them in a second tab, pick them in the Shapes dropdown and "
+        "press Validate. Two of the labels here are wrong on purpose and "
+        "the report names them. This is the SHACL course's whole method "
+        "applied to a vocabulary instead of to data, and the file is one "
+        "you could run against any ontology somebody hands you.\n\n"
+        "Language tags are the other half of it. The Trail labels places in "
+        "Welsh and Gaelic where those names exist, and a query for @cy "
+        "labels is what the Welsh page of the website will run; a label "
+        "with no tag at all is a label in no language, and STY-003 in the "
+        "Quality Suite says so, as an Info.",
     diagram="""
    term             prefLabel                          rule
 
@@ -364,9 +375,9 @@ o(
             bs:Region     "Region"@en  "Rhanbarth"@cy  fine
 """,
     learn=[
-        "One preferred label per language, and altLabels for everything else. SKOS S14 makes the first a hard rule.",
-        "Title case for classes, lower case for properties, acronyms in capitals. gist's shapes check it; the editor runs them.",
-        "A label with no language tag is in no language. Tag every one.",
+        "One preferred label per language, with altLabels for everything else, and SKOS S14 makes the first of those a hard rule.",
+        "Title case for classes, lower case for properties, acronyms in capitals, and gist's shapes check it, which the editor will run for you.",
+        "A label with no language tag is a label in no language, so tag every one of them.",
     ],
     body=DECL + """
 bs:Bookshop    a owl:Class ;            skos:prefLabel "Bookshop"@en ;    skos:altLabel "Shop"@en, "Store"@en .
@@ -392,25 +403,28 @@ o(
     title="Naming the particulars",
     decides="Instance IRIs carry a type infix and a slug, never a role, and are minted once; the Trail's shop-inkwell and gist's _Bookshop_The_Inkwell are the same rule in two spellings.",
     corner="symbol",
-    why="The Trail names its particulars with a lower-case type and a slug: "
-        "shop-inkwell, place-wigtown, author-rhona-blackwood, "
-        "event-inkwell-2025-03-08. gist's convention is a leading "
-        "underscore, the type, an underscore, and the name with its case "
-        "kept: _Bookshop_The_Inkwell. The spelling differs; the rule is the "
-        "same, and it is the rule from module 02. The infix is the most "
-        "specific rigid class the instance belongs to. Never a role, because "
-        "the role may end and the IRI may not.\n\n"
-        "The Trail breaks its own rule once, and the break is worth looking "
-        "at. Authors are named author-rhona-blackwood, and Author is a role. "
-        "gist's guide would say _Person_Rhona_Blackwood. The Trail's defence "
-        "is that its Person class exists only to have authors in it, so the "
-        "role never ends within the dataset. That is a pragmatic argument, openly made, and the editorial note records it.\n\n"
-        "gist's guide also allows a fallback: when the data being mapped "
-        "does not say which specific kind a row is, use a higher class as "
-        "the infix for the whole table, _Organization_ rather than guessing "
-        "between corporations and charities. That is the same rule applied "
-        "with humility, and it is better than an infix that is wrong for a "
-        "third of the rows.",
+    why="The Trail names its particulars with a lower-case type and a slug, "
+        "as in shop-inkwell, place-wigtown, author-rhona-blackwood and "
+        "event-inkwell-2025-03-08, while gist's convention is a leading "
+        "underscore, the type, an underscore, and then the name with its "
+        "case kept, giving _Bookshop_The_Inkwell. The spelling differs and "
+        "the rule is the same, and it is the rule from module 02: the infix "
+        "is the most specific rigid class the instance belongs to, and "
+        "never a role, because the role may end and the IRI may not.\n\n"
+        "The Trail breaks its own rule exactly once, and the break is worth "
+        "looking at. Authors are named author-rhona-blackwood, and Author "
+        "is a role; gist's guide would have _Person_Rhona_Blackwood. The "
+        "Trail's defence is that its Person class exists only to have "
+        "authors in it, so that the role never ends within the dataset, "
+        "which is a pragmatic argument, openly made, and the editorial note "
+        "records it.\n\n"
+        "gist's guide allows a fallback as well, which is that when the "
+        "data being mapped does not say which specific kind a row is, you "
+        "use a higher class as the infix for the whole table, "
+        "_Organization_ rather than guessing between corporations and "
+        "charities. That is the same rule applied with a little humility, "
+        "and it is better than an infix that is wrong for a third of the "
+        "rows.",
     diagram="""
    the Trail                        gist                              the rule
 
@@ -422,9 +436,9 @@ o(
    fallback when the kind is not known from the data: the nearest rigid class
 """,
     learn=[
-        "Infix the most specific rigid class. It is the one thing about the instance that will not change.",
-        "Never name an instance after a role. The Trail does, for authors, and says why on the class.",
-        "When the source data cannot tell you the kind, use a higher one for the whole table rather than guess.",
+        "Infix the most specific rigid class, since it is the one thing about the instance that will not change.",
+        "Never name an instance after a role; the Trail does exactly that for its authors, and says why on the class.",
+        "When the source data cannot tell you the kind, use a higher one for the whole table rather than guess row by row.",
     ],
     body=DECL + """
 bs:Person  a owl:Class ; skos:prefLabel "Person"@en .
