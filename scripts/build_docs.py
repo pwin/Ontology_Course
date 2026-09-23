@@ -121,11 +121,13 @@ def measured_block(l, r: dict | None) -> str:
         rows.append(f"<tr><th>{E(label)}</th><td>{value}</td></tr>")
 
     counts = [f"{r['triples']} triples"]
-    for key, word in (("classes", "class"), ("object_properties", "object property"), ("datatype_properties", "datatype property"),
-                      ("annotation_properties", "annotation property"), ("concepts", "concept"), ("individuals", "individual")):
+    for key, one, many in (("classes", "class", "classes"), ("object_properties", "object property", "object properties"),
+                           ("datatype_properties", "datatype property", "datatype properties"),
+                           ("annotation_properties", "annotation property", "annotation properties"),
+                           ("concepts", "concept", "concepts"), ("individuals", "individual", "individuals")):
         n = r.get(key, 0)
         if n:
-            counts.append(f"{n} {word}{'' if n == 1 else ('ies' if word.endswith('y') else 's')}".replace("yies", "ies"))
+            counts.append(f"{n} {one if n == 1 else many}")
     row("Parses", E("; ".join(counts)) + (f" (with the data: {r['full_triples']} triples)" if r.get("full_triples") else ""))
     if "names_bad" in r:
         row("Naming audit", E(", ".join(r["names_bad"]) if r["names_bad"] else "every local name conforms"))
@@ -468,10 +470,10 @@ pre.code { margin:0; padding:15px 18px; font-family:var(--mono); font-size:.82re
 pre.code b { color:var(--t-kw); font-weight:700; }
 .t-kw { color:var(--t-kw); font-weight:700; } .t-fn { color:var(--t-fn); } .t-var { color:var(--t-var); } .t-string { color:var(--t-str); }
 .t-iri { color:var(--t-iri); } .t-pname { color:var(--t-pname); } .t-comment { color:var(--t-com); font-style:italic; } .t-num { color:var(--t-num); } .t-annot { color:var(--t-annot); font-weight:700; }
-.mech { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:26px; margin-top:20px; align-items:start; }
+.mech { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:26px; margin-top:20px; align-items:start; }
 .mech h4, .learn h4, .report h4, h4.q { font-family:var(--sans); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin:0 0 8px; }
 .mech-prose p { margin:0 0 10px; color:var(--ink-2); font-size:.95rem; }
-pre.diagram { margin:0; padding:14px 16px; background:var(--paper-2); border:1px solid var(--rule); border-radius:3px; font-family:var(--mono); font-size:.76rem; line-height:1.45; overflow-x:auto; color:var(--ink-2); }
+pre.diagram { margin:0; padding:14px 16px; max-width:100%; background:var(--paper-2); border:1px solid var(--rule); border-radius:3px; font-family:var(--mono); font-size:.76rem; line-height:1.45; overflow-x:auto; color:var(--ink-2); }
 .learn { margin-top:18px; max-width:var(--maxw); }
 .learn ul { margin:0; padding-left:20px; color:var(--ink-2); font-size:.95rem; }
 .learn li { margin-bottom:6px; }
