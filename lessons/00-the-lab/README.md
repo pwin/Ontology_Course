@@ -24,7 +24,7 @@ The **Measured** block under every lesson in the course document says what an OW
 
 ## Shapes, and the Inference dropdown
 
-Some lessons carry a companion shapes file: the label rules of [o19](../03-naming/), the SKOS integrity conditions of [o39](../06-the-ladder/), the style shapes of [o67](../10-quality/), the transitive-closure rule of [o52](../08-reasoning/). Open in the editor opens the companion in a second tab already selected under **Shapes**; press **Validate** and read the report as the SHACL course taught. For the rule lesson, set **Inference** to *rules, iterated* first.
+Some lessons carry a companion shapes file: the label rules of [o19](../03-naming/), the SKOS integrity conditions of [o39](../06-the-ladder/), the style shapes of [o67](../10-quality/), the transitive-closure rule of [o52](../08-reasoning/). Open in the editor opens the companion in a second tab already selected under **Shapes**; press **Validate** and read the report as the SHACL course taught. For the rule lesson, work down the **Inference** dropdown: at *none* the report counts the 63 asserted pairs, at *rules* the 123 of one pass, and at *rules, iterated* all 186 of the closure.
 
 Validating a vocabulary is the SHACL course's method turned on the ontology itself, and it is how to form a first opinion of any vocabulary you are handed.
 
@@ -42,12 +42,12 @@ Nothing, to do the course. Every claim the tools could check has been checked al
 
 ```powershell
 ./scripts/setup-tools.ps1                   # fetches ROBOT, gist, gistBFO, gistUFO, gUFO and BFO into lib/
-pip install -r scripts/requirements.txt     # rdflib, owlrl, pyshacl, ontology-quality-suite
+pip install -r scripts/requirements.txt     # rdflib, owlrl, shacl, ontology-quality-suite
 python scripts/check_lessons.py             # every lesson, every instrument; about two minutes
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples printed
 ```
 
-ROBOT wraps the OWL API, the OWL 2 profile checker and HermiT, and is the referee for every "in profile", "consistent" and "inferred" in the course. The Ontology Quality Suite is the source of every check identifier. `scripts/metrics.py` computes the OQuaRE metrics. All three need Java or Python; none needs the internet after setup.
+ROBOT wraps the OWL API, the OWL 2 profile checker and HermiT, and is the referee for every "in profile", "consistent" and "inferred" in the course. The Ontology Quality Suite is the source of every check identifier. `scripts/metrics.py` computes the OQuaRE metrics. And the SHACL numbers come from `shacl`, which is the engine behind the editor's Validate button: one Rust engine, compiled to WebAssembly for the browser and bound to Python for the checker, so what the Measured block says the report was is what the editor will show you. None of them needs the internet after setup.
 
 ## What is where
 

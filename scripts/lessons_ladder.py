@@ -384,10 +384,7 @@ o(
         "The integrity conditions are checkable, and this lesson's shapes "
         "check the ones that matter: one preferred label per language, "
         "every concept in a scheme, related disjoint from broader, and no "
-        "concept its own ancestor. Run against the shipped scheme they "
-        "report conformance, and run against this file, with its seeded "
-        "cycle and doubled label, they report both; the SHACL course's s30 "
-        "does the cycle check in the very same way.",
+        "concept its own ancestor. Run against the shipped scheme they report conformance, and run against this file, with its seeded cycle and its doubled label, they report seven violations: the doubled label once, and the cycle twice over for each of the three concepts caught in it, since the path constraint and the SPARQL constraint each find it. The SHACL course's s30 does the cycle check in the very same way.",
     diagram="""
    labels     prefLabel (one per language, S14)   altLabel   hiddenLabel
    notes      definition  scopeNote  example  historyNote  changeNote  editorialNote
@@ -440,7 +437,7 @@ bt:genre-fiction     skos:broader bt:genre-cosy-crime .
     companions={"skos-shapes.ttl": SKOS_SHAPES},
     shapes="skos-shapes.ttl",
     check=dict(profile=True, shacl=SKOS_SHAPES),
-    expect=dict(dl=True, shacl_conforms=False),
+    expect=dict(dl=True, shacl_conforms=False, shacl_violations=7, shacl_shapes=5),
     queries=[Query("Concepts that are their own ancestor", """
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?c WHERE { ?c skos:broader+ ?c }""", rows=3)],

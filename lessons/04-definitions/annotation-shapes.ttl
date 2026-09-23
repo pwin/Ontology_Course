@@ -1,0 +1,13 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix bt:   <https://example.org/bookshop-trail/> .
+
+# gist's annotation cardinalities as shapes: exactly one preferred label per
+# language (gist's own shape says one, because gist is in one language),
+# exactly one definition.
+bt:AnnotatedTermShape
+    a               sh:NodeShape ;
+    sh:targetClass  owl:Class, owl:ObjectProperty, owl:DatatypeProperty ;
+    sh:property [ sh:path skos:prefLabel ;  sh:minCount 1 ; sh:uniqueLang true ; sh:message "Exactly one preferred label per language." ] ;
+    sh:property [ sh:path skos:definition ; sh:minCount 1 ; sh:maxCount 1 ; sh:message "Exactly one definition." ] .

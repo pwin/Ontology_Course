@@ -80,8 +80,10 @@ from where its owner publishes it, under its own licence:
 
 `scripts/requirements.txt` names the Python packages the checker uses, fetched
 from PyPI: [rdflib](https://github.com/RDFLib/rdflib) (BSD-3-Clause),
-[owlrl](https://github.com/RDFLib/OWL-RL) (W3C), [pySHACL](https://github.com/RDFLib/pySHACL)
-(Apache-2.0) and the [Ontology Quality Suite](https://pypi.org/project/ontology-quality-suite/)
+[owlrl](https://github.com/RDFLib/OWL-RL) (W3C), [`shacl`](https://pypi.org/project/shacl/)
+(MIT or Apache-2.0), which is the Python binding of the same Rust engine whose
+WebAssembly build the Turtle Editor Viewer runs, and the
+[Ontology Quality Suite](https://pypi.org/project/ontology-quality-suite/)
 (as published). None is needed to do the course.
 
 The **Turtle Editor Viewer** at <https://semantechs.co.uk/turtle-editor-viewer/>

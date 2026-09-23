@@ -1,5 +1,5 @@
 # The checker's Python dependencies. The course itself needs none of them.
 rdflib>=7.0
 owlrl>=7.0
-pyshacl>=0.30
+shacl>=0.3          # the engine the Turtle Editor Viewer runs, as Python bindings
 ontology-quality-suite>=0.14

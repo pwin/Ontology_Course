@@ -169,8 +169,12 @@ def measured_block(l, r: dict | None) -> str:
             if len(rl["named"]) > MAX_ROWS:
                 v += f'<span class="results-note">and {len(rl["named"]) - MAX_ROWS} more</span>'
         row("OWL 2 RL closure (owlrl; what Show Facts computes)", v)
-    if "rules_added" in r:
-        row("SHACL rule, iterated (pySHACL)", f"+{r['rules_added']} triples")
+    if r.get("rules"):
+        labels = {"none": "asserted only", "rules": "rules, one pass", "rules-iterated": "rules, iterated to a fixpoint"}
+        trs = "".join(f"<tr><td>{E(labels[m])}</td><td>{n} reported</td></tr>" for m, n in r["rules"].items())
+        row("SHACL-AF rule (the editor's Inference dropdown)",
+            "One Info result per derived triple, counted at each mode:"
+            f'<div class="tablewrap small"><table><tbody>{trs}</tbody></table></div>')
     if r.get("version_diff"):
         vd = r["version_diff"]
         v = f"<b>Suggested version bump: {E(vd['bump'] or 'none')}</b>"
@@ -202,7 +206,7 @@ def measured_block(l, r: dict | None) -> str:
             v += f'<div class="tablewrap small"><table><thead><tr><th>Severity</th><th>Focus node</th><th>Path</th><th>Message</th></tr></thead><tbody>{trs}</tbody></table></div>'
             if len(sh["rows"]) > MAX_ROWS:
                 v += f'<span class="results-note">and {len(sh["rows"]) - MAX_ROWS} more</span>'
-        row("SHACL (pySHACL; the editor validates the same shapes)", v)
+        row(f"SHACL ({sh['shapes']} shapes compiled" + (f", inference <em>{E(sh['inference'])}</em>" if sh.get("inference", "none") != "none" else "") + ")", v)
     m = r.get("metrics", {})
     if m:
         trs = "".join(f"<tr><td><code>{k}</code></td><td>{(f'{v*100:.0f}%' if k in metrics.RELATIVE else f'{v:g}')}</td><td>{m['scores'][k]}</td></tr>"
@@ -297,13 +301,14 @@ def lab_html() -> str:
       runs it. For the rule lesson in module 08, set <b>Inference</b> to <em>rules, iterated</em>.</p></div>
     <div class="panel"><h3>What needs a terminal</h3>
       <p>Unsatisfiable classes, the inferred hierarchy, explanations and profile verdicts come from a description-logic
-      reasoner, HermiT through ROBOT; the check identifiers from the Ontology Quality Suite. Each lesson's <em>Runs in</em>
-      line says which, and the Measured block already has the result.</p></div>
+      reasoner, HermiT through ROBOT; the check identifiers from the Ontology Quality Suite. The SHACL numbers do not:
+      they come from <code>shacl</code>, the same engine the editor runs, through its Python bindings. Each lesson's
+      <em>Runs in</em> line says which, and the Measured block already has the result.</p></div>
   </div>
 
   <h4 class="subhead">The same measurements, from the command line</h4>
   <div class="code-wrap"><pre class="code">./scripts/setup-tools.ps1                  # fetches ROBOT, gist, gistBFO, gUFO and BFO into lib/
-pip install -r scripts/requirements.txt     # rdflib, owlrl, pyshacl, ontology-quality-suite
+pip install -r scripts/requirements.txt     # rdflib, owlrl, shacl, ontology-quality-suite
 python scripts/check_lessons.py             # every lesson, every instrument; about two minutes
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples printed</pre></div>
 </section>"""
@@ -588,7 +593,7 @@ def main() -> None:
   lesson. Read the header before you look at the graph.</p>
   <p>Each lesson decides one thing about the Bookshop Trail's vocabulary and says why. The <strong>Measured</strong> block under
   it is what the tools found when the file was put through them: the OWL 2 profile checker, HermiT, an OWL 2 RL closure like the
-  editor's own reasoner, pySHACL, the Ontology Quality Suite, the OQuaRE metrics, and the lesson's own queries. Where a lesson
+  editor's own reasoner, the editor's own SHACL engine, the Ontology Quality Suite, the OQuaRE metrics, and the lesson's own queries. Where a lesson
   seeds a fault, the block shows the tool finding it.</p>
   <p>The triangle from <a href="#o01">o01</a> runs through the whole course. Each lesson names the corner it works on: the
   <em>symbol</em> (naming), the <em>thought</em> (definitions, scope, agreement) or the <em>referent</em> (kinds, roles, sets,

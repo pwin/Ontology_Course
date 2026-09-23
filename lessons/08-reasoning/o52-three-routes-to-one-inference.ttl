@@ -40,8 +40,12 @@
 #    a triple and says when it is the right one: when the rule is a
 #    governed artefact that somebody owns, and when the closure has to be
 #    visible to a validator that has no reasoner of its own. This lesson's
-#    companion file is the rule, and pySHACL iterating it adds exactly the
-#    123 triples the reasoner did.
+#    companion file holds the rule, and beside it a second shape that
+#    reports every bs:within pair at Info severity, because a validator's
+#    only output is its report and that is the only way to see what a rule
+#    did; run with the Inference dropdown at none it reports the 63
+#    asserted pairs, at rules the 123 of one pass, and at rules-iterated
+#    all 186.
 #
 #    So: the same 186 pairs, three engines, and three different moments at
 #    which to pay for them. The SPARQL course's lab set the reasoner and
@@ -53,6 +57,7 @@
 #       when it runs      once, before queries      every query             once, before validation
 #       what is stored    186 triples               nothing                 186 triples
 #       goes stale?       yes; re-run               never                   yes; re-run
+#       how you see it    Show Facts lists them     the answer is the rows  a shape reports each: 63 -> 123 -> 186
 #       needs             a reasoner (Show Facts)   any SPARQL 1.1 engine   a SHACL-AF engine (Inference: rules, iterated)
 #       explains itself?  a DL reasoner can (o56)   the path is the reason  the rule is the reason
 #
@@ -84,7 +89,7 @@
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/11-rules-and-inference.md#112-three-ways-to-derive-a-triple
 #            The SPARQL course, module 18: inference
 #            https://www.semantechs.co.uk/SPARQL_Course/#m18
-#  MEASURED  parses, 10 triples; 1 class, 1 object property; OWL 2 DL in profile; HermiT: consistent, 353 inferred; RL closure +532; rules +123; 'Route 2, the path: every Tra' 186 rows; 'Route 1, the reasoner: the s' 186 rows; 'Question 1: which settlement' 8 rows
+#  MEASURED  parses, 10 triples; 1 class, 1 object property; OWL 2 DL in profile; HermiT: consistent, 353 inferred; RL closure +532; rule reports none 63 -> rules 123 -> rules-iterated 186; 'Route 2, the path: every Tra' 186 rows; 'Route 1, the reasoner: the s' 186 rows; 'Question 1: which settlement' 8 rows
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .

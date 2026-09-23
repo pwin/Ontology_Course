@@ -173,11 +173,17 @@ bt:FoundedShape
     ] .
 """},
     shapes="founded-shape.ttl",
-    notes="Open in the editor opens founded-shape.ttl in a second tab. Validate: one warning. The editor's engine says conforms, because "
-          "only violations count against conformance there; pySHACL, which measured this lesson, says does not conform for the same "
-          "report, because the specification's default counts warnings too. The SHACL course's s03 is about that difference. Either way "
-          "the shop is named and the graph is not contradicted; the reasoner's verdict on the same two triples is that the whole graph is "
-          "inconsistent.",
+    notes="Open in the editor opens founded-shape.ttl in a second tab, and "
+          "pressing Validate gives one warning, naming the shop. Whether the "
+          "report also says conforms depends on which build of the engine is "
+          "behind the button: since 0.3.0 it follows the specification's "
+          "default, under which a warning breaks conformance, where earlier "
+          "builds counted violations alone and said conforms over a warning; "
+          "the measured line below was taken with 0.3.0. Read the counts "
+          "rather than the verdict, which is what the SHACL course's s03 is "
+          "about. Either way the shop is named and the graph is not "
+          "contradicted, whereas the reasoner's verdict on the same two "
+          "triples is that the whole graph is inconsistent.",
     check=dict(profile=True, reason=True, shacl="""
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix bs: <https://example.org/bookshop-trail/schema#> .

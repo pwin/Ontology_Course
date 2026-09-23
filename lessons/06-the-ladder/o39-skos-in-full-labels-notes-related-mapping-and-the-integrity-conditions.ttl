@@ -39,9 +39,11 @@
 #    the ones that matter: one preferred label per language, every concept
 #    in a scheme, related disjoint from broader, and no concept its own
 #    ancestor. Run against the shipped scheme they report conformance, and
-#    run against this file, with its seeded cycle and doubled label, they
-#    report both; the SHACL course's s30 does the cycle check in the very
-#    same way.
+#    run against this file, with its seeded cycle and its doubled label,
+#    they report seven violations: the doubled label once, and the cycle
+#    twice over for each of the three concepts caught in it, since the path
+#    constraint and the SPARQL constraint each find it. The SHACL course's
+#    s30 does the cycle check in the very same way.
 #
 #  DIAGRAM
 #       labels     prefLabel (one per language, S14)   altLabel   hiddenLabel
@@ -70,7 +72,7 @@
 #            https://www.w3.org/TR/skos-reference/#mapping
 #            SKOS Reference 8.6 integrity condition S27, related and broaderTransitive are disjoint
 #            https://www.w3.org/TR/skos-reference/#L2422
-#  MEASURED  parses, 50 triples; 3 classes, 5 object properties, 6 concepts, 7 individuals; OWL 2 DL in profile; does not conform (4 violations, 0 warnings, 0 info); 'Concepts that are their own ' 3 rows
+#  MEASURED  parses, 50 triples; 3 classes, 5 object properties, 6 concepts, 7 individuals; OWL 2 DL in profile; does not conform (7 violations, 0 warnings, 0 info); 'Concepts that are their own ' 3 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

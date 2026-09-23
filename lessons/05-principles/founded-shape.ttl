@@ -1,0 +1,16 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix bs: <https://example.org/bookshop-trail/schema#> .
+@prefix bt: <https://example.org/bookshop-trail/> .
+
+# The same intention as a rule about the data: one founding year expected,
+# a second one reported for someone to look at, and the dataset stays
+# consistent. The SHACL course's s04 is the full version.
+bt:FoundedShape
+    a               sh:NodeShape ;
+    sh:targetClass  bs:Bookshop ;
+    sh:property [
+        sh:path      bs:founded ;
+        sh:maxCount  1 ;
+        sh:severity  sh:Warning ;
+        sh:message   "{$this} has more than one founding year on record; the sources disagree." ;
+    ] .

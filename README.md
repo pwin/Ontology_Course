@@ -28,8 +28,8 @@ Everything here runs in one environment:
 
 Every lesson has been **put through the tools** as well: the OWL 2 profile
 checker and HermiT (through ROBOT), an OWL 2 RL closure like the editor's,
-pySHACL, the Ontology Quality Suite, the OQuaRE metrics, and the lesson's own
-queries. What they found is written into each lesson's `MEASURED` line and laid
+the editor's own SHACL engine, the Ontology Quality Suite, the OQuaRE metrics,
+and the lesson's own queries. What they found is written into each lesson's `MEASURED` line and laid
 out in full in the [course document](https://www.semantechs.co.uk/Ontology_Course/).
 Where a lesson seeds a fault, the measurement shows the tool finding it.
 
@@ -243,7 +243,7 @@ The course does not take its own word for anything.
 
 ```powershell
 ./scripts/setup-tools.ps1                   # ROBOT, gist, gistBFO, gistUFO, gUFO, BFO 2020 into lib/
-pip install -r scripts/requirements.txt     # rdflib, owlrl, pyshacl, ontology-quality-suite
+pip install -r scripts/requirements.txt     # rdflib, owlrl, shacl, ontology-quality-suite
 python scripts/check_lessons.py             # every lesson, every instrument; about two minutes
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples and rows printed
 python scripts/check_lessons.py --module 07-owl
@@ -264,7 +264,7 @@ The instruments:
 |---|---|
 | **ROBOT** (the OWL API, HermiT, the OWL 2 profile checker) | the referee for every "in profile", "consistent", "unsatisfiable", "inferred" and "explained by" |
 | **owlrl** | an OWL 2 RL closure, the same profile the editor's Show Facts implements; what it adds is what the editor will show |
-| **pySHACL** | the companion shapes, and the SHACL-AF rule in o52 iterated to a fixpoint |
+| **`shacl`** | the companion shapes, and the SHACL-AF rule in o52 at each inference mode. This is the engine the editor runs: one Rust engine, compiled to WebAssembly for the browser and bound to Python for the checker, so the report here is the report there |
 | **Ontology Quality Suite** | check identifiers, scoped to the Trail's namespace, and `version-diff` |
 | **scripts/metrics.py** | the fourteen OQuaRE metrics, by the paper's formulas, with the paper's thresholds |
 | **rdflib** | parsing, counting, the naming and definition audits, and every companion query |
@@ -287,7 +287,7 @@ sentence in the lesson it belongs to:
 | STY-004 assumes one language | a Welsh preferred label trips it (o23) |
 | gist scores 1 and 2 on OQuaRE richness | because it keeps domains sparse on principle, and the metric counts properties by declared domain (o65) |
 | gist shows sixty-two root classes | its hierarchy is in `owl:equivalentClass` definitions the structural metrics do not read (o64) |
-| a warning counts against conformance in pySHACL | and not in the editor's engine; the SHACL course's s03 has the difference (o29) |
+| a warning breaks conformance from 0.3.0 of the engine | and did not before it, so the verdict on a warnings-only report depends on the build behind the Validate button; read the counts (o29) |
 | "The class bs:Source" as a definition | is circular by the audit's lights, since it names the term (o22) |
 
 ---

@@ -1,0 +1,41 @@
+@prefix sh:  <http://www.w3.org/ns/shacl#> .
+@prefix bs:  <https://example.org/bookshop-trail/schema#> .
+@prefix bt:  <https://example.org/bookshop-trail/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# The transitive closure of bs:within as a SHACL rule, after the SHACL
+# course's s51. One pass adds one hop; iterated to a fixpoint, it adds
+# them all. Set the editor's Inference dropdown to 'rules, iterated'.
+bt:prefixes  a owl:Ontology ;
+    sh:declare [ sh:prefix "bs" ; sh:namespace "https://example.org/bookshop-trail/schema#"^^xsd:anyURI ] .
+
+bt:WithinClosureShape
+    a               sh:NodeShape ;
+    sh:targetClass  bs:Place ;
+    sh:rule [
+        a           sh:SPARQLRule ;
+        sh:prefixes bt:prefixes ;
+        sh:construct """
+            CONSTRUCT { $this bs:within ?z }
+            WHERE     { $this bs:within ?y . ?y bs:within ?z }
+        """ ;
+    ] .
+
+# A rule writes triples and a validator prints a report, so the only way to
+# see what the rule did is to ask a shape to report it. This one reports
+# every bs:within pair at Info severity, which counts the closure: 63 with
+# the Inference dropdown at none, 123 after one pass, 186 at the fixpoint.
+bt:WithinReportShape
+    a               sh:NodeShape ;
+    sh:targetClass  bs:Place ;
+    sh:sparql [
+        a           sh:SPARQLConstraint ;
+        sh:severity sh:Info ;
+        sh:message  "{$this} is within {?value}" ;
+        sh:prefixes bt:prefixes ;
+        sh:select   """
+            SELECT $this ?value
+            WHERE   { $this bs:within ?value }
+        """ ;
+    ] .

@@ -187,9 +187,16 @@ Every term the course demonstrates, and the lessons that demonstrate it. Generat
 | `sh:uniqueLang` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o19](lessons/03-naming/o19-labels-one-per-language-in-the-right-case.ttl), [o23](lessons/04-definitions/o23-the-annotation-set.ttl), [o39](lessons/06-the-ladder/o39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl), [o74](lessons/12-putting-it-together/o74-the-genre-scheme-complete.ttl) |
 | `sh:pattern` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o19](lessons/03-naming/o19-labels-one-per-language-in-the-right-case.ttl) |
 | `sh:disjoint` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o39](lessons/06-the-ladder/o39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl), [o74](lessons/12-putting-it-together/o74-the-genre-scheme-complete.ttl) |
-| `sh:sparql` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o39](lessons/06-the-ladder/o39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl), [o74](lessons/12-putting-it-together/o74-the-genre-scheme-complete.ttl) |
+| `sh:sparql` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o39](lessons/06-the-ladder/o39-skos-in-full-labels-notes-related-mapping-and-the-integrity-conditions.ttl), [o52](lessons/08-reasoning/o52-three-routes-to-one-inference.ttl), [o74](lessons/12-putting-it-together/o74-the-genre-scheme-complete.ttl) |
 | `sh:rule` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o52](lessons/08-reasoning/o52-three-routes-to-one-inference.ttl) |
 | `sh:SPARQLRule` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o52](lessons/08-reasoning/o52-three-routes-to-one-inference.ttl) |
 | `sh:SPARQLTarget` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o67](lessons/10-quality/o67-style-shapes-the-vocabulary-validated-like-data.ttl) |
 | `sh:targetObjectsOf` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o67](lessons/10-quality/o67-style-shapes-the-vocabulary-validated-like-data.ttl) |
-| `sh:severity` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o29](lessons/05-principles/o29-meaning-in-the-ontology-rules-in-the-shapes.ttl), [o67](lessons/10-quality/o67-style-shapes-the-vocabulary-validated-like-data.ttl) |
+| `sh:severity` | [SHACL: constraints on data, which OWL axioms are not](https://www.w3.org/TR/shacl/) | [o29](lessons/05-principles/o29-meaning-in-the-ontology-rules-in-the-shapes.ttl), [o52](lessons/08-reasoning/o52-three-routes-to-one-inference.ttl), [o67](lessons/10-quality/o67-style-shapes-the-vocabulary-validated-like-data.ttl) |
+
+## Also used
+
+Terms the models use that the table above does not list.
+
+- `sh:Info`: [o52](lessons/08-reasoning/o52-three-routes-to-one-inference.ttl)
+- `sh:SPARQLConstraint`: [o52](lessons/08-reasoning/o52-three-routes-to-one-inference.ttl)

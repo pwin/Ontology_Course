@@ -56,22 +56,25 @@ def main() -> None:
 
     for folder in LESSONS.iterdir() if LESSONS.exists() else []:
         if folder.is_dir():
-            for f in folder.glob("o*.ttl"):
+            for f in folder.glob("*.ttl"):
                 f.unlink()
 
     by_module: dict[str, list] = {}
     for l in CATALOGUE:
         by_module.setdefault(l.module, []).append(l)
-    count = 0
+    count = companions = 0
     for module, lessons in by_module.items():
         lessons.sort(key=lambda l: l.sort_key)
         folder = LESSONS / module
         folder.mkdir(parents=True, exist_ok=True)
         for l in lessons:
             l.path.write_text(l.text(), encoding="utf-8", newline="\n")
+            for name, text in l.companions.items():
+                (folder / name).write_text(text.strip() + "\n", encoding="utf-8", newline="\n")
+                companions += 1
             count += 1
         (folder / "README.md").write_text(module_readme(module, lessons), encoding="utf-8", newline="\n")
-    print(f"wrote {count} lessons in {len(by_module)} modules")
+    print(f"wrote {count} lessons and {companions} companion files in {len(by_module)} modules")
 
 
 if __name__ == "__main__":

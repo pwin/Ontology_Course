@@ -9,7 +9,8 @@
 Each lesson's model is written to build/models/, parsed with rdflib, and then
 put through whatever its `check` asks for: the OWL 2 profile checker and
 HermiT (through ROBOT), an OWL 2 RL closure (owlrl, the same profile the
-editor's reasoner implements), the Ontology Quality Suite, pySHACL, the
+editor's reasoner implements), the Ontology Quality Suite, the `shacl`
+engine (the same one the editor runs, through its Python bindings), the
 OQuaRE metrics, a naming audit, a definition audit, and its own SPARQL
 queries. What comes back is compared with the lesson's `expect`, and the run
 fails on any expectation that does not hold.
@@ -83,7 +84,7 @@ _DIR_TAG = re.compile(r'@([A-Za-z][A-Za-z0-9-]*?)--(?:rtl|ltr)\b')
 def load_data(name: str, into: rdflib.Graph) -> None:
     """Parse a data file into a graph. The Trail's data carries RDF 1.2
     directional language tags (@ar--rtl), which rdflib does not read; the
-    direction is dropped, as the SHACL course does before pySHACL."""
+    direction is dropped, as the SHACL course does before a tool that cannot read them."""
     text = (DATA / name).read_text(encoding="utf-8")
     into.parse(data=_DIR_TAG.sub(r"@\1", text), format="turtle")
 
@@ -207,33 +208,46 @@ def run_version_diff(l, old_name: str, new_name: str) -> dict:
     return {"bump": bump, "lines": lines[:20], "rc": p.returncode}
 
 
-def run_shacl(data: rdflib.Graph, shapes_text: str) -> dict:
-    import pyshacl
-    shapes = rdflib.Graph().parse(data=shapes_text, format="turtle")
-    conforms, report, _ = pyshacl.validate(data, shacl_graph=shapes, inference="none", advanced=True)
-    SH = rdflib.Namespace("http://www.w3.org/ns/shacl#")
+def _shacl_term(text: str | None) -> str:
+    """An N-Triples term from the engine, as a prefixed name where one fits."""
+    if not text:
+        return ""
+    if text.startswith("<") and text.endswith(">"):
+        return pname(rdflib.URIRef(text[1:-1]))
+    return text
+
+
+def run_shacl(data_text: str, shapes_text: str, inference: str = "none") -> dict:
+    """Validate with the engine the Turtle Editor Viewer runs: `shacl`, the
+    Rust engine whose WebAssembly build is in the editor and whose Python
+    bindings are on PyPI. Same engine, same answers as the browser."""
+    import shacl as engine
+    shapes = engine.Shapes.from_text(shapes_text)
+    report = shapes.validate_text(data_text, inference=inference)
     counts = {"Violation": 0, "Warning": 0, "Info": 0}
     rows = []
-    for r in report.subjects(RDF.type, SH.ValidationResult):
-        sev = str(report.value(r, SH.resultSeverity)).split("#")[-1]
-        counts[sev] = counts.get(sev, 0) + 1
-        rows.append({"severity": sev, "focus": pname(report.value(r, SH.focusNode)),
-                     "path": pname(report.value(r, SH.resultPath)) if report.value(r, SH.resultPath) else "",
-                     "message": str(report.value(r, SH.resultMessage) or "")[:160]})
-    return {"conforms": bool(conforms), "counts": counts, "rows": rows}
+    for r in report.results:
+        counts[r.severity] = counts.get(r.severity, 0) + 1
+        rows.append({"severity": r.severity, "focus": _shacl_term(r.focus_node),
+                     "path": _shacl_term(r.path), "value": _shacl_term(r.value),
+                     "shape": _shacl_term(r.root_shape), "component": r.component,
+                     "message": (r.message or "")[:160]})
+    return {"conforms": bool(report.conforms), "counts": counts, "rows": rows,
+            "shapes": len(shapes), "inference": inference}
 
 
-def run_rules(data: rdflib.Graph, shapes_text: str) -> int:
-    """SHACL-AF rules, iterated to a fixpoint by pySHACL; returns the number of
-    triples the rules added."""
-    import pyshacl
-    shapes = rdflib.Graph().parse(data=shapes_text, format="turtle")
-    g = rdflib.Graph()
-    for t in data:
-        g.add(t)
-    n0 = len(g)
-    pyshacl.validate(g, shacl_graph=shapes, inference="none", advanced=True, inplace=True, iterate_rules=True)
-    return len(g) - n0
+def run_rules(data_text: str, shapes_text: str) -> dict:
+    """A validator's only output is its report, so a rule's effect is measured
+    the way the SHACL course measures it and the way the editor's Inference
+    dropdown shows it: a shape at Info severity reports one result per derived
+    triple, and the count is taken at each inference mode."""
+    import shacl as engine
+    shapes = engine.Shapes.from_text(shapes_text)
+    out = {}
+    for mode in ("none", "rules", "rules-iterated"):
+        report = shapes.validate_text(data_text, inference=mode)
+        out[mode] = sum(1 for r in report.results if r.severity == "Info")
+    return out
 
 
 # ---------------------------------------------------------------- one lesson
@@ -301,9 +315,9 @@ def measure_local(l) -> tuple[dict, rdflib.Graph | None, Path]:
                    "sameas": [list(x) for x in sorted({tuple(sorted((pname(s), pname(o))))
                                                        for s, p, o in new if p == OWL.sameAs})]}
     if chk.get("shacl"):
-        r["shacl"] = run_shacl(full, chk["shacl"])
+        r["shacl"] = run_shacl(full.serialize(format="turtle"), chk["shacl"], chk.get("shacl_inference", "none"))
     if chk.get("rules"):
-        r["rules_added"] = run_rules(full, chk["rules"])
+        r["rules"] = run_rules(full.serialize(format="turtle"), chk["rules"])
     if chk.get("metrics"):
         r["metrics"] = metrics.compute(full, chk.get("metrics_namespace", BS if chk["metrics"] is True else None))
     if l.queries:
@@ -432,8 +446,12 @@ def check_expectation(l, r: dict) -> list[str]:
         problems.append(f"SHACL conforms: expected {e['shacl_conforms']}, got {sh['conforms']}")
     if "shacl_violations" in e and sh and sh["counts"]["Violation"] != e["shacl_violations"]:
         problems.append(f"SHACL violations: expected {e['shacl_violations']}, got {sh['counts']['Violation']}")
-    if "rules_added" in e and r.get("rules_added") != e["rules_added"]:
-        problems.append(f"rules added {r.get('rules_added')}, expected {e['rules_added']}")
+    for mode, want in (e.get("rules") or {}).items():
+        got = (r.get("rules") or {}).get(mode)
+        if got != want:
+            problems.append(f"rules at inference {mode!r}: expected {want} reported triples, got {got}")
+    if "shacl_shapes" in e and r.get("shacl", {}).get("shapes") != e["shacl_shapes"]:
+        problems.append(f"shapes compiled: expected {e['shacl_shapes']}, got {r.get('shacl', {}).get('shapes')}")
     for q in r.get("queries", []):
         if "error" in q:
             problems.append(f"query '{q['title']}' failed: {q['error']}")
@@ -483,8 +501,8 @@ def summary_line(r: dict) -> str:
     rl = r.get("rl", {})
     if rl:
         parts.append(f"RL closure +{rl['added']}")
-    if "rules_added" in r:
-        parts.append(f"rules +{r['rules_added']}")
+    if r.get("rules"):
+        parts.append("rule reports " + " -> ".join(f"{m} {n}" for m, n in r["rules"].items()))
     if r.get("explanation"):
         n = sum(1 for line in r["explanation"].splitlines() if line.startswith("  - "))
         parts.append(f"explained by {n} axioms" if n else "explanation returned")
@@ -563,7 +581,7 @@ def main() -> int:
             for cid, msg in r.get("oqs", {}).get("messages", {}).items():
                 print(f"        OQS {cid}: {msg[:110]}")
             for row in r.get("shacl", {}).get("rows", [])[:12]:
-                print(f"        SHACL {row['severity'][:4]} {row['focus']:28} {row['path']:22} {row['message'][:70]}")
+                print(f"        SHACL {row['severity'][:4]} {row['focus']:28} {row['path']:22} {row['message'][:60]}   [{row['shape']}]")
             for q in r.get("queries", []):
                 print(f"        query '{q['title']}': {q.get('rows', q.get('error'))} rows")
                 for row in q.get("sample", [])[:8]:

@@ -96,6 +96,24 @@ bt:WithinClosureShape
             WHERE     { $this bs:within ?y . ?y bs:within ?z }
         \"\"\" ;
     ] .
+
+# A rule writes triples and a validator prints a report, so the only way to
+# see what the rule did is to ask a shape to report it. This one reports
+# every bs:within pair at Info severity, which counts the closure: 63 with
+# the Inference dropdown at none, 123 after one pass, 186 at the fixpoint.
+bt:WithinReportShape
+    a               sh:NodeShape ;
+    sh:targetClass  bs:Place ;
+    sh:sparql [
+        a           sh:SPARQLConstraint ;
+        sh:severity sh:Info ;
+        sh:message  "{$this} is within {?value}" ;
+        sh:prefixes bt:prefixes ;
+        sh:select   \"\"\"
+            SELECT $this ?value
+            WHERE   { $this bs:within ?value }
+        \"\"\" ;
+    ] .
 """
 
 o(
@@ -131,8 +149,7 @@ o(
         "way to derive a triple and says when it is the right one: when the "
         "rule is a governed artefact that somebody owns, and when the "
         "closure has to be visible to a validator that has no reasoner of "
-        "its own. This lesson's companion file is the rule, and pySHACL "
-        "iterating it adds exactly the 123 triples the reasoner did.\n\n"
+        "its own. This lesson's companion file holds the rule, and beside it a second shape that reports every bs:within pair at Info severity, because a validator's only output is its report and that is the only way to see what a rule did; run with the Inference dropdown at none it reports the 63 asserted pairs, at rules the 123 of one pass, and at rules-iterated all 186.\n\n"
         "So: the same 186 pairs, three engines, and three different moments "
         "at which to pay for them. The SPARQL course's lab set the reasoner "
         "and the path side by side, and the table in the diagram adds the "
@@ -143,6 +160,7 @@ o(
    when it runs      once, before queries      every query             once, before validation
    what is stored    186 triples               nothing                 186 triples
    goes stale?       yes; re-run               never                   yes; re-run
+   how you see it    Show Facts lists them     the answer is the rows  a shape reports each: 63 -> 123 -> 186
    needs             a reasoner (Show Facts)   any SPARQL 1.1 engine   a SHACL-AF engine (Inference: rules, iterated)
    explains itself?  a DL reasoner can (o56)   the path is the reason  the rule is the reason
 
@@ -175,7 +193,8 @@ PREFIX bt: <https://example.org/bookshop-trail/>
 SELECT ?place WHERE { ?place a bs:Settlement ; bs:within+ bt:place-scotland } ORDER BY ?place""", on="data"),
     ],
     check=dict(profile=True, with_data=DPLACES, reason=True, rl=True, rules=WITHIN_RULE),
-    expect=dict(dl=True, consistent=True, rl_min_added=123, rules_added=123,
+    expect=dict(dl=True, consistent=True, rl_min_added=123,
+                rules={"none": 63, "rules": 123, "rules-iterated": 186},
                 rl_inferred=["bt:place-wigtown bs:within bt:place-scotland"],
                 inferred=["bt:place-wigtown bs:within bt:place-scotland"]),
     notes="Open in the editor opens this file with the rule in a second tab; to see the closure on the whole place hierarchy, load "

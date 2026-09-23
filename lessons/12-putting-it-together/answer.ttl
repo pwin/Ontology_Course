@@ -1,0 +1,42 @@
+@prefix bt:   <https://example.org/bookshop-trail/> .
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+# One answer to the challenge: Work split from Edition, with the data kept
+# true. Compare it with your own before reading it through.
+
+skos:prefLabel a owl:AnnotationProperty . skos:definition a owl:AnnotationProperty .
+skos:editorialNote a owl:AnnotationProperty . skos:changeNote a owl:AnnotationProperty .
+dct:isReplacedBy a owl:AnnotationProperty . owl:deprecated a owl:AnnotationProperty .
+
+bs:Work  a owl:Class ; skos:prefLabel "Work"@en ;
+    skos:definition "What an author wrote, independent of any printing."@en ;
+    skos:changeNote "3.0.0: the edition properties moved to bs:Edition. Assertions of bs:isbn on a Work made under 2.x remain true of the work's first edition, minted below."@en .
+bs:Edition  a owl:Class ; skos:prefLabel "Edition"@en ;
+    skos:definition "A printing of a Work by a publisher, with an ISBN if made after 1970."@en ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:editionOf ; owl:someValuesFrom bs:Work ] .
+bs:Translation  a owl:Class ; rdfs:subClassOf bs:Work ; skos:prefLabel "Translation"@en .
+bs:Publisher  a owl:Class .
+bs:Author     a owl:Class .
+
+[] a owl:AllDisjointClasses ; owl:members ( bs:Work bs:Edition bs:Publisher bs:Author ) .
+
+bs:editionOf    a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain bs:Edition ; rdfs:range bs:Work ; skos:prefLabel "edition of"@en .
+bs:author       a owl:ObjectProperty ; rdfs:domain bs:Work ;    rdfs:range bs:Author .
+bs:publishedBy  a owl:ObjectProperty ; rdfs:domain bs:Edition ; rdfs:range bs:Publisher ;
+    skos:changeNote "3.0.0: domain moved from Work to Edition."@en .
+bs:isbn         a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain bs:Edition ; rdfs:range xsd:string .
+bs:pages        a owl:DatatypeProperty ; rdfs:domain bs:Edition ; rdfs:range xsd:integer .
+bs:Edition      owl:hasKey ( bs:isbn ) .
+
+# The migration for one work: the 2.x assertions stay on the work where they
+# are the work's, and move to a minted first edition where they are the edition's.
+bt:book-the-book-town  a bs:Work ; skos:prefLabel "The Book Town"@en ; bs:author bt:author-rab-fingal .
+bt:edition-the-book-town-1  a bs:Edition ; bs:editionOf bt:book-the-book-town ;
+    bs:publishedBy bt:pub-bell-rock ; bs:isbn "9787063088596" ; bs:pages 544 .
+bt:author-rab-fingal  a bs:Author .
+bt:pub-bell-rock      a bs:Publisher .

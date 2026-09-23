@@ -1,0 +1,18 @@
+@prefix bs:   <https://example.org/bookshop-trail/schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://example.org/bookshop-trail/schema> a owl:Ontology ; owl:versionInfo "2.0.0" ;
+    owl:imports <https://w3id.org/semanticarts/ontology/gistCore14.1.0> .   # new in 2.0.0: stands on gist (o59)
+skos:prefLabel a owl:AnnotationProperty .
+
+bs:Place        a owl:Class ; skos:prefLabel "Place"@en .
+bs:Settlement   a owl:Class ; rdfs:subClassOf bs:Place ; skos:prefLabel "Settlement"@en .
+bs:Bookshop     a owl:Class ; skos:prefLabel "Bookshop"@en .
+bs:Work         a owl:Class ; skos:prefLabel "Work"@en .
+bs:Edition      a owl:Class ; rdfs:subClassOf bs:Work ; skos:prefLabel "Edition"@en .      # added
+bs:locatedIn    a owl:ObjectProperty ; rdfs:domain bs:Bookshop ; rdfs:range bs:Settlement .
+bs:isbn         a owl:DatatypeProperty ; rdfs:domain bs:Edition .
+bs:website      a owl:DatatypeProperty ; rdfs:domain bs:Bookshop .                         # added
+# bs:PublishedWork removed: a MAJOR change, whatever the seven additions around it

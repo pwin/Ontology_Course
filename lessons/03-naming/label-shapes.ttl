@@ -1,0 +1,29 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix bt:   <https://example.org/bookshop-trail/> .
+
+# The label rules as shapes, after gist's own validation/shapes/ontologyShapes.ttl.
+bt:ClassLabelShape
+    a               sh:NodeShape ;
+    sh:targetClass  owl:Class ;
+    sh:property [
+        sh:path        skos:prefLabel ;
+        sh:minCount    1 ;
+        sh:uniqueLang  true ;
+        sh:message     "A class has exactly one preferred label per language." ;
+    ] ;
+    sh:property [
+        sh:path     skos:prefLabel ;
+        sh:pattern  "^([A-Z]([a-z]+|[A-Z]+)|[0-9]+)([ -]([A-Z]([a-z]+|[A-Z]+)|[0-9]+|a|an|the|and|but|or|nor|for|so|yet|as|at|by|in|of|off|on|out|per|to|up|via))*$" ;
+        sh:message  "A class label is in title case: {$value}" ;
+    ] .
+
+bt:PropertyLabelShape
+    a               sh:NodeShape ;
+    sh:targetClass  owl:ObjectProperty, owl:DatatypeProperty ;
+    sh:property [
+        sh:path     skos:prefLabel ;
+        sh:pattern  "^([a-z]+|[A-Z][A-Z]+)([- ]([a-z]+|[A-Z][A-Z]+|[0-9]+))*$" ;
+        sh:message  "A property label is lower case, acronyms excepted: {$value}" ;
+    ] .

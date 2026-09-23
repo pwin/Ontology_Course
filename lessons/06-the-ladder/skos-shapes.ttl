@@ -1,0 +1,23 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix bt:   <https://example.org/bookshop-trail/> .
+
+# The SKOS integrity conditions the editor can check, as shapes.
+bt:ConceptShape
+    a               sh:NodeShape ;
+    sh:targetClass  skos:Concept ;
+    sh:property [ sh:path skos:prefLabel ; sh:minCount 1 ; sh:uniqueLang true ;
+                  sh:message "S14: at most one preferred label per language." ] ;
+    sh:property [ sh:path skos:inScheme ; sh:minCount 1 ;
+                  sh:message "Every concept is in a scheme." ] ;
+    sh:property [ sh:path skos:related ; sh:disjoint skos:broader ;
+                  sh:message "S27: related and broader are disjoint." ] ;
+    sh:property [ sh:path [ sh:oneOrMorePath skos:broader ] ; sh:disjoint [ sh:zeroOrOnePath skos:narrower ] ;
+                  sh:message "No cycles: nothing is broader than itself." ] ;
+    sh:sparql [
+        sh:message "A concept is not its own ancestor." ;
+        sh:prefixes <https://example.org/bookshop-trail/> ;
+        sh:select """
+            SELECT $this WHERE { $this <http://www.w3.org/2004/02/skos/core#broader>+ $this }
+        """ ;
+    ] .

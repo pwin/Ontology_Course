@@ -1,0 +1,40 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix bt:   <https://example.org/bookshop-trail/> .
+
+# Style shapes for a vocabulary, after gist's validation/shapes/ontologyShapes.ttl,
+# written in SHACL Core so that the editor runs them. Open data/01-vocabulary.ttl
+# in one tab and this file in another, choose it under Shapes, Validate.
+
+# The targets are scoped to the Trail's own namespace, as gist's are to
+# gist's: a borrowed class is declared here but documented upstream, and a
+# finding about it would be about someone else's file.
+bt:ClassStyleShape
+    a          sh:NodeShape ;
+    sh:target  [ a sh:SPARQLTarget ;
+                 sh:select """SELECT $this WHERE { $this a <http://www.w3.org/2002/07/owl#Class> .
+                              FILTER(STRSTARTS(STR($this), "https://example.org/bookshop-trail/schema#")) }""" ] ;
+    sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:message "Every class has a label." ] ;
+    sh:property [ sh:path rdfs:comment ; sh:minCount 1 ; sh:message "Every class has a comment or definition." ] ;
+    sh:property [ sh:path skos:definition ; sh:minCount 1 ; sh:severity sh:Warning ;
+                  sh:message "gist style: a skos:definition rather than rdfs:comment." ] .
+
+bt:PropertyStyleShape
+    a          sh:NodeShape ;
+    sh:target  [ a sh:SPARQLTarget ;
+                 sh:select """SELECT $this WHERE { $this a ?t . FILTER(?t IN (<http://www.w3.org/2002/07/owl#ObjectProperty>, <http://www.w3.org/2002/07/owl#DatatypeProperty>))
+                              FILTER(STRSTARTS(STR($this), "https://example.org/bookshop-trail/schema#")) }""" ] ;
+    sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "Every property has a label." ] .
+
+# Every rdf:type value in the file is a declared class: the instance shape.
+bt:DeclaredTypeShape
+    a                    sh:NodeShape ;
+    sh:targetObjectsOf   rdf:type ;
+    sh:or ( [ sh:class owl:Class ]
+            [ sh:in ( owl:Class owl:ObjectProperty owl:DatatypeProperty owl:AnnotationProperty owl:Ontology
+                      owl:TransitiveProperty owl:SymmetricProperty owl:FunctionalProperty owl:AllDisjointClasses
+                      owl:Restriction rdfs:Datatype owl:NamedIndividual ) ] ) ;
+    sh:message "A type that is not a declared class." .
