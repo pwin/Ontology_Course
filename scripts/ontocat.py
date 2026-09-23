@@ -126,6 +126,7 @@ class Lesson:
     local: str = ""             # what needs local tooling, if anything; "" means the browser does it all
     companions: dict = field(default_factory=dict)  # extra files written beside the lesson: name -> text
     shapes: str = ""            # the companion that Open in the editor opens as a shapes tab, if any
+    inference: str = ""         # the editor's Inference setting for that tab: rdfs, rules or rules-iterated
     extra_prefixes: tuple = ()
     # What the checker runs. Keys: profile, profiles, reason, rl, oqs, shacl
     # (shapes text), metrics, names, with_data (a file in data/), imports (files
@@ -170,11 +171,14 @@ class Lesson:
 
     @property
     def editor_url(self) -> str:
-        """A link that opens the editor with the lesson file loaded, and a
-        companion shapes file in a second tab where the lesson has one."""
+        """A link that opens the editor with the lesson file loaded, a
+        companion shapes file in a second tab where the lesson has one, and
+        the Inference dropdown preset where the shapes hold a rule."""
         url = EDITOR_BASE + "?dot=" + quote(self.raw_url, safe="")
         if self.shapes:
             url += "&shapes=" + quote(RAW_BASE + "lessons/" + self.module + "/" + self.shapes, safe="")
+        if self.inference:
+            url += "&inference=" + self.inference
         return url
 
     @property

@@ -180,6 +180,7 @@ bs:within  a owl:ObjectProperty, owl:TransitiveProperty ;
     data=DPLACES,
     companions={"within-rule.ttl": WITHIN_RULE},
     shapes="within-rule.ttl",
+    inference="rules-iterated",
     queries=[
         Query("Route 2, the path: every Trail place and everything it is within", """
 PREFIX bs: <https://example.org/bookshop-trail/schema#>
@@ -197,8 +198,9 @@ SELECT ?place WHERE { ?place a bs:Settlement ; bs:within+ bt:place-scotland } OR
                 rules={"none": 63, "rules": 123, "rules-iterated": 186},
                 rl_inferred=["bt:place-wigtown bs:within bt:place-scotland"],
                 inferred=["bt:place-wigtown bs:within bt:place-scotland"]),
-    notes="Open in the editor opens this file with the rule in a second tab; to see the closure on the whole place hierarchy, load "
-          "data/03-places.ttl instead, set Inference to 'rules, iterated', and validate; or press Show Facts for the reasoner's route. "
+    notes="Open in the editor opens this file with the rule in a second tab and Inference already at 'rules, iterated'; to see the "
+          "closure on the whole place hierarchy, load data/03-places.ttl in the first tab instead and validate, or press Show Facts for "
+          "the reasoner's route. "
           "The AFTERWARDS queries run on the place file.",
 )
 specs.register("o52", "semopsRules", "sparqlCourseInference")
@@ -226,8 +228,13 @@ o(
         "This file seeds all three so that HermiT's verdict is unmistakable "
         "and the reasoner can be asked to explain itself. ROBOT's explain "
         "command in inconsistency mode returns the smallest sets of axioms "
-        "that produce the contradiction, one set per cause, and the "
-        "measured line carries the first of them; that is the tool to reach "
+        "that produce the contradiction, and asked for all of them it finds "
+        "four here, not three. The second cause is seeded twice, once with "
+        "owl:differentFrom and once with owl:AllDifferent, and each closes "
+        "the contradiction on its own, so it has two sets, and deleting "
+        "either declaration leaves the ontology as inconsistent as before. ROBOT's "
+        "default is one explanation, whichever the reasoner happens to "
+        "reach first, which is why --max matters. Explain is the tool to reach "
         "for when a large ontology turns inconsistent after a change, since "
         "the question to ask is not what the ontology says but which few "
         "axioms are to blame.\n\n"
@@ -242,7 +249,7 @@ o(
                                                                                               ?x ?p ?a, ?b . ?p a owl:FunctionalProperty . ?a owl:differentFrom ?b
    a value outside its datatype            bt:shop-y bs:staffCount -3 ; range: integer >= 0   FILTER(?v < 0) on the restricted property
 
-   HermiT: inconsistent.  robot explain --mode inconsistency: the axioms responsible, one set per cause
+   HermiT: inconsistent.  robot explain --mode inconsistency --max 10: four sets of axioms, two of them for cause 2
 """,
     learn=[
         "Inconsistency is one verdict for the whole graph, and it almost always turns out to have one of three shapes.",
@@ -281,8 +288,8 @@ SELECT ?x ?p WHERE { ?p a owl:FunctionalProperty . ?x ?p ?a, ?b . ?a owl:differe
 PREFIX bs: <https://example.org/bookshop-trail/schema#>
 SELECT ?x ?v WHERE { ?x bs:staffCount ?v . FILTER(?v < 0) }""", rows=1),
     ],
-    check=dict(profile=True, reason=True, explain="inconsistency"),
-    expect=dict(dl=True, consistent=False),
+    check=dict(profile=True, reason=True, explain="inconsistency", explain_most=10),
+    expect=dict(dl=True, consistent=False, explanations=4),
     local="HermiT's verdict and the explanation come from ROBOT",
 )
 specs.register("o53", "directSemantics", "primerDisjoint")

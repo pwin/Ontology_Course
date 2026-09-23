@@ -174,12 +174,11 @@ bt:FoundedShape
 """},
     shapes="founded-shape.ttl",
     notes="Open in the editor opens founded-shape.ttl in a second tab, and "
-          "pressing Validate gives one warning, naming the shop. Whether the "
-          "report also says conforms depends on which build of the engine is "
-          "behind the button: since 0.3.0 it follows the specification's "
-          "default, under which a warning breaks conformance, where earlier "
-          "builds counted violations alone and said conforms over a warning; "
-          "the measured line below was taken with 0.3.0. Read the counts "
+          "pressing Validate gives one warning, naming the shop, and reports "
+          "that the graph does not conform, because under the specification's "
+          "default a warning breaks conformance. Builds of the engine before "
+          "0.3, and pySHACL with --allow-warnings, count violations alone and "
+          "would say conforms over the same result, so read the counts "
           "rather than the verdict, which is what the SHACL course's s03 is "
           "about. Either way the shop is named and the graph is not "
           "contradicted, whereas the reasoner's verdict on the same two "

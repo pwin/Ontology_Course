@@ -27,10 +27,15 @@
 #    This file seeds all three so that HermiT's verdict is unmistakable and
 #    the reasoner can be asked to explain itself. ROBOT's explain command
 #    in inconsistency mode returns the smallest sets of axioms that produce
-#    the contradiction, one set per cause, and the measured line carries
-#    the first of them; that is the tool to reach for when a large ontology
-#    turns inconsistent after a change, since the question to ask is not
-#    what the ontology says but which few axioms are to blame.
+#    the contradiction, and asked for all of them it finds four here, not
+#    three. The second cause is seeded twice, once with owl:differentFrom
+#    and once with owl:AllDifferent, and each closes the contradiction on
+#    its own, so it has two sets, and deleting either declaration leaves
+#    the ontology as inconsistent as before. ROBOT's default is one
+#    explanation, whichever the reasoner happens to reach first, which is
+#    why --max matters. Explain is the tool to reach for when a large
+#    ontology turns inconsistent after a change, since the question to ask
+#    is not what the ontology says but which few axioms are to blame.
 #
 #    The editor's RL closure will show you the sameAs and the types and say
 #    nothing at all about a contradiction, so for the browser each cause
@@ -43,7 +48,7 @@
 #                                                                                                  ?x ?p ?a, ?b . ?p a owl:FunctionalProperty . ?a owl:differentFrom ?b
 #       a value outside its datatype            bt:shop-y bs:staffCount -3 ; range: integer >= 0   FILTER(?v < 0) on the restricted property
 #
-#       HermiT: inconsistent.  robot explain --mode inconsistency: the axioms responsible, one set per cause
+#       HermiT: inconsistent.  robot explain --mode inconsistency --max 10: four sets of axioms, two of them for cause 2
 #
 #  WHAT TO TAKE AWAY
 #    - Inconsistency is one verdict for the whole graph, and it almost
@@ -62,7 +67,7 @@
 #            https://www.w3.org/TR/owl2-direct-semantics/#Interpretations
 #            OWL 2 Primer 4.3 Class Disjointness
 #            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
-#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 3 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
+#  MEASURED  parses, 37 triples; 3 classes, 1 object property, 1 datatype property, 6 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; explained by 4 sets, of 2, 3, 4 and 4 axioms; 'Cause 1: a thing with two di' 1 row; 'Cause 2: a functional proper' 1 row; 'Cause 3: a staff count below' 1 row
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

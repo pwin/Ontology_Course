@@ -24,7 +24,7 @@ The **Measured** block under every lesson in the course document says what an OW
 
 ## Shapes, and the Inference dropdown
 
-Some lessons carry a companion shapes file: the label rules of [o19](../03-naming/), the SKOS integrity conditions of [o39](../06-the-ladder/), the style shapes of [o67](../10-quality/), the transitive-closure rule of [o52](../08-reasoning/). Open in the editor opens the companion in a second tab already selected under **Shapes**; press **Validate** and read the report as the SHACL course taught. For the rule lesson, work down the **Inference** dropdown: at *none* the report counts the 63 asserted pairs, at *rules* the 123 of one pass, and at *rules, iterated* all 186 of the closure.
+Some lessons carry a companion shapes file: the label rules of [o19](../03-naming/), the SKOS integrity conditions of [o39](../06-the-ladder/), the style shapes of [o67](../10-quality/), the transitive-closure rule of [o52](../08-reasoning/). Open in the editor opens the companion in a second tab already selected under **Shapes**; press **Validate** and read the report as the SHACL course taught. The rule lesson's link also sets the **Inference** dropdown to *rules, iterated*, where the report counts all 186 pairs of the closure; set it to *rules* for the 123 of one pass and to *none* for the 63 asserted.
 
 Validating a vocabulary is the SHACL course's method turned on the ontology itself, and it is how to form a first opinion of any vocabulary you are handed.
 
@@ -47,7 +47,7 @@ python scripts/check_lessons.py             # every lesson, every instrument; ab
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples printed
 ```
 
-ROBOT wraps the OWL API, the OWL 2 profile checker and HermiT, and is the referee for every "in profile", "consistent" and "inferred" in the course. The Ontology Quality Suite is the source of every check identifier. `scripts/metrics.py` computes the OQuaRE metrics. And the SHACL numbers come from `shacl`, which is the engine behind the editor's Validate button: one Rust engine, compiled to WebAssembly for the browser and bound to Python for the checker, so the results in a Measured block are the results the editor will show you. One caveat, and it is a matter of version rather than of engine: the checker here runs 0.3.0, in which a warning or an info breaks conformance as the specification has it, while the build the editor serves is 0.2.0, which counted violations alone. Where a report has no violations the two therefore print a different verdict over the same results, which happens in o29 and in o67, and both of them say so. Read the counts and not the verdict. None of them needs the internet after setup.
+ROBOT wraps the OWL API, the OWL 2 profile checker and HermiT, and is the referee for every "in profile", "consistent" and "inferred" in the course. The Ontology Quality Suite is the source of every check identifier. `scripts/metrics.py` computes the OQuaRE metrics. And the SHACL numbers come from `shacl`, which is the engine behind the editor's Validate button: one Rust engine, compiled to WebAssembly for the browser and bound to Python for the checker, so the results in a Measured block are the results the editor will show you. Both run 0.3.2, in which a warning or an info breaks conformance as the specification has it, so the verdict agrees as well as the results. None of them needs the internet after setup.
 
 ## What is where
 

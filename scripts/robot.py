@@ -88,12 +88,16 @@ def reason(path: Path, reasoner: str = "HermiT", generators: str = "SubClass Cla
         return result
 
 
-def explain(path: Path, axiom: str, prefixes: dict, mode: str = "entailment", reasoner: str = "HermiT") -> str:
-    """The minimal axiom set behind an entailment, or behind an inconsistency
-    (mode="inconsistency"), as ROBOT's Markdown."""
+def explain(path: Path, axiom: str, prefixes: dict, mode: str = "entailment", reasoner: str = "HermiT",
+            most: int = 1) -> str:
+    """The minimal axiom sets behind an entailment, or behind an inconsistency
+    (mode="inconsistency"), as ROBOT's Markdown, up to `most` of them. Which
+    one comes back when `most` is smaller than the number there are depends
+    on the reasoner's search order, so ask for all of them where a measured
+    line depends on it."""
     with tempfile.TemporaryDirectory() as tmp:
         md = Path(tmp) / "explanation.md"
-        args = ["explain", "--input", str(path), "--reasoner", reasoner, "--mode", mode, "--explanation", str(md)]
+        args = ["explain", "--input", str(path), "--reasoner", reasoner, "--mode", mode, "--max", str(most), "--explanation", str(md)]
         for p, u in prefixes.items():
             args += ["--prefix", f"{p}: {u}"]
         if mode == "entailment":

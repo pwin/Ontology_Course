@@ -305,7 +305,7 @@ def lab_html() -> str:
       under each lesson says what an OWL 2 RL closure added, which is what Show Facts shows.</p></div>
     <div class="panel"><h3>Shapes and the Inference dropdown</h3>
       <p>Some lessons carry a companion shapes file; the button opens it in a second tab already selected. <b>Validate</b>
-      runs it. For the rule lesson in module 08, set <b>Inference</b> to <em>rules, iterated</em>.</p></div>
+      runs it. The rule lesson in module 08 also sets <b>Inference</b> to <em>rules, iterated</em>, which the dropdown beside Shapes changes.</p></div>
     <div class="panel"><h3>What needs a terminal</h3>
       <p>Unsatisfiable classes, the inferred hierarchy, explanations and profile verdicts come from a description-logic
       reasoner, HermiT through ROBOT; the check identifiers from the Ontology Quality Suite. The SHACL numbers do not:

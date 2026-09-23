@@ -217,6 +217,18 @@ def _shacl_term(text: str | None) -> str:
     return text
 
 
+def explanation_sizes(md: str) -> list[int]:
+    """The number of axioms in each set of ROBOT's explanation Markdown,
+    smallest first, so that the line does not depend on the order found."""
+    sizes: list[int] = []
+    for line in md.split("# Axiom Impact")[0].splitlines():
+        if line.startswith("## "):
+            sizes.append(0)
+        elif line.startswith("  - ") and sizes:
+            sizes[-1] += 1
+    return sorted(sizes)
+
+
 def run_shacl(data_text: str, shapes_text: str, inference: str = "none") -> dict:
     """Validate with the engine the Turtle Editor Viewer runs: `shacl`, the
     Rust engine whose WebAssembly build is in the editor and whose Python
@@ -364,7 +376,8 @@ def measure_external(l, r: dict, full_path: Path) -> dict:
             r["hermit"] = {"skipped": "ROBOT not installed"}
     if chk.get("explain") and robot.available():
         prefixes = {k: v for k, v in PREFIX_URI.items() if k in ("bt", "bs", "owl", "rdfs", "xsd", "skos")}
-        r["explanation"] = robot.explain(full_path, chk.get("explain_axiom", ""), prefixes, mode=chk["explain"])
+        r["explanation"] = robot.explain(full_path, chk.get("explain_axiom", ""), prefixes, mode=chk["explain"],
+                                         most=chk.get("explain_most", 1))
     if chk.get("version_diff"):
         old_name, new_name = chk["version_diff"]
         r["version_diff"] = run_version_diff(l, old_name, new_name)
@@ -404,6 +417,9 @@ def check_expectation(l, r: dict) -> list[str]:
         if key in e and nm in prof and prof[nm]["ok"] != e[key]:
             problems.append(f"OWL 2 {nm}: expected {'in' if e[key] else 'out of'} profile; {prof[nm]['first'][:120]}")
     h = r.get("hermit", {})
+    if "explanations" in e and len(explanation_sizes(r.get("explanation", ""))) != e["explanations"]:
+        problems.append(f"explanations: expected {e['explanations']} sets, got "
+                        f"{len(explanation_sizes(r.get('explanation', '')))}")
     if "consistent" in e and "consistent" in h and h["consistent"] != e["consistent"]:
         problems.append(f"consistent: expected {e['consistent']}, got {h['consistent']}")
     if "unsat" in e and "unsatisfiable" in h:
@@ -510,8 +526,12 @@ def summary_line(r: dict) -> str:
     if r.get("rules"):
         parts.append("rule reports " + " -> ".join(f"{m} {n}" for m, n in r["rules"].items()))
     if r.get("explanation"):
-        n = sum(1 for line in r["explanation"].splitlines() if line.startswith("  - "))
-        parts.append("explained by " + plural(n, "axiom") if n else "explanation returned")
+        sizes = explanation_sizes(r["explanation"])
+        if len(sizes) > 1:
+            parts.append(f"explained by {len(sizes)} sets, of " + ", ".join(map(str, sizes[:-1]))
+                         + f" and {sizes[-1]} axioms")
+        else:
+            parts.append("explained by " + plural(sizes[0], "axiom") if sizes else "explanation returned")
     if r.get("version_diff"):
         parts.append("version-diff: " + (r["version_diff"]["bump"] or "no verdict"))
     if r.get("answer"):
