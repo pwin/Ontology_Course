@@ -29,7 +29,7 @@ TERMS = [
         ("rdf:type", "rdfsType"), ("rdf:Property", "rdfsProperty"), ("rdfs:Class", "rdfsClass"),
         ("rdfs:subClassOf", "rdfsSubClassOf"), ("rdfs:subPropertyOf", "rdfsSubPropertyOf"),
         ("rdfs:domain", "rdfsDomain"), ("rdfs:range", "rdfsRange"), ("rdfs:label", "rdfsLabel"),
-        ("rdfs:comment", "rdfsComment"), ("rdfs:seeAlso", "rdfsLabel"), ("rdfs:isDefinedBy", "rdfsLabel"),
+        ("rdfs:comment", "rdfsComment"), ("rdfs:seeAlso", "rdfsSeeAlso"), ("rdfs:isDefinedBy", "rdfsIsDefinedBy"),
         ("rdfs:Datatype", "syntaxDatatypeMap"),
     ]),
     ("SKOS", [
@@ -113,7 +113,8 @@ _IRI = re.compile(r"<[^>\s]*>")
 IGNORE = {"rdf:first", "rdf:rest", "rdf:nil", "owl:backwardCompatibleWith", "owl:incompatibleWith",
           "sh:path", "sh:message", "sh:minCount", "sh:maxCount", "sh:select", "sh:construct", "sh:prefixes",
           "sh:declare", "sh:prefix", "sh:namespace", "sh:or", "sh:in", "sh:class", "sh:target", "sh:hasValue",
-          "sh:Warning", "sh:Violation", "sh:zeroOrOnePath", "sh:oneOrMorePath", "sh:PropertyShape", "sh:name"}
+          "sh:Warning", "sh:Violation", "sh:Info", "sh:SPARQLConstraint", "sh:zeroOrOnePath",
+          "sh:oneOrMorePath", "sh:PropertyShape", "sh:name"}
 
 
 def terms_in(lesson) -> set:

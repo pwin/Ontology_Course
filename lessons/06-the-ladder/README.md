@@ -8,13 +8,13 @@ The same lessons, with their measurements laid out in full, are in the [course d
 
 **Sources.** What this module is defined by, or argued from:
 
-- [RDF Schema 2.2 rdfs:Class](https://www.w3.org/TR/rdf12-schema/#ch_class)
-- [RDF Schema 3.3 rdf:type](https://www.w3.org/TR/rdf12-schema/#ch_type)
-- [RDF Schema 3.4 rdfs:subClassOf](https://www.w3.org/TR/rdf12-schema/#ch_subclassof)
-- [RDF Schema 2.5 rdf:Property](https://www.w3.org/TR/rdf12-schema/#ch_property)
-- [RDF Schema 3.2 rdfs:domain](https://www.w3.org/TR/rdf12-schema/#ch_domain)
-- [RDF Schema 3.1 rdfs:range](https://www.w3.org/TR/rdf12-schema/#ch_range)
-- [RDF Schema 3.5 rdfs:subPropertyOf](https://www.w3.org/TR/rdf12-schema/#ch_subpropertyof)
+- [RDF Schema 2.1.2 rdfs:Class](https://www.w3.org/TR/rdf12-schema/#ch_class)
+- [RDF Schema 2.2.3 rdf:type](https://www.w3.org/TR/rdf12-schema/#ch_type)
+- [RDF Schema 2.2.4 rdfs:subClassOf](https://www.w3.org/TR/rdf12-schema/#ch_subclassof)
+- [RDF Schema 2.1.5 rdf:Property](https://www.w3.org/TR/rdf12-schema/#ch_property)
+- [RDF Schema 2.2.2 rdfs:domain](https://www.w3.org/TR/rdf12-schema/#ch_domain)
+- [RDF Schema 2.2.1 rdfs:range](https://www.w3.org/TR/rdf12-schema/#ch_range)
+- [RDF Schema 2.2.5 rdfs:subPropertyOf](https://www.w3.org/TR/rdf12-schema/#ch_subpropertyof)
 - [RDF 1.2 Semantics 9 RDFS Interpretations](https://www.w3.org/TR/rdf12-semantics/#rdfs_interpretations)
 - [RDF 1.2 Semantics 9.2 RDFS Entailment](https://www.w3.org/TR/rdf12-semantics/#rdfs_entailment)
 - [SKOS Reference 3 The skos:Concept Class](https://www.w3.org/TR/skos-reference/#concepts)

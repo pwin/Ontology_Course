@@ -110,6 +110,11 @@ def button_bar(l) -> str:
             + '</div>')
 
 
+def n_of(n, one: str, many: str | None = None) -> str:
+    """`n` with its noun agreeing: 1 violation, 2 violations."""
+    return f"{n} {one if n == 1 else (many or one + 's')}"
+
+
 def measured_block(l, r: dict | None) -> str:
     if not r:
         return ""
@@ -120,15 +125,15 @@ def measured_block(l, r: dict | None) -> str:
     def row(label, value):
         rows.append(f"<tr><th>{E(label)}</th><td>{value}</td></tr>")
 
-    counts = [f"{r['triples']} triples"]
+    counts = [n_of(r["triples"], "triple")]
     for key, one, many in (("classes", "class", "classes"), ("object_properties", "object property", "object properties"),
                            ("datatype_properties", "datatype property", "datatype properties"),
                            ("annotation_properties", "annotation property", "annotation properties"),
                            ("concepts", "concept", "concepts"), ("individuals", "individual", "individuals")):
         n = r.get(key, 0)
         if n:
-            counts.append(f"{n} {one if n == 1 else many}")
-    row("Parses", E("; ".join(counts)) + (f" (with the data: {r['full_triples']} triples)" if r.get("full_triples") else ""))
+            counts.append(n_of(n, one, many))
+    row("Parses", E("; ".join(counts)) + (f' (with the data: {n_of(r["full_triples"], "triple")})' if r.get("full_triples") else ""))
     if "names_bad" in r:
         row("Naming audit", E(", ".join(r["names_bad"]) if r["names_bad"] else "every local name conforms"))
     if "circular" in r:
@@ -199,20 +204,22 @@ def measured_block(l, r: dict | None) -> str:
     if sh:
         c = sh["counts"]
         v = (f'<span class="{"ok" if sh["conforms"] else "no"}">{"conforms" if sh["conforms"] else "does not conform"}</span>'
-             f' &middot; {c["Violation"]} violations, {c["Warning"]} warnings, {c["Info"]} info')
+             f' &middot; {n_of(c["Violation"], "violation")}, {n_of(c["Warning"], "warning")}, {c["Info"]} info')
         if sh["rows"]:
             trs = "".join(f'<tr class="sev-{x["severity"].lower()}"><td>{x["severity"]}</td><td><code>{E(x["focus"])}</code></td>'
                           f'<td><code>{E(x["path"])}</code></td><td>{E(x["message"])}</td></tr>' for x in sh["rows"][:MAX_ROWS])
             v += f'<div class="tablewrap small"><table><thead><tr><th>Severity</th><th>Focus node</th><th>Path</th><th>Message</th></tr></thead><tbody>{trs}</tbody></table></div>'
             if len(sh["rows"]) > MAX_ROWS:
                 v += f'<span class="results-note">and {len(sh["rows"]) - MAX_ROWS} more</span>'
-        row(f"SHACL ({sh['shapes']} shapes compiled" + (f", inference <em>{E(sh['inference'])}</em>" if sh.get("inference", "none") != "none" else "") + ")", v)
+        row(f"SHACL ({n_of(sh['shapes'], 'shape')} compiled" + (f", inference <em>{E(sh['inference'])}</em>" if sh.get("inference", "none") != "none" else "") + ")", v)
     m = r.get("metrics", {})
     if m:
         trs = "".join(f"<tr><td><code>{k}</code></td><td>{(f'{v*100:.0f}%' if k in metrics.RELATIVE else f'{v:g}')}</td><td>{m['scores'][k]}</td></tr>"
                       for k, v in m["metrics"].items())
-        v = (f"{m['counts']['classes']} classes, {m['counts']['object_properties']} object properties, "
-             f"{m['counts']['datatype_properties']} datatype properties, {m['counts']['roots']} roots, {m['counts']['leaves']} leaves"
+        v = (f"{n_of(m['counts']['classes'], 'class', 'classes')}, "
+             f"{n_of(m['counts']['object_properties'], 'object property', 'object properties')}, "
+             f"{n_of(m['counts']['datatype_properties'], 'datatype property', 'datatype properties')}, "
+             f"{n_of(m['counts']['roots'], 'root')}, {n_of(m['counts']['leaves'], 'leaf', 'leaves')}"
              f'<div class="tablewrap small"><table><thead><tr><th>Metric</th><th>Value</th><th>Score 1 to 5</th></tr></thead><tbody>{trs}</tbody></table></div>')
         row("OQuaRE (scripts/metrics.py)", v)
     for q in r.get("queries", []):

@@ -81,7 +81,7 @@
 #            https://github.com/semanticarts/gist
 #            OBO Foundry principle FP-007, relations: reuse existing ones
 #            https://obofoundry.org/principles/fp-007-relations.html
-#  MEASURED  parses, 62 triples; 23 classes, 4 object properties, 1 datatype property, 1 concepts, 2 individuals; OWL 2 DL in profile; HermiT: consistent, 825 inferred; 'The bridge, and what each pl' 7 rows
+#  MEASURED  parses, 62 triples; 23 classes, 4 object properties, 1 datatype property, 1 concept, 2 individuals; OWL 2 DL in profile; HermiT: consistent, 825 inferred; 'The bridge, and what each pl' 7 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

@@ -460,27 +460,33 @@ def check_expectation(l, r: dict) -> list[str]:
     return problems
 
 
+def plural(n: int, one: str, many: str | None = None) -> str:
+    """`n` with its noun agreeing: 1 individual, 2 individuals."""
+    return f"{n} {one if n == 1 else (many or one + 's')}"
+
+
 def summary_line(r: dict) -> str:
     if not r.get("ok"):
         return "does not parse -- " + r.get("error", "")[:100]
-    parts = [f"parses, {r['triples']} triples"]
+    parts = ["parses, " + plural(r["triples"], "triple")]
     counts = []
     if r["classes"]:
-        counts.append(f"{r['classes']} class{'es' if r['classes'] != 1 else ''}")
+        counts.append(plural(r["classes"], "class", "classes"))
     if r["object_properties"]:
-        counts.append(f"{r['object_properties']} object propert{'ies' if r['object_properties'] != 1 else 'y'}")
+        counts.append(plural(r["object_properties"], "object property", "object properties"))
     if r["datatype_properties"]:
-        counts.append(f"{r['datatype_properties']} datatype propert{'ies' if r['datatype_properties'] != 1 else 'y'}")
+        counts.append(plural(r["datatype_properties"], "datatype property", "datatype properties"))
     if r["concepts"]:
-        counts.append(f"{r['concepts']} concepts")
+        counts.append(plural(r["concepts"], "concept"))
     if r["individuals"]:
-        counts.append(f"{r['individuals']} individuals")
+        counts.append(plural(r["individuals"], "individual"))
     if counts:
         parts.append(", ".join(counts))
     if "names_bad" in r:
-        parts.append(f"{len(r['names_bad'])} local names break the conventions")
+        parts.append(plural(len(r["names_bad"]), "local name") +
+                     (" breaks" if len(r["names_bad"]) == 1 else " break") + " the conventions")
     if "circular" in r:
-        parts.append(f"{len(r['circular'])} circular definitions")
+        parts.append(plural(len(r["circular"]), "circular definition"))
     prof = r.get("profile", {})
     if prof and "skipped" not in prof:
         ins = [nm for nm in ("DL", "EL", "QL", "RL") if nm in prof and prof[nm]["ok"]]
@@ -494,7 +500,7 @@ def summary_line(r: dict) -> str:
         if not h["consistent"]:
             parts.append("HermiT: INCONSISTENT")
         elif h["unsatisfiable"]:
-            parts.append(f"HermiT: {len(h['unsatisfiable'])} unsatisfiable class{'es' if len(h['unsatisfiable']) != 1 else ''}")
+            parts.append("HermiT: " + plural(len(h["unsatisfiable"]), "unsatisfiable class", "unsatisfiable classes"))
         else:
             n = len(h["inferred"])
             parts.append(f"HermiT: consistent, {n} inferred" if n else "HermiT: consistent, nothing new")
@@ -505,7 +511,7 @@ def summary_line(r: dict) -> str:
         parts.append("rule reports " + " -> ".join(f"{m} {n}" for m, n in r["rules"].items()))
     if r.get("explanation"):
         n = sum(1 for line in r["explanation"].splitlines() if line.startswith("  - "))
-        parts.append(f"explained by {n} axioms" if n else "explanation returned")
+        parts.append("explained by " + plural(n, "axiom") if n else "explanation returned")
     if r.get("version_diff"):
         parts.append("version-diff: " + (r["version_diff"]["bump"] or "no verdict"))
     if r.get("answer"):
@@ -521,7 +527,8 @@ def summary_line(r: dict) -> str:
     if sh:
         c = sh["counts"]
         parts.append(("conforms" if sh["conforms"] else "does not conform") +
-                     f" ({c['Violation']} violations, {c['Warning']} warnings, {c['Info']} info)")
+                     f" ({plural(c['Violation'], 'violation')}, "
+                     f"{plural(c['Warning'], 'warning')}, {c['Info']} info)")
     m = r.get("metrics", {})
     if m:
         s = m["scores"]

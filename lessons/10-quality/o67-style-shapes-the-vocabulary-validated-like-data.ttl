@@ -60,7 +60,13 @@
 #  NOTE
 #    Open in the editor opens this lesson with the shapes in a second tab;
 #    to validate the whole vocabulary, load data/01-vocabulary.ttl in the
-#    first tab instead, keep the shapes tab, and press Validate.
+#    first tab instead, keep the shapes tab, and press Validate. The
+#    seventeen warnings are the same in the browser as in the measured line
+#    below, but the verdict beside them is not: nothing here is a
+#    violation, so the build the editor serves says conforms while the
+#    checker, which runs a later build that follows the specification, says
+#    it does not. o29 is the lesson on that difference, and the rule it
+#    gives holds here too, which is to read the counts.
 #
 #  CORNER    symbol and thought
 #  DATA      01-vocabulary.ttl

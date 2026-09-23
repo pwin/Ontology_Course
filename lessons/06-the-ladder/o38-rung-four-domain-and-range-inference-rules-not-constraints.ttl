@@ -63,9 +63,9 @@
 #  RUNS IN   the browser
 #  OPEN IN THE EDITOR
 #            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F06-the-ladder%2Fo38-rung-four-domain-and-range-inference-rules-not-constraints.ttl
-#  SOURCES   RDF Schema 3.2 rdfs:domain
+#  SOURCES   RDF Schema 2.2.2 rdfs:domain
 #            https://www.w3.org/TR/rdf12-schema/#ch_domain
-#            RDF Schema 3.1 rdfs:range
+#            RDF Schema 2.2.1 rdfs:range
 #            https://www.w3.org/TR/rdf12-schema/#ch_range
 #  MEASURED  parses, 21 triples; 3 classes, 1 object property, 2 individuals; OWL 2 DL in profile; RL closure +3; 'Every bookshop, after the cl' 2 rows
 # ==========================================================================

@@ -508,8 +508,8 @@ o(
     title="Once published, a term means what it meant",
     decides="A definition may be clarified but never changed to denote different things; when the meaning must change, a new term is minted and the old one deprecated with a pointer.",
     corner="thought",
-    why="OBO Foundry principle FP-019 is the shortest in the list and the "
-        "one most often broken: the definition of a term must always denote "
+    why="OBO Foundry principle FP-019 says it in a line, and it is the one "
+        "most often broken: the definition of a term must always denote "
         "the same things. Clarify the wording, correct a typo or add an "
         "example and it is still the same term; widen it to cover something "
         "it did not cover before, or narrow it, and every dataset that used "

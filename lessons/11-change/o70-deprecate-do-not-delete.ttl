@@ -79,7 +79,7 @@
 #            https://github.com/semanticarts/gist/blob/develop/docs/DeprecationAndDeletionPolicy.md
 #            SemOps Manual 12.3 The migration annotation, and its direction
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#123-the-migration-annotation-and-its-direction
-#  MEASURED  parses, 43 triples; 3 classes, 1 individuals; OWL 2 DL in profile; OQS: DAT-002, QUA-003, QUA-004, QUA-010, STR-004, STR-006; 'Deprecated terms still in us' 1 row
+#  MEASURED  parses, 43 triples; 3 classes, 1 individual; OWL 2 DL in profile; OQS: DAT-002, QUA-003, QUA-004, QUA-010, STR-004, STR-006; 'Deprecated terms still in us' 1 row
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

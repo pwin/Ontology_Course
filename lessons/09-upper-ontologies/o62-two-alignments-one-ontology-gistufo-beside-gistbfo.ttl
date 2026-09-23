@@ -67,7 +67,7 @@
 #            https://github.com/semanticarts/gistUFO
 #            gUFO: a lightweight implementation of the Unified Foundational Ontology
 #            https://nemo-ufes.github.io/gufo/
-#  MEASURED  parses, 37 triples; 15 classes, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 852 inferred; 'Every class, its gUFO type, ' 6 rows
+#  MEASURED  parses, 37 triples; 15 classes, 1 individual; OWL 2 DL in profile; HermiT: consistent, 852 inferred; 'Every class, its gUFO type, ' 6 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

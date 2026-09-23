@@ -328,9 +328,21 @@ specs.register("o38", "rdfsDomain", "rdfsRange")
 SKOS_SHAPES = """
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix bt:   <https://example.org/bookshop-trail/> .
 
 # The SKOS integrity conditions the editor can check, as shapes.
+#
+# Four of the five are SHACL Core, and two of those use sh:disjoint the way
+# the specification defines it, with a predicate for its value. The fifth,
+# that no concept is its own ancestor, cannot be written that way, since
+# sh:disjoint takes a predicate and not a path and there is no way in Core
+# to say that a node is absent from its own broader closure. That is what
+# sh:sparql is for, and the query below says it in one line.
+bt:prefixes  a owl:Ontology ;
+    sh:declare [ sh:prefix "skos" ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ] .
+
 bt:ConceptShape
     a               sh:NodeShape ;
     sh:targetClass  skos:Concept ;
@@ -340,13 +352,14 @@ bt:ConceptShape
                   sh:message "Every concept is in a scheme." ] ;
     sh:property [ sh:path skos:related ; sh:disjoint skos:broader ;
                   sh:message "S27: related and broader are disjoint." ] ;
-    sh:property [ sh:path [ sh:oneOrMorePath skos:broader ] ; sh:disjoint [ sh:zeroOrOnePath skos:narrower ] ;
-                  sh:message "No cycles: nothing is broader than itself." ] ;
+    sh:property [ sh:path skos:broader ; sh:disjoint skos:narrower ;
+                  sh:message "Nothing is both broader and narrower than the same concept." ] ;
     sh:sparql [
-        sh:message "A concept is not its own ancestor." ;
-        sh:prefixes <https://example.org/bookshop-trail/> ;
-        sh:select \"\"\"
-            SELECT $this WHERE { $this <http://www.w3.org/2004/02/skos/core#broader>+ $this }
+        a           sh:SPARQLConstraint ;
+        sh:message  "A concept is not its own ancestor." ;
+        sh:prefixes bt:prefixes ;
+        sh:select   \"\"\"
+            SELECT $this WHERE { $this skos:broader+ $this }
         \"\"\" ;
     ] .
 """
@@ -384,7 +397,18 @@ o(
         "The integrity conditions are checkable, and this lesson's shapes "
         "check the ones that matter: one preferred label per language, "
         "every concept in a scheme, related disjoint from broader, and no "
-        "concept its own ancestor. Run against the shipped scheme they report conformance, and run against this file, with its seeded cycle and its doubled label, they report seven violations: the doubled label once, and the cycle twice over for each of the three concepts caught in it, since the path constraint and the SPARQL constraint each find it. The SHACL course's s30 does the cycle check in the very same way.",
+        "concept its own ancestor. Run against the shipped scheme they "
+        "report conformance, and run against this file, with its seeded "
+        "cycle and its doubled label, they report four violations: the "
+        "doubled label once, and the cycle once for each of the three "
+        "concepts caught in it. Four of the five conditions are SHACL Core, "
+        "and two of those use sh:disjoint with a predicate for its value, "
+        "which is the form the specification allows: related apart from "
+        "broader, and broader apart from narrower. The fifth cannot be "
+        "written that way, since sh:disjoint takes a predicate and not a "
+        "path and there is no way in Core to say that a concept is absent "
+        "from its own broader closure; that one is a sh:sparql constraint, "
+        "and the SHACL course's s30 does it in the very same way.",
     diagram="""
    labels     prefLabel (one per language, S14)   altLabel   hiddenLabel
    notes      definition  scopeNote  example  historyNote  changeNote  editorialNote
@@ -437,7 +461,7 @@ bt:genre-fiction     skos:broader bt:genre-cosy-crime .
     companions={"skos-shapes.ttl": SKOS_SHAPES},
     shapes="skos-shapes.ttl",
     check=dict(profile=True, shacl=SKOS_SHAPES),
-    expect=dict(dl=True, shacl_conforms=False, shacl_violations=7, shacl_shapes=5),
+    expect=dict(dl=True, shacl_conforms=False, shacl_violations=4, shacl_shapes=5),
     queries=[Query("Concepts that are their own ancestor", """
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?c WHERE { ?c skos:broader+ ?c }""", rows=3)],

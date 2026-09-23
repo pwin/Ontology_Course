@@ -14,7 +14,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [gist Style Guide: annotation cardinality](https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#annotation-cardinality)
 - [ANSI/NISO Z39.19, Guidelines for the construction of monolingual controlled vocabularies](https://groups.niso.org/higherlogic/ws/public/download/12591/z39-19-2005r2010.pdf)
 - [SKOS Reference 7 Documentation Properties](https://www.w3.org/TR/skos-reference/#notes)
-- [RDF Schema 3.6 rdfs:comment](https://www.w3.org/TR/rdf12-schema/#ch_comment)
+- [RDF Schema 2.3.2 rdfs:comment](https://www.w3.org/TR/rdf12-schema/#ch_comment)
 - [OBO Foundry principle FP-019, stability of term meaning](https://obofoundry.org/principles/fp-019-term-stability.html)
 - [OBO Foundry principle FP-008, documentation](https://obofoundry.org/principles/fp-008-documented.html)
 - [DCMI Metadata Terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/)

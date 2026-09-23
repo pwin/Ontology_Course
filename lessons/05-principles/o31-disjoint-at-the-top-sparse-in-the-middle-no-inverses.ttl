@@ -67,7 +67,7 @@
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#inverses
 #            OWL 2 Primer 4.3 Class Disjointness
 #            https://www.w3.org/TR/owl2-primer/#Class_Disjointness
-#  MEASURED  parses, 45 triples; 7 classes, 3 object properties, 1 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT
+#  MEASURED  parses, 45 triples; 7 classes, 3 object properties, 1 individual; OWL 2 DL in profile; HermiT: INCONSISTENT
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

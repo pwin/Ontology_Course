@@ -70,7 +70,7 @@
 #            https://nemo-ufes.github.io/gufo/
 #            gistUFO: gist aligned with gUFO
 #            https://github.com/semanticarts/gistUFO
-#  MEASURED  parses, 36 triples; 3 classes, 1 datatype property, 1 individuals; OWL 2 DL in profile; 'Anti-rigid classes, and whet' 2 rows
+#  MEASURED  parses, 36 triples; 3 classes, 1 datatype property, 1 individual; OWL 2 DL in profile; 'Anti-rigid classes, and whet' 2 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

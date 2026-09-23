@@ -22,7 +22,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [Cool URIs for the Semantic Web 4.2 303 URIs](https://www.w3.org/TR/cooluris/#r303gendocument)
 - [Cool URIs for the Semantic Web 4.4 Choosing between 303 and Hash](https://www.w3.org/TR/cooluris/#choosing)
 - [Architecture of the World Wide Web 2.5 URI Opacity](https://www.w3.org/TR/webarch/#uri-opacity)
-- [RDF Schema 3.5 rdfs:label](https://www.w3.org/TR/rdf12-schema/#ch_label)
+- [RDF Schema 2.3.1 rdfs:label](https://www.w3.org/TR/rdf12-schema/#ch_label)
 - [BCP 47 Tags for Identifying Languages](https://www.rfc-editor.org/info/bcp47)
 - [SKOS Reference 5 Lexical Labels](https://www.w3.org/TR/skos-reference/#labels)
 - [SKOS Reference 5.3 integrity condition S14, one preferred label per language](https://www.w3.org/TR/skos-reference/#L1541)

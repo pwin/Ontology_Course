@@ -58,7 +58,7 @@
 #            https://www.w3.org/TR/owl2-primer/#Complex_Classes
 #            OWL 2 Profiles 4 OWL 2 RL
 #            https://www.w3.org/TR/owl2-profiles/#OWL_2_RL
-#  MEASURED  parses, 40 triples; 7 classes, 2 object properties, 1 individuals; OWL 2 DL in profile; HermiT: consistent, 3 inferred; RL closure +3
+#  MEASURED  parses, 40 triples; 7 classes, 2 object properties, 1 individual; OWL 2 DL in profile; HermiT: consistent, 3 inferred; RL closure +3
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

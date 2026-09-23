@@ -74,7 +74,7 @@
 #            https://www.w3.org/TR/webarch/#uri-opacity
 #            OBO Foundry principle FP-003, URI/identifier space
 #            https://obofoundry.org/principles/fp-003-uris.html
-#  MEASURED  parses, 16 triples; 3 classes, 1 individuals; OWL 2 DL in profile; 'Every name of the shop, with' 2 rows
+#  MEASURED  parses, 16 triples; 3 classes, 1 individual; OWL 2 DL in profile; 'Every name of the shop, with' 2 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

@@ -287,7 +287,7 @@ sentence in the lesson it belongs to:
 | STY-004 assumes one language | a Welsh preferred label trips it (o23) |
 | gist scores 1 and 2 on OQuaRE richness | because it keeps domains sparse on principle, and the metric counts properties by declared domain (o65) |
 | gist shows sixty-two root classes | its hierarchy is in `owl:equivalentClass` definitions the structural metrics do not read (o64) |
-| a warning breaks conformance from 0.3.0 of the engine | and did not before it, so the verdict on a warnings-only report depends on the build behind the Validate button; read the counts (o29) |
+| a warning breaks conformance from 0.3.0 of the engine | and did not before it: the checker here runs 0.3.0 and the editor serves 0.2.0, so a report with warnings and no violations is `does not conform` in the Measured block and `conforms` in the browser. The results are the same either way, so read the counts (o29, o67) |
 | "The class bs:Source" as a definition | is circular by the audit's lights, since it names the term (o22) |
 
 ---

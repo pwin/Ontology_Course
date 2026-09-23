@@ -66,7 +66,7 @@
 #            https://doi.org/10.1145/503124.503150
 #            OntoClean: the four meta-properties
 #            https://en.wikipedia.org/wiki/OntoClean
-#  MEASURED  parses, 34 triples; 3 classes, 1 individuals; OWL 2 DL in profile; HermiT: consistent, nothing new; 'The rigidity of every class' 3 rows
+#  MEASURED  parses, 34 triples; 3 classes, 1 individual; OWL 2 DL in profile; HermiT: consistent, nothing new; 'The rigidity of every class' 3 rows
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

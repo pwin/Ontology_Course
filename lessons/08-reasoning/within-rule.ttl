@@ -29,9 +29,9 @@ bt:WithinClosureShape
 bt:WithinReportShape
     a               sh:NodeShape ;
     sh:targetClass  bs:Place ;
+    sh:severity     sh:Info ;
     sh:sparql [
         a           sh:SPARQLConstraint ;
-        sh:severity sh:Info ;
         sh:message  "{$this} is within {?value}" ;
         sh:prefixes bt:prefixes ;
         sh:select   """

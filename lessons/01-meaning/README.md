@@ -13,7 +13,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [Google, 'things, not strings' (2012)](https://blog.google/products/search/introducing-knowledge-graph-things-not/)
 - [RDF 1.2 Concepts 1.2 Resources and Statements](https://www.w3.org/TR/rdf12-concepts/#resources-and-statements)
 - [RDF 1.2 Concepts 1.3 The Referent of an IRI](https://www.w3.org/TR/rdf12-concepts/#referents)
-- [RDF 1.2 Concepts 3.2 IRIs](https://www.w3.org/TR/rdf12-concepts/#section-IRIs)
+- [RDF 1.2 Concepts 3.3 IRIs](https://www.w3.org/TR/rdf12-concepts/#section-IRIs)
 - [Architecture of the World Wide Web 2 Identification](https://www.w3.org/TR/webarch/#identification)
 - [Architecture of the World Wide Web 2.2.2.1 URI Ownership](https://www.w3.org/TR/webarch/#uri-ownership)
 - [Architecture of the World Wide Web 2.5 URI Opacity](https://www.w3.org/TR/webarch/#uri-opacity)

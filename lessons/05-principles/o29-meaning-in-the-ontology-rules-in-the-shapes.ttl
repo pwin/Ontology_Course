@@ -82,7 +82,7 @@
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#owl-restrictions
 #            SHACL: constraints on data, which OWL axioms are not
 #            https://www.w3.org/TR/shacl/
-#  MEASURED  parses, 16 triples; 1 class, 1 datatype property, 1 individuals; OWL 2 DL in profile; HermiT: INCONSISTENT; does not conform (0 violations, 1 warnings, 0 info)
+#  MEASURED  parses, 16 triples; 1 class, 1 datatype property, 1 individual; OWL 2 DL in profile; HermiT: INCONSISTENT; does not conform (0 violations, 1 warning, 0 info)
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

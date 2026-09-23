@@ -63,7 +63,7 @@
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#conventions-for-annotation-use
 #            gist Style Guide: annotation cardinality
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#annotation-cardinality
-#  MEASURED  parses, 24 triples; 2 classes; OWL 2 DL in profile; OQS: QUA-010, STR-004, STY-004; does not conform (1 violations, 0 warnings, 0 info)
+#  MEASURED  parses, 24 triples; 2 classes; OWL 2 DL in profile; OQS: QUA-010, STR-004, STY-004; does not conform (1 violation, 0 warnings, 0 info)
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .
