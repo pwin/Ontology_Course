@@ -1,5 +1,5 @@
 # The checker's Python dependencies. The course itself needs none of them.
 rdflib>=7.0
 owlrl>=7.0
-shacl>=0.3.2        # the engine the Turtle Editor Viewer runs, as Python bindings
-ontology-quality-suite>=0.14
+shacl>=0.3.4        # the engine the Turtle Editor Viewer runs, as Python bindings
+ontology-quality-suite>=0.24.3   # holosdb >=0.24 with it; 76 of 76 lessons measured on 0.24.3
