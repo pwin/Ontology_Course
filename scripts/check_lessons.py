@@ -160,6 +160,9 @@ def rl_closure(g: rdflib.Graph) -> tuple[rdflib.Graph, list]:
         if str(p).startswith(str(RDFS)) and p not in (RDFS.subClassOf, RDFS.subPropertyOf, RDFS.domain, RDFS.range):
             continue
         new.append((s, p, o))
+    # A graph iterates in hash order, which changes with every run, and the
+    # course document shows the first few; sorted, it shows the same ones.
+    new.sort(key=lambda t: tuple(map(str, t)))
     return closed, new
 
 
@@ -180,7 +183,10 @@ def run_oqs(path: Path, stage: str, out_dir: Path, own: str | None) -> dict:
             for row in csv.DictReader(f):
                 cid = row.get("check_id", "")
                 found[cid] = found.get(cid, 0) + 1
-                messages.setdefault(cid, (row.get("message") or "")[:200])
+                # The smallest, not the first: the suite's row order varies by run.
+                m = (row.get("message") or "")[:200]
+                if cid not in messages or m < messages[cid]:
+                    messages[cid] = m
     return {"ids": dict(sorted(found.items())), "messages": messages, "rc": p.returncode,
             "tail": (p.stdout or "")[-600:]}
 
@@ -342,6 +348,10 @@ def measure_local(l) -> tuple[dict, rdflib.Graph | None, Path]:
                 res = target.query(q.text)
                 if res.type == "SELECT":
                     rows = [[pname(x) if x is not None else "" for x in row] for row in res]
+                    # Without ORDER BY the order is the engine's, and varies by run;
+                    # sorted, the sample the document shows is the same every time.
+                    if not re.search(r"\bORDER\s+BY\b", q.text, re.I):
+                        rows.sort()
                     r["queries"].append({"title": q.title, "rows": len(rows), "sample": rows[:8], "expected": q.rows})
                 else:
                     r["queries"].append({"title": q.title, "rows": int(bool(res.askAnswer)), "sample": [], "expected": q.rows})

@@ -84,6 +84,9 @@ def reason(path: Path, reasoner: str = "HermiT", generators: str = "SubClass Cla
                                                  rdflib.OWL.Ontology):
                 continue
             new.append((s, p, o))
+        # Sorted, so the first few the course document shows are the same on
+        # every run: a graph iterates in hash order, which changes per run.
+        new.sort(key=lambda t: tuple(map(str, t)))
         result["inferred"] = new
         return result
 

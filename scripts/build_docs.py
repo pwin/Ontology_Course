@@ -110,6 +110,11 @@ def button_bar(l) -> str:
             + '</div>')
 
 
+def unlink(md: str) -> str:
+    """ROBOT's Markdown links, [text](iri), reduced to their text."""
+    return re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", md)
+
+
 def n_of(n, one: str, many: str | None = None) -> str:
     """`n` with its noun agreeing: 1 violation, 2 violations."""
     return f"{n} {one if n == 1 else (many or one + 's')}"
@@ -165,7 +170,7 @@ def measured_block(l, r: dict | None) -> str:
     if r.get("explanation"):
         lines = [x[4:] for x in r["explanation"].splitlines() if x.startswith("  - ")]
         if lines:
-            row("Explanation (ROBOT)", "<ul class='trip'>" + "".join(f"<li>{E(re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\\1', x))}</li>" for x in lines[:8]) + "</ul>")
+            row("Explanation (ROBOT)", "<ul class='trip'>" + "".join(f"<li>{E(unlink(x))}</li>" for x in lines[:8]) + "</ul>")
     rl = r.get("rl", {})
     if rl:
         v = f"+{rl['added']} triples about the Trail's terms"

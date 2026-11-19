@@ -61,7 +61,7 @@
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/06-stages-and-stories.md#63-the-five-maturity-levels
 #            SemOps Manual 9.4 The right fix: --own-namespace
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#94-the-right-fix---own-namespace
-#  MEASURED  parses, 17 triples; 2 classes; OWL 2 DL in profile; HermiT: 1 unsatisfiable class; OQS: LOG-001, REA-020, REA-021
+#  MEASURED  parses, 17 triples; 2 classes; OWL 2 DL in profile; HermiT: 1 unsatisfiable class; OQS: LOG-001, REA-021
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .

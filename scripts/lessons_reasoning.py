@@ -314,13 +314,16 @@ o(
         "classification with no data at all, and ROBOT's reason command "
         "lists them and then refuses to write the reasoned file until they "
         "are fixed, which is the right default for a gate. The Quality "
-        "Suite reports each of them as REA-021, and for this file it also "
-        "reports REA-020, inconsistent, where ROBOT says consistent with "
-        "two unsatisfiable classes: two tools and two verdicts on one file, "
-        "and the difference is precisely this lesson, since unsatisfiable "
-        "is about a class and inconsistent is about the whole graph, and a "
-        "checker that folds the one into the other is not wrong so much as "
-        "coarser. LOG-001, the suite's reasoner-free check, is narrower "
+        "Suite reports each of them as REA-021. Before its 0.23.0 release "
+        "it also reported REA-020, inconsistent, for this file, where ROBOT "
+        "said consistent: whenever a class was unsatisfiable, the reasoner's "
+        "list of them included owl:Nothing, and the suite read that as an "
+        "inconsistent ontology. Two tools and two verdicts on one file, and "
+        "the difference is precisely this lesson, since unsatisfiable is "
+        "about a class and inconsistent is about the whole graph: the first "
+        "sends you to read one class's axioms, the second to hunt for the "
+        "individual that asserts a contradiction, and here there is none to "
+        "find. LOG-001, the suite's reasoner-free check, is narrower "
         "still, catching a class disjoint with its own ancestor, which "
         "neither of these is.\n\n"
         "In set terms an unsatisfiable class is a subset of the empty set, "
@@ -359,7 +362,7 @@ bs:OddShop  a owl:Class ;
                     [ a owl:Restriction ; owl:onProperty bs:locatedIn ; owl:allValuesFrom  bs:Publisher ] .
 """,
     check=dict(profile=True, reason=True, oqs="ontology"),
-    expect=dict(dl=True, unsat=["Memoir", "OddShop", "Ghost"], oqs=["REA-021"], oqs_not=["LOG-001"]),
+    expect=dict(dl=True, unsat=["Memoir", "OddShop", "Ghost"], oqs=["REA-021"], oqs_not=["LOG-001", "REA-020"]),
     local="the unsatisfiable classes on the MEASURED line come from HermiT through ROBOT, and REA-021 from the Quality Suite",
 )
 specs.register("o54", "directSemantics", "semopsTestGate")
