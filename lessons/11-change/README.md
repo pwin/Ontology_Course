@@ -18,8 +18,8 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [OBO Foundry principle FP-016, maintenance](https://obofoundry.org/principles/fp-016-maintenance.html)
 - [OBO Foundry principle FP-019, stability of term meaning](https://obofoundry.org/principles/fp-019-term-stability.html)
 - [SemOps Manual 12.1 Evidence-based semver: version-diff](https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#121-evidence-based-semver-version-diff)
-- [SemOps Manual 12.3 The migration annotation, and its direction](https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#123-the-migration-annotation-and-its-direction)
-- [SemOps Manual 13.2 Documentation as a product](https://github.com/pwin/SemOpsManual/blob/main/docs/13-operate-and-consume.md#132-documentation-as-a-product-docgen)
+- [SemOps Manual 12.3 The migration annotation, and a correction about its direction](https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#123-the-migration-annotation-and-a-correction-about-its-direction)
+- [SemOps Manual 13.3 Documentation as a product](https://github.com/pwin/SemOpsManual/blob/main/docs/13-operate-and-consume.md#133-documentation-as-a-product-docgen)
 - [Best Practice Recipes for Publishing RDF Vocabularies](https://www.w3.org/TR/swbp-vocab-pub/)
 
 | Lesson | Decides | Corner |

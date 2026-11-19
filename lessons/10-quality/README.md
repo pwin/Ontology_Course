@@ -14,7 +14,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [SemOps Manual 9.8 Testing the gate itself](https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#98-testing-the-gate-itself)
 - [SemOps Manual 8.1 Competency questions as tests](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#competency-questions-as-tests)
 - [gist: the shapes that enforce its own style](https://github.com/semanticarts/gist/blob/develop/validation/shapes/ontologyShapes.ttl)
-- [SemOps Manual 8.4 Your own rules, without forking anything](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#84-your-own-rules-without-forking-anything)
+- [SemOps Manual 8.5 Your own rules, without forking anything](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#85-your-own-rules-without-forking-anything)
 
 | Lesson | Decides | Corner |
 |---|---|---|

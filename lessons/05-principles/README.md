@@ -19,7 +19,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [SemOps Manual 2.4 Cognitive capacity is a hard budget](https://github.com/pwin/SemOpsManual/blob/main/docs/02-people-and-cognition.md#24-cognitive-capacity-is-a-hard-budget)
 - [SemOps Manual 2.5 The workshop is a social event with a technical output](https://github.com/pwin/SemOpsManual/blob/main/docs/02-people-and-cognition.md#25-the-workshop-is-a-social-event-with-a-technical-output)
 - [SemOps Manual 8.1 The inner loop belongs in the editor](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#81-the-inner-loop-belongs-in-the-editor)
-- [SemOps Manual 8.4 Your own rules, without forking anything](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#84-your-own-rules-without-forking-anything)
+- [SemOps Manual 8.5 Your own rules, without forking anything](https://github.com/pwin/SemOpsManual/blob/main/docs/08-model-and-validate.md#85-your-own-rules-without-forking-anything)
 - [SemOps Manual 6.3 The five maturity levels](https://github.com/pwin/SemOpsManual/blob/main/docs/06-stages-and-stories.md#63-the-five-maturity-levels)
 - [Winstanley, Team building: the importance of an ontology (2025)](https://www.semanticarts.com/team-building-the-importance-of-an-ontology/)
 - [Winstanley, Is an upper ontology useful? ISKO UK 2023, CEUR-WS Vol. 3661](https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf)

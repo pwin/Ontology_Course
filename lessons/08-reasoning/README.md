@@ -14,7 +14,7 @@ The same lessons, with their measurements laid out in full, are in the [course d
 - [OWL 2 Profiles 4 OWL 2 RL](https://www.w3.org/TR/owl2-profiles/#OWL_2_RL)
 - [The SPARQL course, module 18: inference](https://www.semantechs.co.uk/SPARQL_Course/#m18)
 - [The SHACL course, module 09: validating with inference](https://www.semantechs.co.uk/SHACL_Course/#m09)
-- [SemOps Manual 11.2 Three ways to derive a triple](https://github.com/pwin/SemOpsManual/blob/main/docs/11-rules-and-inference.md#112-three-ways-to-derive-a-triple)
+- [SemOps Manual 11.2 Four ways to derive a triple](https://github.com/pwin/SemOpsManual/blob/main/docs/11-rules-and-inference.md#112-four-ways-to-derive-a-triple)
 
 | Lesson | Decides | Corner |
 |---|---|---|

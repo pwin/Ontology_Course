@@ -128,7 +128,7 @@ SECTIONS = {
     "oboCollab":      ("OBO Foundry principle FP-010, commitment to collaboration", OBO + "fp-010-collaboration.html"),
     "oboUsers":       ("OBO Foundry principle FP-009, documented plurality of users", OBO + "fp-009-users.html"),
     "semopsInnerLoop": ("SemOps Manual 8.1 The inner loop belongs in the editor", SEMOPS + "08-model-and-validate.md#81-the-inner-loop-belongs-in-the-editor"),
-    "semopsHouseRules": ("SemOps Manual 8.4 Your own rules, without forking anything", SEMOPS + "08-model-and-validate.md#84-your-own-rules-without-forking-anything"),
+    "semopsHouseRules": ("SemOps Manual 8.5 Your own rules, without forking anything", SEMOPS + "08-model-and-validate.md#85-your-own-rules-without-forking-anything"),
     "semopsMaturity": ("SemOps Manual 6.3 The five maturity levels", SEMOPS + "06-stages-and-stories.md#63-the-five-maturity-levels"),
     # The ladder
     "rdfsClass":      ("RDF Schema 2.1.2 rdfs:Class", RDFS + "#ch_class"),
@@ -191,7 +191,7 @@ SECTIONS = {
     # Reasoning
     "sparqlCourseInference": ("The SPARQL course, module 18: inference", SPARQL_COURSE + "#m18"),
     "shaclCourseInference": ("The SHACL course, module 09: validating with inference", SHACL_COURSE + "#m09"),
-    "semopsRules":    ("SemOps Manual 11.2 Three ways to derive a triple", SEMOPS + "11-rules-and-inference.md#112-three-ways-to-derive-a-triple"),
+    "semopsRules":    ("SemOps Manual 11.2 Four ways to derive a triple", SEMOPS + "11-rules-and-inference.md#112-four-ways-to-derive-a-triple"),
     # Upper ontologies
     "gistBfo":        ("gistBFO: gist mapped to the Basic Formal Ontology", GISTBFO),
     "bfo":            ("BFO 2020", BFO),
@@ -209,9 +209,9 @@ SECTIONS = {
     "oboNotification": ("OBO Foundry principle FP-013, notification of changes", OBO + "fp-013-notification.html"),
     "oboMaintenance": ("OBO Foundry principle FP-016, maintenance", OBO + "fp-016-maintenance.html"),
     "semopsSemver":   ("SemOps Manual 12.1 Evidence-based semver: version-diff", SEMOPS + "12-release-and-change.md#121-evidence-based-semver-version-diff"),
-    "semopsMigration": ("SemOps Manual 12.3 The migration annotation, and its direction", SEMOPS + "12-release-and-change.md#123-the-migration-annotation-and-its-direction"),
+    "semopsMigration": ("SemOps Manual 12.3 The migration annotation, and a correction about its direction", SEMOPS + "12-release-and-change.md#123-the-migration-annotation-and-a-correction-about-its-direction"),
     "semopsTaxonomy": ("SemOps Manual 12.5 The taxonomy layer: pattern-consistency", SEMOPS + "12-release-and-change.md#125-the-taxonomy-layer-pattern-consistency"),
-    "semopsDocgen":   ("SemOps Manual 13.2 Documentation as a product", SEMOPS + "13-operate-and-consume.md#132-documentation-as-a-product-docgen"),
+    "semopsDocgen":   ("SemOps Manual 13.3 Documentation as a product", SEMOPS + "13-operate-and-consume.md#133-documentation-as-a-product-docgen"),
     # Putting it together
     "sparqlCourse":   ("The SPARQL course: the questions this ontology exists to answer", SPARQL_COURSE),
     "shaclCourse":    ("The SHACL course: the constraints OWL cannot express", SHACL_COURSE),
