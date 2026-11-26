@@ -515,7 +515,14 @@ ul.reading { max-width:var(--maxw); color:var(--ink-2); font-size:.92rem; }
 ul.reading li { margin-bottom:8px; }
 footer { padding:40px; color:var(--ink-3); font-size:.8rem; border-top:1px solid var(--rule); margin-top:40px; }
 @media (max-width: 900px) { .shell { grid-template-columns:1fr; } .rail { position:static; height:auto; border-right:none; border-bottom:1px solid var(--rule); }
-  .mech { grid-template-columns:1fr; } .hero, .intro, .module, footer { padding-left:16px; padding-right:16px; } }
+  .mech { grid-template-columns:minmax(0,1fr); } .hero, .intro, .module, footer { padding-left:16px; padding-right:16px; }
+  table.measured > tbody > tr > th, table.measured > tbody > tr > td { display:block; width:auto; }
+  table.measured > tbody > tr > th { padding-bottom:0; border-bottom:none; }
+  table.measured > tbody > tr > td { padding-top:2px; overflow-wrap:anywhere; }
+  table.measured { table-layout:fixed; }
+  table.measured td table { display:block; overflow-x:auto; }
+  table.measured td table th, table.measured td table td { padding:6px 8px; overflow-wrap:normal; }
+  table.measured td table td:nth-child(4) { min-width:22ch; } }
 """
 
 JS = """
@@ -574,6 +581,7 @@ def main() -> None:
 <body>
 <div class="shell">
 <nav class="rail">
+  <p class="tagline"><a href="/">&larr; Semantechs home</a></p>
   <p class="brand">The Bookshop Trail <em>Ontology</em></p>
   <p class="tagline">A Semantechs teaching resource</p>
   <ol>{"".join(f"<li>{a}</li>" for a in rail)}</ol>
