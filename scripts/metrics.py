@@ -19,8 +19,9 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-import rdflib
-from rdflib.namespace import OWL, RDF, RDFS, SKOS
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from semops_graph import PREFIXES, RDFS, SKOS, Graph, is_iri, value  # noqa: E402
 
 # The paper's table 3: the value ranges that score 1 to 5. Absolute metrics
 # score low when large; the relative ones score by twenty-percent bands.
@@ -37,9 +38,8 @@ THRESHOLDS = {
 }
 RELATIVE = {"RROnto", "AROnto", "INROnto", "CROnto", "ANOnto"}
 
-ANNOTATION_PROPS = {RDFS.label, RDFS.comment, SKOS.prefLabel, SKOS.altLabel, SKOS.definition,
-                    SKOS.scopeNote, SKOS.example, SKOS.editorialNote, SKOS.note, RDFS.seeAlso,
-                    RDFS.isDefinedBy}
+ANNOTATION_PROPS = {f"<{RDFS}{k}>" for k in ("label", "comment", "seeAlso", "isDefinedBy")} | {
+    f"<{SKOS}{k}>" for k in ("prefLabel", "altLabel", "definition", "scopeNote", "example", "editorialNote", "note")}
 
 
 def score(metric: str, value: float) -> int:
@@ -58,27 +58,33 @@ def score(metric: str, value: float) -> int:
     return 1
 
 
-def compute(g: rdflib.Graph, namespace: str | None = None) -> dict:
+def compute(g: Graph, namespace: str | None = None) -> dict:
     """Every OQuaRE metric this course reports, plus the counts behind them.
     `namespace` restricts the classes and properties counted to those whose
-    IRI starts with it, so that borrowed terms do not inflate a score."""
+    IRI starts with it, so that borrowed terms do not inflate a score. The graph
+    is read with SPARQL on HOLOS; the arithmetic is the paper's, in Python."""
     def own(x):
-        return isinstance(x, rdflib.URIRef) and (namespace is None or str(x).startswith(namespace))
+        return is_iri(x) and (namespace is None or value(x).startswith(namespace))
 
-    classes = {c for c in g.subjects(RDF.type, OWL.Class) if own(c)}
-    classes |= {c for c in g.subjects(RDF.type, RDFS.Class) if own(c)}
-    obj_props = {p for p in g.subjects(RDF.type, OWL.ObjectProperty) if own(p)}
-    data_props = {p for p in g.subjects(RDF.type, OWL.DatatypeProperty) if own(p)}
+    def typed(*types: str) -> set[str]:
+        return {x for x in g.column(PREFIXES + f"SELECT DISTINCT ?x WHERE {{ VALUES ?t {{ {' '.join(types)} }} ?x a ?t }}", "x")
+                if own(x)}
+
+    def pairs(where: str, a: str = "a", b: str = "b") -> list[tuple[str, str]]:
+        return [(r[a], r[b]) for r in g.select(PREFIXES + f"SELECT ?{a} ?{b} WHERE {{ {where} }}") if r[a] and r[b]]
+
+    classes = typed("owl:Class", "rdfs:Class")
+    obj_props = typed("owl:ObjectProperty")
+    data_props = typed("owl:DatatypeProperty")
     if not obj_props and not data_props:
         # An RDFS-only graph: every rdf:Property counts as a relationship
-        obj_props = {p for p in g.subjects(RDF.type, RDF.Property) if own(p)}
+        obj_props = typed("rdf:Property")
 
     # Direct named superclasses, restricted to the counted classes.
     sup = defaultdict(set)
-    for c in classes:
-        for s in g.objects(c, RDFS.subClassOf):
-            if s in classes and s != c:
-                sup[c].add(s)
+    for c, s in pairs("?a rdfs:subClassOf ?b"):
+        if c in classes and s in classes and s != c:
+            sup[c].add(s)
     children = defaultdict(set)
     for c, ss in sup.items():
         for s in ss:
@@ -86,17 +92,20 @@ def compute(g: rdflib.Graph, namespace: str | None = None) -> dict:
 
     # Which classes a property belongs to: its rdfs:domain, or every class in
     # a union domain. A property with no domain belongs to no class.
+    domains = defaultdict(set)
+    for p, d in pairs("?a rdfs:domain ?b"):
+        domains[p].add(d)
+    union_members = defaultdict(set)
+    for d, m in pairs("?a owl:unionOf/rdf:rest*/rdf:first ?b"):
+        union_members[d].add(m)
+
     def domain_classes(p):
         out = set()
-        for d in g.objects(p, RDFS.domain):
+        for d in domains[p]:
             if d in classes:
                 out.add(d)
             else:
-                lst = g.value(d, OWL.unionOf)
-                if lst is not None:
-                    for m in rdflib.collection.Collection(g, lst):
-                        if m in classes:
-                            out.add(m)
+                out |= {m for m in union_members[d] if m in classes}
         return out
 
     rel_of = defaultdict(set)   # RC: object properties per class
@@ -110,15 +119,15 @@ def compute(g: rdflib.Graph, namespace: str | None = None) -> dict:
 
     # Individuals per class, counting only the counted classes' direct types.
     inst_of = defaultdict(set)
-    for s, c in g.subject_objects(RDF.type):
-        if c in classes and isinstance(s, rdflib.URIRef):
+    for s, c in pairs("?a a ?b"):
+        if c in classes and is_iri(s):
             inst_of[c].add(s)
 
+    # Annotations per class: one for every annotation triple about it.
     ann_of = defaultdict(int)
-    for c in classes:
-        for p in g.predicates(c, None):
-            if p in ANNOTATION_PROPS:
-                ann_of[c] += 1
+    for c, p in pairs("?a ?b ?o"):
+        if c in classes and p in ANNOTATION_PROPS:
+            ann_of[c] += 1
 
     n = len(classes) or 1
     roots = [c for c in classes if not sup[c]]
@@ -179,7 +188,7 @@ def compute(g: rdflib.Graph, namespace: str | None = None) -> dict:
                    "individuals": sum(len(v) for v in inst_of.values())},
         "metrics": {k: round(v, 3) for k, v in m.items()},
         "scores": scores,
-        "tangled": sorted(str(c) for c in classes if len(sup[c]) > 1),
+        "tangled": sorted(value(c) for c in classes if len(sup[c]) > 1),
     }
 
 
@@ -193,7 +202,7 @@ def table(result: dict) -> str:
 
 if __name__ == "__main__":
     for arg in sys.argv[1:]:
-        g = rdflib.Graph().parse(arg)
+        g = Graph.from_file(arg)
         r = compute(g)
         print(f"== {arg}: {r['counts']}")
         print(table(r))

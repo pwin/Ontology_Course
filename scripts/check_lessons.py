@@ -6,14 +6,19 @@
     python scripts/check_lessons.py --module 07-owl
     python scripts/check_lessons.py --show o44   # print the inferred triples and rows
 
-Each lesson's model is written to build/models/, parsed with rdflib, and then
+Each lesson's model is written to build/models/, loaded into HOLOS, and then
 put through whatever its `check` asks for: the OWL 2 profile checker and
 HermiT (through ROBOT), an OWL 2 RL closure (owlrl, the same profile the
-editor's reasoner implements), the Ontology Quality Suite, the `shacl`
-engine (the same one the editor runs, through its Python bindings), the
-OQuaRE metrics, a naming audit, a definition audit, and its own SPARQL
-queries. What comes back is compared with the lesson's `expect`, and the run
-fails on any expectation that does not hold.
+editor's reasoner implements), the quality checks (`semops check`), the
+SHACL engine, the OQuaRE metrics, a naming audit, a definition audit, and its
+own SPARQL queries. What comes back is compared with the lesson's `expect`,
+and the run fails on any expectation that does not hold.
+
+HOLOS, the SHACL engine and the checks are SemOps System's, from
+`pip install semops-system`: the engine the Turtle Editor Viewer runs in the
+browser, so a query's rows here are the rows a reader sees there. owlrl is the
+one exception, because SemOps has no OWL 2 RL reasoner yet; it works on rdflib
+graphs, so rdflib is used for that and nothing else.
 
 Two files come out of it:
 
@@ -24,16 +29,12 @@ Two files come out of it:
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import re
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-
-import rdflib
-from rdflib.namespace import OWL, RDF, RDFS, SKOS
 
 sys.stdout.reconfigure(encoding="utf-8")
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,50 +44,42 @@ import catalogue  # noqa: E402,F401
 import metrics  # noqa: E402
 import robot  # noqa: E402
 from ontocat import CATALOGUE, DATA, LIB, PREFIX_URI  # noqa: E402
+from semops_graph import (OWL, PREFIXES, RDF, RDFS, Graph, escape_literal, is_blank, is_iri,  # noqa: E402
+                          is_literal, lexical, query_form, value)
 
 BUILD = ROOT / "build"
 MODELS = BUILD / "models"
 RESULTS = BUILD / "results"
 
-NS = {p: rdflib.Namespace(u) for p, u in PREFIX_URI.items()}
+_BY_LENGTH = sorted(PREFIX_URI.items(), key=lambda x: -len(x[1]))
 
 
-def pname(term) -> str:
-    """A prefixed name for a term, or the IRI in angle brackets."""
-    if isinstance(term, rdflib.Literal):
-        return f'"{term}"'
-    if isinstance(term, rdflib.BNode):
-        return "_:" + str(term)[:6]
-    s = str(term)
-    for p, u in sorted(PREFIX_URI.items(), key=lambda x: -len(x[1])):
+def pname(term: str | None) -> str:
+    """A prefixed name for an N-Triples term, or the IRI in angle brackets. A
+    literal shows its text in quotes and a blank node the start of its label."""
+    if not term:
+        return ""
+    if is_literal(term):
+        return f'"{lexical(term)}"'
+    if is_blank(term):
+        return "_:" + term[2:8]
+    s = value(term)
+    for p, u in _BY_LENGTH:
         if s.startswith(u):
             return f"{p}:{s[len(u):]}"
     return f"<{s}>"
 
 
-def parse_pname(text: str):
-    if text.startswith("<"):
-        return rdflib.URIRef(text.strip("<>"))
-    if text.startswith('"'):
-        return rdflib.Literal(text.strip('"'))
-    p, _, local = text.partition(":")
-    return NS[p][local]
-
-
-def triple_from(text: str):
-    s, p, o = text.split(None, 2)
-    return parse_pname(s), parse_pname(p), parse_pname(o)
-
-
 _DIR_TAG = re.compile(r'@([A-Za-z][A-Za-z0-9-]*?)--(?:rtl|ltr)\b')
 
 
-def load_data(name: str, into: rdflib.Graph) -> None:
-    """Parse a data file into a graph. The Trail's data carries RDF 1.2
-    directional language tags (@ar--rtl), which rdflib does not read; the
-    direction is dropped, as the SHACL course does before a tool that cannot read them."""
+def load_data(name: str, into: Graph) -> None:
+    """Load a data file into a graph. The Trail's data carries RDF 1.2
+    directional language tags (@ar--rtl). HOLOS reads them, but the full graph
+    goes on to ROBOT, whose OWL API does not, so the direction is dropped, as
+    the SHACL course does before a tool that cannot read them."""
     text = (DATA / name).read_text(encoding="utf-8")
-    into.parse(data=_DIR_TAG.sub(r"@\1", text), format="turtle")
+    into.load_text(_DIR_TAG.sub(r"@\1", text), "turtle")
 
 
 # ---------------------------------------------------------------- audits
@@ -96,112 +89,171 @@ PROP_NAME = re.compile(r"^[a-z][a-z0-9]+(?:[A-Z][a-z0-9]+)*$")
 BS = "https://example.org/bookshop-trail/schema#"
 
 
-def audit_names(g: rdflib.Graph) -> list[str]:
+def _iris_typed(g: Graph, *types: str) -> set[str]:
+    """The IRIs with any of these rdf:types."""
+    values = " ".join(types)
+    return g.column(PREFIXES + f"SELECT DISTINCT ?x WHERE {{ VALUES ?t {{ {values} }} ?x a ?t FILTER isIRI(?x) }}", "x")
+
+
+def audit_names(g: Graph) -> list[str]:
     """Local names in the schema namespace that break the conventions of
     module 03: UpperCamelCase classes, lowerCamelCase properties, letters and
     digits only, acronyms camel-cased."""
     bad = []
-    for c in set(g.subjects(RDF.type, OWL.Class)) | set(g.subjects(RDF.type, RDFS.Class)):
-        if isinstance(c, rdflib.URIRef) and str(c).startswith(BS):
-            local = str(c)[len(BS):]
+    for c in sorted(_iris_typed(g, "owl:Class", "rdfs:Class")):
+        if value(c).startswith(BS):
+            local = value(c)[len(BS):]
             if not CLASS_NAME.match(local):
                 bad.append("bs:" + local)
-    for kind in (OWL.ObjectProperty, OWL.DatatypeProperty, OWL.AnnotationProperty, RDF.Property):
-        for p in g.subjects(RDF.type, kind):
-            if isinstance(p, rdflib.URIRef) and str(p).startswith(BS):
-                local = str(p)[len(BS):]
+    for kind in ("owl:ObjectProperty", "owl:DatatypeProperty", "owl:AnnotationProperty", "rdf:Property"):
+        for p in sorted(_iris_typed(g, kind)):
+            if value(p).startswith(BS):
+                local = value(p)[len(BS):]
                 if not PROP_NAME.match(local) and "bs:" + local not in bad:
                     bad.append("bs:" + local)
     return sorted(bad)
 
 
-def audit_definitions(g: rdflib.Graph) -> list[str]:
+def audit_definitions(g: Graph) -> list[str]:
     """Terms whose definition repeats the term's own name: a rough test for
     circularity, and rough on purpose -- it also catches 'a publisher is an
     organisation that publishes', which is the case worth catching."""
+    texts: dict[str, list[str]] = {}
+    for row in g.select(PREFIXES + "SELECT ?term ?text WHERE { VALUES ?p { skos:definition rdfs:comment } "
+                                   "?term ?p ?text FILTER isIRI(?term) }"):
+        texts.setdefault(row["term"], []).append(value(row["text"]))
     circular = []
-    for term in set(g.subjects(SKOS.definition, None)) | set(g.subjects(RDFS.comment, None)):
-        if not isinstance(term, rdflib.URIRef):
-            continue
-        local = str(term).split("#")[-1].split("/")[-1]
+    for term, said in texts.items():
+        local = value(term).split("#")[-1].split("/")[-1]
         words = re.findall(r"[A-Z]?[a-z]+", local)
         if not words:
             continue
         stems = {w.lower()[:max(4, len(w) - 2)] for w in words if len(w) > 3}
-        for text in list(g.objects(term, SKOS.definition)) + list(g.objects(term, RDFS.comment)):
-            first = str(text).split(".")[0].lower()
+        for text in said:
+            first = text.split(".")[0].lower()
             if any(re.search(r"\b" + re.escape(st), first) for st in stems):
                 circular.append(pname(term))
                 break
     return sorted(set(circular))
 
 
-def rl_closure(g: rdflib.Graph) -> tuple[rdflib.Graph, list]:
+def _nt(t) -> str:
+    """An rdflib term as N-Triples, the form the rest of the checker uses."""
+    import rdflib
+    if isinstance(t, rdflib.URIRef):
+        return f"<{t}>"
+    if isinstance(t, rdflib.BNode):
+        return f"_:{t}"
+    if isinstance(t, rdflib.Literal):
+        text = f'"{escape_literal(str(t))}"'
+        if t.language:
+            return f"{text}@{t.language}"
+        if t.datatype and str(t.datatype) != "http://www.w3.org/2001/XMLSchema#string":
+            return f"{text}^^<{t.datatype}>"
+        return text
+    return str(t)
+
+
+def rl_closure(g: Graph) -> tuple[Graph, list[tuple[str, str, str]]]:
     """The OWL 2 RL closure, and the triples it added about the Trail's own
     terms. owlrl also adds its axiomatic triples (every XSD datatype, owl:Nothing
-    under every class); those are left out of the list and the count."""
+    under every class); those are left out of the list and the count.
+
+    The one place rdflib is used: SemOps has no OWL 2 RL reasoner yet, and owlrl
+    works on rdflib graphs. The graph goes in as N-Triples and the closure comes
+    back the same way. owlrl's closure is generalised RDF, where a literal can be a
+    subject; those triples cannot be written as RDF, and are dropped on the way back,
+    as nothing measured here sits on one."""
     import owlrl
-    before = rdflib.Graph()
-    for t in g:
-        before.add(t)
+    import rdflib
+    from rdflib.namespace import OWL as O, RDFS as RS
+    before = rdflib.Graph().parse(data=g.serialize("ntriples"), format="nt")
     closed = rdflib.Graph()
-    for t in g:
+    for t in before:
         closed.add(t)
     owlrl.DeductiveClosure(owlrl.OWLRL_Semantics, axiomatic_triples=False, datatype_axioms=False).expand(closed)
-    w3c = (str(RDF), str(RDFS), str(OWL), "http://www.w3.org/2001/XMLSchema#")
+    w3c = (RDF, RDFS, OWL, "http://www.w3.org/2001/XMLSchema#")
     new = []
     for s, p, o in closed:
         if (s, p, o) in before:
             continue
         if any(isinstance(x, rdflib.BNode) for x in (s, p, o)) or isinstance(s, rdflib.Literal):
             continue
-        if str(s).startswith(w3c) or o in (OWL.Thing, RDFS.Resource, OWL.NamedIndividual, OWL.Nothing) or s == o:
+        if str(s).startswith(w3c) or o in (O.Thing, RS.Resource, O.NamedIndividual, O.Nothing) or s == o:
             continue
-        if str(p).startswith(str(RDFS)) and p not in (RDFS.subClassOf, RDFS.subPropertyOf, RDFS.domain, RDFS.range):
+        if str(p).startswith(RDFS) and p not in (RS.subClassOf, RS.subPropertyOf, RS.domain, RS.range):
             continue
         new.append((s, p, o))
     # A graph iterates in hash order, which changes with every run, and the
     # course document shows the first few; sorted, it shows the same ones.
     new.sort(key=lambda t: tuple(map(str, t)))
-    return closed, new
+    lines = [f"{_nt(s)} {_nt(p)} {_nt(o)} ." for s, p, o in closed
+             if not isinstance(s, rdflib.Literal) and isinstance(p, rdflib.URIRef)]
+    return Graph.from_text("\n".join(lines) + "\n", "ntriples"), [tuple(_nt(x) for x in t) for t in new]
 
 
-def run_oqs(path: Path, stage: str, out_dir: Path, own: str | None) -> dict:
-    """Run the Ontology Quality Suite and collect the check ids it reports."""
-    args = [sys.executable, "-m", "ontology_suite", stage, "--ontology", str(path),
-            "--out-dir", str(out_dir), "--fail-on", "never"]
-    if stage == "checks":
-        args += ["--engine", "sparql"]
-        if own:
-            args += ["--own-namespace", own]
-    p = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=600)
+# Where the checks report a finding about the graph as a whole, such as QUA-005's
+# missing owl:Ontology: a node of the registry's own, outside any namespace.
+GRAPH_NODE = "https://semantechs.co.uk/ontology-quality/Graph"
+
+
+def run_checks(path: Path, stage: str, hermit: dict | None, own: str) -> dict:
+    """The quality checks, as `semops check --engine sparql` runs them, and the
+    check ids they report, measured as the Ontology Quality Suite measured them.
+
+    Stage "checks" is scoped to the lesson's own namespace, as the suite's
+    --own-namespace scoped it: the findings about terms in that namespace, and the
+    findings about the graph as a whole. `semops check` has no such option, so the
+    scope is applied here, to its findings. Stage "ontology" was the suite's other
+    command, which ran the logical and reasoning checks over everything; it keeps
+    those two categories, unscoped.
+
+    REA-020 and REA-021 need an external DL reasoner, which `semops check` does not
+    run: it runs the checks that have a SHACL shape or a SPARQL query. For stage
+    "ontology" they come from the HermiT run the lesson already makes through ROBOT
+    -- the reasoner the suite took them from, through owlready2."""
+    import semops_system as so
+    run = so.check(str(path), engine="sparql")
+    if stage == "ontology":
+        def keep(f: dict) -> bool:
+            return f.get("category") in ("logical", "reasoning")
+    else:
+        def keep(f: dict) -> bool:
+            focus = (f.get("focus_node") or "").strip("<>")
+            return focus.startswith(own) or focus == GRAPH_NODE
     found: dict[str, int] = {}
     messages: dict[str, str] = {}
-    csv_path = out_dir / "full_results.csv"
-    if csv_path.exists():
-        with csv_path.open(encoding="utf-8", newline="") as f:
-            for row in csv.DictReader(f):
-                cid = row.get("check_id", "")
-                found[cid] = found.get(cid, 0) + 1
-                # The smallest, not the first: the suite's row order varies by run.
-                m = (row.get("message") or "")[:200]
-                if cid not in messages or m < messages[cid]:
-                    messages[cid] = m
-    return {"ids": dict(sorted(found.items())), "messages": messages, "rc": p.returncode,
-            "tail": (p.stdout or "")[-600:]}
+    for f in filter(keep, run["findings"]):
+        cid = f["check_id"]
+        found[cid] = found.get(cid, 0) + 1
+        # The smallest that says something: the findings' order is not a contract.
+        m = (f.get("message") or "")[:200]
+        if cid not in messages or (m and (not messages[cid] or m < messages[cid])):
+            messages[cid] = m
+    if stage == "ontology" and hermit and "skipped" not in hermit:
+        # Worded as the suite worded them, naming the reasoner that said so.
+        if not hermit.get("consistent", True):
+            found["REA-020"] = 1
+            messages["REA-020"] = "The ontology is inconsistent according to HermiT, through ROBOT."
+        elif hermit.get("unsatisfiable"):
+            found["REA-021"] = len(hermit["unsatisfiable"])
+            messages["REA-021"] = min(f"{u.strip('<>')} is unsatisfiable (equivalent to owl:Nothing) according to "
+                                      "HermiT, through ROBOT." for u in hermit["unsatisfiable"])
+    return {"ids": dict(sorted(found.items())), "messages": messages, "complete": run["complete"],
+            "failed": sorted(f.get("check_id", "") for f in run["failed"])}
 
 
 def run_version_diff(l, old_name: str, new_name: str) -> dict:
-    """Two companion files through the Quality Suite's version-diff: the
-    suggested bump and the change lines."""
+    """Two companion files through `semops diff`, which reports as the Ontology
+    Quality Suite's version-diff did: the suggested bump and the change lines.
+    Imports are not followed: each file is compared as it stands."""
     folder = MODELS / l.oid
     folder.mkdir(parents=True, exist_ok=True)
     old = folder / old_name
     new = folder / new_name
     old.write_text(l.companions[old_name].strip() + "\n", encoding="utf-8", newline="\n")
     new.write_text(l.companions[new_name].strip() + "\n", encoding="utf-8", newline="\n")
-    p = subprocess.run([sys.executable, "-m", "ontology_suite", "version-diff", str(old), str(new),
-                        "--exclude-imports", "--out-dir", str(folder / "diff")],
+    p = subprocess.run([sys.executable, "-m", "semops_system", "diff", str(old), str(new)],
                        capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=600)
     out = (p.stdout or "") + (p.stderr or "")
     bump = ""
@@ -219,7 +271,7 @@ def _shacl_term(text: str | None) -> str:
     if not text:
         return ""
     if text.startswith("<") and text.endswith(">"):
-        return pname(rdflib.URIRef(text[1:-1]))
+        return pname(text)
     return text
 
 
@@ -236,10 +288,11 @@ def explanation_sizes(md: str) -> list[int]:
 
 
 def run_shacl(data_text: str, shapes_text: str, inference: str = "none") -> dict:
-    """Validate with the engine the Turtle Editor Viewer runs: `shacl`, the
-    Rust engine whose WebAssembly build is in the editor and whose Python
-    bindings are on PyPI. Same engine, same answers as the browser."""
-    import shacl as engine
+    """Validate with the engine the Turtle Editor Viewer runs: SemOps System's
+    SHACL engine, whose WebAssembly build is in the editor and whose Python
+    bindings are `semops-system`'s `shacl` module. Same engine, same answers as
+    the browser."""
+    from semops_system import shacl as engine
     shapes = engine.Shapes.from_text(shapes_text)
     report = shapes.validate_text(data_text, inference=inference)
     counts = {"Violation": 0, "Warning": 0, "Info": 0}
@@ -250,6 +303,9 @@ def run_shacl(data_text: str, shapes_text: str, inference: str = "none") -> dict
                      "path": _shacl_term(r.path), "value": _shacl_term(r.value),
                      "shape": _shacl_term(r.root_shape), "component": r.component,
                      "message": (r.message or "")[:160]})
+    # The engine reports in the order it meets the data, which follows how the graph
+    # was written out; sorted, the rows the document shows are the same every run.
+    rows.sort(key=lambda x: (x["focus"], x["path"], x["component"], x["value"], x["message"]))
     return {"conforms": bool(report.conforms), "counts": counts, "rows": rows,
             "shapes": len(shapes), "inference": inference}
 
@@ -259,7 +315,7 @@ def run_rules(data_text: str, shapes_text: str) -> dict:
     the way the SHACL course measures it and the way the editor's Inference
     dropdown shows it: a shape at Info severity reports one result per derived
     triple, and the count is taken at each inference mode."""
-    import shacl as engine
+    from semops_system import shacl as engine
     shapes = engine.Shapes.from_text(shapes_text)
     out = {}
     for mode in ("none", "rules", "rules-iterated"):
@@ -270,56 +326,63 @@ def run_rules(data_text: str, shapes_text: str) -> dict:
 
 # ---------------------------------------------------------------- one lesson
 
-def measure_local(l) -> tuple[dict, rdflib.Graph | None, Path]:
+def measure_local(l) -> tuple[dict, Graph | None, Path]:
     """Everything that runs in-process: parse, count, audit, closure, shapes,
-    queries. rdflib's SPARQL parser is not thread-safe, so this runs on the
-    main thread."""
+    queries. Runs on the main thread, one lesson at a time."""
     r: dict = {"oid": l.oid, "ok": True}
     chk = l.check
     path = MODELS / f"{l.oid}.ttl"
     path.write_text(l.model_text, encoding="utf-8", newline="\n")
     try:
-        g = rdflib.Graph().parse(str(path), format="turtle")
+        g = Graph.from_file(path, "turtle")
     except Exception as e:  # noqa: BLE001
         r["ok"] = False
         r["error"] = f"does not parse: {str(e)[:300]}"
         return r, None, path
     r["triples"] = len(g)
-    r["classes"] = len({c for c in g.subjects(RDF.type, OWL.Class) if isinstance(c, rdflib.URIRef)}
-                       | {c for c in g.subjects(RDF.type, RDFS.Class) if isinstance(c, rdflib.URIRef)})
-    r["object_properties"] = len(set(g.subjects(RDF.type, OWL.ObjectProperty)))
-    r["datatype_properties"] = len(set(g.subjects(RDF.type, OWL.DatatypeProperty)))
-    r["annotation_properties"] = len(set(g.subjects(RDF.type, OWL.AnnotationProperty)))
-    r["rdf_properties"] = len(set(g.subjects(RDF.type, RDF.Property)))
-    r["concepts"] = len(set(g.subjects(RDF.type, SKOS.Concept)))
-    meta = {OWL.Class, RDFS.Class, OWL.ObjectProperty, OWL.DatatypeProperty, OWL.AnnotationProperty, RDF.Property,
-            OWL.Ontology, OWL.NamedIndividual, RDFS.Datatype, OWL.Restriction, OWL.AllDisjointClasses,
-            OWL.TransitiveProperty, OWL.SymmetricProperty, OWL.FunctionalProperty, OWL.InverseFunctionalProperty,
-            OWL.AsymmetricProperty, OWL.IrreflexiveProperty, OWL.ReflexiveProperty, SKOS.ConceptScheme}
-    r["individuals"] = len({s for s, t in g.subject_objects(RDF.type)
-                            if isinstance(s, rdflib.URIRef) and t not in meta and not str(t).startswith(str(OWL))
-                            and (s, RDF.type, OWL.Class) not in g and (s, RDF.type, RDFS.Class) not in g})
+    r["classes"] = len(_iris_typed(g, "owl:Class", "rdfs:Class"))
+
+    def typed(t: str) -> int:
+        # Blank nodes count here, as they always have: an anonymous property is still one.
+        return g.count(PREFIXES + f"SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {{ ?x a {t} }}")
+    r["object_properties"] = typed("owl:ObjectProperty")
+    r["datatype_properties"] = typed("owl:DatatypeProperty")
+    r["annotation_properties"] = typed("owl:AnnotationProperty")
+    r["rdf_properties"] = typed("rdf:Property")
+    r["concepts"] = typed("skos:Concept")
+    meta = ("owl:Class rdfs:Class owl:ObjectProperty owl:DatatypeProperty owl:AnnotationProperty rdf:Property "
+            "owl:Ontology owl:NamedIndividual rdfs:Datatype owl:Restriction owl:AllDisjointClasses "
+            "owl:TransitiveProperty owl:SymmetricProperty owl:FunctionalProperty owl:InverseFunctionalProperty "
+            "owl:AsymmetricProperty owl:IrreflexiveProperty owl:ReflexiveProperty skos:ConceptScheme")
+    # An individual: an IRI typed with something that is neither one of the
+    # metamodel's types nor anything else in the OWL namespace, and that is not
+    # itself a class. A blank-node type (a restriction used as a type) counts.
+    r["individuals"] = g.count(PREFIXES + f"""
+        SELECT (COUNT(DISTINCT ?s) AS ?n) WHERE {{
+          ?s a ?t
+          FILTER(isIRI(?s))
+          FILTER(?t NOT IN ({", ".join(meta.split())}))
+          FILTER(isBlank(?t) || !STRSTARTS(STR(?t), STR(owl:)))
+          FILTER NOT EXISTS {{ ?s a owl:Class }}
+          FILTER NOT EXISTS {{ ?s a rdfs:Class }}
+        }}""")
 
     full = g
     full_path = path
     if chk.get("with_data") or chk.get("imports"):
-        full = rdflib.Graph()
-        for t in g:
-            full.add(t)
+        full = Graph.from_file(path, "turtle")
         names = chk.get("with_data") or []
         for name in ([names] if isinstance(names, str) else names):
             load_data(name, full)
         for name in chk.get("imports") or []:
-            imported = rdflib.Graph().parse(str(LIB / name), format="turtle")
+            imported = Graph.from_file(LIB / name, "turtle")
             # One ontology header only: the OWL API refuses a document with
             # several, so the imported ontologies' own headers are dropped.
-            for header in list(imported.subjects(RDF.type, OWL.Ontology)):
-                imported.remove((header, None, None))
-            imported.remove((None, OWL.imports, None))
-            for t in imported:
-                full.add(t)
+            imported.update(PREFIXES + "DELETE { ?h ?p ?o } WHERE { ?h a owl:Ontology ; ?p ?o }")
+            imported.update(PREFIXES + "DELETE WHERE { ?s owl:imports ?o }")
+            full.load_text(imported.serialize("ntriples"), "ntriples")
         full_path = MODELS / f"{l.oid}.full.ttl"
-        full.serialize(destination=str(full_path), format="turtle")
+        full.dump(full_path, "turtle")
         r["full_triples"] = len(full)
 
     if chk.get("names"):
@@ -328,33 +391,37 @@ def measure_local(l) -> tuple[dict, rdflib.Graph | None, Path]:
         r["circular"] = audit_definitions(g)
     if chk.get("rl"):
         closed, new = rl_closure(full)
+        same_as = f"<{OWL}sameAs>"
         r["rl"] = {"added": len(new),
                    "named": [" ".join(pname(x) for x in t) for t in new],
                    "sameas": [list(x) for x in sorted({tuple(sorted((pname(s), pname(o))))
-                                                       for s, p, o in new if p == OWL.sameAs})]}
+                                                       for s, p, o in new if p == same_as})]}
     if chk.get("shacl"):
-        r["shacl"] = run_shacl(full.serialize(format="turtle"), chk["shacl"], chk.get("shacl_inference", "none"))
+        r["shacl"] = run_shacl(full.serialize("turtle"), chk["shacl"], chk.get("shacl_inference", "none"))
     if chk.get("rules"):
-        r["rules"] = run_rules(full.serialize(format="turtle"), chk["rules"])
+        r["rules"] = run_rules(full.serialize("turtle"), chk["rules"])
     if chk.get("metrics"):
         r["metrics"] = metrics.compute(full, chk.get("metrics_namespace", BS if chk["metrics"] is True else None))
     if l.queries:
         r["queries"] = []
+        closure = None
         for q in l.queries:
             target = full
             if q.on == "reasoned":
-                target, _ = rl_closure(full)
+                if closure is None:
+                    closure, _ = rl_closure(full)
+                target = closure
             try:
-                res = target.query(q.text)
-                if res.type == "SELECT":
-                    rows = [[pname(x) if x is not None else "" for x in row] for row in res]
-                    # Without ORDER BY the order is the engine's, and varies by run;
-                    # sorted, the sample the document shows is the same every time.
+                if query_form(q.text) == "ASK":
+                    r["queries"].append({"title": q.title, "rows": int(target.ask(q.text)), "sample": [],
+                                         "expected": q.rows})
+                else:
+                    rows = [[pname(t) for t in row.values()] for row in target.select(q.text)]
+                    # Without ORDER BY the order is the engine's; sorted, the
+                    # sample the document shows is the same every time.
                     if not re.search(r"\bORDER\s+BY\b", q.text, re.I):
                         rows.sort()
                     r["queries"].append({"title": q.title, "rows": len(rows), "sample": rows[:8], "expected": q.rows})
-                else:
-                    r["queries"].append({"title": q.title, "rows": int(bool(res.askAnswer)), "sample": [], "expected": q.rows})
             except Exception as e:  # noqa: BLE001
                 r["queries"].append({"title": q.title, "error": str(e)[:200], "expected": q.rows})
     return r, full, full_path
@@ -362,7 +429,7 @@ def measure_local(l) -> tuple[dict, rdflib.Graph | None, Path]:
 
 def measure_external(l, r: dict, full_path: Path) -> dict:
     """The subprocess work: ROBOT's profile checker and HermiT, and the
-    Ontology Quality Suite. Safe to run in a thread pool. The profile is
+    quality checks. Safe to run in a thread pool. The profile is
     checked on the lesson's own model unless the lesson says profile_on="full";
     reasoning always sees the full graph, data and imports included."""
     chk = l.check
@@ -401,9 +468,7 @@ def measure_external(l, r: dict, full_path: Path) -> dict:
         r["answer"] = {"dl": ok, "first": first, "consistent": h["consistent"], "unsatisfiable": h["unsatisfiable"],
                        "inferred": [" ".join(pname(x) for x in t) for t in h["inferred"]]}
     if chk.get("oqs"):
-        out_dir = BUILD / "oqs" / l.oid
-        out_dir.mkdir(parents=True, exist_ok=True)
-        r["oqs"] = run_oqs(full_path, chk["oqs"], out_dir, chk.get("own_namespace", BS))
+        r["oqs"] = run_checks(full_path, chk["oqs"], r.get("hermit"), chk.get("own_namespace", BS))
     return r
 
 
@@ -463,10 +528,10 @@ def check_expectation(l, r: dict) -> list[str]:
     oqs = r.get("oqs", {}).get("ids", {})
     for cid in e.get("oqs", []):
         if cid not in oqs:
-            problems.append(f"OQS did not report {cid}")
+            problems.append(f"semops check did not report {cid}")
     for cid in e.get("oqs_not", []):
         if cid in oqs:
-            problems.append(f"OQS reported {cid}, but should not have")
+            problems.append(f"semops check reported {cid}, but should not have")
     sh = r.get("shacl", {})
     if "shacl_conforms" in e and sh and sh["conforms"] != e["shacl_conforms"]:
         problems.append(f"SHACL conforms: expected {e['shacl_conforms']}, got {sh['conforms']}")
@@ -552,7 +617,7 @@ def summary_line(r: dict) -> str:
     oqs = r.get("oqs", {})
     if oqs:
         ids = oqs.get("ids", {})
-        parts.append("OQS: " + (", ".join(ids) if ids else "no findings"))
+        parts.append("checks: " + (", ".join(ids) if ids else "no findings"))
     sh = r.get("shacl", {})
     if sh:
         c = sh["counts"]
@@ -616,7 +681,7 @@ def main() -> int:
             for t in r.get("rl", {}).get("named", [])[:30]:
                 print(f"        RL     + {t}")
             for cid, msg in r.get("oqs", {}).get("messages", {}).items():
-                print(f"        OQS {cid}: {msg[:110]}")
+                print(f"        check {cid}: {msg[:110]}")
             for row in r.get("shacl", {}).get("rows", [])[:12]:
                 print(f"        SHACL {row['severity'][:4]} {row['focus']:28} {row['path']:22} {row['message'][:60]}   [{row['shape']}]")
             for q in r.get("queries", []):

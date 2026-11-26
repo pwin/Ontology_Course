@@ -72,7 +72,7 @@
 #            https://www.semantechs.co.uk/SPARQL_Course/
 #            The SHACL course: the constraints OWL cannot express
 #            https://www.semantechs.co.uk/SHACL_Course/
-#  MEASURED  parses, 6 triples; 0 local names break the conventions; 0 circular definitions; OWL 2 DL in profile; not EL/QL/RL; HermiT: consistent, 1 inferred; OQS: QUA-009, QUA-010, STR-003, STR-004; OQuaRE DIT 2 (5), ANOnto 2.00 (5); 'The vocabulary's own account' 6 rows
+#  MEASURED  parses, 6 triples; 0 local names break the conventions; 0 circular definitions; OWL 2 DL in profile; not EL/QL/RL; HermiT: consistent, 1 inferred; checks: QUA-009, QUA-010, STR-003, STR-004; OQuaRE DIT 2 (5), ANOnto 2.00 (5); 'The vocabulary's own account' 6 rows
 # ==========================================================================
 
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .

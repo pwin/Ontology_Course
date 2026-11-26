@@ -227,7 +227,7 @@ matter most for it; each module README lists all of its own.
 - [Is an upper ontology useful?](https://ceur-ws.org/Vol-3661/10-SHORT-PWinstanley-ISKOUK2023.pdf) Winstanley, ISKO UK 2023: a starter palette, a common vocabulary, a tool for thought, a hanger for data, and the Goldilocks level of abstraction.
 - [The SemOps Manual](https://github.com/pwin/SemOpsManual). Running a semantic practice the way software is run. Chapters 2, 8, 9 and 12 are cited: definitions are territory, the inner loop, the gate, evidence-based versioning.
 - [OQuaRE](http://www.cs.man.ac.uk/~stevensr/papers/OQuareProof.pdf). The quality model module 10 measures with.
-- [The Ontology Quality Suite](https://github.com/pwin/consolidated-ontology-quality-suite-python). The checks module 10 runs, by identifier. `pip install ontology-quality-suite`.
+- [The Ontology Quality Suite](https://github.com/pwin/consolidated-ontology-quality-suite-python). The checks module 10 runs, by identifier. The course runs them with `semops check`, from [SemOps System](https://github.com/pwin/SemopsSystem), which carries the suite's registry: `pip install semops-system`.
 
 **The languages**
 
@@ -243,7 +243,7 @@ The course does not take its own word for anything.
 
 ```powershell
 ./scripts/setup-tools.ps1                   # ROBOT, gist, gistBFO, gistUFO, gUFO, BFO 2020 into lib/
-pip install -r scripts/requirements.txt     # rdflib, owlrl, shacl, ontology-quality-suite
+pip install -r scripts/requirements.txt     # semops-system, owlrl
 python scripts/check_lessons.py             # every lesson, every instrument; about two minutes
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples and rows printed
 python scripts/check_lessons.py --module 07-owl
@@ -263,11 +263,9 @@ The instruments:
 | | |
 |---|---|
 | **ROBOT** (the OWL API, HermiT, the OWL 2 profile checker) | the referee for every "in profile", "consistent", "unsatisfiable", "inferred" and "explained by" |
-| **owlrl** | an OWL 2 RL closure, the same profile the editor's Show Facts implements; what it adds is what the editor will show |
-| **`shacl`** | the companion shapes, and the SHACL-AF rule in o52 at each inference mode. This is the engine the editor runs: one Rust engine, compiled to WebAssembly for the browser and bound to Python for the checker, so the report here is the report there |
-| **Ontology Quality Suite** | check identifiers, scoped to the Trail's namespace, and `version-diff` |
-| **scripts/metrics.py** | the fourteen OQuaRE metrics, by the paper's formulas, with the paper's thresholds |
-| **rdflib** | parsing, counting, the naming and definition audits, and every companion query |
+| **owlrl** | an OWL 2 RL closure, the same profile the editor's Show Facts implements; what it adds is what the editor will show. SemOps has no OWL 2 RL reasoner yet, so this is the one instrument on rdflib |
+| **[SemOps System](https://github.com/pwin/SemopsSystem)** (`semops-system`) | everything else, on the engine the editor runs: HOLOS parses, counts and answers every companion query; its SHACL engine runs the companion shapes and the SHACL-AF rule in o52 at each inference mode; `semops check` gives the check identifiers and `semops diff` the version verdict. Compiled to WebAssembly for the browser and bound to Python for the checker, so a query's rows and a report here are what the editor shows |
+| **scripts/metrics.py** | the fourteen OQuaRE metrics, by the paper's formulas, with the paper's thresholds, read from the graph with SPARQL on HOLOS |
 
 ### Things the checking found
 

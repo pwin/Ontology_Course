@@ -316,7 +316,7 @@ READING_LIST = [
         (OQUARE, "OQuaRE",
          "The quality model module 10 measures with: fourteen metrics, each scored one to five against published thresholds."),
         (OQS, "The Ontology Quality Suite",
-         "The checks module 10 runs, by identifier. pip install ontology-quality-suite."),
+         "The checks module 10 runs, by identifier. The course runs them with semops check, from SemOps System, which carries the suite's registry: pip install semops-system."),
     ]),
     ("The languages", [
         (RDFS, "RDF 1.2 Schema",

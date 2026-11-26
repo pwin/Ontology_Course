@@ -237,7 +237,7 @@ o(
         "the check can be pointed at rather than a domain. A gate reports, "
         "and a person decides.",
     diagram="""
-   python -m ontology_suite checks --ontology data/01-vocabulary.ttl --own-namespace https://example.org/bookshop-trail/schema# --engine sparql
+   semops check data/01-vocabulary.ttl --engine sparql      then read the findings about bs: terms
 
    identifier   fires on               reading
    QUA-009      nearly every term      a policy not adopted: skos:prefLabel per language
@@ -261,7 +261,7 @@ o(
     data=DVOCAB,
     check=dict(with_data=DVOCAB, oqs="checks"),
     expect=dict(oqs=["QUA-009", "QUA-010", "STR-003"]),
-    local="the identifiers on the MEASURED line come from the Ontology Quality Suite: pip install ontology-quality-suite",
+    local="the identifiers on the MEASURED line come from semops check, which runs the Ontology Quality Suite's checks, keeping the findings about bs: terms: pip install semops-system",
 )
 specs.register("o66", "oqs", "semopsGate")
 

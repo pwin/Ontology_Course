@@ -72,14 +72,14 @@
 #    about.
 #
 #  CORNER    symbol
-#  RUNS IN   the browser; QUA-003 on the MEASURED line comes from the Ontology Quality Suite, scoped to the whole Trail namespace
+#  RUNS IN   the browser; QUA-003 on the MEASURED line comes from semops check, keeping the findings about the whole Trail namespace, as the suite's --own-namespace does
 #  OPEN IN THE EDITOR
 #            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo70-deprecate-do-not-delete.ttl
 #  SOURCES   gist: deprecation and deletion policy
 #            https://github.com/semanticarts/gist/blob/develop/docs/DeprecationAndDeletionPolicy.md
 #            SemOps Manual 12.3 The migration annotation, and a correction about its direction
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/12-release-and-change.md#123-the-migration-annotation-and-a-correction-about-its-direction
-#  MEASURED  parses, 43 triples; 3 classes, 1 individual; OWL 2 DL in profile; OQS: DAT-002, QUA-003, QUA-004, QUA-010, STR-004, STR-006; 'Deprecated terms still in us' 1 row
+#  MEASURED  parses, 43 triples; 3 classes, 1 individual; OWL 2 DL in profile; checks: DAT-002, QUA-003, QUA-004, QUA-010, STR-004, STR-006; 'Deprecated terms still in us' 1 row
 # ==========================================================================
 
 @prefix bt:   <https://example.org/bookshop-trail/> .

@@ -44,12 +44,12 @@ Nothing, to do the course. Every claim the tools could check has been checked al
 
 ```powershell
 ./scripts/setup-tools.ps1                   # fetches ROBOT, gist, gistBFO, gistUFO, gUFO and BFO into lib/
-pip install -r scripts/requirements.txt     # rdflib, owlrl, shacl, ontology-quality-suite
+pip install -r scripts/requirements.txt     # semops-system, owlrl
 python scripts/check_lessons.py             # every lesson, every instrument; about two minutes
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples printed
 ```
 
-ROBOT wraps the OWL API, the OWL 2 profile checker and HermiT, and is the referee for every "in profile", "consistent" and "inferred" in the course. The Ontology Quality Suite is the source of every check identifier. `scripts/metrics.py` computes the OQuaRE metrics. And the SHACL numbers come from `shacl`, which is the engine behind the editor's Validate button: one Rust engine, compiled to WebAssembly for the browser and bound to Python for the checker, so the results in a Measured block are the results the editor will show you. Both run 0.3.2, in which a warning or an info breaks conformance as the specification has it, so the verdict agrees as well as the results. None of them needs the internet after setup.
+ROBOT wraps the OWL API, the OWL 2 profile checker and HermiT, and is the referee for every "in profile", "consistent" and "inferred" in the course. Every check identifier comes from `semops check`, which runs the Ontology Quality Suite's checks. `scripts/metrics.py` computes the OQuaRE metrics. And the SHACL numbers and every companion query's rows come from [SemOps System](https://github.com/pwin/SemopsSystem), which is the engine behind the editor's Validate and Run buttons: compiled to WebAssembly for the browser and bound to Python for the checker, so the results in a Measured block are the results the editor will show you. Both run 0.31.0, so the verdict agrees as well as the results. The OWL 2 RL closure is owlrl's, because SemOps does not have one yet. None of them needs the internet after setup.
 
 ## What is where
 

@@ -66,7 +66,7 @@
 #            https://www.w3.org/TR/owl2-syntax/#Ontology_IRI_and_Version_IRI
 #            OBO Foundry principle FP-004, versioning
 #            https://obofoundry.org/principles/fp-004-versioning.html
-#  MEASURED  parses, 34 triples; 1 class; OWL 2 DL in profile; OQS: STR-004
+#  MEASURED  parses, 34 triples; 1 class; OWL 2 DL in profile; checks: STR-004
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .
