@@ -315,14 +315,14 @@ def lab_html() -> str:
       runs it. The rule lesson in module 08 also sets <b>Inference</b> to <em>rules, iterated</em>, which the dropdown beside Shapes changes.</p></div>
     <div class="panel"><h3>What needs a terminal</h3>
       <p>Unsatisfiable classes, the inferred hierarchy, explanations and profile verdicts come from a description-logic
-      reasoner, HermiT through ROBOT; the check identifiers from the Ontology Quality Suite. The SHACL numbers do not:
-      they come from <code>shacl</code>, the same engine the editor runs, through its Python bindings. Each lesson's
+      reasoner, HermiT through ROBOT. The check identifiers come from <code>semops check</code>, and the SHACL numbers
+      and the companion queries' rows from SemOps System, the same engine the editor runs, through its Python bindings. Each lesson's
       <em>Runs in</em> line says which, and the Measured block already has the result.</p></div>
   </div>
 
   <h4 class="subhead">The same measurements, from the command line</h4>
   <div class="code-wrap"><pre class="code">./scripts/setup-tools.ps1                  # fetches ROBOT, gist, gistBFO, gUFO and BFO into lib/
-pip install -r scripts/requirements.txt     # rdflib, owlrl, shacl, ontology-quality-suite
+pip install -r scripts/requirements.txt     # semops-system, owlrl
 python scripts/check_lessons.py             # every lesson, every instrument; about two minutes
 python scripts/check_lessons.py o47 --show  # one lesson, with the inferred triples printed</pre></div>
 </section>"""

@@ -552,7 +552,7 @@ bs:Translation  a owl:Class ; rdfs:subClassOf bs:Work ; owl:disjointWith bs:Work
     skos:prefLabel "Translation"@en ; skos:definition "A work that is a translation of another."@en ;
     skos:editorialNote "Seeded: disjoint with its own parent. LOG-001 must fire, and REA-021 when the reasoner runs."@en .
 """,
-    local="the gate itself is the Ontology Quality Suite from the command line: pip install ontology-quality-suite",
+    local="the gate itself is semops check from the command line: pip install semops-system",
     check=dict(profile=True, reason=True, oqs="ontology"),
     expect=dict(dl=True, unsat=["Translation"], oqs=["LOG-001"]),
 )

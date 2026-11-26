@@ -180,7 +180,7 @@ SELECT ?term (COUNT(?x) AS ?uses) WHERE { ?term owl:deprecated true . ?x a ?term
           "cannot resolve in a file this small (QUA-004, STR-006, DAT-002). The wider scope costs you those, which is the reason to scope narrowly by default and to widen only for the checks that need it. QUA-003 is the one this lesson is about.",
     check=dict(profile=True, oqs="checks", own_namespace="https://example.org/bookshop-trail/"),
     expect=dict(dl=True, oqs=["QUA-003"]),
-    local="QUA-003 on the MEASURED line comes from the Ontology Quality Suite, scoped to the whole Trail namespace",
+    local="QUA-003 on the MEASURED line comes from semops check, keeping the findings about the whole Trail namespace, as the suite's --own-namespace does",
 )
 specs.register("o70", "gistDeprecation", "semopsMigration")
 
@@ -270,9 +270,9 @@ o(
     companions={"schema-1.1.0.ttl": V1, "schema-2.0.0.ttl": V2},
     check=dict(profile=True, version_diff=("schema-1.1.0.ttl", "schema-2.0.0.ttl")),
     expect=dict(dl=True, bump="MAJOR"),
-    local="the verdict on the MEASURED line is the Ontology Quality Suite's version-diff over the two companion files beside this lesson",
+    local="the verdict on the MEASURED line is semops diff over the two companion files beside this lesson, which reports as the Ontology Quality Suite's version-diff does",
     notes="The two versions are schema-1.1.0.ttl and schema-2.0.0.ttl beside this lesson. Open either in the editor; to run the diff, "
-          "python -m ontology_suite version-diff schema-1.1.0.ttl schema-2.0.0.ttl --exclude-imports. Old first, then new.",
+          "semops diff schema-1.1.0.ttl schema-2.0.0.ttl (pip install semops-system). Old first, then new.",
 )
 specs.register("o71", "semopsSemver", "oboVersioning")
 

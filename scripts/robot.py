@@ -16,7 +16,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-import rdflib
+from semops_graph import OWL, RDF, Graph, is_blank, value
 
 ROOT = Path(__file__).resolve().parent.parent
 JAR = ROOT / "lib" / "owl" / "robot.jar"
@@ -69,24 +69,25 @@ def reason(path: Path, reasoner: str = "HermiT", generators: str = "SubClass Cla
         if not out_path.exists():
             result["error"] = out[:800]
             return result
-        before = rdflib.Graph().parse(str(path), format="turtle")
-        after = rdflib.Graph().parse(str(out_path))
+        # Both graphs in HOLOS, compared as N-Triples. Blank nodes are left out,
+        # since their labels do not survive a round trip through the OWL API.
+        before = Graph.from_file(path, "turtle").triples()
+        after = Graph.from_file(out_path, "turtle").triples()
+        thing, individual = f"<{OWL}Thing>", f"<{OWL}NamedIndividual>"
+        declarations = {f"<{OWL}{k}>" for k in ("Class", "ObjectProperty", "DatatypeProperty",
+                                                  "AnnotationProperty", "Ontology")}
         new = []
-        for s, p, o in after:
-            if (s, p, o) in before:
+        for s, p, o in after - before:
+            if any(is_blank(x) for x in (s, p, o)):
                 continue
-            if any(isinstance(x, rdflib.BNode) for x in (s, p, o)):
+            if o in (individual, thing) or s == thing:
                 continue
-            if o in (rdflib.OWL.NamedIndividual, rdflib.OWL.Thing) or s == rdflib.OWL.Thing:
-                continue
-            if p in (rdflib.RDF.type,) and o in (rdflib.OWL.Class, rdflib.OWL.ObjectProperty,
-                                                 rdflib.OWL.DatatypeProperty, rdflib.OWL.AnnotationProperty,
-                                                 rdflib.OWL.Ontology):
+            if p == f"<{RDF}type>" and o in declarations:
                 continue
             new.append((s, p, o))
-        # Sorted, so the first few the course document shows are the same on
-        # every run: a graph iterates in hash order, which changes per run.
-        new.sort(key=lambda t: tuple(map(str, t)))
+        # Sorted on the terms' plain text, so the first few the course document
+        # shows are the same on every run.
+        new.sort(key=lambda t: tuple(map(value, t)))
         result["inferred"] = new
         return result
 

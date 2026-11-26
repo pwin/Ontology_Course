@@ -54,14 +54,14 @@
 #      model, so keep a fixture that makes each one of them fire.
 #
 #  CORNER    thought
-#  RUNS IN   the browser; the gate itself is the Ontology Quality Suite from the command line: pip install ontology-quality-suite
+#  RUNS IN   the browser; the gate itself is semops check from the command line: pip install semops-system
 #  OPEN IN THE EDITOR
 #            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F05-principles%2Fo34-ontologies-like-code-the-loop-and-the-gate.ttl
 #  SOURCES   SemOps Manual 6.3 The five maturity levels
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/06-stages-and-stories.md#63-the-five-maturity-levels
 #            SemOps Manual 9.4 The right fix: --own-namespace
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#94-the-right-fix---own-namespace
-#  MEASURED  parses, 17 triples; 2 classes; OWL 2 DL in profile; HermiT: 1 unsatisfiable class; OQS: LOG-001, REA-021
+#  MEASURED  parses, 17 triples; 2 classes; OWL 2 DL in profile; HermiT: 1 unsatisfiable class; checks: LOG-001, REA-021
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .

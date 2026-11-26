@@ -38,7 +38,7 @@
 #    pointed at rather than a domain. A gate reports, and a person decides.
 #
 #  DIAGRAM
-#       python -m ontology_suite checks --ontology data/01-vocabulary.ttl --own-namespace https://example.org/bookshop-trail/schema# --engine sparql
+#       semops check data/01-vocabulary.ttl --engine sparql      then read the findings about bs: terms
 #
 #       identifier   fires on               reading
 #       QUA-009      nearly every term      a policy not adopted: skos:prefLabel per language
@@ -60,14 +60,14 @@
 #
 #  CORNER    thought
 #  DATA      01-vocabulary.ttl
-#  RUNS IN   the browser; the identifiers on the MEASURED line come from the Ontology Quality Suite: pip install ontology-quality-suite
+#  RUNS IN   the browser; the identifiers on the MEASURED line come from semops check, which runs the Ontology Quality Suite's checks, keeping the findings about bs: terms: pip install semops-system
 #  OPEN IN THE EDITOR
 #            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F10-quality%2Fo66-the-checks-by-identifier.ttl
 #  SOURCES   The Ontology Quality Suite
 #            https://github.com/pwin/consolidated-ontology-quality-suite-python
 #            SemOps Manual 9.4 The right fix: --own-namespace
 #            https://github.com/pwin/SemOpsManual/blob/main/docs/09-continuous-integration.md#94-the-right-fix---own-namespace
-#  MEASURED  parses, 6 triples; OQS: QUA-009, QUA-010, STR-003, STR-004
+#  MEASURED  parses, 6 triples; checks: QUA-009, QUA-010, STR-003, STR-004
 # ==========================================================================
 
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .

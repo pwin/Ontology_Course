@@ -79,12 +79,12 @@ from where its owner publishes it, under its own licence:
 | BFO 2020 core | reasoning over the gistBFO bridge in o61 | CC-BY 4.0 |
 
 `scripts/requirements.txt` names the Python packages the checker uses, fetched
-from PyPI: [rdflib](https://github.com/RDFLib/rdflib) (BSD-3-Clause),
-[owlrl](https://github.com/RDFLib/OWL-RL) (W3C), [`shacl`](https://pypi.org/project/shacl/)
-(MIT or Apache-2.0), which is the Python binding of the same Rust engine whose
-WebAssembly build the Turtle Editor Viewer runs, and the
-[Ontology Quality Suite](https://pypi.org/project/ontology-quality-suite/)
-(as published). None is needed to do the course.
+from PyPI: [`semops-system`](https://pypi.org/project/semops-system/) (MIT or
+Apache-2.0), SemOps System's HOLOS, SHACL engine and quality checks, the Python
+binding of the engine whose WebAssembly build the Turtle Editor Viewer runs; and
+[owlrl](https://github.com/RDFLib/OWL-RL) (W3C), with
+[rdflib](https://github.com/RDFLib/rdflib) (BSD-3-Clause), which it needs, for
+the OWL 2 RL closure. None is needed to do the course.
 
 The **Turtle Editor Viewer** at <https://semantechs.co.uk/turtle-editor-viewer/>
 is used online and is not part of this repository. Its source is at

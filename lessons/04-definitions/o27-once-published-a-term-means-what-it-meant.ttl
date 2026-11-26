@@ -58,7 +58,7 @@
 #            https://obofoundry.org/principles/fp-019-term-stability.html
 #            gist: deprecation and deletion policy
 #            https://github.com/semanticarts/gist/blob/develop/docs/DeprecationAndDeletionPolicy.md
-#  MEASURED  parses, 26 triples; 3 classes; OWL 2 DL in profile; OQS: QUA-005, STR-004; 'Deprecated terms and what re' 1 row
+#  MEASURED  parses, 26 triples; 3 classes; OWL 2 DL in profile; checks: QUA-005, STR-004; 'Deprecated terms and what re' 1 row
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .

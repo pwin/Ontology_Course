@@ -62,7 +62,7 @@
 #            https://github.com/semanticarts/gist/blob/develop/docs/gistStyleGuide.md#orthographic-conventions-for-class-and-property-local-names
 #            OBO Foundry principle FP-012, naming conventions
 #            https://obofoundry.org/principles/fp-012-naming-conventions.html
-#  MEASURED  parses, 24 triples; 2 classes, 5 datatype properties; 3 local names break the conventions; OWL 2 DL in profile; OQS: QUA-005, QUA-010, STR-003, STR-004, STY-001, STY-002
+#  MEASURED  parses, 24 triples; 2 classes, 5 datatype properties; 3 local names break the conventions; OWL 2 DL in profile; checks: QUA-005, QUA-010, STR-003, STR-004, STY-001, STY-002
 # ==========================================================================
 
 @prefix bs:   <https://example.org/bookshop-trail/schema#> .

@@ -55,12 +55,12 @@
 #
 #  NOTE
 #    The two versions are schema-1.1.0.ttl and schema-2.0.0.ttl beside this
-#    lesson. Open either in the editor; to run the diff, python -m
-#    ontology_suite version-diff schema-1.1.0.ttl schema-2.0.0.ttl
-#    --exclude-imports. Old first, then new.
+#    lesson. Open either in the editor; to run the diff, semops diff
+#    schema-1.1.0.ttl schema-2.0.0.ttl (pip install semops-system). Old
+#    first, then new.
 #
 #  CORNER    thought
-#  RUNS IN   the browser; the verdict on the MEASURED line is the Ontology Quality Suite's version-diff over the two companion files beside this lesson
+#  RUNS IN   the browser; the verdict on the MEASURED line is semops diff over the two companion files beside this lesson, which reports as the Ontology Quality Suite's version-diff does
 #  OPEN IN THE EDITOR
 #            https://semantechs.co.uk/turtle-editor-viewer/?dot=https%3A%2F%2Fraw.githubusercontent.com%2Fpwin%2FOntology_Course%2Fmain%2Flessons%2F11-change%2Fo71-the-version-number-decided-by-evidence.ttl
 #  SOURCES   SemOps Manual 12.1 Evidence-based semver: version-diff
